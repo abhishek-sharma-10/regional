@@ -1,0 +1,11 @@
+[25-Apr-2025 05:31:17 UTC] PHP Warning:  require(/home/ibirdsse/riea.ibirdsservices.in/../app/Config/Paths.php): Failed to open stream: No such file or directory in /home/ibirdsse/riea.ibirdsservices.in/index.php on line 48
+[25-Apr-2025 05:31:17 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/ibirdsse/riea.ibirdsservices.in/../app/Config/Paths.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home/ibirdsse/riea.ibirdsservices.in/index.php:48
+Stack trace:
+#0 {main}
+  thrown in /home/ibirdsse/riea.ibirdsservices.in/index.php on line 48
+[25-Apr-2025 05:31:20 UTC] PHP Warning:  require(/home/ibirdsse/riea.ibirdsservices.in/../app/Config/Paths.php): Failed to open stream: No such file or directory in /home/ibirdsse/riea.ibirdsservices.in/index.php on line 48
+[25-Apr-2025 05:31:20 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/ibirdsse/riea.ibirdsservices.in/../app/Config/Paths.php' (include_path='.:/opt/cpanel/ea-php83/root/usr/share/pear') in /home/ibirdsse/riea.ibirdsservices.in/index.php:48
+Stack trace:
+#0 {main}
+  thrown in /home/ibirdsse/riea.ibirdsservices.in/index.php on line 48
+[25-Apr-2025 09:41:11 UTC] PHP Fatal error:  Cannot redeclare App\Models\LoginModel::getUserByUsername() in /home/ibirdsse/riea.ibirdsservices.in/app/Models/LoginModel.php on line 134
