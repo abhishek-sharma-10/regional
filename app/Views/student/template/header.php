@@ -60,7 +60,17 @@
         <img src="<?php echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" />
         <img src="<?php echo base_url(); ?>public/assets/img/NIC_logo1.jpg" class="img-fluid" />
         <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn login-btn mt-4 ms-5"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
-<a href="<?php echo base_url('registrations') ?>"><button class="btn login-btn mt-4 ms-5">Register</button></a>
+        <?php
+          if(array_key_exists('student', $_SESSION) && isset($_SESSION['student'])){
+        ?>
+          <a href="<?php echo base_url('dashboard/'.$_SESSION['student'][0]->id) ?>"><button class="btn login-btn mt-4 ms-5">Dashboard</button></a>
+        <?php
+          }else{
+        ?>
+            <a href="<?php echo base_url('registrations') ?>"><button class="btn login-btn mt-4 ms-5">Register</button></a>
+        <?php
+          }
+        ?>
       </div>
     </div>
   </section>

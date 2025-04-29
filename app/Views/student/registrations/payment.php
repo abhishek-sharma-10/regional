@@ -27,7 +27,7 @@
   <div class="d-flex justify-content-end mb-3">
     <button type="button" class="btn btn-outline-primary print-btn" onclick="openPrintPage()">🖨️ Print Form</button>
   </div>
-  <img src="<?php echo base_url(); ?>assets/img/NIC_logo1.jpg" alt="Logo" class="header-logo mb-3">
+  <img src="<?php echo base_url(); ?>public/assets/img/NIC_logo1.jpg" alt="Logo" class="header-logo mb-3">
   <div class="header-title">Regional Institute of Education</div>
   <p class="subtitle">Pushkar Road, Ajmer (Raj.)</p>
   <h4 class="mt-4 mb-2">Acknowledgement of Payment Entry Information</h4>
