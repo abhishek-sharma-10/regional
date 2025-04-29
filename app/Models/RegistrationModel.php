@@ -47,12 +47,15 @@ class RegistrationModel extends Model {
         'ncet_score_card',
         'cast_certificate',
         'pwbd',
+        'receipt_no',
+        'payment_receipt',
+        'status'
     ];
 
     public $errorMsg;
 
 	function getRegistrations(){
-        $query = $this->db->query("SELECT id, name, father_name, email, phone FROM registrations");
+        $query = $this->db->query("SELECT id, ncet_application_no, name, father_name, email, phone FROM registrations");
     
         if($query->getNumRows() > 0){
             return $query->getResult();

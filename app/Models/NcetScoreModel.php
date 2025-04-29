@@ -20,4 +20,14 @@ class NcetScoreModel extends Model {
 
     public $errorMsg;
 
+
+    function getNcetScoreByRegistrationId($reg_id){
+        $query = $this->db->query("SELECT * FROM ncet_scores WHERE registration_id=$reg_id ORDER BY id");
+
+        if($query->getNumRows() > 0){
+            return $query->getResult();
+        }
+
+        return [];
+    }
 }

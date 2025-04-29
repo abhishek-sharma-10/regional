@@ -42,8 +42,8 @@
           <div class="info-box"><span class="info-label">Name:</span> <?= $details->name;?></div>
           <div class="info-box"><span class="info-label">Father's Name:</span> <?= $details->father_name;?></div>
           <div class="info-box"><span class="info-label">Mother's Name:</span> <?= $details->mother_name?></div>
-          <div class="info-box"><span class="info-label">DoB:</span> <?= $details->dob;?></div>
-          <div class="info-box"><span class="info-label">Application Status:</span> Request</div>
+          <div class="info-box"><span class="info-label">DoB:</span> <?= date('d-m-Y', strtotime($details->dob));?></div>
+          <div class="info-box"><span class="info-label">Application Status:</span> <?= $details->status;?></div>
           <div class="info-box"><span class="info-label">Payment Details:</span> Not Entered</div>
         </div>
 

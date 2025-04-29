@@ -54,30 +54,41 @@ class LoginModel extends Model {
 
         $from = "abhishek.sharma@ibirdsservices.com";
         $fromName = "RIE Ajmer";
+        
+        $userId = $userKey;
+        $publicKey = md5(rand()); 
+        $securityToken = $this->getSecuirtyToken($userId,$publicKey);
 
-	    $userId = null;
+        $name = '';
+        $user = '';
+        $url = '';
 	    if(strtolower($userFlag) == "username"){
-	        $userId = $userKey;
 	        $userInfo = $this->getUserByUsername($userId);
-	    }
+            $result = $this->updateToken($userId);
+            $name = isset($userInfo[0]->name) && !empty($userInfo[0]->name) ? $userInfo[0]->name : '';
+            $user = isset($userInfo[0]->emusernameail) && !empty($userInfo[0]->username) ? $userInfo[0]->username : '';
+            $url = base_url()."admin/reset-password?token=$securityToken&key=$publicKey";
+	    }else if(strtolower($userFlag) == "email"){
+	        $userInfo = $this->getStudentByMail($userId);
+            $name = isset($userInfo[0]->name) && !empty($userInfo[0]->name) ? $userInfo[0]->name : '';
+            $user = isset($userInfo[0]->email) && !empty($userInfo[0]->email) ? $userInfo[0]->email : '';
+            $url = base_url()."reset-password?token=$securityToken&key=$publicKey";
+        }
 	    // var_dump($userInfo);exit;
 
-	    $publicKey = md5(rand()); 
-        $securityToken = $this->getSecuirtyToken($userId,$publicKey);
-        $result = $this->updateToken($userId);
         
         if(isset($userInfo[0]->email) && !empty($userInfo[0]->email)){
             // echo "ENer";exit;
 
-            $msg="<i><b>Hi " . ucfirst($userInfo[0]->name) . " </b>,<br/><br/>";
+            $msg="<i><b>Hi " . ucfirst($name) . " </b>,<br/><br/>";
 
-            $msg.="RIE recently received a request to reset the password for the username ".$userInfo[0]->username.".<br/>To finish resetting your password, go to the following link.<br/><br/>".base_url()."admin/reset-password?token=$securityToken&key=$publicKey";
+            $msg.="RIE recently received a request to reset the password for the username ".$user.".<br/>To finish resetting your password, go to the following link.<br/><br/>".$url;
 
             $msg.="<br/><br/><b>Thanks,</b> <br/>";
             $msg.="<b>Star Infotech College</b></i>";
 
             $to = $userInfo[0]->email;
-            $toName = $userInfo[0]->name;
+            $toName = $name;
             $subject = "RIE : Reset Password";
             
             // $config['protocol'] = 'ssmtp';
@@ -116,7 +127,7 @@ class LoginModel extends Model {
 			}
 			return true;
         }else{
-            $this->errorMsg = "Please provide User email."; 
+            $this->errorMsg = "Invalid $userFlag provided."; 
         }
 	    return false;
 	}
@@ -130,17 +141,15 @@ class LoginModel extends Model {
         else
         	return array();
     }
-    
-    function getUserById($id){
 
-        $result = $this->db->query("SELECT id, name, email, username FROM users where id='$id'");
+    function getStudentByMail($email){
+        $result = $this->db->query("SELECT id, name, email FROM registrations where email='$email'");
 
         if($result->getNumRows() > 0)
         	return $result->getResult();
         else
         	return array();
     }
-
 
     function getSecuirtyToken($userid = NULL, $publicKey = null){
         return $this->encryptDecrypt("encrypt",$userid, $publicKey); 
@@ -176,7 +185,7 @@ class LoginModel extends Model {
     		return false;
     }
 
-    function changePassword($newpassword, $userid = NULL, $blankSecurityToken = null){
+    function changePassword($newpassword, $userid = NULL, $blankSecurityToken = null, $table = null){
 
     	$newpassword = password_hash($newpassword, PASSWORD_DEFAULT);
 
@@ -190,13 +199,18 @@ class LoginModel extends Model {
 	        	return false;
     	    
 		}else{
-            $query = "UPDATE users SET password='$newpassword'";
-
-            if($blankSecurityToken){
-                $query .= ", security_token=''";		    
+            $query = '';
+            if($table == 'users'){
+                $query = "UPDATE users SET password='$newpassword'";
+    
+                if($blankSecurityToken){
+                    $query .= ", security_token=''";		    
+                }
+    
+                $query .= " WHERE username='$userid'";
+            }else{
+                $query = "UPDATE registrations SET password='$newpassword' WHERE email='$userid'";
             }
-
-            $query .= " WHERE username='$userid'";
 
             $result = $this->db->query($query); 
 

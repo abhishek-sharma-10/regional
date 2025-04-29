@@ -16,6 +16,24 @@
     text-align: center;
     margin-bottom: 1.5rem;
   }
+
+  .submit-btn {
+    background-color: #203a72;
+    color: #ffffff;
+    padding-left: 40px;
+    padding-right: 40px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    height: 40px;
+    border-radius: 34px;
+  }
+
+  .submit-btn:hover{
+    color: #fff;
+  }
+
+  .required-icon{
+    color: red;
+  }
 </style>
 
 
@@ -25,18 +43,18 @@
     <form method="post" id="registration-form">
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label class="form-label">Application No</label>
+          <label class="form-label">Application No <span class="required-icon">*</span></label>
           <input type="text" class="form-control" placeholder="Enter your application number" name="ncet_application_no" id="ncet_application_no" required>
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label">Name</label>
+          <label class="form-label">Name <span class="required-icon">*</span></label>
           <input type="text" class="form-control" placeholder="Full name" name="name" required>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label class="form-label">Gender</label>
+          <label class="form-label">Gender <span class="required-icon">*</span></label>
           <select class="form-select" name="gender" required>
             <option selected disabled>Select gender</option>
             <option value="Male">Male</option>
@@ -46,55 +64,55 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label">Date of Birth</label>
+          <label class="form-label">Date of Birth <span class="required-icon">*</span></label>
           <input type="date" class="form-control" name="dob" required>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label class="form-label">Father's Name</label>
+          <label class="form-label">Father's Name <span class="required-icon">*</span></label>
           <input type="text" class="form-control" placeholder="Father's name" name="father_name" required>
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label">Mother's Name</label>
+          <label class="form-label">Mother's Name <span class="required-icon">*</span></label>
           <input type="text" class="form-control" placeholder="Mother's name" name="mother_name" required>
         </div>
       </div>
       <div class="mb-3">
-        <label class="form-label">Address</label>
+        <label class="form-label">Address <span class="required-icon">*</span></label>
         <textarea class="form-control" rows="2" placeholder="Address" name="address" required></textarea>
       </div>
 
       <div class="row">
         <div class="col-md-4 mb-3">
-          <label class="form-label">City</label>
+          <label class="form-label">City <span class="required-icon">*</span></label>
           <input type="text" class="form-control" name="city" required>
         </div>
         <div class="col-md-4 mb-3">
-          <label class="form-label">District</label>
+          <label class="form-label">District <span class="required-icon">*</span></label>
           <input type="text" class="form-control" name="district" required>
         </div>
         <div class="col-md-4 mb-3">
-          <label class="form-label">State</label>
+          <label class="form-label">State <span class="required-icon">*</span></label>
           <input type="text" class="form-control" name="state" required>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label class="form-label">Mobile No.</label>
+          <label class="form-label">Mobile No. <span class="required-icon">*</span></label>
           <input type="tel" class="form-control" placeholder="10-digit mobile number" name="phone" required>
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label">Aadhar No.</label>
+          <label class="form-label">Aadhar No. <span class="required-icon">*</span></label>
           <input type="text" class="form-control" placeholder="12-digit Aadhar number" name="aadhar_no" required>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label class="form-label">Category</label>
+          <label class="form-label">Category <span class="required-icon">*</span></label>
           <select class="form-select" name="category" required>
             <option selected disabled>Select category</option>
             <option value="GEN">General</option>
@@ -106,7 +124,7 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label">Physical Disability</label>
+          <label class="form-label">Physical Disability <span class="required-icon">*</span></label>
           <select class="form-select" name="physical_disable" required>
             <option selected disabled>Select option</option>
             <option value="Yes">Yes</option>
@@ -116,12 +134,12 @@
       </div>
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label class="form-label">Email</label>
+          <label class="form-label">Email <span class="required-icon">*</span></label>
           <input type="email" class="form-control" placeholder="name@example.com" name="email" required>
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label">Course</label>
+          <label class="form-label">Course <span class="required-icon">*</span></label>
           <select class="form-select" name="course" required>
             <option selected disabled>Select course</option>
             <option value="B.Sc. B.Ed">B.Sc. B.Ed.</option>
@@ -132,17 +150,17 @@
 
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label class="form-label">Password</label>
+          <label class="form-label">Password <span class="required-icon">*</span></label>
           <input type="password" class="form-control" placeholder="Create password" name="password" id="password" autocomplete="new-password" required>
         </div>
         <div class="col-md-6 mb-3">
-          <label class="form-label">Confirm Password</label>
+          <label class="form-label">Confirm Password <span class="required-icon">*</span></label>
           <input type="password" class="form-control" placeholder="Confirm password" name="confirm_password" id="confirm_password" required>
         </div>
       </div>
       <div class="row">
         <div class="mt-3 d-grid justify-content-center">
-          <button type="submit" class="btn form-submit-button login-btn" name="submit">Submit Application</button>
+          <button type="submit" class="btn form-submit-button submit-btn" name="submit">Submit Application</button>
         </div>
       </div>
     </form>
@@ -159,7 +177,60 @@
       }
     });
 
+    $.validator.addMethod("exists", function(value, element) {
+      console.log($(element).val());
+      var result = false;
+      let applicationNo = $(element).val();
+
+      if (applicationNo != '') {
+        $.ajax({
+          type: "GET",
+          url: "<?php echo base_url('checkApplicationNo'); ?>/" + applicationNo,
+          dataType: "json",
+          async: false,
+          contentType: "application/json",
+          cache: false,
+        }).done(function(data) {
+          console.log("Complated", data);
+          console.log("StatusCode", data.status);
+          console.log("Result", data.result);
+          if (data.status == 200) {
+            if (data.result.length > 0) {
+              result = false;
+              $('.submit-btn').attr('disabled', true);
+            } else {
+              result = true;
+              $('.submit-btn').attr('disabled', false);
+            }
+          }
+        }).fail(function(data) {
+          result = true;
+          console.log("failure", data);
+        });
+      }
+
+      return result;
+      // if (maxMarks === "") return true; // skip if max marks not filled yet
+      // return parseFloat(value) <= parseFloat(maxMarks);
+    }, "Application is already filled with the entered NCET Application No.");
+
+    $.validator.addMethod("charactersOnly", function(value, element) {
+      return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
+    }, "Please enter characters only.");
+
     let rules = {
+      name:{
+        charactersOnly: true
+      },
+      father_name:{
+        charactersOnly: true
+      },
+      mother_name:{
+        charactersOnly: true
+      },
+      ncet_application_no: {
+        exists: true,
+      },
       aadhar_no: {
         required: true,
         number: true,
@@ -202,33 +273,6 @@
     $("#registration-form").validate({
       rules,
       messages
-    });
-
-    $("#ncet_application_no").on('blur', (e) => {
-      let applicationNo = e.target.value;
-
-      if (applicationNo != '') {
-        $.ajax({
-          type: "GET",
-          url: "<?php echo base_url('checkApplicationNo'); ?>/" + applicationNo,
-          dataType: "json",
-          contentType: "application/json",
-          cache: false,
-        }).done(function(data) {
-          console.log("Complated", data);
-          console.log("StatusCode", data.status);
-          console.log("Result", data.result);
-          if (data.status == 200) {
-            if (data.result.length > 0) {
-              toastr.warning('Application is already filled with the entered NCET Application No.');
-            }
-          }
-        }).fail(function(data) {
-          console.log("failure", data);
-          //need to update actual error message
-          toastr.error('Something is wrong', 'Error');
-        });
-      }
     });
   });
 </script>

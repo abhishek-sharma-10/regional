@@ -1,18 +1,15 @@
 <?php
-    // var_dump($details);
+// var_dump($details);
+// var_dump($ncet);
 ?>
 
 <style>
-    body {
-        background-color: #f8f9fa;
-    }
-
     .main-container {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
         border-radius: 8px;
         background-color: #fff;
-        margin-bottom: 70px;
+        margin-bottom: 40px;
     }
 
     .section-title {
@@ -34,22 +31,47 @@
         margin-bottom: 20px;
     }
 
+    .upload-section>.row {
+        border-right: 1px solid #e0e0e0;
+        padding: 5 5 0;
+    }
+
+    .upload-section:nth-of-type(3n)>.row {
+        border-right: none;
+    }
+
     .upload-status {
         font-weight: bold;
         color: gray;
     }
 
     img.preview {
-        width: 60px;
-        height: 60px;
+        width: 75px;
+        height: 75px;
         object-fit: cover;
         border: 1px solid #ccc;
         border-radius: 4px;
+    }
+
+    .error {
+        font-size: 13px;
     }
 </style>
 
 <!-- PART 1: Applicant Details -->
 <div class="container mt-5 main-container">
+
+    <!-- START | ERROR MESSAGE -->
+    <?php if (session()->getFlashdata('err_msg')): ?>
+        <div class="col-lg-12">
+            <div class="alert alert-danger alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <?= session()->getFlashdata('err_msg') ?>
+            </div>
+        </div>
+    <?php endif; ?>
+    <!-- END | ERROR MESSAGE -->
+
     <div class="row">
         <div class="col-md-6">
             <div class="mb-3 row">
@@ -118,7 +140,7 @@
     <div class="mt-4 section-title">
         <p>Please fill disciplinary major subject choice<br>On preference order</p>
     </div>
-    <form method="post" action="<?php echo base_url(); ?>update-academic-profile" enctype="multipart/form-data">
+    <form method="post" action="<?php echo base_url(); ?>update-academic-profile" enctype="multipart/form-data" id="academic-form">
         <input type="hidden" name="id" value="<?php echo $details->id; ?>" />
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -172,7 +194,6 @@
                         </select>
                     </div>
                 </div>
-
             </div>
         </div>
         <!-- </form> -->
@@ -189,12 +210,12 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">Discipline</label>
                     <div class="col-sm-8">
-                        <select class="form-select" name="discipline">
+                        <select class="form-select" name="discipline" required>
                             <option selected disabled>--Select Stream--</option>
-                            <option value="Science">Science</option>
-                            <option value="Commerce">Commerce</option>
-                            <option value="Art">Art</option>
-                            <option value="Other">Other</option>
+                            <option value="Science" <?php echo $details->discipline === 'Science' ? 'selected' : ''; ?>>Science</option>
+                            <option value="Commerce" <?php echo $details->discipline === 'Commerce' ? 'selected' : ''; ?>>Commerce</option>
+                            <option value="Art" <?php echo $details->discipline === 'Art' ? 'selected' : ''; ?>>Art</option>
+                            <option value="Other" <?php echo $details->discipline === 'Other' ? 'selected' : ''; ?>>Other</option>
                         </select>
                     </div>
                 </div>
@@ -202,11 +223,11 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">Year Of Passing</label>
                     <div class="col-sm-8">
-                        <select class="form-select" name="year_of_passing">
+                        <select class="form-select" name="year_of_passing" required>
                             <option selected disabled>--Select Year--</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
+                            <option value="2022" <?php echo $details->year_of_passing === '2022' ? 'selected' : ''; ?>>2022</option>
+                            <option value="2023" <?php echo $details->year_of_passing === '2023' ? 'selected' : ''; ?>>2023</option>
+                            <option value="2024" <?php echo $details->year_of_passing === '2024' ? 'selected' : ''; ?>>2024</option>
                         </select>
                     </div>
                 </div>
@@ -222,9 +243,9 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="number" class="form-control max-marks" name="sr_sec_max_marks" placeholder="Max" oninput="calculatePercent(this)"></td>
-                                <td><input type="number" class="form-control obtained-marks" name="sr_sec_obtain_marks" placeholder="Obtained" oninput="calculatePercent(this)"></td>
-                                <td class="d-inline-flex"><input type="text" class="form-control percent" name="sr_sec_percentage" placeholder="%" readonly>%</td>
+                                <td><input type="number" class="form-control max-marks" id="max-marks" name="sr_sec_max_marks" value="<?php echo $details->sr_sec_max_marks; ?>" placeholder="Max" oninput="calculatePercent(this)" required></td>
+                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks" name="sr_sec_obtain_marks" value="<?php echo $details->sr_sec_obtain_marks; ?>" placeholder="Obtained" oninput="calculatePercent(this)" required></td>
+                                <td><input type="text" class="form-control percent" name="sr_sec_percentage" value="<?php echo $details->sr_sec_percentage; ?>" placeholder="%" readonly>%</td>
                             </tr>
                         </tbody>
                     </table>
@@ -245,17 +266,17 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">NCET 2024 Roll No</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" value="" name="ncet_roll_no">
+                        <input type="text" class="form-control" value="<?php echo $details->ncet_roll_no; ?>" name="ncet_roll_no" required>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">ITEP Course</label>
                     <div class="col-sm-8">
-                        <select class="form-select" name="itep_courses">
+                        <select class="form-select" name="itep_courses" required>
                             <option selected disabled>--Select Course--</option>
-                            <option value="B.Sc. B.Ed.">B.Sc. B.Ed.</option>
-                            <option value="B.A. B.Ed.">B.A. B.Ed.</option>
+                            <option value="B.Sc. B.Ed." <?php echo $details->itep_courses === 'B.Sc. B.Ed.' ? 'selected' : ''; ?>>B.Sc. B.Ed.</option>
+                            <option value="B.A. B.Ed." <?php echo $details->itep_courses === 'B.A. B.Ed.' ? 'selected' : ''; ?>>B.A. B.Ed.</option>
                         </select>
                     </div>
                 </div>
@@ -272,23 +293,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Generate 10 rows -->
-                                <script>
-                                    for (let i = 0; i < 7; i++) {
-                                        document.write(`
-                                            <tr>
-                                                <td><input type="number" class="form-control codes" name="code[]" id="code${i+1}" data-row="${i+1}"></td>
-                                                <td><input type="text" class="form-control" name="subject[]" id="subject${i+1}" data-row="${i+1}"></td>
-                                                <td><input type="number" class="form-control max_marks" name="max_marks[]" id="max_marks${i+1}" data-row="${i+1}"></td>
-                                                <td><input type="number" class="form-control obtain_marks" name="obtain_marks[]" id="obtain_marks${i+1}" data-row="${i+1}"></td>
-                                            </tr>
-                                        `);
-                                    }
-                                </script>
+                                <?php
+                                for ($i = 0; $i < 7; $i++) {
+                                ?>
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" value="<?php echo isset($ncet[$i]->id) ? $ncet[$i]->id : ''; ?>" name="ids[]" />
+                                            <input type="number" class="form-control codes" name="code[]" id="code<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->codes) ? $ncet[$i]->codes : ''; ?>" required>
+                                        </td>
+                                        <td><input type="text" class="form-control" name="subject[]" id="subject<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->subjects) ? $ncet[$i]->subjects : ''; ?>" required></td>
+                                        <td><input type="number" class="form-control max_marks" name="max_marks[]" id="max_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_maximum_marks) ? $ncet[$i]->total_maximum_marks : ''; ?>" required></td>
+                                        <td><input type="number" class="form-control obtain_marks" name="obtain_marks[]" id="obtain_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_marks_obtain) ? $ncet[$i]->total_marks_obtain : ''; ?>" required></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                                 <tr>
                                     <td colspan="2">Total Marks</td>
-                                    <td><input type="number" class="form-control" id="total_max_marks" name="total_max_marks"></td>
-                                    <td><input type="number" class="form-control" id="total_obtain_marks" name="total_obtain_marks"></td>
+                                    <td><input type="number" class="form-control" id="total_max_marks"></td>
+                                    <td><input type="number" class="form-control" id="total_obtain_marks"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -302,95 +325,132 @@
         <hr />
         <div class="mt-4 main-box">
             <h3 class="mb-4">Attachments</h3>
-
-            <!-- Upload Section Template -->
-            <div class="upload-section">
-                <h6 class="text-success">Photo</h6>
-                <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
-                <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
-                <div class="d-flex align-items-center">
-                    <div class="me-3 text-muted upload-status" id="uploadStatus">Pending</div>
-                    <img src="#" alt="Preview" class="preview me-3" id="previewPhoto">
-                    <input type="file" class="form-control form-control-sm me-2" name="photo" style="width: auto;" onchange="previewImage(event, 'previewPhoto')">
-                    <!-- <button class="btn btn-sm btn-primary">Upload</button> -->
+            <div class="row">
+                <!-- Upload Section Template -->
+                <div class="col-md-4 upload-section">
+                    <div class="row">
+                        <h4 class="mb-4">Photo</h4>
+                        <div class="col-md-8">
+                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->photo) && !empty($details->photo) ? 'Uploaded' : 'Pending'
+                                                                                                ?></div> -->
+                            <img src="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewPhoto">
+                        </div>
+                        <div class="d-flex align-items-center flex-wrap mt-3">
+                            <input type="file" class="form-control form-control-sm me-2" id="photo" name="photo" style="width: auto;" onchange="previewImage(event, 'previewPhoto')" required>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="upload-section">
-                <h5 class="mb-4">Signature</h5>
-                <h6 class="text-success">Photo</h6>
-                <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
-                <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
-                <div class="d-flex align-items-center">
-                    <div class="me-3 text-muted upload-status" id="uploadStatus">Pending</div>
-                    <img src="#" alt="Preview" class="preview me-3" id="previewPhoto">
-                    <input type="file" class="form-control form-control-sm me-2" name="signature" style="width: auto;" onchange="previewImage(event, 'previewPhoto')">
-                    <!-- <button class="btn btn-sm btn-primary">Upload</button> -->
+                <div class="col-md-4 upload-section">
+                    <div class="row">
+                        <h4 class="mb-4">Signature</h4>
+                        <div class="col-md-8">
+                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->signature) && !empty($details->signature) ? 'Uploaded' : 'Pending'
+                                                                                                ?></div> -->
+                            <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewSignature">
+                        </div>
+                        <div class="d-flex align-items-center flex-wrap mt-3">
+                            <input type="file" class="form-control form-control-sm me-2" id="signature" name="signature" style="width: auto;" onchange="previewImage(event, 'previewSignature')" required>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="upload-section">
-                <h5 class="mb-4">10th Certificate</h5>
-                <h6 class="text-success">Photo</h6>
-                <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
-                <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
-                <div class="d-flex align-items-center">
-                    <div class="me-3 text-muted upload-status" id="uploadStatus">Pending</div>
-                    <img src="#" alt="Preview" class="preview me-3" id="previewPhoto">
-                    <input type="file" class="form-control form-control-sm me-2" name="certificate_10" style="width: auto;" onchange="previewImage(event, 'previewPhoto')">
-                    <!-- <button class="btn btn-sm btn-primary">Upload</button> -->
+                <div class="col-md-4 upload-section">
+                    <div class="row">
+                        <h4 class="mb-4">10th Marksheet</h4>
+                        <div class="col-md-8">
+                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->certificate_10) && !empty($details->certificate_10) ? 'Uploaded' : 'Pending'
+                                                                                                ?></div> -->
+                            <img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_10">
+                        </div>
+                        <div class="d-flex align-items-center flex-wrap mt-3">
+                            <input type="file" class="form-control form-control-sm me-2" id="certificate_10" name="certificate_10" style="width: auto;" onchange="previewImage(event, 'previewCertificate_10')" required>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="upload-section">
-                <h5 class="mb-4">12th Marksheet</h5>
-                <h6 class="text-success">Photo</h6>
-                <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
-                <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
-                <div class="d-flex align-items-center">
-                    <div class="me-3 text-muted upload-status" id="uploadStatus">Pending</div>
-                    <img src="#" alt="Preview" class="preview me-3" id="previewPhoto">
-                    <input type="file" class="form-control form-control-sm me-2" name="certificate_12" style="width: auto;" onchange="previewImage(event, 'previewPhoto')">
-                    <!-- <button class="btn btn-sm btn-primary">Upload</button> -->
+                <div class="col-md-4 upload-section">
+                    <div class="row">
+                        <h4 class="mb-4">12th Marksheet</h4>
+                        <div class="col-md-8">
+                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->certificate_12) && !empty($details->certificate_12) ? 'Uploaded' : 'Pending'
+                                                                                                ?></div> -->
+                            <img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_12">
+                        </div>
+                        <div class="d-flex align-items-center flex-wrap mt-3">
+                            <input type="file" class="form-control form-control-sm me-2" id="certificate_12" name="certificate_12" style="width: auto;" onchange="previewImage(event, 'previewCertificate_12')" required>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="upload-section">
-                <h5 class="mb-4">NCET Score Card</h5>
-                <h6 class="text-success">Photo</h6>
-                <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
-                <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
-                <div class="d-flex align-items-center">
-                    <div class="me-3 text-muted upload-status" id="uploadStatus">Pending</div>
-                    <img src="#" alt="Preview" class="preview me-3" id="previewPhoto">
-                    <input type="file" class="form-control form-control-sm me-2" name="ncet_score_card" style="width: auto;" onchange="previewImage(event, 'previewPhoto')">
-                    <!-- <button class="btn btn-sm btn-primary">Upload</button> -->
+                <div class="col-md-4 upload-section">
+                    <div class="row">
+                        <h4 class="mb-4">NCET Score Card</h4>
+                        <div class="col-md-8">
+                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? 'Uploaded' : 'Pending'
+                                                                                                ?></div> -->
+                            <img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_ncet_score">
+                        </div>
+                        <div class="d-flex align-items-center flex-wrap mt-3">
+                            <input type="file" class="form-control form-control-sm me-2" id="ncet_score_card" name="ncet_score_card" style="width: auto;" onchange="previewImage(event, 'preview_ncet_score')" required>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="upload-section">
-                <h5 class="mb-4">Caste Certificate</h5>
-                <h6 class="text-success">Photo</h6>
-                <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
-                <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
-                <div class="d-flex align-items-center">
-                    <div class="me-3 text-muted upload-status" id="uploadStatus">Pending</div>
-                    <img src="#" alt="Preview" class="preview me-3" id="previewPhoto">
-                    <input type="file" class="form-control form-control-sm me-2" name="caste_certificate" style="width: auto;" onchange="previewImage(event, 'previewPhoto')">
-                    <!-- <button class="btn btn-sm btn-primary">Upload</button> -->
+                <div class="col-md-4 upload-section">
+                    <div class="row">
+                        <h4 class="mb-4">Caste Certificate</h4>
+                        <div class="col-md-8">
+                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->caste_certificate) && !empty($details->caste_certificate) ? 'Uploaded' : 'Pending'
+                                                                                                ?></div> -->
+                            <img src="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url($details->caste_certificate) : base_url('/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_caste_certificate">
+                        </div>
+                        <div class="d-flex align-items-center flex-wrap mt-3">
+                            <input type="file" class="form-control form-control-sm me-2" id="caste_certificate" name="caste_certificate" style="width: auto;" onchange="previewImage(event, 'preview_caste_certificate')" required>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="upload-section">
-                <h5 class="mb-4">PwBD</h5>
-                <h6 class="text-success">Photo</h6>
-                <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
-                <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
-                <div class="d-flex align-items-center">
-                    <div class="me-3 text-muted upload-status" id="uploadStatus">Pending</div>
-                    <img src="#" alt="Preview" class="preview me-3" id="previewPhoto">
-                    <input type="file" class="form-control form-control-sm me-2" name="pwbd" style="width: auto;" onchange="previewImage(event, 'previewPhoto')">
-                    <!-- <button class="btn btn-sm btn-primary">Upload</button> -->
+                <div class="col-md-4 upload-section">
+                    <div class="row">
+                        <h4 class="mb-4">PwBD</h4>
+                        <div class="col-md-8">
+                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->pwbd) && !empty($details->pwbd) ? 'Uploaded' : 'Pending'
+                                                                                                ?></div> -->
+                            <img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_pwbd">
+                        </div>
+                        <div class="d-flex align-items-center flex-wrap mt-3">
+                            <input type="file" class="form-control form-control-sm me-2" id="pwbd" name="pwbd" style="width: auto;" onchange="previewImage(event, 'preview_pwbd')" required>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="d-flex gap-2 justify-content-center mt-3">
-            <button type="submit" class="btn btn-sm btn-outline-success">Save as Draft</button>
-            <button type="submit" class="btn btn-sm btn-success">Save</button>
+            <button type="submit" class="btn btn-sm btn-outline-success" value="Save as Draft" name="save_as_draft">Save as Draft</button>
+            <button type="submit" class="btn btn-sm btn-success" name="final_save">Save</button>
             <button type="button" class="btn btn-sm btn-danger">Cancel</button>
         </div>
     </form>
@@ -434,7 +494,6 @@
 </script>
 <!-- preference selection script-->
 <script>
-
     let preference_1 = '<?php echo $details->preference_1; ?>';
     let preference_2 = '<?php echo $details->preference_2; ?>';
     let preference_3 = '<?php echo $details->preference_3; ?>';
@@ -442,19 +501,142 @@
     let preference_5 = '<?php echo $details->preference_5; ?>';
     const preferences = [preference_1, preference_2, preference_3, preference_4, preference_5];
 
+    let photo = '<?php echo $details->photo; ?>';
+    let signature = '<?php echo $details->signature; ?>';
+    let certificate_10 = '<?php echo $details->certificate_10; ?>';
+    let certificate_12 = '<?php echo $details->certificate_12; ?>';
+    let ncet_score_card = '<?php echo $details->ncet_score_card; ?>';
+    let caste_certificate = '<?php echo $details->caste_certificate; ?>';
+    let pwbd = '<?php echo $details->pwbd; ?>';
+
+    let status = '<?php echo $details->status; ?>';
+
+    const attachment = {
+        photo,
+        signature,
+        certificate_10,
+        certificate_12,
+        ncet_score_card,
+        caste_certificate,
+        pwbd
+    };
+
     $(document).ready(function() {
         $('#course').trigger('change');
+        $('.obtain_marks').trigger('blur');
+        $('.max_marks').trigger('blur');
+
+        $.validator.addMethod("lessThan", function(value, element, param) {
+            return this.optional(element) || parseInt(value) <= parseInt($(param).val());
+        }, "Obtained marks cannot be greater than maximum marks.");
+
+        $.validator.addMethod('filesize', function(value, element, param) {
+            return this.optional(element) || (element.files[0].size <= param * 1000000)
+        }, 'Image size must be less than {0} MB');
+
+        $.validator.addMethod("obtainCheck", function(value, element) {
+            let row = $(element).attr('data-row'); // get the same row number
+            let maxMarks = $(`#max_marks${row}`).val();
+            if (maxMarks === "") return true; // skip if max marks not filled yet
+            return parseFloat(value) <= parseFloat(maxMarks);
+        }, "Obtained marks cannot be greater than maximum marks.");
+
+        var rules = {
+            sr_sec_obtain_marks: {
+                required: true,
+                number: true,
+                lessThan: '#max-marks'
+            },
+            "code[]": {
+                required: true,
+                number: true,
+                minlength: 1
+            },
+            "subject[]": {
+                required: true,
+                minlength: 2
+            },
+            "max_marks[]": {
+                required: true,
+                number: true,
+                min: 1
+            },
+            "obtain_marks[]": {
+                required: true,
+                number: true,
+                min: 0,
+                obtainCheck: true
+            }
+        };
+
+        var messages = {
+            "code[]": {
+                required: "Please enter subject code",
+                number: "Code must be a number",
+                minlength: "Code must be at least 1 digit"
+            },
+            "subject[]": {
+                required: "Please enter subject name",
+                minlength: "Subject must be at least 2 characters"
+            },
+            "max_marks[]": {
+                required: "Please enter maximum marks",
+                number: "Must be a valid number",
+                min: "Marks must be at least 1"
+            },
+            "obtain_marks[]": {
+                required: "Please enter obtained marks",
+                number: "Must be a valid number",
+                min: "Marks cannot be negative"
+            }
+        };
+
+        if (status === "Request") {
+            for (key in attachment) {
+                console.log(key);
+                $(`input[name=${key}]`).attr('required', true);
+                rules[key] = {
+                    required: true,
+                    extension: "jpg|jpeg|png",
+                    filesize: 3
+                };
+                messages[key] = {
+                    required: "Please upload an image.",
+                    extension: "Please upload a file with a valid extension (jpg, jpeg, png)."
+                }
+            }
+        } else if (status === "Save as Draft") {
+            for (key in attachment) {
+                if (attachment[key] != '') {
+                    $(`input[name=${key}]`).attr('required', false);
+                } else {
+                    $(`input[name=${key}]`).attr('required', true);
+                    rules[key] = {
+                        required: true,
+                        extension: "jpg|jpeg|png",
+                        filesize: 3
+                    };
+                    messages[key] = {
+                        required: "Please upload an image.",
+                        extension: "Please upload a file with a valid extension (jpg, jpeg, png)."
+                    };
+                }
+            }
+        }
+        $("#academic-form").validate({
+            rules,
+            messages
+        });
     });
 
-    $("#course").change((e) => {
-        try{
+    $("#course").change(function(e) {
+        try {
             $('.preference-select').html('');
             let course = e.target.value;
             let bscSubject = ['Physics', 'Chemistry', 'Mathematics', 'Zoology', 'Botany'];
             let baSubject = ['Geography', 'History', 'Hindi', 'English', 'Urdu'];
             let subjects = [];
-    
-            let preferenceOptions = `<option selected>--Select--</option>`;
+
             if (course == 'B.A. B.Ed') {
                 // baSubject.map((value, idx) => {
                 //     preferenceOptions += `<option value="${value}">${value}</option>`;
@@ -466,55 +648,62 @@
                 // });
                 subjects = bscSubject;
             }
-    
-            $('.preference-select').each(function(idx){
+
+            $('.preference-select').each(function(idx) {
                 let select = $(this);
-                select.html(preferenceOptions);
+                select.html(`<option selected>--Select--</option>`);
                 subjects.forEach(subject => {
                     let isSelected = preferences[idx] === subject ? 'selected' : '';
                     select.append(`<option value="${subject}" ${isSelected}>${subject}</option>`);
                 });
             });
 
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
 
         // $('.preference-select').append(preferenceOptions);
     });
 
-    const selects = document.querySelectorAll(".preference-select");
+    bindPreferenceOption();
 
-    function updateOptions() {
-        const selectedValues = Array.from(selects)
-            .map(select => select.value)
-            .filter(val => val !== "--Select--" && val !== "");
+
+    function bindPreferenceOption() {
+        const selects = document.querySelectorAll(".preference-select");
+
+        function updateOptions() {
+            const selectedValues = Array.from(selects)
+                .map(select => select.value)
+                .filter(val => val !== "--Select--" && val !== "");
+
+            selects.forEach(select => {
+                const currentValue = select.value;
+
+                Array.from(select.options).forEach(option => {
+                    if (option.disabled && option.value !== "--Select--") {
+                        option.disabled = false; // reset disabled state
+                    }
+
+                    if (option.value !== currentValue && selectedValues.includes(option.value)) {
+                        option.disabled = true;
+                    }
+                });
+            });
+        }
 
         selects.forEach(select => {
-            const currentValue = select.value;
-
-            Array.from(select.options).forEach(option => {
-                if (option.disabled && option.value !== "--Select--") {
-                    option.disabled = false; // reset disabled state
-                }
-
-                if (option.value !== currentValue && selectedValues.includes(option.value)) {
-                    option.disabled = true;
-                }
-            });
+            select.removeEventListener("change", updateOptions);
+            select.addEventListener("change", updateOptions);
         });
-    }
 
-    selects.forEach(select => {
-        select.addEventListener("change", updateOptions);
-    });
+        updateOptions();
+    }
 </script>
 
 <script>
     $('.max_marks').on('blur', (e) => {
         let total_marks = 0;
         $('.max_marks').each(function() {
-            console.log($(this).val(), typeof $(this).val());
             total_marks += parseInt($(this).val() || 0);
         });
         $('#total_max_marks').val(total_marks);
@@ -528,30 +717,36 @@
         $('#total_obtain_marks').val(total_obtain_marks);
     })
 
-    let codes = [];
-    let duplicate = false;
+
     $('.codes').on('blur', (e) => {
         let element = e.target;
         let row = $(element).attr('data-row');
-        let code = e.target.value;
+        let code = e.target.value.trim();
+        let codes = [];
+        let duplicate = false;
 
         $(".codes").each(function() {
             let val = $(this).val().trim();
+            console.log('Out: ', code);
             if (val !== "") {
+                console.log('Inner : ', code);
                 if (codes.includes(val)) {
-                    $('#code'+row).addClass("error");
+                    console.log('Inner Inner : ', code);
                     duplicate = true;
                 } else {
                     codes.push(val);
-                    $('#code'+row).removeClass("error");
                 }
             }
+            console.log('codes: ', codes);
         });
 
         if (duplicate) {
             e.preventDefault();
+            $('#code' + row).addClass("error");
             alert("Each subject Code must be unique!");
-        }else{
+            $(element).val('');
+        } else {
+            $('#code' + row).removeClass("error");
             if (code != '') {
                 $.ajax({
                     type: "GET",
@@ -563,11 +758,16 @@
                     console.log("Complated", data);
                     console.log("StatusCode", data.status);
                     console.log("Result", data.result);
-    
+
                     let result = data.result;
-    
+
                     if (data.status == 200) {
                         if (data.result.length == 0) {
+                            let idx = codes.indexOf(code);
+                            if (idx > -1) {
+                                codes.splice(idx, 1);
+                                $(element).val('');
+                            }
                             toastr.warning('Please enter correct subject code.');
                         } else {
                             $(`#subject${row}`).val(result[0].subject);

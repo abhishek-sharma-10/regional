@@ -13,6 +13,11 @@ use function PHPUnit\Framework\isNull;
 
 class Login extends BaseController
 {
+    public function __construct()
+    {
+        session();
+    }
+
     public function index()
     {
         $loginModel = new LoginModel();
@@ -115,9 +120,7 @@ class Login extends BaseController
 	}
 
 	function forgetPassword(){
-
         $loginModel = new LoginModel();
-
         $data = array();
         // var_dump($this->request->getVar());exit;
         $username = $this->request->getVar('username');
@@ -159,7 +162,7 @@ class Login extends BaseController
         if(isset($_REQUEST['newpassword']) && isset($_REQUEST['userid']) && !empty($_REQUEST['userid'])){
         	//This flag variable is used to make the security token blank so that next time it cannot be used again. 
         	$blankSecuirtyToken = true;
-        	$flag = $loginModel->changePassword($_REQUEST['newpassword'],$_REQUEST['userid'], $blankSecuirtyToken);
+        	$flag = $loginModel->changePassword($_REQUEST['newpassword'],$_REQUEST['userid'], $blankSecuirtyToken, 'users');
             $userInfo = $loginModel->getUserByUsername($_REQUEST['userid']);
         	$data['validToken'] = false;
         	$data['confirmBox'] = true;
@@ -315,12 +318,79 @@ class Login extends BaseController
         }
     }
 
+    function stu_forgetPassword(){
+        $loginModel = new LoginModel();
+        $data = array();
+        // var_dump($this->request->getVar());exit;
+        $email = $this->request->getVar('email');
+        if(isset($email) && !empty($email)){
+            // $email = $_REQUEST["email"];
+            $isSent = $loginModel->sendResetPasswordLink($email, "email");
+            if($isSent){
+                return redirect()->to('success');
+        	}else{
+        	    $msg = $loginModel->errorMsg;
+                return redirect()->to("failure?msg=".$msg);
+        	}
+        }
+        $data['pageTitle'] = 'Forget Password';
+        return view('student/template/header',$data). view("student/login/forget_password", $data) . view('student/template/footer');
+        // return $this->view("forget_password", $data);
+    }
+
+    function stu_success(){
+        $msg = $this->request->getVar('msg');
+        if(is_null($msg)){
+            $data['msg'] = "Sent you an email with reset password link, please check your inbox!";
+        }else{
+            $data['msg'] = $msg;
+        }
+        $data['pageTitle'] = "Success page";
+        return view('student/template/header',$data). view("student/login/success_failure_message.php", $data) . view('student/template/footer');
+    }
+
+    function stu_resetPassword(){
+        try{
+            $loginModel = new LoginModel();
+    
+            $token = isset($_REQUEST['token'])?$_REQUEST['token']:'';
+            $key = isset($_REQUEST["key"]) ? $_REQUEST["key"] : "";
+            $validToken = false;
+                        
+            if(isset($_REQUEST['newpassword']) && isset($_REQUEST['userid']) && !empty($_REQUEST['userid'])){
+                //This flag variable is used to make the security token blank so that next time it cannot be used again. 
+                $blankSecuirtyToken = true;
+                $flag = $loginModel->changePassword($_REQUEST['newpassword'],$_REQUEST['userid'], $blankSecuirtyToken, 'registrations');
+                $userInfo = $loginModel->getStudentByMail($_REQUEST['userid']);
+                $data['validToken'] = false;
+                $data['confirmBox'] = true;
+                $data['userId'] = $userInfo[0]->id;
+            }else if(!empty($token) && !empty($key)){
+                $userId = $loginModel->encryptDecrypt('decrypt', $token, $key );
+                // echo $userId;exit;
+                if(!empty($userId)){
+                    // $loginModel->getUserById($userId);
+                    $data['validToken'] = true;
+                    $data['userId'] = $userId;
+                }
+            }else if(!isset($_REQUEST['confirmBox'])){
+                return redirect()->to('/');
+            }
+    
+            $data['pageTitle'] = "Reset Password";
+            return view('student/template/header',$data). view("student/login/reset_password", $data) . view('student/template/footer');
+        }catch(Exception $e){
+            echo "<pre>";print_r($e->getTrace());exit();
+        }
+    }
+
     function logout(){
         session();
         session()->destroy();
         // header("location: ".base_url());
         return redirect()->to('admin/');
     }
+
     function student_logout(){
         session();
         session()->destroy();

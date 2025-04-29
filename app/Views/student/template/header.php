@@ -1,12 +1,9 @@
-<?php
-?>
-
 <html>
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>RIE, AJMER</title>
+  <title>RIEA | <?= $pageTitle;?></title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -37,6 +34,11 @@
   <link href="<?php echo base_url(); ?>public/assets/css/student_style.css" rel="stylesheet">
   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
   <script src="<?php echo base_url(); ?>public/assets/js/jquery-2.1.1.js"></script>
+<style>
+    body {
+      background-color: #f8f9fa;
+    }
+  </style>
 </head>
 
 <body>
@@ -58,7 +60,7 @@
         <img src="<?php echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" />
         <img src="<?php echo base_url(); ?>public/assets/img/NIC_logo1.jpg" class="img-fluid" />
         <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn login-btn mt-4 ms-5"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
-        <a href="<?php echo base_url('registrations') ?>"><button class="btn login-btn mt-4 ms-5">Register</button></a>
+<a href="<?php echo base_url('registrations') ?>"><button class="btn login-btn mt-4 ms-5">Register</button></a>
       </div>
     </div>
   </section>
