@@ -45,7 +45,7 @@
     </div>
 
     <!-- Header -->
-    <img src="/assets/img/NIC_logo1.jpg" alt="Logo" class="logo mb-2">
+    <img src="/public/assets/img/NIC_logo1.jpg" alt="Logo" class="logo mb-2">
     <div class="header-title">Regional Institute of Education</div>
     <div class="subtitle">Pushkar Road, Ajmer (Raj.)</div>
     <h3 class="mt-2">Academic Details</h3>

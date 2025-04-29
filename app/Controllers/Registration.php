@@ -88,7 +88,7 @@ class Registration extends BaseController
             $data['details'] = $registrationModel->getRegistrationDetail($id);
             $data['ncet'] = $ncetScoreModel->getNcetScoreByRegistrationId($id);
 
-            if ($data['details']->status == 'Complete' || $data['details']->status == 'Complete - Payment Pending') {
+            if ($data['details']->status == 'Complete' || $data['details']->status == 'Save - Payment Pending') {
                 return redirect()->to('print-academic-details/' . $data['details']->id);
             }
             $data['pageTitle'] = "Student - Academic";
@@ -535,7 +535,7 @@ class Registration extends BaseController
             }
 
             $data['pageTitle'] = "Pay - Registration - Fee";
-            return  view('student/template/header', $data) . view('Student/registrations/pay_registration_fee', $data) . view('student/template/footer');
+            return  view('student/template/header', $data) . view('student/registrations/pay_registration_fee', $data) . view('student/template/footer');
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],

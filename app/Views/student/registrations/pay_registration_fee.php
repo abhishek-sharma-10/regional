@@ -1,3 +1,7 @@
+<?php
+  $status = isset($details->status) && ($details->status == "Request" || $details->status == "Save as Draft");
+?>
+
 <style>
   .shadow-box {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
@@ -34,7 +38,7 @@
   <?php if (session()->getFlashdata('err_msg')): ?>
     <div class="col-lg-12">
       <div class="alert alert-danger alert-dismissable">
-        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">ï¿½</button>
         <?= session()->getFlashdata('err_msg') ?>
       </div>
     </div>
@@ -56,9 +60,15 @@
       <div class="col-md-12"><label class="form-label">Stream</label><input type="text" class="form-control" value="Not Set Yet" readonly></div>
     </div>
 
-    <div class="text-danger mt-3 fw-bold text-center">
-      You have not saved your Academic Details yet
-    </div>
+    <?php
+      if($status){
+    ?>
+      <div class="text-danger mt-3 fw-bold text-center">
+        You have not saved your Academic Details yet
+      </div>
+    <?php  
+      }
+    ?>
 
     <div class="mt-4">
       <p>To complete your registration Pay Counselling Fees Rs. 500/- using following info and confirm DU/No./Receipt Number submitting to us</p>
@@ -77,14 +87,14 @@
           <input type="hidden" value="<?php echo $details->id; ?>" name="id">
           <div class="col-md-5 mb-3">
             <label class="form-label">Enter Receipt Number received from Payment Portal</label>
-            <input type="text" class="form-control" name="receipt_no" required>
+            <input type="text" class="form-control" name="receipt_no" disabled="<?php echo $status;?>" required>
           </div>
         </div>
 
         <label class="form-label">Attach Screenshot / Receipt Copy of Payment</label>
         <div class="row">
           <div class="col-md-4">
-            <input type="file" class="form-control file-input" accept="image/*" name="payment_receipt" required>
+            <input type="file" class="form-control file-input" accept="image/*" name="payment_receipt" disabled="<?php echo $status;?>" required>
             <p class="mt-2 mb-0">Status: <span class="file-status pending">Pending</span></p>
           </div>
           <div class="col-md-4">
@@ -94,7 +104,7 @@
       </div>
 
       <div class="text-center mt-4">
-        <button type="submit" class="btn btn-warning px-5">Submit</button>
+        <button type="submit" class="btn btn-warning px-5" disabled="<?php echo $status;?>">Submit</button>
       </div>
     </form>
   </div>
