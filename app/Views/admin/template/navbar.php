@@ -51,9 +51,9 @@
                     <li class="<?= subMenuActive(array('state-wise-report', 'category-wise-report', 'subject-wise-report'), 'Reports') ?>">
                         <a><i class="fa fa-users"></i> <span class="nav-label">Reports</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'category-wise-report' ? 'active' : '';  ?>"><a href="category-wise-report">Course-wise Report</a></li>
-                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'state-wise-report' ? 'active' : '';  ?>"><a href="state-wise-report">State-wise Report</a></li>
-                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'subject-wise-report' ? 'active' : '';  ?>"><a href="subject-wise-report">Subject-wise Report</a></li>
+                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'category-wise-report' ? 'active' : '';  ?>"><a href="report/category-wise-report">Course-wise Report</a></li>
+                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'state-wise-report' ? 'active' : '';  ?>"><a href="report/state-wise-report">State-wise Report</a></li>
+                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'subject-wise-report' ? 'active' : '';  ?>"><a href="report/subject-wise-report">Subject-wise Report</a></li>
                         </ul>
                     </li>
                 <?php
