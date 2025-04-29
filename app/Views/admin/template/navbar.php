@@ -4,7 +4,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element" aligtn="center"> 
                         <span>
-                            <img alt="image" class="img-cicle" src="<?php echo base_url();?>public/assets/img/favicon.png"  height="90"/>
+                            <img alt="image" class="img-cicle" src="<?php echo base_url();?>public/assets/img/logo1.png"  height="90"/>
                         </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> 

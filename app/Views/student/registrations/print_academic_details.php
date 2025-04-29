@@ -186,18 +186,19 @@
                                 </tr>
                     <?php
                             }
+                    ?>
+                            <tr class="fw-bold">
+                                <td colspan="2">Total</td>
+                                <td><?= $total_max; ?></td>
+                                <td><?= $total_obtain;?></td>
+                            </tr>
+                    <?php
                         }else{
                     ?>
                             <tr>Please enter NCET Scores.</tr>
                     <?php
                         }
                     ?>
-                    
-                    <tr class="fw-bold">
-                        <td colspan="2">Total</td>
-                        <td><?= $total_max; ?></td>
-                        <td><?= $total_obtain;?></td>
-                    </tr>
                 </tbody>
             </table>
         </div>

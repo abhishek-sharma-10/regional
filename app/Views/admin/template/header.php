@@ -3,7 +3,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>RIE | <?php echo $pageTitle; ?></title>
-        <link rel="shortcut icon" href="<?php echo base_url();?>assets/img/starinfotechcollegelogo.png" />
+        <link rel="shortcut icon" href="<?php echo base_url();?>assets/img/favicon.png" />
 
         <link href="<?php echo base_url();?>public/assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo base_url();?>public/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
