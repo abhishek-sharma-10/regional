@@ -107,7 +107,7 @@ class Registration extends BaseController
             $session = session();
             $input = $this->request->getVar();
 
-            var_dump($input);
+            // var_dump($input);
             // var_dump($this->request->getFiles());
 
             $uploadPath = "public/uploads/" . $input['id'] . "/";
@@ -388,7 +388,7 @@ class Registration extends BaseController
                 }
             }
 
-            var_dump($input);
+            // var_dump($input);
 
             if (isset($input['save_as_draft'])) {
                 unset($input['save_as_draft']);
@@ -406,8 +406,8 @@ class Registration extends BaseController
             unset($input['total_max_marks']);
             unset($input['total_obtain_marks']);
 
-            var_dump($input);
-            exit;
+            // var_dump($input);
+            // exit;
             $registrationModel = new RegistrationModel();
             $ncetScoreModel = new NcetScoreModel();
             // var_dump($input, $ncet_score_data);
