@@ -59,7 +59,7 @@
         <img src="<?php echo base_url(); ?>public/assets/img/naac-logo.png" class="img-fluid" />
         <img src="<?php echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" />
         <img src="<?php echo base_url(); ?>public/assets/img/NIC_logo1.jpg" class="img-fluid" />
-        <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn login-btn mt-4 ms-5"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
+        
         <?php
           if(array_key_exists('student', $_SESSION) && isset($_SESSION['student'])){
         ?>
@@ -71,6 +71,7 @@
         <?php
           }
         ?>
+        <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn login-btn mt-4 ms-5"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
       </div>
     </div>
   </section>
