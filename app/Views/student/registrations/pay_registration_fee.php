@@ -55,7 +55,7 @@
       <div class="col-md-6"><label class="form-label">Name</label><input type="text" class="form-control" value="<?= $details->name ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Gender</label><input type="text" class="form-control" value="<?= $details->gender ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Category</label><input type="text" class="form-control" value="<?= $details->category ?>" readonly></div>
-      <div class="col-md-6"><label class="form-label">PwBD</label><input type="text" class="form-control" value="<?= $details->physical_disable ?>" readonly></div>
+      <div class="col-md-6"><label class="form-label">PwBD</label><input type="text" class="form-control" value="<?= $details->physical_disable == 1 ? 'Yes' : 'No'; ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Mobile No.</label><input type="text" class="form-control" value="<?= $details->phone ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Aadhaar No.</label><input type="text" class="form-control" value="<?= $details->aadhar_no ?>" readonly></div>
       <div class="col-md-12"><label class="form-label">Stream</label><input type="text" class="form-control" value="Not Set Yet" readonly></div>
