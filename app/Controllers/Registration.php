@@ -107,7 +107,7 @@ class Registration extends BaseController
             $session = session();
             $input = $this->request->getVar();
 
-            // var_dump($input);
+            var_dump($input);
             // var_dump($this->request->getFiles());
 
             $uploadPath = "public/uploads/" . $input['id'] . "/";
