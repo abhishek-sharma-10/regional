@@ -64,6 +64,15 @@ $routes->group('admin', ['filter' => 'authGuard'], static function ($routes) {
         $routes->get('/', 'Registration::index');
         $routes->get('detail/(:num)', 'Registration::getRegistrationDetail/$1');
     });
+
+    $routes->group('report', static function ($routes) {
+        $routes->get('state-wise-report', 'Report::registrationReport');
+        $routes->post('state-wise-report', 'Report::registrationReport');
+        $routes->get('subject-wise-report', 'Report::subjectWiseReport');
+        $routes->post('subject-wise-report', 'Report::subjectWiseReport');
+        $routes->get('category-wise-report', 'Report::categoryWiseReport');
+        $routes->post('category-wise-report', 'Report::categoryWiseReport');
+    });
     
     $routes->get('logout', 'Login::logout');
 });

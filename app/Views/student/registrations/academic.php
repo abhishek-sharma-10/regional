@@ -122,7 +122,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">PwBD</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" value="<?= $details->physical_disable ?>" readonly>
+                    <input type="text" class="form-control" value="<?= $details->physical_disable == 1 ? 'Yes' : 'No'; ?>" readonly>
                 </div>
             </div>
             <div class="mb-3 row">
@@ -158,7 +158,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">Preference 1st</label>
                     <div class="col-sm-8">
-                        <select class="form-select preference-select" name="preference_1">
+                        <select class="form-select preference-select" name="preference_1" required>
                         </select>
                     </div>
                 </div>
@@ -166,7 +166,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">Preference 2nd</label>
                     <div class="col-sm-8">
-                        <select class="form-select preference-select" name="preference_2">
+                        <select class="form-select preference-select" name="preference_2" required>
                         </select>
                     </div>
                 </div>
@@ -174,7 +174,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">Preference 3rd</label>
                     <div class="col-sm-8">
-                        <select class="form-select preference-select" name="preference_3">
+                        <select class="form-select preference-select" name="preference_3" required>
                         </select>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">Preference 4th</label>
                     <div class="col-sm-8">
-                        <select class="form-select preference-select" name="preference_4">
+                        <select class="form-select preference-select" name="preference_4" required>
                         </select>
                     </div>
                 </div>
@@ -190,7 +190,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">Preference 5th</label>
                     <div class="col-sm-8">
-                        <select class="form-select preference-select" name="preference_5">
+                        <select class="form-select preference-select" name="preference_5" required>
                         </select>
                     </div>
                 </div>
@@ -243,9 +243,9 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="number" class="form-control max-marks" id="max-marks" name="sr_sec_max_marks" value="<?php echo $details->sr_sec_max_marks; ?>" placeholder="Max" oninput="calculatePercent(this)" required></td>
-                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks" name="sr_sec_obtain_marks" value="<?php echo $details->sr_sec_obtain_marks; ?>" placeholder="Obtained" oninput="calculatePercent(this)" required></td>
-                                <td><input type="text" class="form-control percent" name="sr_sec_percentage" value="<?php echo $details->sr_sec_percentage; ?>" placeholder="%" readonly>%</td>
+                                <td><input type="number" class="form-control max-marks" id="max-marks" name="sr_sec_max_marks" value="<?php echo !empty($details->sr_sec_max_marks) ? $details->sr_sec_max_marks : ''; ?>" placeholder="Max" oninput="calculatePercent(this)" required></td>
+                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks" name="sr_sec_obtain_marks" value="<?php echo !empty($details->sr_sec_obtain_marks) ? $details->sr_sec_obtain_marks : ''; ?>" placeholder="Obtained" oninput="calculatePercent(this)" required></td>
+                                <td class="d-flex"><input type="text" class="form-control percent" name="sr_sec_percentage" value="<?php echo !empty($details->sr_sec_percentage) ? $details->sr_sec_percentage : ''; ?>" placeholder="%" readonly>%</td>
                             </tr>
                         </tbody>
                     </table>
@@ -266,7 +266,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">NCET 2024 Roll No</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" value="<?php echo $details->ncet_roll_no; ?>" name="ncet_roll_no" required>
+                        <input type="text" class="form-control" value="<?php echo !empty($details->ncet_roll_no) ? $details->ncet_roll_no : ''; ?>" name="ncet_roll_no" required>
                     </div>
                 </div>
 
@@ -301,7 +301,7 @@
                                             <input type="hidden" value="<?php echo isset($ncet[$i]->id) ? $ncet[$i]->id : ''; ?>" name="ids[]" />
                                             <input type="number" class="form-control codes" name="code[]" id="code<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->codes) ? $ncet[$i]->codes : ''; ?>" required>
                                         </td>
-                                        <td><input type="text" class="form-control" name="subject[]" id="subject<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->subjects) ? $ncet[$i]->subjects : ''; ?>" required></td>
+                                        <td><input type="text" class="form-control" name="subject[]" id="subject<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->subjects) ? $ncet[$i]->subjects : ''; ?>" required readonly></td>
                                         <td><input type="number" class="form-control max_marks" name="max_marks[]" id="max_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_maximum_marks) ? $ncet[$i]->total_maximum_marks : ''; ?>" required></td>
                                         <td><input type="number" class="form-control obtain_marks" name="obtain_marks[]" id="obtain_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_marks_obtain) ? $ncet[$i]->total_marks_obtain : ''; ?>" required></td>
                                     </tr>
@@ -319,14 +319,10 @@
                 </div>
             </div>
         </div>
-        <!-- </div> -->
-        <!-- Part 5 Image and Preview Section -->
-        <!-- <div class="container mt-5"> -->
         <hr />
         <div class="mt-4 main-box">
             <h3 class="mb-4">Attachments</h3>
             <div class="row">
-                <!-- Upload Section Template -->
                 <div class="col-md-4 upload-section">
                     <div class="row">
                         <h4 class="mb-4">Photo</h4>
@@ -449,8 +445,8 @@
             </div>
         </div>
         <div class="d-flex gap-2 justify-content-center mt-3">
-            <button type="submit" class="btn btn-sm btn-outline-success" value="Save as Draft" name="save_as_draft">Save as Draft</button>
-            <button type="submit" class="btn btn-sm btn-success" name="final_save">Save</button>
+            <button type="submit" class="btn btn-sm btn-outline-success" id="save_draft" value="Save as Draft" name="save_as_draft">Save as Draft</button>
+            <button type="submit" class="btn btn-sm btn-success" id="final_save" name="final_save">Save</button>
             <button type="button" class="btn btn-sm btn-danger">Cancel</button>
         </div>
     </form>
@@ -623,9 +619,35 @@
                 }
             }
         }
-        $("#academic-form").validate({
+        
+        const validator = $("#academic-form").validate({
             rules,
             messages
+        });
+
+        $('#save_draft').click(function (e) {
+            e.preventDefault();
+            // Remove validation rules
+            $('input, select', '#academic-form').each(function () {
+                if ($(this).attr("name")) { // skip elements without a name
+                    try {
+                        $(this).rules('remove');
+                    } catch (e) {
+                        // Ignore elements that aren't part of the validator
+                    }
+                }
+            });
+
+            // Clear validation errors
+            validator.resetForm();
+            $('.error').removeClass('error');
+
+            // Submit form without validation
+            $('#academic-form').off('submit').submit();
+        });
+
+        $('#final_save').click(function () {
+            $("#academic-form").submit();  // validate and submit
         });
     });
 
@@ -651,7 +673,7 @@
 
             $('.preference-select').each(function(idx) {
                 let select = $(this);
-                select.html(`<option selected>--Select--</option>`);
+                select.html(`<option value="" selected>--Select--</option>`);
                 subjects.forEach(subject => {
                     let isSelected = preferences[idx] === subject ? 'selected' : '';
                     select.append(`<option value="${subject}" ${isSelected}>${subject}</option>`);

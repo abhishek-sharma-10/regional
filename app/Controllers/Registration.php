@@ -271,9 +271,10 @@ class Registration extends BaseController
                 $ext = "." . explode("/", $type)[1];
 
                 $newName = "photo" . $ext;
-                if (file_exists($uploadPath . $newName)) {
-                    unlink($uploadPath . $newName);
-                }
+                $this->unlinkFiles($uploadPath . 'photo');
+                // if (file_exists($uploadPath . $newName)) {
+                //     unlink($uploadPath . $newName);
+                // }
                 $photo->move($uploadPath, $newName);
                 $input['photo'] = $uploadPath . $newName;
             } else {
@@ -285,9 +286,10 @@ class Registration extends BaseController
                 $ext = "." . explode("/", $type)[1];
 
                 $newName = "signature" . $ext;
-                if (file_exists($uploadPath . $newName)) {
-                    unlink($uploadPath . $newName);
-                }
+                $this->unlinkFiles($uploadPath . 'signature');
+                // if (file_exists($uploadPath . $newName)) {
+                //     unlink($uploadPath . $newName);
+                // }
                 $signature->move($uploadPath, $newName);
                 $input['signature'] = $uploadPath . $newName;
             } else {
@@ -299,9 +301,10 @@ class Registration extends BaseController
                 $ext = "." . explode("/", $type)[1];
 
                 $newName = "certificate_10" . $ext;
-                if (file_exists($uploadPath . $newName)) {
-                    unlink($uploadPath . $newName);
-                }
+                $this->unlinkFiles($uploadPath . 'certificate_10');
+                // if (file_exists($uploadPath . $newName)) {
+                //     unlink($uploadPath . $newName);
+                // }
                 $certificate_10->move($uploadPath, $newName);
                 $input['certificate_10'] = $uploadPath . $newName;
             } else {
@@ -313,9 +316,10 @@ class Registration extends BaseController
                 $ext = "." . explode("/", $type)[1];
 
                 $newName = "certificate_12" . $ext;
-                if (file_exists($uploadPath . $newName)) {
-                    unlink($uploadPath . $newName);
-                }
+                $this->unlinkFiles($uploadPath . 'certificate_12');
+                // if (file_exists($uploadPath . $newName)) {
+                //     unlink($uploadPath . $newName);
+                // }
                 $certificate_12->move($uploadPath, $newName);
                 $input['certificate_12'] = $uploadPath . $newName;
             } else {
@@ -327,9 +331,10 @@ class Registration extends BaseController
                 $ext = "." . explode("/", $type)[1];
 
                 $newName = "ncet_score_card" . $ext;
-                if (file_exists($uploadPath . $newName)) {
-                    unlink($uploadPath . $newName);
-                }
+                $this->unlinkFiles($uploadPath . 'ncet_score_card');
+                // if (file_exists($uploadPath . $newName)) {
+                //     unlink($uploadPath . $newName);
+                // }
                 $ncet_score_card->move($uploadPath, $newName);
                 $input['ncet_score_card'] = $uploadPath . $newName;
             } else {
@@ -341,9 +346,10 @@ class Registration extends BaseController
                 $ext = "." . explode("/", $type)[1];
 
                 $newName = "caste_certificate" . $ext;
-                if (file_exists($uploadPath . $newName)) {
-                    unlink($uploadPath . $newName);
-                }
+                $this->unlinkFiles($uploadPath . 'caste_certificate');
+                // if (file_exists($uploadPath . $newName)) {
+                //     unlink($uploadPath . $newName);
+                // }
                 $caste_certificate->move($uploadPath, $newName);
                 $input['caste_certificate'] = $uploadPath . $newName;
             } else {
@@ -355,9 +361,10 @@ class Registration extends BaseController
                 $ext = "." . explode("/", $type)[1];
 
                 $newName = "pwbd" . $ext;
-                if (file_exists($uploadPath . $newName)) {
-                    unlink($uploadPath . $newName);
-                }
+                $this->unlinkFiles($uploadPath . 'pwbd');
+                // if (file_exists($uploadPath . $newName)) {
+                //     unlink($uploadPath . $newName);
+                // }
                 $pwbd->move($uploadPath, $newName);
                 $input['pwbd'] = $uploadPath . $newName;
             } else {
@@ -369,14 +376,16 @@ class Registration extends BaseController
             $ncet_score_data = [];
 
             for ($i = 0; $i < count($input['code']); $i++) {
-                $ncet_score_data[$i] = array(
-                    "id" => $input['ids'][$i],
-                    "registration_id" => $input['id'],
-                    "codes"  => $input['code'][$i],
-                    "subjects" => $input['subject'][$i],
-                    "total_maximum_marks" => $input['max_marks'][$i],
-                    "total_marks_obtain" => $input['obtain_marks'][$i]
-                );
+                if(isset($input['ids'][$i]) && !empty($input['ids'][$i])){
+                    $ncet_score_data[$i] = array(
+                        "id" => $input['ids'][$i],
+                        "registration_id" => $input['id'],
+                        "codes"  => $input['code'][$i],
+                        "subjects" => $input['subject'][$i],
+                        "total_maximum_marks" => $input['max_marks'][$i],
+                        "total_marks_obtain" => $input['obtain_marks'][$i]
+                    );
+                }
             }
 
             // var_dump($input);
@@ -386,7 +395,7 @@ class Registration extends BaseController
                 $input['status'] = "Save as Draft";
             } elseif (isset($input['final_save'])) {
                 unset($input['final_save']);
-                $input['status'] = "Complete - Payment Pending";
+                $input['status'] = "Save - Payment Pending";
             }
 
             unset($input['ids']);
@@ -404,7 +413,10 @@ class Registration extends BaseController
             // var_dump($input, $ncet_score_data);
 
             $registrationModel->upsert($input);
-            $ncetScoreModel->upsertBatch($ncet_score_data);
+
+            if(count($ncet_score_data) > 0){
+                $ncetScoreModel->upsertBatch($ncet_score_data);
+            }
 
             return redirect()->to('/dashboard/' . $input['id']);
 
