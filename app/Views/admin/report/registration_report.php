@@ -55,7 +55,7 @@ if (isset($registrations)) {
             ];
             ?>
             <div class="ibox-content">
-                <form action="<?php echo base_url('/admin/report/registration-report'); ?>" method="POST">
+                <form action="<?php echo base_url('/admin/report/state-wise-report'); ?>" method="POST">
                     <div class="container text-center">
                         <div class="row">
                             <div class="col-6 col-sm-3">
