@@ -493,7 +493,7 @@ class Registration extends BaseController
             $data['details'] = $registrationModel->getRegistrationDetail($id);
 
             $data['pageTitle'] = "Payment";
-            return view('student/template/header', $data) . view('Student/registrations/payment', $data) . view('student/template/footer');
+            return view('student/template/header', $data) . view('student/registrations/payment', $data) . view('student/template/footer');
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],

@@ -1,6 +1,5 @@
 <?php
   $status = isset($details->status) && ($details->status == "Request" || $details->status == "Save as Draft");
-  var_dump($status);
 ?>
 
 <style>
