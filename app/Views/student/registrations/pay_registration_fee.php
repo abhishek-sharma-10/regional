@@ -88,14 +88,14 @@
           <input type="hidden" value="<?php echo $details->id; ?>" name="id">
           <div class="col-md-5 mb-3">
             <label class="form-label">Enter Receipt Number received from Payment Portal</label>
-            <input type="text" class="form-control" name="receipt_no" disabled="<?php echo $status;?>" required>
+            <input type="text" class="form-control" name="receipt_no" required <?php echo $status ? 'disabled': '';?>>
           </div>
         </div>
 
         <label class="form-label">Attach Screenshot / Receipt Copy of Payment</label>
         <div class="row">
           <div class="col-md-4">
-            <input type="file" class="form-control file-input" accept="image/*" name="payment_receipt" disabled="<?php echo $status;?>" required>
+            <input type="file" class="form-control file-input" accept="image/*" name="payment_receipt" required <?php echo $status ? 'disabled': '';?>>
             <p class="mt-2 mb-0">Status: <span class="file-status pending">Pending</span></p>
           </div>
           <div class="col-md-4">
