@@ -105,7 +105,7 @@
       </div>
 
       <div class="text-center mt-4">
-        <button type="submit" class="btn btn-warning px-5" disabled="<?php echo $status;?>">Submit</button>
+        <button type="submit" class="btn btn-warning px-5" <?php echo $status ? 'disabled': '';?>>Submit</button>
       </div>
     </form>
   </div>
