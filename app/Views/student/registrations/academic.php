@@ -78,7 +78,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">NCET 2024 Application No.</label>
+                <label class="col-sm-4 col-form-label">NCET <?=date('Y');?> Application No.</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" value="<?= $details->ncet_application_no ?>" readonly>
                 </div>
@@ -271,7 +271,7 @@
         <hr />
         
         <div class="mt-4 section-title">
-            <p>Details of NCET 2024 Exam</p>
+            <p>Details of NCET <?=date('Y');?> Exam</p>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8">

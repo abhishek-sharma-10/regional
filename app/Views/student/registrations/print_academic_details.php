@@ -62,7 +62,7 @@
         <table class="table table-bordered text-center">
             <thead class="table-light">
                 <tr>
-                    <th>NCET 2024 Application No.</th>
+                    <th>NCET <?=date('Y');?> Application No.</th>
                     <th>Stream</th>
                     <th>Category</th>
                     <th>PwBD</th>
@@ -162,9 +162,9 @@
 
     <div>
         <!-- NCET 2024 Exam Details -->
-        <h3 class="text-center mb-4">Details of NCET 2024 Exam</h3>
+        <h3 class="text-center mb-4">Details of NCET <?=date('Y');?> Exam</h3>
         <div class="row text-center mb-3">
-            <div class="col-md-4"><strong>NCET 2024 Roll No:</strong> <?= $details->ncet_roll_no ?></div>
+            <div class="col-md-4"><strong>NCET <?=date('Y');?> Roll No:</strong> <?= $details->ncet_application_no ?></div>
             <div class="col-md-4"><strong>Course:</strong> <?= $details->course ?></div>
         </div>
         <!-- Subject Marks Table -->
