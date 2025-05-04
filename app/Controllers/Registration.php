@@ -551,7 +551,7 @@ class Registration extends BaseController
                 $data['active'] = '';
             return view('student/template/header', $data) . view("student/registrations/dashboard", $data) . view('student/template/footer');
             }elseif(empty($request) && $details->acknowledged == 'true'){
-                return redirect()->to('academic/', $id);
+                return redirect()->to('academic/'. $id);
             }elseif(!empty($request) && !empty($request['ackCheckbox'])){
                 $request['acknowledged'] = $request['ackCheckbox'] == 'on' ? 'true' : 'false';
                 unset($request['submit']);

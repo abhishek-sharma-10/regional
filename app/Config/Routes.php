@@ -31,6 +31,7 @@ $routes->get('/fetch-subject/(:num)', 'Registration::fetchSubjects/$1');
 $routes->get('/logout', 'Login::student_logout');
 
 $routes->get('/dashboard/(:num)', 'Registration::studentDashboard/$1');
+$routes->post('/dashboard/(:num)', 'Registration::studentDashboard/$1');
 $routes->get('/payment/(:num)', 'Registration::paymentInfo/$1');
 $routes->get('/print-academic-details/(:num)','Registration::printAcademicDetails/$1');
 $routes->get('/pay-registration-fee/(:num)','Registration::payRegistrationFee/$1');
