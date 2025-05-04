@@ -73,28 +73,27 @@ class Registration extends BaseController
             $otp = random_int(100000, 999999); // secure random OTP
             //var_dump($otp);
 
-            $data['email_container'] = false;
-            $data['otp_container'] = true;
+            // $data['email_container'] = false;
+            // $data['otp_container'] = true;
             
-            // $emailService = \Config\Services::email();
+            $emailService = \Config\Services::email();
             
-            // $emailService->setTo($email);
-            // $emailService->setFrom('umar.k@ibirdsservices.com');
-            // $emailService->setSubject('Your OTP Code');
-            // $emailService->setMessage('Your OTP code is: ' . $otp);
+            $emailService->setTo($email);
+            $emailService->setFrom('no-reply@riea.com');
+            $emailService->setSubject('Your OTP Code');
+            $emailService->setMessage('Your OTP code is: ' . $otp);
         
-            // if ($emailService->send()) {
-            //     $data['msg'] = 'OTP sent successfully to ' . $email;
-            //     $data['email_container'] = false;
-            //     $data['otp_container'] = true;
-            // } else {
-            //     // Show email sending errors
-            //     $data['email_container'] = true;
-            //     $data['otp_container'] = false;
-            //     $data['msg'] = "Please enter valid email address.";
-            // }
+            if ($emailService->send()) {
+                $data['msg'] = 'OTP sent successfully to ' . $email;
+                $data['email_container'] = false;
+                $data['otp_container'] = true;
+            } else {
+                // Show email sending errors
+                $data['email_container'] = true;
+                $data['otp_container'] = false;
+                $data['msg'] = "Please enter valid email address.";
+            }
         
-            // Optionally, you can store the OTP in session to verify later
             session()->set('otp', $otp);
 
             return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
