@@ -103,6 +103,7 @@
             </tbody>
         </table>
     </div>
+
     <div class="table-responsive mb-4">
         <table class="table table-bordered text-center">
             <thead class="table-light">
@@ -121,7 +122,6 @@
             </tbody>
         </table>
     </div>
-
     <div class="table-responsive mb-2">
         <table class="table table-bordered text-center">
             <thead class="table-light">
@@ -197,17 +197,19 @@
                                 </tr>
                     <?php
                             }
-                        }else{
-                    ?>
-                            <tr>Please enter NCET Scores.</tr>
-                    <?php
-                        }
                     ?>
                             <tr class="fw-bold">
                                 <td colspan="2">Total</td>
                                 <td><?= $total_max; ?></td>
                                 <td><?= $total_obtain;?></td>
                             </tr>
+                    <?php
+                        }else{
+                    ?>
+                            <tr colspan="5">Please enter NCET Scores.</tr>
+                    <?php
+                        }
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -235,9 +237,9 @@
                     <td><?= $details->bsc_preference_4; ?></td>
                     <td><?= $details->ba_preference_1; ?></td>
                 </tr>
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
+    </div>
     <div>
         <!-- Attachments Section -->
         <h3 class="mb-3">Attachments</h3>
