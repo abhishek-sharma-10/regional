@@ -93,7 +93,7 @@
         <?php
           }else{
         ?>
-            <a href="<?php echo base_url('registrations') ?>"><button class="btn login-btn mt-4 ms-5">Register</button></a>
+            <a href="<?php echo base_url('registrations') ?>"><button class="btn secondary-btn mt-4 ms-5">Register</button></a>
         <?php
           }
         ?>
