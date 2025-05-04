@@ -78,21 +78,22 @@
     <div class="row">
         <div class="col-md-6">
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">Application No.</label>
+                <label class="col-sm-4 col-form-label">NCET 2024 Application No.</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" value="<?= $details->ncet_application_no ?>" readonly>
                 </div>
             </div>
-            <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">Name</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" value="<?= $details->name ?>" readonly>
-                </div>
-            </div>
+            
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">Category</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" value="<?= $details->category ?>" readonly>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label">Gender</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" value="<?= $details->gender ?>" readonly>
                 </div>
             </div>
             <div class="mb-3 row">
@@ -101,25 +102,13 @@
                     <input type="text" class="form-control" value="<?= $details->phone ?>" readonly>
                 </div>
             </div>
-            <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">Stream</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" value="<?= $details->course ?>" readonly>
-                </div>
-            </div>
         </div>
 
         <div class="col-md-6">
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">NCET 2024 Application No.</label>
+                <label class="col-sm-4 col-form-label">Name</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" value="<?= $details->ncet_application_no ?>" readonly>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">Gender</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" value="<?= $details->gender ?>" readonly>
+                    <input type="text" class="form-control" value="<?= $details->name ?>" readonly>
                 </div>
             </div>
             <div class="mb-3 row">
@@ -132,6 +121,12 @@
                 <label class="col-sm-4 col-form-label">Aadhar No</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" value="<?= $details->aadhar_no ?>" readonly>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label">Stream</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" value="<?= $details->course ?>" readonly>
                 </div>
             </div>
         </div>
