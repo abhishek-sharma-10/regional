@@ -1,86 +1,48 @@
-
+<?php $id = $details->id;?>
   <style>
-    body {
-        background-color: #f8f9fa;
-    }
-    .box-shadow {
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-      padding: 2rem;
-      border-radius: 0.5rem;
-      background-color: white;
-    }
-    .info-box {
-      background-color: #007f00;
-      color: white;
-      padding: 0.75rem 1rem;
-      margin-bottom: 0.5rem;
-    }
-    .info-label {
-      font-weight: bold;
-      display: inline-block;
-      width: 180px;
-    }
-    .action-btn {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-weight: bold;
-      padding: 1.5rem 1rem;
-      color: white;
-    }
-  </style>
-  <div class="container my-5">
-    <div class="box-shadow">
-      <h5 class="mb-4">Course Name: <strong>Integrated Teacher Education Program (ITEP)</strong></h5>
+  .modal-backdrop.show {
+    opacity: 1 !important;
+  }
+  .modal-backdrop {
+    pointer-events: none;
+  }
+  .modal.modal-static .modal-dialog {
+    transform: none !important;
+  }
+</style>
 
-      <!-- Candidate Info -->
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="info-box"><span class="info-label">NCET Application No:</span> <?= $details->ncet_application_no;?></div>
-          <div class="info-box"><span class="info-label">Name:</span> <?= $details->name;?></div>
-          <div class="info-box"><span class="info-label">Father's Name:</span> <?= $details->father_name;?></div>
-          <div class="info-box"><span class="info-label">Mother's Name:</span> <?= $details->mother_name?></div>
-          <div class="info-box"><span class="info-label">DoB:</span> <?= date('d-m-Y', strtotime($details->dob));?></div>
-          <div class="info-box"><span class="info-label">Application Status:</span> <?= $details->status;?></div>
-          <div class="info-box"><span class="info-label">Payment Details:</span> Not Entered</div>
+<!-- Modal -->
+<div class="modal fade" id="policyModal" tabindex="-1" aria-labelledby="policyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Header -->
+       <form method="Post">
+        <div class="modal-header">
+          <h4 class="modal-title" id="policyModalLabel">Guidelines and Policies</h4>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="col-lg-6">
-          <div class="row h-100">
-            <div class="col-6 mb-3">
-            <a href="/academic/<?=$details->id?>"><button class="w-100 action-box bg-warning text-dark shadow border-0" style="height:183px">
-                <b>Update Candidate<br>Academic Details</b>
-            </button></a>
-
-            </div>
-            <div class="col-6 mb-3">
-            <a href="/pay-registration-fee/<?=$details->id?>"><button class="w-100 action-box bg-primary text-dark shadow border-0" style="height:183px">
-                <b>Pay Registration<br>Fees</b>
-            </button></a>
-             
-            </div>
-            <div class="col-6 mb-3">
-            <a href="/print-academic-details/<?=$details->id?>"><button class="w-100 action-box bg-info text-dark shadow border-0" style="height:183px">
-                <b>Print Candidate<br>Academic Details</b>
-            </button></a>
-              
-            </div>
-            <div class="col-6 mb-3">
-            <a href="/payment/<?=$details->id?>"><button class="w-100 action-box bg-secondary text-dark shadow border-0" style="height:183px">
-                <b>Print Payment<br>Info</b>
-            </button></a>
-            </div>
+        <!-- Body -->
+        <div class="modal-body">
+          <!-- PDF Embed -->
+          <div class="mb-3" style="height: 600px;">
+            <embed src="<?= base_url('assets/ITEP-Admission-Brochure-2025.pdf') ?>" type="application/pdf" width="100%" height="100%" />
+          </div>
+          
+          <!-- Acknowledgment -->
+          <div class="form-check mt-3">
+            <input type="hidden" name="id" value="<?php echo $id?>"/>
+            <input class="form-check-input" type="checkbox" id="ackCheckbox" name="ackCheckbox">
+            <label class="form-check-label" for="ackCheckbox">
+              I have read and agree to the guidelines and policies mentioned above.
+            </label>
           </div>
         </div>
-      </div>
 
-      <!-- Footer Note -->
-      <div class="mt-4 text-muted small">
-        It is recommended that before apply please read the instruction carefully first 
-        <a href="#" class="text-decoration-underline">Click here</a>
-      </div>
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="submit" name="submit" class="btn primary-btn text-white" id="saveBtn" disabled>Save and Continue</button>
+        </div>
+      </form>
     </div>
   </div>
+</div>

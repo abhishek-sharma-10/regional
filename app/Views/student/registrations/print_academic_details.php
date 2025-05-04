@@ -85,35 +85,8 @@
         </table>
     </div>
 
-    <!-- Preference Table -->
-    <h3 class="text-center mb-4">Disciplinary Major Subject Choice on Preference Order</h3>
-    <div class="table-responsive mb-4">
-        <table class="table table-bordered text-center">
-            <thead class="table-light">
-                <tr>
-                    <th>Course</th>
-                    <th>Preference 1st</th>
-                    <th>Preference 2nd</th>
-                    <th>Preference 3rd</th>
-                    <th>Preference 4th</th>
-                    <th>Preference 5th</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><?= $details->course ?></td>
-                    <td><?= $details->preference_1; ?></td>
-                    <td><?= $details->preference_2; ?></td>
-                    <td><?= $details->preference_3; ?></td>
-                    <td><?= $details->preference_4; ?></td>
-                    <td><?= $details->preference_5; ?></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
     <!-- Exam Details -->
-    <h3 class="text-center mb-4">Details of Sr. Secondary or Equivalent Exam</h3>
+    <h3 class="text-center mb-4">Academic Details</h3>
     <div class="table-responsive mb-2">
         <table class="table table-bordered text-center">
             <thead class="table-light">
@@ -124,8 +97,45 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><?= $details->course; ?></td>
-                    <td><?= $details->year_of_passing; ?></td>
+                    <td><?= $details->board_10th; ?><?php echo isset($details->board_10th_other) && !empty($details->board_10th_other) ? ' ('.$details->board_10th_other.')' : '';?></td>
+                    <td><?= $details->year_of_passing_10th; ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive mb-4">
+        <table class="table table-bordered text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>Maximum Marks</th>
+                    <th>Obtained Marks</th>
+                    <th>Percent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><?= $details->max_marks_10th ?></td>
+                    <td><?= $details->obtain_marks_10th ?></td>
+                    <td><?= $details->percentage_10th ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive mb-2">
+        <table class="table table-bordered text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>Board</th>
+                    <th>Stream</th>
+                    <th>Year of Passing</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><?= $details->board_12th; ?></td>
+                    <td><?= $details->stream; ?></td>
+                    <td><?= $details->year_of_passing_12th; ?></td>
                 </tr>
             </tbody>
         </table>
@@ -142,9 +152,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><?= $details->sr_sec_max_marks ?></td>
-                    <td><?= $details->sr_sec_obtain_marks ?></td>
-                    <td><?= $details->sr_sec_percentage ?></td>
+                    <td><?= $details->max_marks_12th ?></td>
+                    <td><?= $details->obtain_marks_12th ?></td>
+                    <td><?= $details->percentage_12th ?></td>
                 </tr>
             </tbody>
         </table>
@@ -154,7 +164,6 @@
         <!-- NCET 2024 Exam Details -->
         <h3 class="text-center mb-4">Details of NCET 2024 Exam</h3>
         <div class="row text-center mb-3">
-            <div class="col-md-4"><strong>Appeared in Year:</strong> <?= $details->year_of_passing ?></div>
             <div class="col-md-4"><strong>NCET 2024 Roll No:</strong> <?= $details->ncet_roll_no ?></div>
             <div class="col-md-4"><strong>Course:</strong> <?= $details->course ?></div>
         </div>
@@ -163,10 +172,11 @@
             <table class="table table-bordered text-center">
                 <thead class="table-light">
                     <tr>
-                        <th>Code</th>
+                        <th>Domain</th>
                         <th>Subject</th>
-                        <th>Total Maximum Marks</th>
-                        <th>Total Obtained Marks</th>
+                        <th>Maximum Marks</th>
+                        <th>Score Obtained</th>
+                        <th>Percentage</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -183,25 +193,52 @@
                                     <td><?= $data->subjects;?></td>
                                     <td><?= $data->total_maximum_marks;?></td>
                                     <td><?= $data->total_marks_obtain;?></td>
+                                    <td><?= $data->percentage;?></td>
                                 </tr>
                     <?php
                             }
-                    ?>
-                            <tr class="fw-bold">
-                                <td colspan="2">Total</td>
-                                <td><?= $total_max; ?></td>
-                                <td><?= $total_obtain;?></td>
-                            </tr>
-                    <?php
                         }else{
                     ?>
                             <tr>Please enter NCET Scores.</tr>
                     <?php
                         }
                     ?>
+                            <tr class="fw-bold">
+                                <td colspan="2">Total</td>
+                                <td><?= $total_max; ?></td>
+                                <td><?= $total_obtain;?></td>
+                            </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+    <!-- Preference Table -->
+    <h3 class="text-center mb-4">Preference for Major Discipline in ITEP Course</h3>
+    <div class="table-responsive mb-4">
+        <table class="table table-bordered text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>Course</th>
+                    <th>Preference 1st</th>
+                    <th>Preference 2nd</th>
+                    <th>Preference 3rd</th>
+                    <th>Preference 4th</th>
+                    <th>Preference 5th</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><?= $details->course ?></td>
+                    <td><?= $details->bsc_preference_1; ?></td>
+                    <td><?= $details->bsc_preference_2; ?></td>
+                    <td><?= $details->bsc_preference_3; ?></td>
+                    <td><?= $details->bsc_preference_4; ?></td>
+                    <td><?= $details->ba_preference_1; ?></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div>
         <!-- Attachments Section -->
         <h3 class="mb-3">Attachments</h3>
         <div class="row text-center attachments">

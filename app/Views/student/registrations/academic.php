@@ -21,13 +21,13 @@
     .main-box {
         /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
         border-radius: 12px;
-        padding: 30px;
+        padding: 15px 30px;
         background-color: #fff;
     }
 
     .upload-section {
-        border-bottom: 1px solid #e0e0e0;
-        padding-bottom: 20px;
+        /* border-bottom: 1px solid #e0e0e0; */
+        /* padding-bottom: 20px; */
         margin-bottom: 20px;
     }
 
@@ -72,6 +72,9 @@
     <?php endif; ?>
     <!-- END | ERROR MESSAGE -->
 
+    <div class="my-3 section-title">
+        <h2>Candidate Details</h2>
+    </div>
     <div class="row">
         <div class="col-md-6">
             <div class="mb-3 row">
@@ -134,14 +137,218 @@
         </div>
     </div>
     <!-- </div> -->
-    <!-- PART 2: Preference Form -->
-    <!-- <div class="container main-container"> -->
+    
     <hr />
-    <div class="mt-4 section-title">
-        <p>Please fill disciplinary major subject choice<br>On preference order</p>
-    </div>
     <form method="post" action="<?php echo base_url(); ?>update-academic-profile" enctype="multipart/form-data" id="academic-form">
         <input type="hidden" name="id" value="<?php echo $details->id; ?>" />
+        
+        <div class="mt-4 section-title">
+            <h2>Academic Details</h2>
+        </div>
+        <!-- 10th -->
+        <div class="row flex-column align-content-center">
+            <div class="col-md-6"><h3 class="mb-3">10<sup>th</sup> (Secondary)</h3></div>
+            <div class="col-md-6">
+                <div class="mb-3 row">
+                    <label class="col-sm-4 col-form-label">Board</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" name="board_10th" id="board_10th" data-input="board-10-any-other" required>
+                            <option value="">Select Board</option>
+                            <option value="CBSE" <?php echo $details->board_10th == 'CBSE' ? 'selected' : '';?>>CBSE</option>
+                            <option value="State Board" <?php echo $details->board_10th == 'State Board' ? 'selected' : '';?>>State Board</option>
+                            <option value="Any Other" <?php echo $details->board_10th == 'Any Other' ? 'selected' : '';?>>Any Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row" id="board-10-any-other">
+                    <label class="col-sm-4 col-form-label">Other Board Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="board_10th_other" value="<?php $details->board_10th_other; ?>" <?php isset($details->board_10th_other) && !empty($details->board_10th_other) ? "style='display:block';": "style='display:none';"?>/>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-sm-4 col-form-label">Year Of Passing</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" name="year_of_passing_10th" required>
+                            <option value="" selected disabled>Select Year</option>
+                        <?php foreach ($year_of_passing as $year) {
+                        ?>
+                            <option value="<?= $year; ?>" <?php echo $details->year_of_passing_10th == $year ? 'selected' : ''; ?>><?= $year; ?></option>
+                        <?php
+                        } ?>
+                        </select>
+                    </div>
+                </div>
+                <label class="form-label fw-bold mt-4">10<sup>th</sup> Scores</label>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Maximum Marks</th>
+                                <th>Obtained Marks</th>
+                                <th>Percent(%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="number" class="form-control max-marks" id="max-marks-10" name="max_marks_10th" value="<?php echo !empty($details->max_marks_10th) ? $details->max_marks_10th : ''; ?>" placeholder="Max" oninput="calculatePercent('#max-marks-10', '#obtained-marks-10', '#percentage-10')" required></td>
+                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks-10" name="obtain_marks_10th" value="<?php echo !empty($details->obtain_marks_10th) ? $details->obtain_marks_10th : ''; ?>" placeholder="Obtained" oninput="calculatePercent('#max-marks-10', '#obtained-marks-10', '#percentage-10')" required></td>
+                                <td class="d-flex"><input type="text" class="form-control percent" id="percentage-10" name="percentage_10th" value="<?php echo !empty($details->percentage_10th) ? $details->percentage_10th : ''; ?>" placeholder="%" readonly></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 12th -->
+        <div class="row flex-column align-content-center mt-3">
+            <div class="col-md-6"><h3 class="mb-3">12<sup>th</sup> (Senior Secondary)</h3></div>
+            <div class="col-md-6">
+                <div class="mb-3 row">
+                    <label class="col-sm-4 col-form-label">Stream</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" name="stream" required>
+                            <option value="" selected disabled>Select Stream</option>
+                            <option value="Science" <?php echo $details->stream === 'Science' ? 'selected' : ''; ?>>Science</option>
+                            <option value="Commerce" <?php echo $details->stream === 'Commerce' ? 'selected' : ''; ?>>Commerce</option>
+                            <option value="Art" <?php echo $details->stream === 'Art' ? 'selected' : ''; ?>>Art</option>
+                            <option value="Other" <?php echo $details->stream === 'Other' ? 'selected' : ''; ?>>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-sm-4 col-form-label">Board</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" name="board_12th" id="board_12th" data-input="board-12-any-other" required>
+                            <option value="">Select Board</option>
+                            <option value="CBSE" <?php echo $details->board_10th == 'CBSE' ? 'selected' : '';?>>CBSE</option>
+                            <option value="State Board" <?php echo $details->board_10th == 'State Board' ? 'selected' : '';?>>State Board</option>
+                            <option value="Any Other" <?php echo $details->board_10th == 'Any Other' ? 'selected' : '';?>>Any Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row" id="board-12-any-other">
+                    <label class="col-sm-4 col-form-label">Other Board Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="board-12-any-other" name="board_12th_other"  value="<?php $details->board_12th_other; ?>" <?php isset($details->board_12th_other) && !empty($details->board_12th_other) ? "style='display:block';": "style='display:none';"?>/>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-sm-4 col-form-label">Year Of Passing</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" name="year_of_passing_12th" required>
+                            <option value="" selected disabled>Select Year</option>
+                        <?php foreach ($year_of_passing as $year) {
+                        ?>
+                            <option value="<?= $year; ?>" <?php echo $details->year_of_passing_12th == $year ? 'selected' : ''; ?>><?= $year; ?></option>
+                        <?php
+                        } ?>
+                        </select>
+                    </div>
+                </div>
+                <label class="form-label fw-bold mt-4">12<sup>th</sup> Score</label>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Maximum Marks</th>
+                                <th>Obtained Marks</th>
+                                <th>Percent(%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="number" class="form-control max-marks" id="max-marks-12" name="max_marks_12th" value="<?php echo !empty($details->max_marks_12th) ? $details->max_marks_12th : ''; ?>" placeholder="Max" oninput="calculatePercent('#max-marks-12', '#obtained-marks-12', '#percentage-12')" required></td>
+                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks-12" name="obtain_marks_12th" value="<?php echo !empty($details->obtain_marks_12th) ? $details->obtain_marks_12th : ''; ?>" placeholder="Obtained" oninput="calculatePercent('#max-marks-12', '#obtained-marks-12', '#percentage-12')" required></td>
+                                <td class="d-flex"><input type="text" class="form-control percent" id="percentage-12" name="percentage_12th" value="<?php echo !empty($details->percentage_12th) ? $details->percentage_12th : ''; ?>" placeholder="%" readonly></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <hr />
+        
+        <div class="mt-4 section-title">
+            <p>Details of NCET 2024 Exam</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="mb-3 row">
+                    <label class="col-sm-4 offset-sm-1 col-form-label">NCET <?=date('Y');?> Roll No</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" value="<?php echo !empty($details->ncet_application_no) ? $details->ncet_application_no : ''; ?>" name="ncet_roll_no" readonly required>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-sm-4 offset-sm-1 col-form-label">ITEP Course</label>
+                    <div class="col-sm-6">
+                        <select class="form-select" name="itep_courses" required>
+                            <option selected disabled>--Select Course--</option>
+                            <option value="ITEP - B.Sc. B.Ed." <?php echo $details->itep_courses === 'ITEP - B.Sc. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.Sc. B.Ed.</option>
+                            <option value="ITEP - B.A. B.Ed." <?php echo $details->itep_courses === 'ITEP - B.A. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.A. B.Ed.</option>
+                            <option value="ITEP - Both" <?php echo $details->itep_courses === 'ITEP - Both' ? 'selected' : ''; ?>>ITEP - Both</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 form-label fw-bold">Score</label>
+                    <div class="col-sm-12">
+                        <table class="table table-bordered text-center">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="width: 12%; vertical-align: middle"></th>
+                                    <th style="width: 12%; vertical-align: middle">Domain</th>
+                                    <th style="width: 40%; vertical-align: middle">Subject</th>
+                                    <th style="width: 12%; vertical-align: middle">Maximum Score</th>
+                                    <th style="width: 12%; vertical-align: middle">Score Obtained</th>
+                                    <th style="width: 12%; vertical-align: middle">Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                foreach($sectionArray as $key => $sections){
+                                for ($k = 0; $k < $sections; $k++) {
+                                ?>
+                                    <tr>
+                                        <?php if($k == 0){?><th style="vertical-align: middle; white-space: nowrap;" rowspan="<?=$sections ?>"><?= $key ?></th><?php } ?>
+                                        <td>
+                                            <input type="hidden" value="<?php echo isset($ncet[$i]->id) ? $ncet[$i]->id : ''; ?>" name="ids[]" />
+                                            <input type="number" class="form-control codes" name="code[]" id="code<?= $i; ?>" data-row="<?= $i; ?>" data-section="<?= $key; ?>" value="<?php echo isset($ncet[$i]->codes) ? $ncet[$i]->codes : ''; ?>" required>
+                                        </td>
+                                        <td><input type="text" class="form-control subjects" name="subject[]" id="subject<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->subjects) ? $ncet[$i]->subjects : ''; ?>" required readonly></td>
+                                        <td><input type="number" class="form-control max_marks" name="max_marks[]" id="max_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_maximum_marks) ? $ncet[$i]->total_maximum_marks : ''; ?>" required readonly></td>
+                                        <td><input type="number" class="form-control obtain_marks" name="obtain_marks[]" id="obtain_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_marks_obtain) ? $ncet[$i]->total_marks_obtain : ''; ?>" oninput="calculatePercent('#max_marks<?= $i; ?>', '#obtain_marks<?= $i; ?>', '#percentage<?= $i; ?>')" required></td>
+                                        <td><input type="number" class="form-control percentage" name="percentage[]" id="percentage<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->percentage) ? $ncet[$i]->percentage : ''; ?>" readonly required></td>
+                                    </tr>
+                                <?php
+                                $i++;
+                                }}
+                                ?>
+                                <tr>
+                                    <td colspan="3" style="vertical-align: middle; font-weight: 700;">Total Marks</td>
+                                    <td><input type="number" class="form-control" id="total_max_marks"></td>
+                                    <td><input type="number" class="form-control" id="total_obtain_marks"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+
+        <div class="mt-4 section-title">
+            <p>Preference for Major Discipline in ITEP Course</p>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="mb-3 row">
@@ -149,13 +356,15 @@
                     <div class="col-sm-8">
                         <select class="form-select" name="course" id="course">
                             <option selected disabled>--Select Course--</option>
-                            <option value="B.Sc. B.Ed" <?php echo $details->course == "B.Sc. B.Ed" ? 'selected' : ''; ?>>B.Sc. B.Ed.</option>
-                            <option value="B.A. B.Ed" <?php echo $details->course == "B.A. B.Ed" ? 'selected' : ''; ?>>B.A. B.Ed.</option>
+                            <option value="ITEP - B.Sc. B.Ed." <?php echo $details->itep_courses === 'ITEP - B.Sc. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.Sc. B.Ed.</option>
+                            <option value="ITEP - B.A. B.Ed." <?php echo $details->itep_courses === 'ITEP - B.A. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.A. B.Ed.</option>
+                            <option value="ITEP - Both" <?php echo $details->itep_courses === 'ITEP - Both' ? 'selected' : ''; ?>>ITEP - Both</option>
                         </select>
                     </div>
                 </div>
-
-                <div class="mb-3 row">
+                <div class="bscPreferences"></div>
+                <div class="baPreferences"></div>
+                <!-- <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">Preference 1st</label>
                     <div class="col-sm-8">
                         <select class="form-select preference-select" name="preference_1" required>
@@ -193,135 +402,13 @@
                         <select class="form-select preference-select" name="preference_5" required>
                         </select>
                     </div>
-                </div>
-            </div>
-        </div>
-        <!-- </form> -->
-        <!-- </div> -->
-        <!-- Part 3: Details of Sr. Secondary or Equivalent Exam -->
-        <!-- <div class="container main-container"> -->
-        <hr />
-        <div class="mt-4 section-title">
-            <p>Details of Sr. Secondary or Equivalent Exam</p>
-        </div>
-        <!-- <form> -->
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Discipline</label>
-                    <div class="col-sm-8">
-                        <select class="form-select" name="discipline" required>
-                            <option selected disabled>--Select Stream--</option>
-                            <option value="Science" <?php echo $details->discipline === 'Science' ? 'selected' : ''; ?>>Science</option>
-                            <option value="Commerce" <?php echo $details->discipline === 'Commerce' ? 'selected' : ''; ?>>Commerce</option>
-                            <option value="Art" <?php echo $details->discipline === 'Art' ? 'selected' : ''; ?>>Art</option>
-                            <option value="Other" <?php echo $details->discipline === 'Other' ? 'selected' : ''; ?>>Other</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Year Of Passing</label>
-                    <div class="col-sm-8">
-                        <select class="form-select" name="year_of_passing" required>
-                            <option selected disabled>--Select Year--</option>
-                            <option value="2022" <?php echo $details->year_of_passing === '2022' ? 'selected' : ''; ?>>2022</option>
-                            <option value="2023" <?php echo $details->year_of_passing === '2023' ? 'selected' : ''; ?>>2023</option>
-                            <option value="2024" <?php echo $details->year_of_passing === '2024' ? 'selected' : ''; ?>>2024</option>
-                        </select>
-                    </div>
-                </div>
-                <label class="form-label fw-bold mt-4">Score</label>
-                <div class="table-responsive">
-                    <table class="table table-bordered text-center align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Maximum Marks</th>
-                                <th>Obtained Marks</th>
-                                <th>Percent</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="number" class="form-control max-marks" id="max-marks" name="sr_sec_max_marks" value="<?php echo !empty($details->sr_sec_max_marks) ? $details->sr_sec_max_marks : ''; ?>" placeholder="Max" oninput="calculatePercent(this)" required></td>
-                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks" name="sr_sec_obtain_marks" value="<?php echo !empty($details->sr_sec_obtain_marks) ? $details->sr_sec_obtain_marks : ''; ?>" placeholder="Obtained" oninput="calculatePercent(this)" required></td>
-                                <td class="d-flex"><input type="text" class="form-control percent" name="sr_sec_percentage" value="<?php echo !empty($details->sr_sec_percentage) ? $details->sr_sec_percentage : ''; ?>" placeholder="%" readonly>%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- </form> -->
-        <!-- </div> -->
-        <!-- Part 4: Details of NCET 2024 Exam -->
-        <!-- <div class="container main-container"> -->
-        <hr />
-        <div class="mt-4 section-title">
-            <p>Details of NCET 2024 Exam</p>
-        </div>
-        <!-- <form> -->
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">NCET 2024 Roll No</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" value="<?php echo !empty($details->ncet_roll_no) ? $details->ncet_roll_no : ''; ?>" name="ncet_roll_no" required>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">ITEP Course</label>
-                    <div class="col-sm-8">
-                        <select class="form-select" name="itep_courses" required>
-                            <option selected disabled>--Select Course--</option>
-                            <option value="B.Sc. B.Ed." <?php echo $details->itep_courses === 'B.Sc. B.Ed.' ? 'selected' : ''; ?>>B.Sc. B.Ed.</option>
-                            <option value="B.A. B.Ed." <?php echo $details->itep_courses === 'B.A. B.Ed.' ? 'selected' : ''; ?>>B.A. B.Ed.</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-sm-2 col-form-label">Score</label>
-                    <div class="col-sm-12">
-                        <table class="table table-bordered text-center">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Subject</th>
-                                    <th>Total Maximum Marks</th>
-                                    <th>Total Marks Obtained</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                for ($i = 0; $i < 7; $i++) {
-                                ?>
-                                    <tr>
-                                        <td>
-                                            <input type="hidden" value="<?php echo isset($ncet[$i]->id) ? $ncet[$i]->id : ''; ?>" name="ids[]" />
-                                            <input type="number" class="form-control codes" name="code[]" id="code<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->codes) ? $ncet[$i]->codes : ''; ?>" required>
-                                        </td>
-                                        <td><input type="text" class="form-control" name="subject[]" id="subject<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->subjects) ? $ncet[$i]->subjects : ''; ?>" required readonly></td>
-                                        <td><input type="number" class="form-control max_marks" name="max_marks[]" id="max_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_maximum_marks) ? $ncet[$i]->total_maximum_marks : ''; ?>" required></td>
-                                        <td><input type="number" class="form-control obtain_marks" name="obtain_marks[]" id="obtain_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_marks_obtain) ? $ncet[$i]->total_marks_obtain : ''; ?>" required></td>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
-                                <tr>
-                                    <td colspan="2">Total Marks</td>
-                                    <td><input type="number" class="form-control" id="total_max_marks"></td>
-                                    <td><input type="number" class="form-control" id="total_obtain_marks"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <hr />
+        
         <div class="mt-4 main-box">
-            <h3 class="mb-4">Attachments</h3>
+            <h3 class="mb-4">Uploads</h3>
             <div class="row">
                 <div class="col-md-4 upload-section">
                     <div class="row">
@@ -336,7 +423,7 @@
                             <img src="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewPhoto">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="photo" name="photo" style="width: auto;" onchange="previewImage(event, 'previewPhoto')" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="photo" name="photo" style="width: auto;" onchange="previewImage(event, 'previewPhoto')" accept=".jpg,.jpeg,.png" required>
                         </div>
                     </div>
                 </div>
@@ -353,10 +440,15 @@
                             <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewSignature">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="signature" name="signature" style="width: auto;" onchange="previewImage(event, 'previewSignature')" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="signature" name="signature" style="width: auto;" onchange="previewImage(event, 'previewSignature')" accept=".jpg,.jpeg,.png" required>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="main-box">
+            <h3 class="mb-4">Attach Documents</h3>
+            <div class="row">
                 <div class="col-md-4 upload-section">
                     <div class="row">
                         <h4 class="mb-4">10th Marksheet</h4>
@@ -370,7 +462,7 @@
                             <img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_10">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="certificate_10" name="certificate_10" style="width: auto;" onchange="previewImage(event, 'previewCertificate_10')" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="certificate_10" name="certificate_10" style="width: auto;" onchange="previewImage(event, 'previewCertificate_10')" accept=".jpg,.jpeg,.png" required>
                         </div>
                     </div>
                 </div>
@@ -387,7 +479,7 @@
                             <img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_12">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="certificate_12" name="certificate_12" style="width: auto;" onchange="previewImage(event, 'previewCertificate_12')" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="certificate_12" name="certificate_12" style="width: auto;" onchange="previewImage(event, 'previewCertificate_12')" accept=".jpg,.jpeg,.png" required>
                         </div>
                     </div>
                 </div>
@@ -404,7 +496,7 @@
                             <img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_ncet_score">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="ncet_score_card" name="ncet_score_card" style="width: auto;" onchange="previewImage(event, 'preview_ncet_score')" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="ncet_score_card" name="ncet_score_card" style="width: auto;" onchange="previewImage(event, 'preview_ncet_score')" accept=".jpg,.jpeg,.png" required>
                         </div>
                     </div>
                 </div>
@@ -421,7 +513,7 @@
                             <img src="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url($details->caste_certificate) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_caste_certificate">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="caste_certificate" name="caste_certificate" style="width: auto;" onchange="previewImage(event, 'preview_caste_certificate')" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="caste_certificate" name="caste_certificate" style="width: auto;" onchange="previewImage(event, 'preview_caste_certificate')" accept=".jpg,.jpeg,.png" required>
                         </div>
                     </div>
                 </div>
@@ -438,7 +530,7 @@
                             <img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_pwbd">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="pwbd" name="pwbd" style="width: auto;" onchange="previewImage(event, 'preview_pwbd')" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="pwbd" name="pwbd" style="width: auto;" onchange="previewImage(event, 'preview_pwbd')"  accept=".jpg,.jpeg,.png" required>
                         </div>
                     </div>
                 </div>
@@ -446,24 +538,24 @@
         </div>
         <div class="d-flex gap-2 justify-content-center mt-3">
             <button type="submit" class="btn btn-sm btn-outline-success" id="save_draft" value="Save as Draft" name="save_as_draft">Save as Draft</button>
-            <button type="submit" class="btn btn-sm btn-success" id="final_save" name="final_save">Save</button>
+            <button type="submit" class="btn btn-sm primary-btn text-white" id="final_save" name="final_save">Save</button>
             <button type="button" class="btn btn-sm btn-danger">Cancel</button>
         </div>
     </form>
 </div>
 
 <script>
-    function calculatePercent(element) {
-        const row = element.closest('tr');
-        const max = row.querySelector('.max-marks').value;
-        const obtained = row.querySelector('.obtained-marks').value;
-        const percentField = row.querySelector('.percent');
+    function calculatePercent(max_element, obtain_element, percentage_element) {
+        // const row = element.closest('tr');
+        const max = $(max_element).val();
+        const obtained = $(obtain_element).val();
+        const percentField = $(percentage_element);
 
         if (max && obtained && max > 0) {
             const percent = ((obtained / max) * 100).toFixed(2);
-            percentField.value = percent;
+            percentField.val(percent);
         } else {
-            percentField.value = '';
+            percentField.val('');
         }
     }
 </script>
@@ -490,12 +582,15 @@
 </script>
 <!-- preference selection script-->
 <script>
-    let preference_1 = '<?php echo $details->preference_1; ?>';
-    let preference_2 = '<?php echo $details->preference_2; ?>';
-    let preference_3 = '<?php echo $details->preference_3; ?>';
-    let preference_4 = '<?php echo $details->preference_4; ?>';
-    let preference_5 = '<?php echo $details->preference_5; ?>';
-    const preferences = [preference_1, preference_2, preference_3, preference_4, preference_5];
+    let bsc_preference_1 = '<?php echo $details->bsc_preference_1; ?>';
+    let bsc_preference_2 = '<?php echo $details->bsc_preference_2; ?>';
+    let bsc_preference_3 = '<?php echo $details->bsc_preference_3; ?>';
+    let bsc_preference_4 = '<?php echo $details->bsc_preference_4; ?>';
+    let ba_preference_1 = '<?php echo $details->ba_preference_1; ?>';
+    let ba_preference_2 = '<?php echo $details->ba_preference_2; ?>';
+    let ba_preference_3 = '<?php echo $details->ba_preference_3; ?>';
+    const bsc_preferences = [bsc_preference_1, bsc_preference_2, bsc_preference_3, bsc_preference_4];
+    const ba_preferences = [ba_preference_1, ba_preference_2, ba_preference_3];
 
     let photo = '<?php echo $details->photo; ?>';
     let signature = '<?php echo $details->signature; ?>';
@@ -506,6 +601,8 @@
     let pwbd = '<?php echo $details->pwbd; ?>';
 
     let status = '<?php echo $details->status; ?>';
+    var category =  '<?php echo $details->category; ?>';
+    var physical_disable =  '<?php echo $details->physical_disable; ?>';
 
     const attachment = {
         photo,
@@ -517,10 +614,32 @@
         pwbd
     };
 
+    var bscSubject = [];
+    var baSubject = [];
+
     $(document).ready(function() {
+        $('.baPreferences').hide();
+        $('.bscPreferences').hide();
+
         $('#course').trigger('change');
         $('.obtain_marks').trigger('blur');
         $('.max_marks').trigger('blur');
+        $('.codes').trigger('blur');
+        
+        $(`#board-10-any-other`).hide();
+        $(`#board-12-any-other`).hide();
+        $('#board_10th, #board_12th').change(function(){
+            let id = $(this).data('input');
+            let value = $(this).val();
+
+            if(value === 'Any Other'){
+                $(`#${id}`).show();
+                $(`#${id} input`).attr('required', true);
+            } else{
+                $(`#${id}`).hide();
+                $(`#${id} input`).removeAttr('required');
+            }
+        });
 
         $.validator.addMethod("lessThan", function(value, element, param) {
             return this.optional(element) || parseInt(value) <= parseInt($(param).val());
@@ -538,10 +657,15 @@
         }, "Obtained marks cannot be greater than maximum marks.");
 
         var rules = {
-            sr_sec_obtain_marks: {
+            obtain_marks_10th: {
                 required: true,
                 number: true,
-                lessThan: '#max-marks'
+                lessThan: '#max-marks-10'
+            },
+            obtain_marks_12th: {
+                required: true,
+                number: true,
+                lessThan: '#max-marks-12'
             },
             "code[]": {
                 required: true,
@@ -589,7 +713,6 @@
 
         if (status === "Request") {
             for (key in attachment) {
-                console.log(key);
                 $(`input[name=${key}]`).attr('required', true);
                 rules[key] = {
                     required: true,
@@ -647,53 +770,50 @@
         });
 
         $('#final_save').click(function () {
+            if (category === "GEN") {
+                $('#caste_certificate').removeAttr('required').rules('remove');
+            } else {
+                $('#caste_certificate').attr('required', true);
+            }
+            
+            if(physical_disable == 0){
+                $('#pwbd').removeAttr('required').rules('remove');
+            }else{
+                $('#pwbd').attr('required', true);
+            }
             $("#academic-form").submit();  // validate and submit
         });
     });
 
-    $("#course").change(function(e) {
+    $("#course").change(function (e) {
         try {
-            $('.preference-select').html('');
             let course = e.target.value;
-            let bscSubject = ['Physics', 'Chemistry', 'Mathematics', 'Zoology', 'Botany'];
-            let baSubject = ['Geography', 'History', 'Hindi', 'English', 'Urdu'];
             let subjects = [];
 
-            if (course == 'B.A. B.Ed') {
-                // baSubject.map((value, idx) => {
-                //     preferenceOptions += `<option value="${value}">${value}</option>`;
-                // });
+            if (course == 'ITEP - B.A. B.Ed.') {
                 subjects = baSubject;
-            } else if (course == 'B.Sc. B.Ed') {
-                // bscSubject.map((value, idx) => {
-                //     preferenceOptions += `<option value="${value}">${value}</option>`;
-                // });
+                $('.baPreferences').show();
+                $('.bscPreferences').hide();
+            } else if (course == 'ITEP - B.Sc. B.Ed.') {
                 subjects = bscSubject;
+                $('.baPreferences').hide();
+                $('.bscPreferences').show();
+            } else {
+                $('.baPreferences').hide();
+                $('.bscPreferences').hide();
             }
 
-            $('.preference-select').each(function(idx) {
-                let select = $(this);
-                select.html(`<option value="" selected>--Select--</option>`);
-                subjects.forEach(subject => {
-                    let isSelected = preferences[idx] === subject ? 'selected' : '';
-                    select.append(`<option value="${subject}" ${isSelected}>${subject}</option>`);
-                });
-            });
-
+            bindPreferenceOption();
         } catch (err) {
             console.log(err);
         }
-
-        // $('.preference-select').append(preferenceOptions);
     });
 
-    bindPreferenceOption();
-
-
     function bindPreferenceOption() {
-        const selects = document.querySelectorAll(".preference-select");
+        const bsc_selects = document.querySelectorAll(".bsc-preference-select");
+        const ba_selects = document.querySelectorAll(".ba-preference-select");
 
-        function updateOptions() {
+        function updateOptions(selects) {
             const selectedValues = Array.from(selects)
                 .map(select => select.value)
                 .filter(val => val !== "--Select--" && val !== "");
@@ -713,12 +833,17 @@
             });
         }
 
-        selects.forEach(select => {
+        bsc_selects.forEach(select => {
             select.removeEventListener("change", updateOptions);
-            select.addEventListener("change", updateOptions);
+            select.addEventListener("change", () => updateOptions(bsc_selects));
+        });
+        ba_selects.forEach(select => {
+            select.removeEventListener("change", updateOptions);
+            select.addEventListener("change", () => updateOptions(ba_selects));
         });
 
-        updateOptions();
+        updateOptions(ba_selects);
+        updateOptions(bsc_selects);
     }
 </script>
 
@@ -737,29 +862,29 @@
             total_obtain_marks += parseInt($(this).val() || 0);
         });
         $('#total_obtain_marks').val(total_obtain_marks);
-    })
+    });
 
-
+    const courses = {
+        "B.Sc. B.Ed.": [],
+        "B.A. B.Ed.": [],
+    };
     $('.codes').on('blur', (e) => {
         let element = e.target;
         let row = $(element).attr('data-row');
         let code = e.target.value.trim();
+        let section = $(element).attr('data-section');
         let codes = [];
         let duplicate = false;
 
         $(".codes").each(function() {
             let val = $(this).val().trim();
-            console.log('Out: ', code);
             if (val !== "") {
-                console.log('Inner : ', code);
                 if (codes.includes(val)) {
-                    console.log('Inner Inner : ', code);
                     duplicate = true;
                 } else {
                     codes.push(val);
                 }
             }
-            console.log('codes: ', codes);
         });
 
         if (duplicate) {
@@ -770,16 +895,17 @@
         } else {
             $('#code' + row).removeClass("error");
             if (code != '') {
+                $('.loader-wrapper').show();
                 $.ajax({
                     type: "GET",
-                    url: "<?php echo base_url('fetch-subject'); ?>/" + code,
+                    url: `<?php echo base_url('fetch-subject'); ?>/${code}?section=${section}`,
                     dataType: "json",
                     contentType: "application/json",
                     cache: false,
                 }).done(function(data) {
-                    console.log("Complated", data);
-                    console.log("StatusCode", data.status);
-                    console.log("Result", data.result);
+                    // console.log("Complated", data);
+                    // console.log("StatusCode", data.status);
+                    // console.log("Result", data.result);
 
                     let result = data.result;
 
@@ -792,15 +918,107 @@
                             }
                             toastr.warning('Please enter correct subject code.');
                         } else {
-                            $(`#subject${row}`).val(result[0].subject);
+                            let selectedSubject = result[0].subject;
+                            let oldSubject = $(`#subject${row}`).val();
+                            console.log('oldSubject ', oldSubject);
+                            $(`#subject${row}`).val(selectedSubject);
+                            $(`#max_marks${row}`).val(result[0].max_score);
+                            $('.max_marks').trigger('blur');
+                            if(section == 'Section 2'){
+
+                                for (let key in courses) {
+                                    courses[key] = courses[key].filter(subject => subject !== oldSubject);
+                                }
+                                console.log('adL ', courses);
+                                bscSubject = bscSubject.filter(subject => subject !== oldSubject);
+                                baSubject = baSubject.filter(subject => subject !== oldSubject);
+                                if(result[0].course === 'B.Sc. B.Ed.'){
+                                    if(selectedSubject == 'Biology/Biological Studies'){
+                                        courses[result[0].course].push('Zoology');
+                                        courses[result[0].course].push('Botany');
+                                        bscSubject.push('Zoology');
+                                        bscSubject.push('Botany');
+                                    }else{
+                                        bscSubject.push(selectedSubject);
+                                        courses[result[0].course].push(selectedSubject);
+                                    }
+                                }else if(result[0].course === 'B.A. B.Ed.'){
+                                    baSubject.push(selectedSubject);
+                                    courses[result[0].course].push(selectedSubject);
+                                }
+
+                                createPreferences();
+                            }
                         }
+                        // console.log(courses);
                     }
+                    $('.loader-wrapper').hide();
                 }).fail(function(data) {
                     console.log("failure", data);
-                    //need to update actual error message
                     toastr.error('Something is wrong', 'Error');
+                    $('.loader-wrapper').hide();
                 });
             }
         }
     });
+    // Create preferences only once and append to containers
+    let preferencesCreated = false;
+
+    function createPreferences() {
+        if (preferencesCreated) return;
+        // preferencesCreated = true;
+        
+        $('.bscPreferences').html('');
+        $('.baPreferences').html('');
+
+        bscCount = 1;
+        baCount = 1;
+        bscPreferences = '';
+        baPreferences = '';
+
+        for (const key in courses) {
+            for (const element of courses[key]) {
+                console.log('element: ', element);
+                if(key == 'B.Sc. B.Ed.'){
+                    bscPreferences += `<div class="mb-3 row">
+                                            <label class="col-sm-4 col-form-label">Preference ${bscCount}st</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-select bsc-preference-select" name="bsc_preference_${bscCount}" required></select>
+                                            </div>
+                                        </div>`;
+                    bscCount++;
+                }else if(key == 'B.A. B.Ed.'){
+                    baPreferences += `<div class="mb-3 row">
+                                            <label class="col-sm-4 col-form-label">Preference ${baCount}st</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-select ba-preference-select" name="ba_preference_${baCount}" required></select>
+                                            </div>
+                                        </div>`;
+                    baCount++;
+                }
+            }
+        }
+        
+        $('.bscPreferences').append(bscPreferences);
+        $('.baPreferences').append(baPreferences);
+
+        $('.ba-preference-select').each(function(idx) {
+            let select = $(this);
+            $(this).html(`<option value="" selected>--Select--</option>`);
+            baSubject.forEach(subject => {
+                let isSelected = ba_preferences[idx] === subject ? 'selected' : '';
+                $(this).append(`<option value="${subject}" ${isSelected}>${subject}</option>`);
+            });
+        });
+
+        $('.bsc-preference-select').each(function(idx) {
+            let select = $(this);
+            $(this).html(`<option value="" selected>--Select--</option>`);
+            bscSubject.forEach(subject => {
+                let isSelected = bsc_preferences[idx] === subject ? 'selected' : '';
+                $(this).append(`<option value="${subject}" ${isSelected}>${subject}</option>`);
+            });
+        });
+        
+    }
 </script>

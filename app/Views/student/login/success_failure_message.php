@@ -28,15 +28,6 @@
 		color: #6c757d;
 	}
 
-	.success-btn {
-		background-color: orange;
-		border: none;
-	}
-
-	.success-btn:hover {
-		background-color: darkorange;
-	}
-
 	.login-footer {
 		font-size: 14px;
 		font-weight: 600;
@@ -63,7 +54,7 @@
 				$msg = isset($msg) ? $msg : '';
 			?>
 			<h3><?= $msg ?></h3>
-			<a href="<?php echo base_url('/'); ?>" class="btn success-btn mt-3" style="float: right;">Login</a><br /><br />
+			<a href="<?php echo base_url('/'); ?>" class="btn primary-btn mt-3" style="float: right;">Login</a><br /><br />
 		</div>
 	</div>
 </div>

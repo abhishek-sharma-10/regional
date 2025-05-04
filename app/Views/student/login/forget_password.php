@@ -21,16 +21,6 @@
 		color: #6c757d;
 	}
 
-	.login-sbt-btn {
-		background-color: orange;
-		border: none;
-		/* width: 100%; */
-	}
-
-	.login-sbt-btn:hover {
-		background-color: darkorange;
-	}
-
 	.login-footer {
 		font-size: 14px;
 		font-weight: 600;
@@ -55,7 +45,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-md-12" align="center">
-					<button class="btn login-sbt-btn text-white" type="submit">Submit</button>
+					<button class="btn primary-btn text-white" type="submit">Submit</button>
 					<button class="btn btn-danger" type="button" onclick="onCancelButton();">Cancel</button>
 				</div>
 			</div>

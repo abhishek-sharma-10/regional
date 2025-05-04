@@ -13,6 +13,30 @@
     <script src="<?php echo base_url(); ?>public/assets/js/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="<?php echo base_url(); ?>public/assets/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="<?php echo base_url(); ?>public/assets/js/plugins/toastr/toastr.min.js"></script>
-        
+    
+       <script>
+            const policyModal = new bootstrap.Modal(document.getElementById('policyModal'), {
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            window.addEventListener('load', () => {
+                policyModal.show();
+            });
+
+            // Checkbox & Button Logic
+            const ackCheckbox = document.getElementById('ackCheckbox');
+            const saveBtn = document.getElementById('saveBtn');
+
+            ackCheckbox.addEventListener('change', function() {
+                saveBtn.disabled = !this.checked;
+            });
+
+            saveBtn.addEventListener('click', function() {
+                if (ackCheckbox.checked) {
+                    policyModal.hide();
+                }
+            });
+        </script>
     </body>
 </html>

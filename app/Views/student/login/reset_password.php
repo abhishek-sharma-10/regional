@@ -44,15 +44,6 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 		color: #6c757d;
 	}
 
-	.success-btn {
-		background-color: orange;
-		border: none;
-	}
-
-	.success-btn:hover {
-		background-color: darkorange;
-	}
-
 	.login-footer {
 		font-size: 14px;
 		font-weight: 600;
@@ -88,7 +79,7 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 				</div>
 
 				<div class="form-group text-center">
-					<button class="btn success-btn">Submit</button>
+					<button class="btn primary-btn text-white">Submit</button>
 					<button class="btn btn-danger" type="reset">Cancel</button>
 				</div>
 			</form>
@@ -104,7 +95,7 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 		<hr />
 		<div>
 			<h4>Your password has been successfully changed.</h4>
-			<a href="<?php echo base_url('/'); ?>" class="btn success-btn mt-3" style="float: right;">Login</a><br /><br />
+			<a href="<?php echo base_url('/'); ?>" class="btn primary-btn text-white mt-3" style="float: right;">Login</a><br /><br />
 		</div>
 	</div>
 </div>
@@ -117,7 +108,7 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 		<hr />
 		<div>
 			<h4>Your reset password link is expired. Please request for new password.</h4>
-			<a href="<?php echo base_url('/'); ?>" class="btn success-btn mt-3" style="float: right;">Login</a><br /><br />
+			<a href="<?php echo base_url('/'); ?>" class="btn primary-btn text-white mt-3" style="float: right;">Login</a><br /><br />
 		</div>
 	</div>
 </div>

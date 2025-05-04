@@ -22,14 +22,8 @@
     color: #6c757d;
   }
 
-  .login-sbt-btn {
-    background-color: orange;
-    border: none;
+  .primary-btn {
     width: 100%;
-  }
-
-  .login-sbt-btn:hover {
-    background-color: darkorange;
   }
 
   .login-footer {
@@ -65,7 +59,7 @@
         <?php
         }
         ?>
-        <button type="submit" class="btn login-sbt-btn text-white mt-2">Login</button>
+        <button type="submit" class="btn primary-btn text-white mt-2">Login</button>
       </form>
     </div>
 

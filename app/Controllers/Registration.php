@@ -58,11 +58,63 @@ class Registration extends BaseController
     {
         $registrationModel = new RegistrationModel();
         $request = $this->request->getVar();
-
+        
+        $process = isset($request['registrations-process']) ? $request['registrations-process'] : '';
         $data['pageTitle'] = "Registration";
-        if (isset($request) && empty($request)) {
+        $data['email_container'] = true;
+        $data['otp_container'] = false;
+        $data['register_container'] = false;
+        $data['msg'] = '';
+
+        if($process == "send-email"){
+            $email = $request['email'];
+            $data['email'] = $email;
+            // Generate 6-digit OTP
+            $otp = random_int(100000, 999999); // secure random OTP
+            //var_dump($otp);
+
+            $data['email_container'] = false;
+            $data['otp_container'] = true;
+            
+            // $emailService = \Config\Services::email();
+            
+            // $emailService->setTo($email);
+            // $emailService->setFrom('umar.k@ibirdsservices.com');
+            // $emailService->setSubject('Your OTP Code');
+            // $emailService->setMessage('Your OTP code is: ' . $otp);
+        
+            // if ($emailService->send()) {
+            //     $data['msg'] = 'OTP sent successfully to ' . $email;
+            //     $data['email_container'] = false;
+            //     $data['otp_container'] = true;
+            // } else {
+            //     // Show email sending errors
+            //     $data['email_container'] = true;
+            //     $data['otp_container'] = false;
+            //     $data['msg'] = "Please enter valid email address.";
+            // }
+        
+            // Optionally, you can store the OTP in session to verify later
+            session()->set('otp', $otp);
+
             return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
-        } else {
+        }else if($process == "verify-otp"){
+            $userOtp = $this->request->getVar('otp');
+            $email = $this->request->getVar('email');
+            $sessionOtp = session()->get('otp');
+            $data['email'] = $email;
+            if ($userOtp == $sessionOtp) {
+                $data['msg'] = 'OTP Verified Successfully!';
+                $data['otp_container'] = false;
+                $data['email_container'] = false;
+                $data['register_container'] = true;
+            } else {
+                $data['otp_container'] = true;
+                $data['email_container'] = false;
+                $data['msg'] = 'Invalid OTP. Please enter correct OTP.';
+            }
+            return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
+        }else if($process == "registration") {
             unset($request["submit"]);
             unset($request["confirm_password"]);
             $request["status"] = "Request";
@@ -75,7 +127,7 @@ class Registration extends BaseController
             return redirect()->to('/');
         }
 
-        //return view('Student/registrations/registrations');
+        return redirect()->to('/');
     }
 
     public function academicProfile($id)
@@ -88,6 +140,17 @@ class Registration extends BaseController
             $data['details'] = $registrationModel->getRegistrationDetail($id);
             $data['ncet'] = $ncetScoreModel->getNcetScoreByRegistrationId($id);
 
+            $years = [];
+            $currentYear = (int)date('Y');
+
+            for ($i = 2; $i >= 0; $i--) {
+                $years[] = $currentYear - $i;
+            }
+
+            $data['year_of_passing'] = $years;
+            $data['sectionArray'] = ["Section 1" => 2, "Section 2"=> "3", "Section 3"=> "1", "Section 4"=> 1];
+
+            $data['active'] = "academic";
             if ($data['details']->status == 'Complete' || $data['details']->status == 'Save - Payment Pending') {
                 return redirect()->to('print-academic-details/' . $data['details']->id);
             }
@@ -379,23 +442,25 @@ class Registration extends BaseController
                 if(isset($input['ids'][$i]) && !empty($input['ids'][$i])){
                     $ncet_score_data[$i] = array(
                         "id" => $input['ids'][$i],
-                        "registration_id" => $input['id'],
-                        "codes"  => $input['code'][$i],
-                        "subjects" => $input['subject'][$i],
-                        "total_maximum_marks" => $input['max_marks'][$i],
-                        "total_marks_obtain" => $input['obtain_marks'][$i]
                     );
                 }
+                $ncet_score_data[$i] = array(
+                    "registration_id" => $input['id'],
+                    "codes"  => $input['code'][$i],
+                    "subjects" => $input['subject'][$i],
+                    "total_maximum_marks" => $input['max_marks'][$i],
+                    "total_marks_obtain" => $input['obtain_marks'][$i],
+                    "percentage" => $input['percentage'][$i]
+                );
             }
 
             // var_dump($input);
 
-            if (isset($input['save_as_draft'])) {
-                unset($input['save_as_draft']);
-                $input['status'] = "Save as Draft";
-            } elseif (isset($input['final_save'])) {
+            if (isset($input['final_save'])) {
                 unset($input['final_save']);
                 $input['status'] = "Save - Payment Pending";
+            }else{
+                $input['status'] = "Save as Draft";
             }
 
             unset($input['ids']);
@@ -405,6 +470,7 @@ class Registration extends BaseController
             unset($input['obtain_marks']);
             unset($input['total_max_marks']);
             unset($input['total_obtain_marks']);
+            unset($input['percentage']);
 
             // var_dump($input);
             // exit;
@@ -418,7 +484,7 @@ class Registration extends BaseController
                 $ncetScoreModel->upsertBatch($ncet_score_data);
             }
 
-            return redirect()->to('/dashboard/' . $input['id']);
+            return redirect()->to('/academic/' . $input['id']);
 
             // $data = [];
 
@@ -455,7 +521,8 @@ class Registration extends BaseController
         try {
             $commonModel = new CommonModel();
 
-            $result = $commonModel->getSubjectByCode($code);
+            $section = $this->request->getVar('section');
+            $result = $commonModel->getSubjectByCode($code, $section);
             return ($this->getResponse(['status' => 200, 'result' => $result]));
         } catch (Exception $exception) {
             return $this->getResponse(
@@ -471,11 +538,27 @@ class Registration extends BaseController
         try {
             $registrationModel = new RegistrationModel();
 
+            $request = $this->request->getVar();
+            $details = $registrationModel->getRegistrationDetail($id);
             $data = [];
-            $data['details'] = $registrationModel->getRegistrationDetail($id);
+            // $data['details'] = $registrationModel->getRegistrationDetail($id);
 
-            $data['pageTitle'] = "Student - Dashboard";
+            // var_dump($request, $details);exit;
+            if(empty($request) && $details->acknowledged == 'false'){
+                $data['details'] = $details;
+                $data['pageTitle'] = "Student - Academic";
+                $data['active'] = '';
             return view('student/template/header', $data) . view("student/registrations/dashboard", $data) . view('student/template/footer');
+            }elseif(empty($request) && $details->acknowledged == 'true'){
+                return redirect()->to('academic/', $id);
+            }elseif(!empty($request) && !empty($request['ackCheckbox'])){
+                $request['acknowledged'] = $request['ackCheckbox'] == 'on' ? 'true' : 'false';
+                unset($request['submit']);
+                unset($request['ackCheckbox']);
+                $registrationModel->upsert($request);
+                
+                return redirect()->to('academic/'.$id);
+            }
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],
@@ -493,7 +576,8 @@ class Registration extends BaseController
             $data['details'] = $registrationModel->getRegistrationDetail($id);
 
             $data['pageTitle'] = "Payment";
-            return view('student/template/header', $data) . view('student/registrations/payment', $data) . view('student/template/footer');
+            $data['active'] = "pay-fees";
+            return view('student/template/header', $data) . view('Student/registrations/payment', $data) . view('student/template/footer');
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],
@@ -513,6 +597,7 @@ class Registration extends BaseController
             $data['ncet'] = $ncetScoreModel->getNcetScoreByRegistrationId($id);
 
             $data['pageTitle'] = "Print Academic Details";
+            $data['active'] = "print-academic";
             return view('student/template/header', $data) . view('student/registrations/print_academic_details', $data) . view('student/template/footer');
         } catch (Exception $exception) {
             return $this->getResponse(
@@ -535,7 +620,8 @@ class Registration extends BaseController
             }
 
             $data['pageTitle'] = "Pay - Registration - Fee";
-            return  view('student/template/header', $data) . view('student/registrations/pay_registration_fee', $data) . view('student/template/footer');
+            $data['active'] = "pay-fees";
+            return  view('student/template/header', $data) . view('Student/registrations/pay_registration_fee', $data) . view('student/template/footer');
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],
@@ -605,7 +691,7 @@ class Registration extends BaseController
 
             $registrationModel->upsert($input);
 
-            return redirect()->to('/dashboard/' . $input['id']);
+            return redirect()->to('/payment/' . $input['id']);
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],

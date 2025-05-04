@@ -38,11 +38,37 @@
     body {
       background-color: #f8f9fa;
     }
+
+    .loader-wrapper {
+      background: #d3d3d382;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      display: grid;
+      place-items: center;
+    }
+    .loader {
+      width: 50px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: 
+        radial-gradient(farthest-side,#ffa516 94%,#0000) top/8px 8px no-repeat,
+        conic-gradient(#0000 30%,#ffa516);
+      -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+      animation: spin 1s infinite linear;
+    }
+    @keyframes spin{ 
+      100%{transform: rotate(1turn)}
+    }
   </style>
 </head>
 
 <body>
-
+<div class="loader-wrapper" style="display: none;">
+  <div class="loader"></div>
+</div>
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
@@ -51,19 +77,19 @@
           <img src="<?php echo base_url(); ?>public/assets/img/logo1.png" class="img-fluid logo" />
         </div>
         <div>
-          <h3 class="pt-3 pb-12 blue-color fw-bolder">REGIONAL INSTITUTE OF EDUCATION, AJMER</h3>
-          <h5 class="blue-color pb-2">A Constituent Unit of NCERT, New Delhi <span class="ps-2 orange-color">NAAC Graded A+ Institute</span></h5>
+          <h3 class="pt-2 pb-12 blue-color fw-bolder">REGIONAL INSTITUTE OF EDUCATION, AJMER</h3>
+          <h4 class="blue-color">A Constituent Unit of NCERT, New Delhi</h4>
+          <h5 class="blue-color">NAAC Aggregated A+ Institute</h5>
         </div>
       </div>
       <div class="d-flex justify-content-end topbar-imgs">
         <img src="<?php echo base_url(); ?>public/assets/img/naac-logo.png" class="img-fluid" />
         <img src="<?php echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" />
-        <img src="<?php echo base_url(); ?>public/assets/img/NIC_logo1.jpg" class="img-fluid" />
         
         <?php
           if(array_key_exists('student', $_SESSION) && isset($_SESSION['student'])){
         ?>
-          <a href="<?php echo base_url('dashboard/'.$_SESSION['student'][0]->id) ?>"><button class="btn login-btn mt-4 ms-5">Dashboard</button></a>
+          <a href="<?php echo base_url('dashboard/'.$_SESSION['student'][0]->id) ?>"><button class="btn secondary-btn mt-4 ms-5">Dashboard</button></a>
         <?php
           }else{
         ?>
@@ -71,7 +97,23 @@
         <?php
           }
         ?>
-        <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn login-btn mt-4 ms-5"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
+        <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn secondary-btn mt-4 ms-5"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
       </div>
     </div>
   </section>
+
+  <?php if (isset($_SESSION['student'])): ?>
+  <!-- ======= Header ======= -->
+  <header id="header" class="pt-1 pb-2">
+    <div class="container-fluid d-flex align-items-center justify-content-center">
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto <?php echo $active === 'academic' ? 'active' : ''; ?>" href="<?php echo base_url('academic/'. $details->id);?>">Academic Details</a></li>
+          <li><a class="nav-link scrollto <?php echo $active === 'print-academic' ? 'active' : ''; ?>" href="<?php echo base_url('print-academic-details/'. $details->id);?>">Print Academic Details</a></li>
+          <li><a class="nav-link scrollto <?php echo $active === 'pay-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-registration-fee/'. $details->id);?>">Pay Form Fees</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+    </div>
+  </header><!-- End Header -->
+  <?php endif; ?>

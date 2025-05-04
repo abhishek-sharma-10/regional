@@ -8,8 +8,8 @@ use Exception;
 
 class CommonModel extends Model {
 	
-	function getSubjectByCode($code){
-        $query = "SELECT subject from subjects where code = '".$code."'";
+	function getSubjectByCode($code, $section){
+        $query = "SELECT * from subjects where code = '".$code."' AND section='".$section."'";
         $result = $this->db->query($query);
         
 		if($result->getNumRows() > 0){
