@@ -125,7 +125,7 @@ class Registration extends BaseController
             $output = $registrationModel->save($request);
             var_dump($output);
             return redirect()->to('/');
-        }else if(!isset($request) && empty($request)){
+        }else if(isset($request) && empty($request)){
             return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
         }
 
