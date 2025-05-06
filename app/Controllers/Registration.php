@@ -736,4 +736,11 @@ class Registration extends BaseController
             }
         }
     }
+
+    public function getInstruction(){
+        $data['pageTitle'] = "Registrations";
+        $data['active'] = '';
+        $data['details'] = (object)['id' => 7];
+        return view('student/template/header', $data) . view('student/registrations/instruction', $data) . view('student/template/footer');
+    }
 }
