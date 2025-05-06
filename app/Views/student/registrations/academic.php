@@ -271,7 +271,7 @@
         <hr />
         
         <div class="mt-4 section-title">
-            <p>Details of NCET <?=date('Y');?> Exam</p>
+            <h2>Details of NCET <?=date('Y');?> Exam</h2>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -343,7 +343,7 @@
         <hr />
 
         <div class="mt-4 section-title">
-            <p>Preference for Major Discipline in ITEP Course</p>
+            <h2>Preference for Major Discipline in ITEP Course</h2>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-6">
