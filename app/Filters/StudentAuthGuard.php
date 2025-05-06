@@ -11,7 +11,7 @@ use App\Libraries\AuthLibrary;
 
 use App\Models\LoginModel;
  
-class AuthGuard implements FilterInterface{ 
+class StudentAuthGuard implements FilterInterface{ 
 
     public function before(RequestInterface $request, $arguments = null){
         $key = Services::getSecretKey();
@@ -27,7 +27,7 @@ class AuthGuard implements FilterInterface{
         
         // check if token is null or empty
         if(is_null($token) || empty($token)) {
-            return redirect()->to('/admin/');
+            return redirect()->to('/');
         }// else{
             //     $role = session()->get('role');
             //     if(AuthLibrary::route_access($role)){
@@ -35,8 +35,8 @@ class AuthGuard implements FilterInterface{
             $decoded = JWT::decode($token, new Key($key, 'HS256'));
         }catch (\Firebase\JWT\ExpiredException $ex){ 
             $this->refreshToken();
-        }catch (Exception | UnexpectedValueException $ex) {
-            return redirect()->to('/admin/');
+        }catch (\Exception | \UnexpectedValueException $ex) {
+            return redirect()->to('/');
         }
         //     }
         //     else{
@@ -57,19 +57,19 @@ class AuthGuard implements FilterInterface{
             $response = verifyRefreshToken(session()->get('refresh_token'));
 
             if($response){
-                $result = $loginModel->getUserByUsername($response);
+                $result = $loginModel->getStudentById($response);
                 if($result){
                     $ses_data = [
-                        'admin' => $result,
-                        'access_token' => getSignedJWTForUser($result[0]->username), 
-                        'refresh_token' => getSignedRefreshToken($result[0]->username)
+                        'student' => $result,
+                        'access_token' => getSignedJWTForUser($result[0]->id), 
+                        'refresh_token' => getSignedRefreshToken($result[0]->id)
                     ];
                     session()->set($ses_data);
                     return redirect()->to(current_url());
                 }   
             } 
-        } catch (Exception $ex) {
-            return redirect()->to('/admin/');
+        } catch (\Exception $ex) {
+            return redirect()->to('/');
         }
     }//method
 }

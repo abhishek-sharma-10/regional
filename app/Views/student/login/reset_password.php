@@ -21,7 +21,6 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 		border-radius: 10px;
 		max-width: 400px;
 		margin: 40px auto;
-		color: white;
 	}
 
 	.forget-msg-container {
@@ -29,6 +28,10 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 		border-radius: 10px;
 		max-width: 550px;
 		margin: 40px auto;
+		color: white;
+	}
+	
+	.forget-container label {
 		color: white;
 	}
 

@@ -61,6 +61,7 @@ class Registration extends BaseController
         
         $process = isset($request['registrations-process']) ? $request['registrations-process'] : '';
         $data['pageTitle'] = "Registration";
+
         $data['email_container'] = true;
         $data['otp_container'] = false;
         $data['register_container'] = false;
@@ -68,6 +69,13 @@ class Registration extends BaseController
 
         if($process == "send-email"){
             $email = $request['email'];
+
+            $email_data = $registrationModel->getRegistrationByEmail($email);
+            if(count($email_data) > 0){
+                $data['emailMsg'] = 'This email is already registered with this <br>Application No : <b>'.$email_data[0]->ncet_application_no.'</b>';
+                return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
+            }
+
             $data['email'] = $email;
             // Generate 6-digit OTP
             $otp = random_int(100000, 999999); // secure random OTP
@@ -127,7 +135,6 @@ class Registration extends BaseController
         }else if(isset($request) && empty($request)){
             return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
         }
-
         return redirect()->to('/');
     }
 
@@ -152,7 +159,8 @@ class Registration extends BaseController
             $data['sectionArray'] = ["Section 1" => 2, "Section 2"=> "3", "Section 3"=> "1", "Section 4"=> 1];
 
             $data['active'] = "academic";
-            if ($data['details']->status == 'Complete' || $data['details']->status == 'Save - Payment Pending') {
+
+            if ($data['details']->status == 'Complete') {
                 return redirect()->to('print-academic-details/' . $data['details']->id);
             }
             $data['pageTitle'] = "Student - Academic";
@@ -543,13 +551,13 @@ class Registration extends BaseController
             $details = $registrationModel->getRegistrationDetail($id);
             $data = [];
             // $data['details'] = $registrationModel->getRegistrationDetail($id);
-
+            
             // var_dump($request, $details);exit;
             if(empty($request) && $details->acknowledged == 'false'){
                 $data['details'] = $details;
                 $data['pageTitle'] = "Student - Academic";
                 $data['active'] = '';
-            return view('student/template/header', $data) . view("student/registrations/dashboard", $data) . view('student/template/footer');
+                return view('student/template/header', $data) . view("student/registrations/dashboard", $data) . view('student/template/footer');
             }elseif(empty($request) && $details->acknowledged == 'true'){
                 return redirect()->to('academic/'. $id);
             }elseif(!empty($request) && !empty($request['ackCheckbox'])){
@@ -597,9 +605,25 @@ class Registration extends BaseController
             unset($data['details']->password);
             $data['ncet'] = $ncetScoreModel->getNcetScoreByRegistrationId($id);
 
-            $data['pageTitle'] = "Print Academic Details";
-            $data['active'] = "print-academic";
-            return view('student/template/header', $data) . view('student/registrations/print_academic_details', $data) . view('student/template/footer');
+            if(isset($data['details']) && ($data['details'] === 'Save - Payment Pending' || $data['details'] === 'Complete')){
+                $bscPreferences = [$data['details']->bsc_preference_1, $data['details']->bsc_preference_2, $data['details']->bsc_preference_3, $data['details']->bsc_preference_4];
+                $baPreferences = [$data['details']->ba_preference_1, $data['details']->ba_preference_2, $data['details']->ba_preference_3];
+    
+                $data['preferences'] = [
+                    'B.Sc. B.Ed.' => array_filter($bscPreferences, fn($value) => !is_null($value) && $value !== ''), 
+                    'B.A. B.Ed.' => array_filter($baPreferences, fn($value) => !is_null($value) && $value !== '')
+                ];
+    
+                $data['pageTitle'] = "Print Academic Details";
+                $data['active'] = "print-academic";
+                $data['status'] = "filled";
+                return view('student/template/header', $data) . view('student/registrations/print_academic_details', $data) . view('student/template/footer');
+            }else{
+                $data['pageTitle'] = "Print Academic Details";
+                $data['active'] = "print-academic";
+                $data['status'] = "not-filled";
+                return view('student/template/header', $data) . view('student/registrations/print_academic_details', $data) . view('student/template/footer');
+            }
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],

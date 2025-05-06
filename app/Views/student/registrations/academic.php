@@ -9,7 +9,7 @@
         padding: 20px;
         border-radius: 8px;
         background-color: #fff;
-        margin-bottom: 40px;
+        margin-bottom: 60px;
     }
 
     .section-title {
@@ -59,7 +59,7 @@
 </style>
 
 <!-- PART 1: Applicant Details -->
-<div class="container mt-5 main-container">
+<div class="container mt-4 main-container">
 
     <!-- START | ERROR MESSAGE -->
     <?php if (session()->getFlashdata('err_msg')): ?>
@@ -118,13 +118,13 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">Aadhar No</label>
+                <label class="col-sm-4 col-form-label">Aadhar Number</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" value="<?= $details->aadhar_no ?>" readonly>
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">Stream</label>
+                <label class="col-sm-4 col-form-label">Course</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" value="<?= $details->course ?>" readonly>
                 </div>
@@ -285,11 +285,12 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 offset-sm-1 col-form-label">ITEP Course</label>
                     <div class="col-sm-6">
-                        <select class="form-select" name="itep_courses" required>
+                        <!-- <select class="form-select" name="itep_courses" required> -->
+                        <select class="form-select" required>
                             <option selected disabled>--Select Course--</option>
-                            <option value="ITEP - B.Sc. B.Ed." <?php echo $details->itep_courses === 'ITEP - B.Sc. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.Sc. B.Ed.</option>
-                            <option value="ITEP - B.A. B.Ed." <?php echo $details->itep_courses === 'ITEP - B.A. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.A. B.Ed.</option>
-                            <option value="ITEP - Both" <?php echo $details->itep_courses === 'ITEP - Both' ? 'selected' : ''; ?>>ITEP - Both</option>
+                            <option value="ITEP - B.Sc. B.Ed." <?php echo $details->course === 'ITEP - B.Sc. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.Sc. B.Ed.</option>
+                            <option value="ITEP - B.A. B.Ed." <?php echo $details->course === 'ITEP - B.A. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.A. B.Ed.</option>
+                            <option value="ITEP - Both" <?php echo $details->course === 'ITEP - Both' ? 'selected' : ''; ?>>ITEP - Both</option>
                         </select>
                     </div>
                 </div>
@@ -534,7 +535,9 @@
         <div class="d-flex gap-2 justify-content-center mt-3">
             <button type="submit" class="btn btn-sm btn-outline-success" id="save_draft" value="Save as Draft" name="save_as_draft">Save as Draft</button>
             <button type="submit" class="btn btn-sm primary-btn text-white" id="final_save" name="final_save">Save</button>
-            <button type="button" class="btn btn-sm btn-danger">Cancel</button>
+            <?php if($details->status == 'Request'){?>
+            <button type="button" class="btn btn-sm btn-danger" id="cancel-btn">Cancel</button>
+            <?php } ?>
         </div>
     </form>
 </div>
@@ -777,6 +780,14 @@
                 $('#pwbd').attr('required', true);
             }
             $("#academic-form").submit();  // validate and submit
+        });
+
+        $('#cancel-btn').click(function(){
+            let action = confirm("Are you sure you want to cancel?");
+            console.log('action ', action);
+            if(action){
+                window.location.reload();
+            }
         });
     });
 

@@ -219,6 +219,7 @@ class Login extends BaseController
         session();
         $data = [];
         $data['pageTitle'] = "Student Login";
+        $data['active'] = '';
 
         $loginModel = new LoginModel();
 
@@ -227,7 +228,6 @@ class Login extends BaseController
             if(isset($_REQUEST["email"])){
                 $userDetails = array_intersect_key($_REQUEST, array_flip(array('email', 'password')));
                 $data = $loginModel->getStudentLoginAccess($userDetails);
-                // var_dump($data);
                 if(count($data) > 0){
                     if(date('m') >= 4 && date('m') <=  12){
     				    $a[date('Y').'-'.(date('Y') + 1)] = date('Y').'-'.(date('Y') + 1);
@@ -238,32 +238,11 @@ class Login extends BaseController
 					foreach($a as $key=> $value){
 						$session_data['current_year']=$key;
 					}
-					// $sessionDateArray = $loginModel->getCurrentSessionStartAndEndDate($session_data['current_year']);
-					// $_SESSION['session_start'] = $sessionDateArray[0]->session_start;
-		            // $_SESSION['session_end'] = $sessionDateArray[0]->session_end;
-				                    
-                    // $session_data['session_start'] = $sessionDateArray[0]->session_start;
-                    // $session_data['session_end'] = $sessionDateArray[0]->session_end;
                     $session_data['student'] = $data;
                     //$session_data['OTP'] = rand(10000,99999);
                     
                     session()->set($session_data);
-                    // $_SESSION['paymentInfo'] = array('merchant_id'=>'267501',
-					// 		 'working_key' => '058730286324FED8BA9033DE806B8DBB',
-					// 		 'access_code' =>'AVDB93HG84CF55BDFC');
                     
-                    // $key = Services::getSecretKey();
-                    // $iat = time(); // current timestamp value
-                    // $exp = $iat + 3600;
-            
-                    // $payload = array(
-                    //     "iat" => $iat, //Time the JWT issued at
-                    //     "exp" => $exp, // Expiration time of token
-                    //     "email" => $data[0]->reg_no,
-                    // );
-                    
-                    // $token = JWT::encode($payload, $key, 'HS256');
-
                     $_SESSION['access_token'] = getSignedJWTForUser($data[0]->id);
                     $_SESSION['refresh_token'] = getSignedRefreshToken($data[0]->id);
                     $_SESSION['role'] = 'STUDENT';
@@ -302,14 +281,14 @@ class Login extends BaseController
 
                     // $data['pageTitle'] = "Login";
                     // header('location: '. base_url() .'home');
-                    return redirect()->to('/dashboard/'.$data[0]->id);
+                    return redirect()->to('dashboard/'.$data[0]->id);
                 }else{
                     $data['invalid'] = true;
-                    $data['pageTitle'] = "Login";
+                    $data['pageTitle'] = "Student Login";
                 }
             }else{
                 $data['invalid'] = false;
-                $data['pageTitle'] = "Login";
+                $data['pageTitle'] = "Student Login";
             }
         
             return view('student/template/header',$data). view("student/login/login", $data) . view('student/template/footer');
@@ -388,7 +367,7 @@ class Login extends BaseController
         session();
         session()->destroy();
         // header("location: ".base_url());
-        return redirect()->to('admin/');
+        return redirect()->to('admin/logout');
     }
 
     function student_logout(){

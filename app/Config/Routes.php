@@ -13,29 +13,35 @@ $routes->set404Override(static function () {
 });
 
 $routes->get('/', 'Login::studentLogin');
-$routes->post('/login', 'Login::studentLogin');
-$routes->get('/forget-password', 'Login::stu_forgetPassword');
-$routes->post('/forget-password', 'Login::stu_forgetPassword');
-$routes->get('/success', 'Login::stu_success');
-$routes->get('/failure', 'Login::stu_success');
-$routes->get('/reset-password', 'Login::stu_resetPassword');
-$routes->post('/reset-password', 'Login::stu_resetPassword');
+$routes->post('login', 'Login::studentLogin');
+$routes->get('forget-password', 'Login::stu_forgetPassword');
+$routes->post('forget-password', 'Login::stu_forgetPassword');
+$routes->get('success', 'Login::stu_success');
+$routes->get('failure', 'Login::stu_success');
+$routes->get('reset-password', 'Login::stu_resetPassword');
+$routes->post('reset-password', 'Login::stu_resetPassword');
 
-$routes->get('/registrations', 'Registration::studentRegistration');
-$routes->post('/registrations', 'Registration::studentRegistration');
-$routes->get('/academic', 'Registration::academicProfile');
-$routes->get('/checkApplicationNo/(:num)', 'Registration::checkApplicationNo/$1');
-$routes->get('/academic/(:num)', 'Registration::academicProfile/$1');
-$routes->post('/update-academic-profile', 'Registration::updateAcademicProfile');
-$routes->get('/fetch-subject/(:num)', 'Registration::fetchSubjects/$1');
-$routes->get('/logout', 'Login::student_logout');
+$routes->get('registrations', 'Registration::studentRegistration');
+$routes->post('registrations', 'Registration::studentRegistration');
+$routes->get('checkApplicationNo/(:num)', 'Registration::checkApplicationNo/$1');
+$routes->get('instructions', 'Registration::getInstruction');
 
-$routes->get('/dashboard/(:num)', 'Registration::studentDashboard/$1');
-$routes->post('/dashboard/(:num)', 'Registration::studentDashboard/$1');
-$routes->get('/payment/(:num)', 'Registration::paymentInfo/$1');
-$routes->get('/print-academic-details/(:num)','Registration::printAcademicDetails/$1');
-$routes->get('/pay-registration-fee/(:num)','Registration::payRegistrationFee/$1');
-$routes->post('/pay-registration-fee','Registration::paymentRegistrationFee');
+$routes->group('/', ['filter' => 'studentAuthGuard'], static function ($routes) {
+    $routes->get('dashboard/(:num)', 'Registration::studentDashboard/$1');
+    $routes->post('dashboard/(:num)', 'Registration::studentDashboard/$1');
+    
+    $routes->get('academic', 'Registration::academicProfile');
+    $routes->get('academic/(:num)', 'Registration::academicProfile/$1');
+    $routes->post('update-academic-profile', 'Registration::updateAcademicProfile');
+    $routes->get('fetch-subject/(:num)', 'Registration::fetchSubjects/$1');
+    
+    $routes->get('payment/(:num)', 'Registration::paymentInfo/$1');
+    $routes->get('print-academic-details/(:num)','Registration::printAcademicDetails/$1');
+    $routes->get('pay-registration-fee/(:num)','Registration::payRegistrationFee/$1');
+    $routes->post('pay-registration-fee','Registration::paymentRegistrationFee');
+    
+    $routes->get('logout', 'Login::student_logout');
+});
 
 $routes->get('admin/', 'Login::index');
 $routes->post('admin/login', 'Login::index');

@@ -8,12 +8,16 @@
 		padding: 15px;
 	}
 
-	.login-container {
+	.fp-container {
 		background-color: #2a437a;
 		padding: 30px;
 		border-radius: 10px;
 		max-width: 400px;
 		margin: 50px auto;
+		color: white;
+	}
+
+	.fp-container label{
 		color: white;
 	}
 
@@ -37,7 +41,7 @@
 </style>
 
 <div class="container main-div">
-	<div class="login-container text-center">
+	<div class="fp-container text-center">
 		<form name="forget_form" id="forget_form" enctype="multipart/form-data" method="post" class="form-horizontal" action="<?php echo base_url(); ?>forget-password">
 			<div class="mb-3 text-start">
 				<label class="form-label">Enter Registration Email</label>

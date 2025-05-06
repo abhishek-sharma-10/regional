@@ -1,4 +1,3 @@
-
 <style>
   .main-div {
     width: 50%;
@@ -15,6 +14,9 @@
     border-radius: 10px;
     max-width: 400px;
     margin: 40px auto;
+  }
+  
+  .login-container label{
     color: white;
   }
 

@@ -151,6 +151,15 @@ class LoginModel extends Model {
         	return array();
     }
 
+    function getStudentById($id){
+        $result = $this->db->query("SELECT id, name, email FROM registrations where id='$id'");
+
+        if($result->getNumRows() > 0)
+        	return $result->getResult();
+        else
+        	return array();
+    }
+
     function getSecuirtyToken($userid = NULL, $publicKey = null){
         return $this->encryptDecrypt("encrypt",$userid, $publicKey); 
     }

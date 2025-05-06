@@ -81,4 +81,14 @@ class RegistrationModel extends Model {
         }
         return [];
     }
+
+    function getRegistrationByEmail($email){
+        $query = $this->db->query("SELECT id,ncet_application_no, email FROM registrations where email='$email'");
+    
+        if($query->getNumRows() > 0){
+            return $query->getResult();
+        }
+        return [];
+    }
+    
 }

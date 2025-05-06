@@ -71,6 +71,15 @@ if ($email_container) {
         <?php
         }
         ?>
+        <?php
+        if (isset($emailMsg) && !empty($emailMsg)) {
+        ?>
+          <div class="alert alert-warning" role="alert">
+            <span><?php echo $emailMsg; ?></span>
+          </div>
+        <?php
+        }
+        ?>
       </form>
     </div>
   </div>
@@ -135,7 +144,7 @@ if ($register_container) {
             <input type="text" class="form-control" value="<?php echo $email; ?>" name="email" id="email" readonly>
           </div>
           <div class="col-md-6 mb-3">
-            <b><label class="form-label">NCET <?= date('Y'); ?> Application No <span class="required-icon">*</span></label></b>
+            <b><label class="form-label">NCET <?= date('Y'); ?> Application Number <span class="required-icon">*</span></label></b>
             <input type="hidden" class="form-control" name="registrations-process" value="registration">
             <input type="text" class="form-control" placeholder="Enter Your Application Number" name="ncet_application_no" id="ncet_application_no" required>
           </div>
@@ -143,8 +152,8 @@ if ($register_container) {
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <b><label class="form-label">Name <span class="required-icon">*</span></label></b>
-            <input type="text" class="form-control" placeholder="Full Name" name="name" required>
+            <b><label class="form-label">Candidate Name <span class="required-icon">*</span></label></b>
+            <input type="text" class="form-control" placeholder="Candidate Name" name="name" required>
           </div>
 
           <div class="col-md-6 mb-3">
@@ -174,7 +183,7 @@ if ($register_container) {
           </div>
 
           <div class="col-md-6 mb-3">
-            <b><label class="form-label">Aadhar No. <span class="required-icon">*</span></label></b>
+            <b><label class="form-label">Aadhar Number <span class="required-icon">*</span></label></b>
             <input type="text" class="form-control" placeholder="12-digit Aadhar Number" name="aadhar_no" required>
           </div>
         </div>
@@ -199,12 +208,49 @@ if ($register_container) {
         <div class="row">
           <div class="col-md-6 mb-3">
             <b><label class="form-label">State <span class="required-icon">*</span></label></b>
-            <input type="text" class="form-control" name="state" required>
+            <select class="form-select" name="state" required>
+              <option selected disabled>Select State</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+              <option value="Assam">Assam</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Chhattisgarh">Chhattisgarh</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+              <option value="Goa">Goa</option>
+              <option value="Jharkhand">Jharkhand</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Manipur">Manipur</option>
+              <option value="Meghalaya">Meghalaya</option>
+              <option value="Mizoram">Mizoram</option>
+              <option value="Nagaland">Nagaland</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Sikkim">Sikkim</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Tripura">Tripura</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+              <option value="Chandigarh">Chandigarh</option>
+              <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+              <option value="Daman and Diu">Daman and Diu</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Lakshadweep">Lakshadweep</option>
+              <option value="Puducherry">Puducherry</option>
+            </select>
           </div>
-          
           <div class="col-md-6 mb-3">
-            <b><label class="form-label">Mobile No. <span class="required-icon">*</span></label></b>
-            <input type="tel" class="form-control" placeholder="10-digit Mobile Number" name="phone" required>
+            <b><label class="form-label">Postal Code <span class="required-icon">*</span></label></b>
+            <input type="text" class="form-control" placeholder="Enter Postal Code" name="postal_code" required>
           </div>          
         </div>
         <div class="row">
@@ -230,20 +276,19 @@ if ($register_container) {
           </div>
         </div>
         <div class="row">
-          <!-- <div class="col-md-6 mb-3">
-            <b><label class="form-label">Email <span class="required-icon">*</span></label></b>
-            <input type="email" class="form-control" placeholder="name@example.com" name="email" required>
-          </div> -->
-
           <div class="col-md-6 mb-3">
             <b><label class="form-label">Course <span class="required-icon">*</span></label></b>
             <select class="form-select" name="course" required>
               <option selected disabled>Select Course</option>
-              <option value="ITEP - B.Sc. B.Ed">ITEP - B.Sc. B.Ed.</option>
-              <option value="ITEP - B.A. B.Ed">ITEP - B.A. B.Ed.</option>
+              <option value="ITEP - B.Sc. B.Ed.">ITEP - B.Sc. B.Ed.</option>
+              <option value="ITEP - B.A. B.Ed.">ITEP - B.A. B.Ed.</option>
               <option value="ITEP - Both">ITEP - Both</option>
             </select>
           </div>
+          <div class="col-md-6 mb-3">
+              <b><label class="form-label">Mobile Number. <span class="required-icon">*</span></label></b>
+              <input type="tel" class="form-control" placeholder="10-digit Mobile Number" name="phone" required>
+          </div> 
         </div>
 
         <div class="row">
