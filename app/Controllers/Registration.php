@@ -586,7 +586,7 @@ class Registration extends BaseController
 
             $data['pageTitle'] = "Payment";
             $data['active'] = "pay-fees";
-            return view('student/template/header', $data) . view('Student/registrations/payment', $data) . view('student/template/footer');
+            return view('student/template/header', $data) . view('student/registrations/payment', $data) . view('student/template/footer');
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],
@@ -646,7 +646,7 @@ class Registration extends BaseController
 
             $data['pageTitle'] = "Pay - Registration - Fee";
             $data['active'] = "pay-fees";
-            return  view('student/template/header', $data) . view('Student/registrations/pay_registration_fee', $data) . view('student/template/footer');
+            return  view('student/template/header', $data) . view('student/registrations/pay_registration_fee', $data) . view('student/template/footer');
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],
