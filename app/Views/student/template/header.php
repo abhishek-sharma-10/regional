@@ -92,18 +92,21 @@
     </div>
   </section>
 
-  <?php if (isset($_SESSION['student'])): ?>
   <!-- ======= Header ======= -->
+  <?php if (isset($_SESSION['student'])){
+    $id = $_SESSION['student'][0]->id;
+  ?>
   <header id="header" class="pt-1 pb-2">
     <div class="container-fluid d-flex align-items-center justify-content-center">
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto <?php echo $active === 'academic' ? 'active' : ''; ?>" href="<?php echo base_url('academic/'. $details->id);?>">Academic Details</a></li>
-          <li><a class="nav-link scrollto <?php echo $active === 'print-academic' ? 'active' : ''; ?>" href="<?php echo base_url('print-academic-details/'. $details->id);?>">Print Academic Details</a></li>
-          <li><a class="nav-link scrollto <?php echo $active === 'pay-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-registration-fee/'. $details->id);?>">Pay Form Fees</a></li>
+          <li><a class="nav-link scrollto <?php echo $active === 'academic' ? 'active' : ''; ?>" href="<?php echo base_url('academic/'. $id);?>">Academic Details</a></li>
+          <li><a class="nav-link scrollto <?php echo $active === 'print-academic' ? 'active' : ''; ?>" href="<?php echo base_url('print-academic-details/'. $id);?>">Print Academic Details</a></li>
+          <li><a class="nav-link scrollto <?php echo $active === 'pay-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-registration-fee/'. $id);?>">Pay Form Fees</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
     </div>
-  </header><!-- End Header -->
-  <?php endif; ?>
+  </header>
+  <?php } ?>
+  <!-- End Header -->

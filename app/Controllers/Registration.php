@@ -72,7 +72,7 @@ class Registration extends BaseController
 
             $email_data = $registrationModel->getRegistrationByEmail($email);
             if(count($email_data) > 0){
-                $data['emailMsg'] = 'This email is already registered with this <br>Application No : <b>'.$email_data[0]->ncet_application_no.'</b>';
+                $data['msg'] = ['box'=> 'warning', 'msg' => 'This email is already registered.<br>Application No : <b>'.$email_data[0]->ncet_application_no.'</b>'];
                 return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
             }
 
@@ -92,14 +92,14 @@ class Registration extends BaseController
             $emailService->setMessage('Your OTP code is: ' . $otp);
         
             if ($emailService->send()) {
-                $data['msg'] = 'OTP sent successfully to ' . $email;
+                $data['msg'] = ['box'=> 'success', 'msg' => 'OTP sent successfully to ' . $email];
                 $data['email_container'] = false;
                 $data['otp_container'] = true;
             } else {
                 // Show email sending errors
                 $data['email_container'] = true;
                 $data['otp_container'] = false;
-                $data['msg'] = "Please enter valid email address.";
+                $data['msg'] = ['box'=> 'danger', 'msg' => "Please enter valid email address."];
             }
         
             session()->set('otp', $otp);
@@ -111,14 +111,14 @@ class Registration extends BaseController
             $sessionOtp = session()->get('otp');
             $data['email'] = $email;
             if ($userOtp == $sessionOtp) {
-                $data['msg'] = 'OTP Verified Successfully!';
+                $data['msg'] = ['box'=> 'success', 'msg' => 'OTP Verified Successfully!'];
                 $data['otp_container'] = false;
                 $data['email_container'] = false;
                 $data['register_container'] = true;
             } else {
                 $data['otp_container'] = true;
                 $data['email_container'] = false;
-                $data['msg'] = 'Invalid OTP. Please enter correct OTP.';
+                $data['msg'] = ['box'=> 'danger', 'msg' => 'Invalid OTP. Please enter correct OTP.'];
             }
             return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
         }else if($process == "registration") {

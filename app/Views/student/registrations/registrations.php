@@ -65,20 +65,20 @@ if ($email_container) {
         <?php
         if (isset($msg) && !empty($msg)) {
         ?>
-          <div class="alert alert-danger" role="alert">
-            <span><?php echo $msg; ?></span>
+          <div class="alert alert-<?=$msg['box'];?>" role="alert">
+            <span><?php echo $msg['msg']; ?></span>
           </div>
         <?php
         }
         ?>
         <?php
-        if (isset($emailMsg) && !empty($emailMsg)) {
+        //if (isset($emailMsg) && !empty($emailMsg)) {
         ?>
-          <div class="alert alert-warning" role="alert">
+          <!-- <div class="alert alert-warning" role="alert">
             <span><?php echo $emailMsg; ?></span>
-          </div>
+          </div> -->
         <?php
-        }
+        //}
         ?>
       </form>
     </div>
@@ -110,8 +110,8 @@ if ($otp_container) {
         <?php
         if (isset($msg) && !empty($msg)) {
         ?>
-          <div class="alert alert-danger" role="alert">
-            <span><?php echo $msg; ?></span>
+          <div class="alert alert-<?=$msg['box'];?>" role="alert">
+            <span><?php echo $msg['msg']; ?></span>
           </div>
         <?php
         }
@@ -132,8 +132,8 @@ if ($register_container) {
         <?php
         if (isset($msg) && !empty($msg)) {
         ?>
-          <div class="alert alert-success" role="alert">
-            <span><?php echo $msg; ?></span>
+          <div class="alert alert-<?=$msg['box'];?>" role="alert">
+            <span><?php echo $msg['msg']; ?></span>
           </div>
         <?php
         }
@@ -249,8 +249,8 @@ if ($register_container) {
             </select>
           </div>
           <div class="col-md-6 mb-3">
-            <b><label class="form-label">Postal Code <span class="required-icon">*</span></label></b>
-            <input type="text" class="form-control" placeholder="Enter Postal Code" name="postal_code" required>
+            <b><label class="form-label">Pincode <span class="required-icon">*</span></label></b>
+            <input type="text" class="form-control" placeholder="Enter Pincode" name="pincode" required>
           </div>          
         </div>
         <div class="row">
@@ -397,6 +397,12 @@ if ($register_container) {
       confirm_password: {
         required: true,
         equalTo: "#password"
+      },
+      pincode: {
+        required: true,
+        minlength: 6,
+        maxlength: 6,
+        number: true,
       }
     };
 
@@ -411,6 +417,12 @@ if ($register_container) {
       aadhar_no: {
         minlength: "Aadhar No. should be of 12 Digits only.",
         maxlength: "Aadhar No. should be of 12 Digits only."
+      },
+      pincode: {
+        required: "Pincode is required.",
+        minlength: "Pincode must be exactly 6 digits.",
+        maxlength: "Pincode must be exactly 6 digits.",
+        number: "Pincode must contain only numbers.",
       }
     }
 

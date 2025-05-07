@@ -138,7 +138,7 @@
         <input type="hidden" name="id" value="<?php echo $details->id; ?>" />
         
         <div class="mt-4 section-title">
-            <h2>Academic Details</h2>
+            <h2>Academic Qualifications</h2>
         </div>
         <!-- 10th -->
         <div class="row flex-column align-content-center">
@@ -183,13 +183,13 @@
                             <tr>
                                 <th>Maximum Marks</th>
                                 <th>Obtained Marks</th>
-                                <th>Percent(%)</th>
+                                <th>Percentage(%)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="number" class="form-control max-marks" id="max-marks-10" name="max_marks_10th" value="<?php echo !empty($details->max_marks_10th) ? $details->max_marks_10th : ''; ?>" placeholder="Max" oninput="calculatePercent('#max-marks-10', '#obtained-marks-10', '#percentage-10')" required></td>
-                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks-10" name="obtain_marks_10th" value="<?php echo !empty($details->obtain_marks_10th) ? $details->obtain_marks_10th : ''; ?>" placeholder="Obtained" oninput="calculatePercent('#max-marks-10', '#obtained-marks-10', '#percentage-10')" required></td>
+                                <td><input type="number" class="form-control max-marks" id="max-marks-10" name="max_marks_10th" value="<?php echo !empty($details->max_marks_10th) ? $details->max_marks_10th : ''; ?>" placeholder="Maximum Marks" oninput="calculatePercent('#max-marks-10', '#obtained-marks-10', '#percentage-10')" required></td>
+                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks-10" name="obtain_marks_10th" value="<?php echo !empty($details->obtain_marks_10th) ? $details->obtain_marks_10th : ''; ?>" placeholder="Obtained Marks" oninput="calculatePercent('#max-marks-10', '#obtained-marks-10', '#percentage-10')" required></td>
                                 <td class="d-flex"><input type="text" class="form-control percent" id="percentage-10" name="percentage_10th" value="<?php echo !empty($details->percentage_10th) ? $details->percentage_10th : ''; ?>" placeholder="%" readonly></td>
                             </tr>
                         </tbody>
@@ -254,13 +254,13 @@
                             <tr>
                                 <th>Maximum Marks</th>
                                 <th>Obtained Marks</th>
-                                <th>Percent(%)</th>
+                                <th>Percentage(%)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="number" class="form-control max-marks" id="max-marks-12" name="max_marks_12th" value="<?php echo !empty($details->max_marks_12th) ? $details->max_marks_12th : ''; ?>" placeholder="Max" oninput="calculatePercent('#max-marks-12', '#obtained-marks-12', '#percentage-12')" required></td>
-                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks-12" name="obtain_marks_12th" value="<?php echo !empty($details->obtain_marks_12th) ? $details->obtain_marks_12th : ''; ?>" placeholder="Obtained" oninput="calculatePercent('#max-marks-12', '#obtained-marks-12', '#percentage-12')" required></td>
+                                <td><input type="number" class="form-control max-marks" id="max-marks-12" name="max_marks_12th" value="<?php echo !empty($details->max_marks_12th) ? $details->max_marks_12th : ''; ?>" placeholder="Maximum Marks" oninput="calculatePercent('#max-marks-12', '#obtained-marks-12', '#percentage-12')" required></td>
+                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks-12" name="obtain_marks_12th" value="<?php echo !empty($details->obtain_marks_12th) ? $details->obtain_marks_12th : ''; ?>" placeholder="Obtained Marks" oninput="calculatePercent('#max-marks-12', '#obtained-marks-12', '#percentage-12')" required></td>
                                 <td class="d-flex"><input type="text" class="form-control percent" id="percentage-12" name="percentage_12th" value="<?php echo !empty($details->percentage_12th) ? $details->percentage_12th : ''; ?>" placeholder="%" readonly></td>
                             </tr>
                         </tbody>
@@ -276,7 +276,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="mb-3 row">
-                    <label class="col-sm-4 offset-sm-1 col-form-label">NCET <?=date('Y');?> Roll No</label>
+                    <label class="col-sm-4 offset-sm-1 col-form-label">NCET <?=date('Y');?> Application Number</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" value="<?php echo !empty($details->ncet_application_no) ? $details->ncet_application_no : ''; ?>" name="ncet_roll_no" readonly required>
                     </div>
@@ -354,7 +354,7 @@
                             <option selected disabled>--Select Course--</option>
                             <option value="ITEP - B.Sc. B.Ed." <?php echo $details->itep_courses === 'ITEP - B.Sc. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.Sc. B.Ed.</option>
                             <option value="ITEP - B.A. B.Ed." <?php echo $details->itep_courses === 'ITEP - B.A. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.A. B.Ed.</option>
-                            <option value="ITEP - Both" <?php echo $details->itep_courses === 'ITEP - Both' ? 'selected' : ''; ?>>ITEP - Both</option>
+                            <!-- <option value="ITEP - Both" <?php //echo $details->itep_courses === 'ITEP - Both' ? 'selected' : ''; ?>>ITEP - Both</option> -->
                         </select>
                     </div>
                 </div>
