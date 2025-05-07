@@ -61,17 +61,16 @@ if (isset($registrations)) {
       ],
       rowCallback: function(row, data) {
         // console.log(data);
-
         if (data.status === 'Complete') {
-          $(row).css('background-color', '#90EE90');
-        }
-        // } else if (data.status === 'Request') {
+          $(row).css('background-color', '#d1e7dd');
+        } 
+        // else if (data.status === 'Request') {
         //   $(row).css('background-color', '#FF8080');
-         //} 
-         else if (data.status === 'Save - Payment Pending') {
-          $(row).css('background-color', '#FFFFE0');
+        // } 
+        else if (data.status === 'Save - Payment Pending') {
+          $(row).css('background-color', '#fff3cd');
         } else if (data.status === 'Save as Draft') {
-          $(row).css('background-color', '#FF8080');
+          $(row).css('background-color', '#f8d7da');
         }
       }
     });
