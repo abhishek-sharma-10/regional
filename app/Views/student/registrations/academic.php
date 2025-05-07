@@ -416,7 +416,7 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->photo) && !empty($details->photo) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewPhoto">
+                            <img src="<?= isset($details->photo) && !empty($details->photo) ? base_url('public/'.$details->photo) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewPhoto">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="photo" name="photo" style="width: auto;" onchange="previewImage(event, 'previewPhoto')" accept=".jpg,.jpeg,.png" required>
@@ -433,7 +433,7 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->signature) && !empty($details->signature) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewSignature">
+                            <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url('public/'.$details->signature) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewSignature">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="signature" name="signature" style="width: auto;" onchange="previewImage(event, 'previewSignature')" accept=".jpg,.jpeg,.png" required>
@@ -455,7 +455,7 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->certificate_10) && !empty($details->certificate_10) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_10">
+                            <img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url('public/'.$details->certificate_10) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_10">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="certificate_10" name="certificate_10" style="width: auto;" onchange="previewImage(event, 'previewCertificate_10')" accept=".jpg,.jpeg,.png" required>
@@ -472,7 +472,7 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->certificate_12) && !empty($details->certificate_12) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_12">
+                            <img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url('public/'.$details->certificate_12) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_12">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="certificate_12" name="certificate_12" style="width: auto;" onchange="previewImage(event, 'previewCertificate_12')" accept=".jpg,.jpeg,.png" required>
@@ -489,7 +489,7 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_ncet_score">
+                            <img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url('public/'.$details->ncet_score_card) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_ncet_score">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="ncet_score_card" name="ncet_score_card" style="width: auto;" onchange="previewImage(event, 'preview_ncet_score')" accept=".jpg,.jpeg,.png" required>
@@ -506,7 +506,7 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->caste_certificate) && !empty($details->caste_certificate) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url($details->caste_certificate) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_caste_certificate">
+                            <img src="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url('public/'.$details->caste_certificate) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_caste_certificate">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="caste_certificate" name="caste_certificate" style="width: auto;" onchange="previewImage(event, 'preview_caste_certificate')" accept=".jpg,.jpeg,.png" required>
@@ -523,7 +523,7 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->pwbd) && !empty($details->pwbd) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_pwbd">
+                            <img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url('public/'.$details->pwbd) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_pwbd">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="pwbd" name="pwbd" style="width: auto;" onchange="previewImage(event, 'preview_pwbd')"  accept=".jpg,.jpeg,.png" required>
