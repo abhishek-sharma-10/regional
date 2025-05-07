@@ -55,7 +55,7 @@ class RegistrationModel extends Model {
     public $errorMsg;
 
 	function getRegistrations(){
-        $query = $this->db->query("SELECT id, ncet_application_no, name, father_name, email, phone FROM registrations");
+        $query = $this->db->query("SELECT id, ncet_application_no, name, father_name, email, phone, status FROM registrations");
     
         if($query->getNumRows() > 0){
             return $query->getResult();
