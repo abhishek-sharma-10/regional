@@ -75,7 +75,7 @@ if ($email_container) {
         //if (isset($emailMsg) && !empty($emailMsg)) {
         ?>
           <!-- <div class="alert alert-warning" role="alert">
-            <span><?php echo $emailMsg; ?></span>
+            <span><?php //echo $emailMsg; ?></span>
           </div> -->
         <?php
         //}
