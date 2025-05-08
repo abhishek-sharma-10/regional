@@ -900,7 +900,7 @@
             if(element.value !== '0')
                 alert("Each subject Code must be unique!");
 
-            $(`#code${row}`).val('');
+            // $(`#code${row}`).val('');
         } else {
             $('#code' + row).removeClass("error");
             if (code != '') {
@@ -923,7 +923,7 @@
                             let idx = codes.indexOf(code);
                             if (idx > -1) {
                                 codes.splice(idx, 1);
-                                $(`#code${row}`).val('');
+                                // $(`#code${row}`).val('');
                             }
                             toastr.warning('Please enter correct subject code.');
                         } else {
