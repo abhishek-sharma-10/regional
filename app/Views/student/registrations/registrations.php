@@ -424,7 +424,7 @@ if ($register_container) {
         maxlength: "Pincode must be exactly 6 digits.",
         number: "Pincode must contain only numbers.",
       }
-    }
+    };
 
     $("#registration-form").validate({
       rules,

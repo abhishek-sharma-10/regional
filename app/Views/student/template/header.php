@@ -104,7 +104,7 @@
           <li><a class="nav-link scrollto <?php echo $active === 'print-academic' ? 'active' : ''; ?>" href="<?php echo base_url('print-academic-details/'. $id);?>">Print Academic Details</a></li>
           <li><a class="nav-link scrollto <?php echo $active === 'pay-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-registration-fee/'. $id);?>">Pay Form Fees</a></li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+        <!-- <i class="bi bi-list mobile-nav-toggle"></i> -->
       </nav><!-- .navbar -->
     </div>
   </header>

@@ -229,15 +229,15 @@ class Login extends BaseController
                 $userDetails = array_intersect_key($_REQUEST, array_flip(array('email', 'password')));
                 $data = $loginModel->getStudentLoginAccess($userDetails);
                 if(count($data) > 0){
-                    if(date('m') >= 4 && date('m') <=  12){
-    				    $a[date('Y').'-'.(date('Y') + 1)] = date('Y').'-'.(date('Y') + 1);
-    				}else if(date('m') >= 1 && date('m') <= 3){
-    					$a[(date('Y')-1).'-'.((date('Y') + 1)-1)] = (date('Y')-1).'-'.((date('Y') + 1)-1);
-    				}
+                    // if(date('m') >= 4 && date('m') <=  12){
+    				//     $a[date('Y').'-'.(date('Y') + 1)] = date('Y').'-'.(date('Y') + 1);
+    				// }else if(date('m') >= 1 && date('m') <= 3){
+    				// 	$a[(date('Y')-1).'-'.((date('Y') + 1)-1)] = (date('Y')-1).'-'.((date('Y') + 1)-1);
+    				// }
 					
-					foreach($a as $key=> $value){
-						$session_data['current_year']=$key;
-					}
+					// foreach($a as $key=> $value){
+					// 	$session_data['current_year']=$key;
+					// }
                     $session_data['student'] = $data;
                     //$session_data['OTP'] = rand(10000,99999);
                     

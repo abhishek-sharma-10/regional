@@ -199,7 +199,7 @@ class Registration extends BaseController
                         'rules' => [
                             'uploaded[photo]',
                             'mime_in[photo,image/pdfimage/jpg,image/jpeg,image/png]',
-                            'max_size[photo, 3072]'
+                            'max_size[photo, 200]'
                         ],
                     ],
                 ];
@@ -221,7 +221,7 @@ class Registration extends BaseController
                         'rules' => [
                             'uploaded[signature]',
                             'mime_in[signature,image/pdfimage/jpg,image/jpeg,image/png]',
-                            'max_size[signature, 3072]'
+                            'max_size[signature, 200]'
                         ],
                     ],
                 ];
@@ -448,11 +448,7 @@ class Registration extends BaseController
             $ncet_score_data = [];
 
             for ($i = 0; $i < count($input['code']); $i++) {
-                if(isset($input['ids'][$i]) && !empty($input['ids'][$i])){
-                    $ncet_score_data[$i] = array(
-                        "id" => $input['ids'][$i],
-                    );
-                }
+                // var_dump($ncet_score_data);
                 $ncet_score_data[$i] = array(
                     "registration_id" => $input['id'],
                     "codes"  => $input['code'][$i],
@@ -461,6 +457,11 @@ class Registration extends BaseController
                     "total_marks_obtain" => $input['obtain_marks'][$i],
                     "percentage" => $input['percentage'][$i]
                 );
+
+                if(isset($input['ids'][$i]) && !empty($input['ids'][$i])){
+                    $ncet_score_data[$i]['id'] = $input['ids'][$i];
+                }
+                // var_dump($ncet_score_data);
             }
 
             // var_dump($input);

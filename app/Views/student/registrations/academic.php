@@ -159,7 +159,7 @@
                 <div class="mb-3 row" id="board-10-any-other">
                     <label class="col-sm-4 col-form-label">Other Board Name</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="board_10th_other" value="<?php $details->board_10th_other; ?>" <?php isset($details->board_10th_other) && !empty($details->board_10th_other) ? "style='display:block';": "style='display:none';"?>/>
+                        <input type="text" class="form-control" name="board_10th_other" value="<?php echo $details->board_10th_other; ?>" <?php isset($details->board_10th_other) && !empty($details->board_10th_other) ? "style='display:block';": "style='display:none';"?>/>
                     </div>
                 </div>
 
@@ -230,7 +230,7 @@
                 <div class="mb-3 row" id="board-12-any-other">
                     <label class="col-sm-4 col-form-label">Other Board Name</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="board-12-any-other" name="board_12th_other"  value="<?php $details->board_12th_other; ?>" <?php isset($details->board_12th_other) && !empty($details->board_12th_other) ? "style='display:block';": "style='display:none';"?>/>
+                        <input type="text" class="form-control" id="board-12-any-other" name="board_12th_other"  value="<?php echo $details->board_12th_other; ?>" <?php isset($details->board_12th_other) && !empty($details->board_12th_other) ? "style='display:block';": "style='display:none';"?>/>
                     </div>
                 </div>
 
@@ -410,7 +410,7 @@
                     <div class="row">
                         <h4 class="mb-4">Photo</h4>
                         <div class="col-md-8">
-                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-1"><strong>Max Size:</strong> 200KB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
                         </div>
                         <div class="col-md-4 text-end">
@@ -427,7 +427,7 @@
                     <div class="row">
                         <h4 class="mb-4">Signature</h4>
                         <div class="col-md-8">
-                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-1"><strong>Max Size:</strong> 200KB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
                         </div>
                         <div class="col-md-4 text-end">
@@ -449,7 +449,7 @@
                     <div class="row">
                         <h4 class="mb-4">10th Marksheet</h4>
                         <div class="col-md-8">
-                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
                         </div>
                         <div class="col-md-4 text-end">
@@ -466,7 +466,7 @@
                     <div class="row">
                         <h4 class="mb-4">12th Marksheet</h4>
                         <div class="col-md-8">
-                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
                         </div>
                         <div class="col-md-4 text-end">
@@ -483,7 +483,7 @@
                     <div class="row">
                         <h4 class="mb-4">NCET Score Card</h4>
                         <div class="col-md-8">
-                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
                         </div>
                         <div class="col-md-4 text-end">
@@ -500,7 +500,7 @@
                     <div class="row">
                         <h4 class="mb-4">Caste Certificate</h4>
                         <div class="col-md-8">
-                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
                         </div>
                         <div class="col-md-4 text-end">
@@ -517,7 +517,7 @@
                     <div class="row">
                         <h4 class="mb-4">PwBD</h4>
                         <div class="col-md-8">
-                            <p class="mb-1"><strong>Max Size:</strong> 3MB</p>
+                            <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
                         </div>
                         <div class="col-md-4 text-end">
@@ -623,6 +623,7 @@
         $('.obtain_marks').trigger('blur');
         $('.max_marks').trigger('blur');
         $('.codes').trigger('blur');
+        $('#board_10th, #board_12th').trigger('change');
         
         $(`#board-10-any-other`).hide();
         $(`#board-12-any-other`).hide();
@@ -722,7 +723,7 @@
                     extension: "Please upload a file with a valid extension (jpg, jpeg, png)."
                 }
             }
-        } else if (status === "Save as Draft") {
+        } else {//if (status === "Save as Draft") {
             for (key in attachment) {
                 if (attachment[key] != '') {
                     $(`input[name=${key}]`).attr('required', false);
@@ -896,8 +897,10 @@
         if (duplicate) {
             e.preventDefault();
             $('#code' + row).addClass("error");
-            alert("Each subject Code must be unique!");
-            $(element).val('');
+            if(element.value !== '0')
+                alert("Each subject Code must be unique!");
+
+            $(`#code${row}`).val('');
         } else {
             $('#code' + row).removeClass("error");
             if (code != '') {
@@ -920,7 +923,7 @@
                             let idx = codes.indexOf(code);
                             if (idx > -1) {
                                 codes.splice(idx, 1);
-                                $(element).val('');
+                                $(`#code${row}`).val('');
                             }
                             toastr.warning('Please enter correct subject code.');
                         } else {
