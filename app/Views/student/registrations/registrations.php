@@ -101,7 +101,7 @@ if ($otp_container) {
             <input type="text" class="form-control" placeholder="Enter OTP" name="otp" id="otp" required>
             <input type="hidden" class="form-control" name="registrations-process" value="verify-otp">
             <input type="hidden" class="form-control" name="email" value="<?php echo $email; ?>">
-            <span>Session: <?php echo session()->get('otp'); ?></span>
+            <!-- <span>Session: <?php //echo session()->get('otp'); ?></span> -->
           </div>
           <div class="col-md-4 mb-3">
             <button type="submit" class="btn form-submit-button secondary-btn" name="submit" style="margin-top:26px">Verify OTP</button>
