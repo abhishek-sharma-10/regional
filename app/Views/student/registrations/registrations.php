@@ -261,7 +261,8 @@ if ($register_container) {
               <option value="GEN">General</option>
               <option value="SC">SC</option>
               <option value="ST">ST</option>
-              <option value="OBC-NCL">OBC-NCL</option>
+              <option value="OBC-CL">OBC (Creamy Layer)</option>
+              <option value="OBC-NCL">OBC (Non-Creamy Layer)</option>
               <option value="EWS">EWS</option>
             </select>
           </div>
@@ -282,7 +283,7 @@ if ($register_container) {
               <option selected disabled>Select Course</option>
               <option value="ITEP - B.Sc. B.Ed.">ITEP - B.Sc. B.Ed.</option>
               <option value="ITEP - B.A. B.Ed.">ITEP - B.A. B.Ed.</option>
-              <option value="ITEP - Both">ITEP - Both</option>
+              <option value="ITEP - Both">ITEP - (B.Sc. B.Ed. &  B.A. B.Ed.)</option>
             </select>
           </div>
           <div class="col-md-6 mb-3">
@@ -295,6 +296,7 @@ if ($register_container) {
           <div class="col-md-6 mb-3">
             <b><label class="form-label">Password <span class="required-icon">*</span></label></b>
             <input type="password" class="form-control" placeholder="Create Password" name="password" id="password" autocomplete="new-password" required>
+            <i class="bi bi-eye-slash" id="togglePassword"></i>
           </div>
           <div class="col-md-6 mb-3">
             <b><label class="form-label">Confirm Password <span class="required-icon">*</span></label></b>
@@ -362,6 +364,14 @@ if ($register_container) {
       return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
     }, "Please enter characters only.");
 
+    $.validator.addMethod("regex", function(value, element, regexp) {
+    if (regexp.constructor != RegExp)
+        regexp = new RegExp(regexp);
+    else if (regexp.global)
+        regexp.lastIndex = 0;
+    return this.optional(element) || regexp.test(value);
+  }, "Please check your input format.");
+
     let rules = {
       name: {
         charactersOnly: true
@@ -393,6 +403,7 @@ if ($register_container) {
       },
       password: {
         required: true,
+        regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
       },
       confirm_password: {
         required: true,
@@ -431,4 +442,18 @@ if ($register_container) {
       messages
     });
   });
+
+  const togglePassword = document
+			.querySelector('#togglePassword');
+		const password = document.querySelector('#password');
+		togglePassword.addEventListener('click', () => {
+			// Toggle the type attribute using
+			// getAttribure() method
+			const type = password
+				.getAttribute('type') === 'password' ?
+				'text' : 'password';
+			password.setAttribute('type', type);
+			// Toggle the eye and bi-eye icon
+			this.classList.toggle('bi-eye');
+		});
 </script>

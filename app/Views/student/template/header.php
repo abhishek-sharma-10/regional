@@ -79,12 +79,13 @@
         <div>
           <h3 class="pt-2 pb-12 blue-color fw-bolder">REGIONAL INSTITUTE OF EDUCATION, AJMER</h3>
           <h4 class="blue-color">A Constituent Unit of NCERT, New Delhi</h4>
-          <h5 class="blue-color">NAAC Aggregated A+ Institute</h5>
+          <h5 class="blue-color">NAAC Accrediated A+ Grade Institute</h5>
         </div>
       </div>
       <div class="d-flex justify-content-end topbar-imgs">
         <img src="<?php echo base_url(); ?>public/assets/img/naac-logo.png" class="img-fluid" />
-        <img src="<?php echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" />
+        <!-- <img src="<?php echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" /> -->
+        <a href="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" target="_blank" class="btn secondary-btn mt-4 ms-5">Download</a>
         
         <a href="<?php echo base_url('instructions') ?>"><button class="btn secondary-btn mt-4 ms-5">Instructions</button></a>
         <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn secondary-btn mt-4 ms-5"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>

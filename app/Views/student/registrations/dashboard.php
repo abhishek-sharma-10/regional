@@ -18,13 +18,13 @@
       <!-- Header -->
        <form method="Post">
         <div class="modal-header">
-          <h4 class="modal-title" id="policyModalLabel">Guidelines and Policies</h4>
+          <h4 class="modal-title" id="policyModalLabel">Information Brochure</h4>
         </div>
 
         <!-- Body -->
         <div class="modal-body">
           <!-- PDF Embed -->
-          <div class="mb-3" style="height: 00px;">
+          <div class="mb-3" style="height: 400px;">
             <embed src="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" type="application/pdf" width="100%" height="100%" />
           </div>
           
