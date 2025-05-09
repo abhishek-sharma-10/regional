@@ -606,7 +606,7 @@ class Registration extends BaseController
             unset($data['details']->password);
             $data['ncet'] = $ncetScoreModel->getNcetScoreByRegistrationId($id);
 
-            if(isset($data['details']) && ($data['details'] === 'Save - Payment Pending' || $data['details'] === 'Complete')){
+            if(isset($data['details']) && ($data['details']->status === 'Save - Payment Pending' || $data['details']->status === 'Complete')){
                 $bscPreferences = [$data['details']->bsc_preference_1, $data['details']->bsc_preference_2, $data['details']->bsc_preference_3, $data['details']->bsc_preference_4];
                 $baPreferences = [$data['details']->ba_preference_1, $data['details']->ba_preference_2, $data['details']->ba_preference_3];
     
