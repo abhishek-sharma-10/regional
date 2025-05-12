@@ -9,6 +9,13 @@
   .modal.modal-static .modal-dialog {
     transform: none !important;
   }
+
+  .modal-body{
+    padding: 1em;
+  }
+  .modal form{
+    margin: 0;
+  }
 </style>
 
 <!-- Modal -->
@@ -24,7 +31,7 @@
         <!-- Body -->
         <div class="modal-body">
           <!-- PDF Embed -->
-          <div class="mb-3" style="height: 400px;">
+          <div class="mb-3" style="height: 450px;">
             <embed src="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" type="application/pdf" width="100%" height="100%" />
           </div>
           

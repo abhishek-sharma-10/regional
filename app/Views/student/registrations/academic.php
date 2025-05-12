@@ -112,7 +112,7 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">PwBD</label>
+                <label class="col-sm-4 col-form-label">Physical Disability</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" value="<?= $details->physical_disable == 1 ? 'Yes' : 'No'; ?>" readonly>
                 </div>
@@ -148,27 +148,27 @@
                     <label class="col-sm-4 col-form-label">Board</label>
                     <div class="col-sm-8">
                         <select class="form-select" name="board_10th" id="board_10th" data-input="board-10-any-other" required>
-                            <option value="">Select Board</option>
+                            <option value="" selected>Select Board</option>
                             <option value="CBSE" <?php echo $details->board_10th == 'CBSE' ? 'selected' : '';?>>CBSE</option>
                             <option value="State Board" <?php echo $details->board_10th == 'State Board' ? 'selected' : '';?>>State Board</option>
-                            <option value="Any Other" <?php echo $details->board_10th == 'Any Other' ? 'selected' : '';?>>Any Other</option>
+                            <option value="Any Other Board" <?php echo $details->board_10th == 'Any Other Board' ? 'selected' : '';?>>Any Other Board</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="mb-3 row" id="board-10-any-other">
-                    <label class="col-sm-4 col-form-label">Other Board Name</label>
+                    <label class="col-sm-4 col-form-label">Name of Board</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="board_10th_other" value="<?php echo $details->board_10th_other; ?>" <?php isset($details->board_10th_other) && !empty($details->board_10th_other) ? "style='display:block';": "style='display:none';"?>/>
+                        <input type="text" class="form-control" name="board_10th_other" value="<?php echo $details->board_10th_other; ?>"/>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Year Of Passing</label>
+                    <label class="col-sm-4 col-form-label">Year of Passing</label>
                     <div class="col-sm-8">
                         <select class="form-select" name="year_of_passing_10th" required>
-                            <option value="" selected disabled>Select Year</option>
-                        <?php foreach ($year_of_passing as $year) {
+                            <option value="" selected>Select Year</option>
+                        <?php foreach ($years_for_10th as $year) {
                         ?>
                             <option value="<?= $year; ?>" <?php echo $details->year_of_passing_10th == $year ? 'selected' : ''; ?>><?= $year; ?></option>
                         <?php
@@ -189,7 +189,7 @@
                         <tbody>
                             <tr>
                                 <td><input type="number" class="form-control max-marks" id="max-marks-10" name="max_marks_10th" value="<?php echo !empty($details->max_marks_10th) ? $details->max_marks_10th : ''; ?>" placeholder="Maximum Marks" oninput="calculatePercent('#max-marks-10', '#obtained-marks-10', '#percentage-10')" required></td>
-                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks-10" name="obtain_marks_10th" value="<?php echo !empty($details->obtain_marks_10th) ? $details->obtain_marks_10th : ''; ?>" placeholder="Obtained Marks" oninput="calculatePercent('#max-marks-10', '#obtained-marks-10', '#percentage-10')" required></td>
+                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks-10" name="obtain_marks_10th" value="<?php echo !empty($details->obtain_marks_10th) ? $details->obtain_marks_10th : ''; ?>" placeholder="Obtained Marks" oninput="calculatePercent('#max-marks-10', '#obtained-marks-10', '#percentage-10')" data-max-id="max-marks-10" required></td>
                                 <td class="d-flex"><input type="text" class="form-control percent" id="percentage-10" name="percentage_10th" value="<?php echo !empty($details->percentage_10th) ? $details->percentage_10th : ''; ?>" placeholder="%" readonly></td>
                             </tr>
                         </tbody>
@@ -206,7 +206,7 @@
                     <label class="col-sm-4 col-form-label">Stream</label>
                     <div class="col-sm-8">
                         <select class="form-select" name="stream" required>
-                            <option value="" selected disabled>Select Stream</option>
+                            <option value="" selected>Select Stream</option>
                             <option value="Science" <?php echo $details->stream === 'Science' ? 'selected' : ''; ?>>Science</option>
                             <option value="Commerce" <?php echo $details->stream === 'Commerce' ? 'selected' : ''; ?>>Commerce</option>
                             <option value="Art" <?php echo $details->stream === 'Art' ? 'selected' : ''; ?>>Art</option>
@@ -219,27 +219,27 @@
                     <label class="col-sm-4 col-form-label">Board</label>
                     <div class="col-sm-8">
                         <select class="form-select" name="board_12th" id="board_12th" data-input="board-12-any-other" required>
-                            <option value="">Select Board</option>
-                            <option value="CBSE" <?php echo $details->board_10th == 'CBSE' ? 'selected' : '';?>>CBSE</option>
-                            <option value="State Board" <?php echo $details->board_10th == 'State Board' ? 'selected' : '';?>>State Board</option>
-                            <option value="Any Other" <?php echo $details->board_10th == 'Any Other' ? 'selected' : '';?>>Any Other</option>
+                            <option value="" selected>Select Board</option>
+                            <option value="CBSE" <?php echo $details->board_12th == 'CBSE' ? 'selected' : '';?>>CBSE</option>
+                            <option value="State Board" <?php echo $details->board_12th == 'State Board' ? 'selected' : '';?>>State Board</option>
+                            <option value="Any Other Board" <?php echo $details->board_12th == 'Any Other Board' ? 'selected' : '';?>>Any Other Board</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="mb-3 row" id="board-12-any-other">
-                    <label class="col-sm-4 col-form-label">Other Board Name</label>
+                    <label class="col-sm-4 col-form-label">Name of Board</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="board-12-any-other" name="board_12th_other"  value="<?php echo $details->board_12th_other; ?>" <?php isset($details->board_12th_other) && !empty($details->board_12th_other) ? "style='display:block';": "style='display:none';"?>/>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Year Of Passing</label>
+                    <label class="col-sm-4 col-form-label">Year of Passing</label>
                     <div class="col-sm-8">
                         <select class="form-select" name="year_of_passing_12th" required>
-                            <option value="" selected disabled>Select Year</option>
-                        <?php foreach ($year_of_passing as $year) {
+                            <option value="" selected>Select Year</option>
+                        <?php foreach ($years_for_12th as $year) {
                         ?>
                             <option value="<?= $year; ?>" <?php echo $details->year_of_passing_12th == $year ? 'selected' : ''; ?>><?= $year; ?></option>
                         <?php
@@ -260,7 +260,7 @@
                         <tbody>
                             <tr>
                                 <td><input type="number" class="form-control max-marks" id="max-marks-12" name="max_marks_12th" value="<?php echo !empty($details->max_marks_12th) ? $details->max_marks_12th : ''; ?>" placeholder="Maximum Marks" oninput="calculatePercent('#max-marks-12', '#obtained-marks-12', '#percentage-12')" required></td>
-                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks-12" name="obtain_marks_12th" value="<?php echo !empty($details->obtain_marks_12th) ? $details->obtain_marks_12th : ''; ?>" placeholder="Obtained Marks" oninput="calculatePercent('#max-marks-12', '#obtained-marks-12', '#percentage-12')" required></td>
+                                <td><input type="number" class="form-control obtained-marks" id="obtained-marks-12" name="obtain_marks_12th" value="<?php echo !empty($details->obtain_marks_12th) ? $details->obtain_marks_12th : ''; ?>" placeholder="Obtained Marks" oninput="calculatePercent('#max-marks-12', '#obtained-marks-12', '#percentage-12')" data-max-id="max-marks-12" required></td>
                                 <td class="d-flex"><input type="text" class="form-control percent" id="percentage-12" name="percentage_12th" value="<?php echo !empty($details->percentage_12th) ? $details->percentage_12th : ''; ?>" placeholder="%" readonly></td>
                             </tr>
                         </tbody>
@@ -286,23 +286,24 @@
                     <label class="col-sm-4 offset-sm-1 col-form-label">ITEP Course</label>
                     <div class="col-sm-6">
                         <!-- <select class="form-select" name="itep_courses" required> -->
-                        <select class="form-select" required>
+                        <select class="form-select" disabled>
                             <option selected disabled>--Select Course--</option>
                             <option value="ITEP - B.Sc. B.Ed." <?php echo $details->course === 'ITEP - B.Sc. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.Sc. B.Ed.</option>
                             <option value="ITEP - B.A. B.Ed." <?php echo $details->course === 'ITEP - B.A. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.A. B.Ed.</option>
-                            <option value="ITEP - Both" <?php echo $details->course === 'ITEP - Both' ? 'selected' : ''; ?>>ITEP - Both</option>
+                            <option value="ITEP - B.Sc. B.Ed. & B.A. B.Ed." <?php echo $details->course === 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.Sc. B.Ed. & B.A. B.Ed.</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <label class="col-sm-2 form-label fw-bold">Score</label>
                     <div class="col-sm-12">
+                        <h4>Fill the details of score obtained in Languages, Domain-Specific Subjects, and General Test in NCET <?=date('Y');?></h4>
                         <table class="table table-bordered text-center">
                             <thead class="table-light">
                                 <tr>
                                     <th style="width: 12%; vertical-align: middle"></th>
-                                    <th style="width: 12%; vertical-align: middle">Domain</th>
-                                    <th style="width: 40%; vertical-align: middle">Subject</th>
+                                    <th style="width: 12%; vertical-align: middle">Code</th>
+                                    <th style="width: 40%; vertical-align: middle">Name</th>
                                     <th style="width: 12%; vertical-align: middle">Maximum Score</th>
                                     <th style="width: 12%; vertical-align: middle">Score Obtained</th>
                                     <th style="width: 12%; vertical-align: middle">Percentage</th>
@@ -318,12 +319,12 @@
                                         <?php if($k == 0){?><th style="vertical-align: middle; white-space: nowrap;" rowspan="<?=$sections ?>"><?= $key ?></th><?php } ?>
                                         <td>
                                             <input type="hidden" value="<?php echo isset($ncet[$i]->id) ? $ncet[$i]->id : ''; ?>" name="ids[]" />
-                                            <input type="number" class="form-control codes" name="code[]" id="code<?= $i; ?>" data-row="<?= $i; ?>" data-section="<?= $key; ?>" value="<?php echo isset($ncet[$i]->codes) ? $ncet[$i]->codes : ''; ?>" required>
+                                            <input type="number" class="form-control codes" name="code[]" id="code<?= $i; ?>" data-row="<?= $i; ?>" data-section="<?= $key; ?>" value="<?php echo isset($ncet[$i]->codes) && $ncet[$i]->codes != 0 ? $ncet[$i]->codes : ''; ?>" required>
                                         </td>
-                                        <td><input type="text" class="form-control subjects" name="subject[]" id="subject<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->subjects) ? $ncet[$i]->subjects : ''; ?>" required readonly></td>
-                                        <td><input type="number" class="form-control max_marks" name="max_marks[]" id="max_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_maximum_marks) ? $ncet[$i]->total_maximum_marks : ''; ?>" required readonly></td>
-                                        <td><input type="number" class="form-control obtain_marks" name="obtain_marks[]" id="obtain_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_marks_obtain) ? $ncet[$i]->total_marks_obtain : ''; ?>" oninput="calculatePercent('#max_marks<?= $i; ?>', '#obtain_marks<?= $i; ?>', '#percentage<?= $i; ?>')" required></td>
-                                        <td><input type="number" class="form-control percentage" name="percentage[]" id="percentage<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->percentage) ? $ncet[$i]->percentage : ''; ?>" readonly required></td>
+                                        <td><input type="text" class="form-control subjects" name="subject[]" id="subject<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->subjects) ? $ncet[$i]->subjects : ''; ?>" readonly></td>
+                                        <td><input type="number" class="form-control max_marks" name="max_marks[]" id="max_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_maximum_marks) && $ncet[$i]->total_maximum_marks != 0 ? $ncet[$i]->total_maximum_marks : ''; ?>" readonly></td>
+                                        <td><input type="number" class="form-control obtain_marks" name="obtain_marks[]" id="obtain_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_marks_obtain) && $ncet[$i]->total_marks_obtain != 0 ? $ncet[$i]->total_marks_obtain : ''; ?>" oninput="calculatePercent('#max_marks<?= $i; ?>', '#obtain_marks<?= $i; ?>', '#percentage<?= $i; ?>')" data-max-id="max_marks<?= $i; ?>" required></td>
+                                        <td><input type="number" class="form-control percentage" name="percentage[]" id="percentage<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->percentage) && $ncet[$i]->percentage != 0 ? $ncet[$i]->percentage : ''; ?>" readonly></td>
                                     </tr>
                                 <?php
                                 $i++;
@@ -352,53 +353,14 @@
                     <div class="col-sm-8">
                         <select class="form-select" name="course" id="course">
                             <option selected disabled>--Select Course--</option>
-                            <option value="ITEP - B.Sc. B.Ed." <?php echo $details->itep_courses === 'ITEP - B.Sc. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.Sc. B.Ed.</option>
-                            <option value="ITEP - B.A. B.Ed." <?php echo $details->itep_courses === 'ITEP - B.A. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.A. B.Ed.</option>
+                            <option value="ITEP - B.Sc. B.Ed." <?php echo $details->course === 'ITEP - B.Sc. B.Ed.' ? 'selected' : ''; ?> <?php echo ($details->course !== 'ITEP - B.Sc. B.Ed.' && $details->course !== 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') ? 'disabled' : ''; ?>>ITEP - B.Sc. B.Ed.</option>
+                            <option value="ITEP - B.A. B.Ed." <?php echo $details->course === 'ITEP - B.A. B.Ed.' ? 'selected' : ''; ?> <?php echo ($details->course !== 'ITEP - B.A. B.Ed.' && $details->course !== 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') ? 'disabled' : ''; ?>>ITEP - B.A. B.Ed.</option>
                             <!-- <option value="ITEP - Both" <?php //echo $details->itep_courses === 'ITEP - Both' ? 'selected' : ''; ?>>ITEP - Both</option> -->
                         </select>
                     </div>
                 </div>
                 <div class="bscPreferences"></div>
                 <div class="baPreferences"></div>
-                <!-- <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Preference 1st</label>
-                    <div class="col-sm-8">
-                        <select class="form-select preference-select" name="preference_1" required>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Preference 2nd</label>
-                    <div class="col-sm-8">
-                        <select class="form-select preference-select" name="preference_2" required>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Preference 3rd</label>
-                    <div class="col-sm-8">
-                        <select class="form-select preference-select" name="preference_3" required>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Preference 4th</label>
-                    <div class="col-sm-8">
-                        <select class="form-select preference-select" name="preference_4" required>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Preference 5th</label>
-                    <div class="col-sm-8">
-                        <select class="form-select preference-select" name="preference_5" required>
-                        </select>
-                    </div>
-                </div> -->
             </div>
         </div>
         <hr />
@@ -411,7 +373,7 @@
                         <h4 class="mb-4">Photo</h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 200KB</p>
-                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
                         </div>
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->photo) && !empty($details->photo) ? 'Uploaded' : 'Pending'
@@ -419,7 +381,7 @@
                             <img src="<?= isset($details->photo) && !empty($details->photo) ? base_url('public/'.$details->photo) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewPhoto">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="photo" name="photo" style="width: auto;" onchange="previewImage(event, 'previewPhoto')" accept=".jpg,.jpeg,.png" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="photo" name="photo" style="width: auto;" data-preview="previewPhoto" accept=".jpg,.jpeg,.png,.pdf" required>
                         </div>
                     </div>
                 </div>
@@ -428,7 +390,7 @@
                         <h4 class="mb-4">Signature</h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 200KB</p>
-                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
                         </div>
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->signature) && !empty($details->signature) ? 'Uploaded' : 'Pending'
@@ -436,7 +398,7 @@
                             <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url('public/'.$details->signature) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewSignature">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="signature" name="signature" style="width: auto;" onchange="previewImage(event, 'previewSignature')" accept=".jpg,.jpeg,.png" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="signature" name="signature" style="width: auto;" data-preview="previewSignature" accept=".jpg,.jpeg,.png,.pdf" required>
                         </div>
                     </div>
                 </div>
@@ -450,7 +412,7 @@
                         <h4 class="mb-4">10th Marksheet</h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
-                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
                         </div>
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->certificate_10) && !empty($details->certificate_10) ? 'Uploaded' : 'Pending'
@@ -458,7 +420,7 @@
                             <img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url('public/'.$details->certificate_10) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_10">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="certificate_10" name="certificate_10" style="width: auto;" onchange="previewImage(event, 'previewCertificate_10')" accept=".jpg,.jpeg,.png" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="certificate_10" name="certificate_10" style="width: auto;"  data-preview="previewCertificate_10" accept=".jpg,.jpeg,.png,.pdf" required>
                         </div>
                     </div>
                 </div>
@@ -467,7 +429,7 @@
                         <h4 class="mb-4">12th Marksheet</h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
-                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
                         </div>
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->certificate_12) && !empty($details->certificate_12) ? 'Uploaded' : 'Pending'
@@ -475,7 +437,7 @@
                             <img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url('public/'.$details->certificate_12) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_12">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="certificate_12" name="certificate_12" style="width: auto;" onchange="previewImage(event, 'previewCertificate_12')" accept=".jpg,.jpeg,.png" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="certificate_12" name="certificate_12" style="width: auto;"  data-preview="previewCertificate_12" accept=".jpg,.jpeg,.png,.pdf" required>
                         </div>
                     </div>
                 </div>
@@ -484,7 +446,7 @@
                         <h4 class="mb-4">NCET Score Card</h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
-                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
                         </div>
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? 'Uploaded' : 'Pending'
@@ -492,7 +454,7 @@
                             <img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url('public/'.$details->ncet_score_card) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_ncet_score">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="ncet_score_card" name="ncet_score_card" style="width: auto;" onchange="previewImage(event, 'preview_ncet_score')" accept=".jpg,.jpeg,.png" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="ncet_score_card" name="ncet_score_card" style="width: auto;"  data-preview="preview_ncet_score" accept=".jpg,.jpeg,.png,.pdf" required>
                         </div>
                     </div>
                 </div>
@@ -501,7 +463,7 @@
                         <h4 class="mb-4">Caste Certificate</h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
-                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
                         </div>
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->caste_certificate) && !empty($details->caste_certificate) ? 'Uploaded' : 'Pending'
@@ -509,7 +471,7 @@
                             <img src="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url('public/'.$details->caste_certificate) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_caste_certificate">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="caste_certificate" name="caste_certificate" style="width: auto;" onchange="previewImage(event, 'preview_caste_certificate')" accept=".jpg,.jpeg,.png" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="caste_certificate" name="caste_certificate" style="width: auto;"  data-preview="preview_caste_certificate" accept=".jpg,.jpeg,.png,.pdf" required>
                         </div>
                     </div>
                 </div>
@@ -518,7 +480,7 @@
                         <h4 class="mb-4">PwBD</h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
-                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
                         </div>
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->pwbd) && !empty($details->pwbd) ? 'Uploaded' : 'Pending'
@@ -526,15 +488,15 @@
                             <img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url('public/'.$details->pwbd) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_pwbd">
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
-                            <input type="file" class="form-control form-control-sm me-2" id="pwbd" name="pwbd" style="width: auto;" onchange="previewImage(event, 'preview_pwbd')"  accept=".jpg,.jpeg,.png" required>
+                            <input type="file" class="form-control form-control-sm me-2" id="pwbd" name="pwbd" style="width: auto;" data-preview="preview_pwbd" accept=".jpg,.jpeg,.png,.pdf" required>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="d-flex gap-2 justify-content-center mt-3">
-            <button type="submit" class="btn btn-sm btn-outline-success" id="save_draft" value="Save as Draft" name="save_as_draft">Save as Draft</button>
-            <button type="submit" class="btn btn-sm primary-btn text-white" id="final_save" name="final_save">Save</button>
+            <button type="button" class="btn btn-sm btn-outline-success" id="save_draft" value="Save as Draft" name="save_as_draft">Save as Draft</button>
+            <button type="button" class="btn btn-sm primary-btn text-white" id="final_save" name="final_save">Save</button>
             <?php if($details->status == 'Request'){?>
             <button type="button" class="btn btn-sm btn-danger" id="cancel-btn">Cancel</button>
             <?php } ?>
@@ -571,10 +533,10 @@
             reader.readAsDataURL(file);
 
             // Change status text to "Selected"
-            document.getElementById('uploadStatus').textContent = "Selected";
+            // document.getElementById('uploadStatus').textContent = "Selected";
         } else {
             // No file selected or cleared – fallback to "Pending"
-            document.getElementById('uploadStatus').textContent = "Pending";
+            // document.getElementById('uploadStatus').textContent = "Pending";
         }
     }
 </script>
@@ -601,6 +563,7 @@
     let status = '<?php echo $details->status; ?>';
     var category =  '<?php echo $details->category; ?>';
     var physical_disable =  '<?php echo $details->physical_disable; ?>';
+    var selectedITEPCourse = '<?php echo $details->course; ?>';
 
     const attachment = {
         photo,
@@ -614,6 +577,7 @@
 
     var bscSubject = [];
     var baSubject = [];
+    var baSubjectCodes = [101, 102, 113];
 
     $(document).ready(function() {
         $('.baPreferences').hide();
@@ -623,30 +587,53 @@
         $('.obtain_marks').trigger('blur');
         $('.max_marks').trigger('blur');
         $('.codes').trigger('blur');
-        $('#board_10th, #board_12th').trigger('change');
         
         $(`#board-10-any-other`).hide();
         $(`#board-12-any-other`).hide();
-        $('#board_10th, #board_12th').change(function(){
-            let id = $(this).data('input');
-            let value = $(this).val();
-
-            if(value === 'Any Other'){
-                $(`#${id}`).show();
-                $(`#${id} input`).attr('required', true);
-            } else{
-                $(`#${id}`).hide();
-                $(`#${id} input`).removeAttr('required');
-            }
+        
+        selectBoard($('#board_10th').prop('outerHTML'));
+        selectBoard($('#board_12th').prop('outerHTML'));
+        $('#board_10th,#board_12th').change(function(){
+            selectBoard(this);
         });
 
         $.validator.addMethod("lessThan", function(value, element, param) {
             return this.optional(element) || parseInt(value) <= parseInt($(param).val());
         }, "Obtained marks cannot be greater than maximum marks.");
 
-        $.validator.addMethod('filesize', function(value, element, param) {
-            return this.optional(element) || (element.files[0].size <= param * 1000000)
-        }, 'Image size must be less than {0} MB');
+        // $.validator.addMethod('filesize', function(value, element, param) {
+        //     if (this.optional(element)) return true;
+
+        //     const size = element.files[0].size; // size in bytes
+        //     const limit = param.size;
+        //     const unit = param.unit.toUpperCase();
+
+        //     let maxSizeInBytes;
+
+        //     switch (unit) {
+        //         case 'KB':
+        //             maxSizeInBytes = limit * 1000;
+        //             break;
+        //         case 'MB':
+        //             maxSizeInBytes = limit * 1000000;
+        //             break;
+        //         default:
+        //             console.warn('Unsupported unit for filesize validator. Use KB or MB.');
+        //             return false;
+        //     }
+
+        //     return size <= maxSizeInBytes;
+        // }, function(param, element) {
+        //     return `Image size must be less than ${param.size} ${param.unit}`});
+
+        $.validator.addMethod("filesize", function(value, element, param) {
+            console.log('param: ',param);
+            if (element.files.length > 0) {
+                var fileSize = element.files[0].size; // size in bytes
+                return this.optional(element) || (fileSize <= param);
+            }
+            return true; // if no file is selected, don't validate
+        }, "File size must be less than {0} bytes.");
 
         $.validator.addMethod("obtainCheck", function(value, element) {
             let row = $(element).attr('data-row'); // get the same row number
@@ -671,15 +658,6 @@
                 number: true,
                 minlength: 1
             },
-            "subject[]": {
-                required: true,
-                minlength: 2
-            },
-            "max_marks[]": {
-                required: true,
-                number: true,
-                min: 1
-            },
             "obtain_marks[]": {
                 required: true,
                 number: true,
@@ -694,15 +672,6 @@
                 number: "Code must be a number",
                 minlength: "Code must be at least 1 digit"
             },
-            "subject[]": {
-                required: "Please enter subject name",
-                minlength: "Subject must be at least 2 characters"
-            },
-            "max_marks[]": {
-                required: "Please enter maximum marks",
-                number: "Must be a valid number",
-                min: "Marks must be at least 1"
-            },
             "obtain_marks[]": {
                 required: "Please enter obtained marks",
                 number: "Must be a valid number",
@@ -713,15 +682,18 @@
         if (status === "Request") {
             for (key in attachment) {
                 $(`input[name=${key}]`).attr('required', true);
-                rules[key] = {
-                    required: true,
-                    extension: "jpg|jpeg|png",
-                    filesize: 3
-                };
-                messages[key] = {
-                    required: "Please upload an image.",
-                    extension: "Please upload a file with a valid extension (jpg, jpeg, png)."
-                }
+                // rules[key] = {
+                //     required: true,
+                //     extension: "jpg|jpeg|png",
+                //     filesize: { size: 1, unit: 'MB' }
+                // };
+                // if(key === 'photo' || key === 'signature'){
+                //     rules[key].filesize = { size: 200, unit: 'KB' };
+                // }
+                // messages[key] = {
+                //     required: "Please upload an image.",
+                //     extension: "Please upload a file with a valid extension (jpg, jpeg, png)."
+                // }
             }
         } else {//if (status === "Save as Draft") {
             for (key in attachment) {
@@ -729,65 +701,295 @@
                     $(`input[name=${key}]`).attr('required', false);
                 } else {
                     $(`input[name=${key}]`).attr('required', true);
-                    rules[key] = {
-                        required: true,
-                        extension: "jpg|jpeg|png",
-                        filesize: 3
-                    };
-                    messages[key] = {
-                        required: "Please upload an image.",
-                        extension: "Please upload a file with a valid extension (jpg, jpeg, png)."
-                    };
+                    // rules[key] = {
+                    //     required: true,
+                    //     extension: "jpg|jpeg|png",
+                    //     filesize: { size: 1, unit: 'MB' }
+                    // };
+                    // if(key === 'photo' || key === 'signature'){
+                    //     rules[key].filesize = { size: 200, unit: 'KB' };
+                    // }
+                    // messages[key] = {
+                    //     required: "Please upload an image.",
+                    //     extension: "Please upload a file with a valid extension (jpg, jpeg, png)."
+                    // };
                 }
             }
-        }
+        };
         
-        const validator = $("#academic-form").validate({
-            rules,
-            messages
-        });
+        // console.log(rules, messages);
 
-        $('#save_draft').click(function (e) {
-            e.preventDefault();
-            // Remove validation rules
-            $('input, select', '#academic-form').each(function () {
-                if ($(this).attr("name")) { // skip elements without a name
-                    try {
-                        $(this).rules('remove');
-                    } catch (e) {
-                        // Ignore elements that aren't part of the validator
-                    }
-                }
-            });
+        // const validator = $("#academic-form").validate({
+        //     rules,
+        //     messages
+        // });
 
-            // Clear validation errors
-            validator.resetForm();
-            $('.error').removeClass('error');
-
-            // Submit form without validation
-            $('#academic-form').off('submit').submit();
-        });
-
-        $('#final_save').click(function () {
-            if (category === "GEN") {
-                $('#caste_certificate').removeAttr('required').rules('remove');
-            } else {
-                $('#caste_certificate').attr('required', true);
-            }
+        // $('#save_draft').click(function (e) {
+        //     e.preventDefault();
             
-            if(physical_disable == 0){
-                $('#pwbd').removeAttr('required').rules('remove');
-            }else{
-                $('#pwbd').attr('required', true);
-            }
-            $("#academic-form").submit();  // validate and submit
-        });
+        //     // Remove validation rules
+        //     $('input, select', '#academic-form').each(function () {
+        //         if ($(this).attr("name")) { // skip elements without a name
+        //             try {
+        //                 $(this).rules('remove');
+        //             } catch (e) {
+        //                 // Ignore elements that aren't part of the validator
+        //             }
+        //         }
+        //     });
+
+        //     // Clear validation errors
+        //     validator.resetForm();
+        //     $('.error').removeClass('error');
+
+        //     // Submit form without validation
+        //     $('#academic-form').off('submit').submit();
+        // });
+
+        // $('#final_save').click(function () {
+        //     if (category === "GEN") {
+        //         $('#caste_certificate').removeAttr('required').rules('remove');
+        //     } else {
+        //         $('#caste_certificate').attr('required', true);
+        //     }
+            
+        //     if(physical_disable == 0){
+        //         $('#pwbd').removeAttr('required').rules('remove');
+        //     }else{
+        //         $('#pwbd').attr('required', true);
+        //     }
+        //     $("#academic-form").submit();  // validate and submit
+        // });
 
         $('#cancel-btn').click(function(){
             let action = confirm("Are you sure you want to cancel?");
             console.log('action ', action);
             if(action){
                 window.location.reload();
+            }
+        });
+
+        // Function to validate file size and type
+        function validateFile(fileInput, maxSize, allowedTypes) {
+            const file = fileInput[0].files[0];
+            if (file) {
+                const fileSize = file.size / 1024; // size in KB
+                const fileType = file.type;
+
+                if (fileSize > maxSize) {
+                    return false; // File size exceeds limit
+                }
+                if (!allowedTypes.includes(fileType)) {
+                    return false; // File type not allowed
+                }
+            }
+            return true; // Valid file
+        }
+
+        // Function to validate obtained marks
+        function validateObtainedMarks(obtained_id, max_id) {
+            let isValid = true;
+            $('#'+obtained_id).each(function() {
+                const obtained = parseFloat($(this).val());
+                const max = parseFloat($(this).closest('tr').find('#'+max_id).val());
+                console.log(obtained, $(this).val(), max, $(this).closest('tr').find('#'+max_id).val());
+                if (obtained > max) {
+                    $(this).next().remove('label');
+                    $(this).addClass('is-invalid');
+                    $(this).after('<label class="error">Obtained marks cannot be greater than maximum marks</label>');
+                    isValid = false;
+                } else if(obtained < 0){
+                    $(this).next().remove('label');
+                    $(this).addClass('is-invalid');
+                    $(this).after('<label class="error">Obtained marks cannot be less then 0</label>');
+                    isValid = false;
+                } else {
+                    if($(this).next().text() === 'Obtained marks cannot be greater than maximum marks' || $(this).next().text() === 'Obtained marks cannot be less then 0'){
+                        $(this).next().remove('label');
+                        $(this).removeClass('is-invalid');
+                    }
+                }
+            });
+            return isValid;
+        }
+
+        // Real-time validation for required fields and obtained marks
+        $('input[required], select[required]').on('input change', function() {
+            // console.log($(this));
+            if ($(this).val() === '') {
+                console.log('Enter');
+                $(this).next().remove('label');
+                $(this).after('<label class="error">This field is required</label>');
+                $(this).addClass('is-invalid');
+            } else {
+                if($(this).next().text() === 'This field is required'){
+                    $(this).next().remove('label');
+                    $(this).removeClass('is-invalid');
+                }
+            }
+        });
+
+        $('.obtained-marks, .obtain_marks').on('input', function() {
+            let obtained_id = $(this).attr('id');
+            let max_id = $(this).attr('data-max-id');
+            console.log(obtained_id, max_id);
+            validateObtainedMarks(obtained_id, max_id);
+        });
+
+        // Real-time validation for file inputs
+        $('#photo, #signature, #certificate_10, #certificate_12, #ncet_score_card, #caste_certificate, #pwbd').on('change', function(e) {
+            let maxSize = $(this).is('#photo, #signature') ? 200 : 1024;
+            let allowedTypes = ['image/jpg', 'image/jpeg', 'image/png', 'application/pdf'];
+            let preview = $(this).attr('data-preview');
+            
+            console.log(preview);
+
+            if (!validateFile($(this), maxSize, allowedTypes)) {
+                $(this).next().remove('label');
+                $(this).after('<label class="error">Invalid file. Please check the file type and size.</label>');
+                $(this).addClass('is-invalid');
+                // alert('Invalid file. Please check the file type and size.');
+            } else {
+                if($(this).next().text() === 'Invalid file. Please check the file type and size.' || $(this).next().text() === 'This field is required'){
+                    console.log('84098');
+                    $(this).next().remove('label');
+                    $(this).removeClass('is-invalid');
+                }
+                previewImage(e, preview);
+            }
+        });
+
+        // Save as Draft button click event
+        $('#save_draft').click(function() {
+            let isValid = true;
+            let validObtainCount = 0;
+            let validFileCount = 0;
+            // Validate file inputs for photo and signature
+            // const photoValid = validateFile($('#photo'), 200, ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']);
+            // const signatureValid = validateFile($('#signature'), 200, ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']);
+
+            // if (!photoValid) {
+            //     alert('Photo must be a JPG or PNG file and less than 200KB.');
+            //     isValid = false;
+            // }
+            // if (!signatureValid) {
+            //     alert('Signature must be a JPG or PNG file and less than 200KB.');
+            //     isValid = false;
+            // }
+
+            // Validate file inputs for all documents
+            const fileInputs = [
+                { input: $('#photo'), maxSize: 200, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#signature'), maxSize: 200, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#certificate_10'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#certificate_12'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#ncet_score_card'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#caste_certificate'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#pwbd'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+            ];
+
+            fileInputs.forEach(function(fileInput) {
+                if (!validateFile(fileInput.input, fileInput.maxSize, fileInput.types)) {
+                    // alert('One or more files are invalid. Please check the file types and sizes.');
+                    isValid = false;
+                    validFileCount++;
+                }
+            });
+
+            // Validate obtained marks against maximum marks
+            $('.obtained-marks, .obtain_marks').each(function() {
+                let obtained_id = $(this).attr('id');
+                let max_id = $(this).attr('data-max-id');
+                console.log(obtained_id, max_id);
+                if(!validateObtainedMarks(obtained_id, max_id)){
+                    validObtainCount++;
+                }
+            });
+
+            // If all validations pass, you can proceed with saving as draft
+            if (validFileCount === 0 && validObtainCount === 0) {
+                $('#academic-form').submit();
+            }
+        });
+
+        // Save button click event
+        $('#final_save').click(function() {
+            let validRequiredCount = 0;
+            let validObtainCount = 0;
+            let validFileCount = 0;
+            // let isRequiredValid = true;
+            // let isObtainValid = true;
+
+            $('.error').remove();
+
+            if (category === "GEN") {
+                $('#caste_certificate').removeAttr('required');
+            } else {
+                $('#caste_certificate').attr('required', true);
+            }
+            
+            if(physical_disable == 0){
+                $('#pwbd').removeAttr('required');
+            }else{
+                $('#pwbd').attr('required', true);
+            }
+
+            // Validate required fields and marks
+            $('input[required], select[required]').each(function() {
+                if ($(this).val() === '') {
+                    // alert('Please fill all required fields.');
+                    // isRequiredValid = false;
+                    $(this).after('<label class="error">This field is required</label>');
+                    $(this).addClass('is-invalid');
+                    validRequiredCount++;
+                    // return false; // Break out of the loop
+                }
+            });
+
+            // Validate obtained marks against maximum marks
+            $('.obtained-marks, .obtain_marks').each(function() {
+
+                let obtained_id = $(this).attr('id');
+                let max_id = $(this).attr('data-max-id');
+                console.log(obtained_id, max_id);
+                if(!validateObtainedMarks(obtained_id, max_id)){
+                    validObtainCount++;
+                }
+
+                // const obtained = parseFloat($(this).val());
+                // const max = parseFloat($(this).closest('tr').find('.max-marks').val());
+
+                // if (obtained <= 0 || obtained > max) {
+                //     alert('Obtained marks must be greater than zero and less than or equal to maximum marks.');
+                //     isObtainValid = false;
+                //     validObtainCount++;
+                //     // return false; // Break out of the loop
+                // }
+            });
+
+            // Validate file inputs for all documents
+            const fileInputs = [
+                { input: $('#photo'), maxSize: 200, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#signature'), maxSize: 200, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#certificate_10'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#certificate_12'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#ncet_score_card'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#caste_certificate'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#pwbd'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+            ];
+
+            fileInputs.forEach(function(fileInput) {
+                if (!validateFile(fileInput.input, fileInput.maxSize, fileInput.types)) {
+                    // alert('One or more files are invalid. Please check the file types and sizes.');
+                    isValid = false;
+                    validFileCount++;
+                }
+            });
+
+            // If all validations pass, you can proceed with saving
+            if (validFileCount === 0 && validObtainCount === 0 && validRequiredCount === 0) {
+                // Submit the form or perform the final save action
+                $('#academic-form').submit();
             }
         });
     });
@@ -852,6 +1054,20 @@
         updateOptions(ba_selects);
         updateOptions(bsc_selects);
     }
+
+    function selectBoard(element){
+        let id = $(element).data('input');
+        let value = $(element).val();
+        // console.log(id, value);
+        if(value === 'Any Other Board' || value === 'State Board'){
+            $(`#${id}`).show();
+            $(`#${id} input`).attr('required', true);
+        } else{
+            $(`#${id}`).hide();
+            $(`#${id} input`).removeAttr('required');
+        }
+    }
+
 </script>
 
 <script>
@@ -900,7 +1116,7 @@
             if(element.value !== '0')
                 alert("Each subject Code must be unique!");
 
-            // $(`#code${row}`).val('');
+            $(`#code${row}`).val('');
         } else {
             $('#code' + row).removeClass("error");
             if (code != '') {
@@ -923,7 +1139,7 @@
                             let idx = codes.indexOf(code);
                             if (idx > -1) {
                                 codes.splice(idx, 1);
-                                // $(`#code${row}`).val('');
+                                $(`#code${row}`).val('');
                             }
                             toastr.warning('Please enter correct subject code.');
                         } else {
@@ -934,7 +1150,6 @@
                             $(`#max_marks${row}`).val(result[0].max_score);
                             $('.max_marks').trigger('blur');
                             if(section == 'Section 2'){
-
                                 for (let key in courses) {
                                     courses[key] = courses[key].filter(subject => subject !== oldSubject);
                                 }
@@ -956,6 +1171,12 @@
                                     courses[result[0].course].push(selectedSubject);
                                 }
 
+                                createPreferences();
+                            }
+                            
+                            if(section == 'Section 1' && (selectedITEPCourse === 'ITEP - B.A. B.Ed.' || selectedITEPCourse === 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') && baSubjectCodes.includes(parseInt(code))){
+                                baSubject.push(selectedSubject);
+                                courses[result[0].course].push(selectedSubject);
                                 createPreferences();
                             }
                         }
@@ -1029,5 +1250,6 @@
             });
         });
         
+        bindPreferenceOption();
     }
 </script>

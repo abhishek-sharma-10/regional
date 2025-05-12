@@ -16,6 +16,7 @@ class NcetScoreModel extends Model {
         'subjects',
         'total_maximum_marks',
         'total_marks_obtain',
+        'percentage',
     ];
 
     public $errorMsg;

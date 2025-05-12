@@ -2,7 +2,7 @@
 <style>
     .main-box {
         /* max-width: 1200px; */
-        /* margin: 30px auto 60px; */
+        margin: 30px auto 60px;
         background: #fff;
         padding: 30px;
         border-radius: 10px;
@@ -44,7 +44,7 @@
 <?php
     if(isset($status) && $status === 'filled'){
 ?>
-    <div class="container text-center shadow-remove">
+    <div class="container main-box text-center shadow-remove">
         <div class="d-flex justify-content-end mb-3">
             <button type="button" class="btn btn-outline-primary print-btn" onclick="openPrintPage()">🖨️ Print Form</button>
         </div>

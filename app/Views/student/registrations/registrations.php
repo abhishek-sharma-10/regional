@@ -283,7 +283,7 @@ if ($register_container) {
               <option selected disabled>Select Course</option>
               <option value="ITEP - B.Sc. B.Ed.">ITEP - B.Sc. B.Ed.</option>
               <option value="ITEP - B.A. B.Ed.">ITEP - B.A. B.Ed.</option>
-              <option value="ITEP - Both">ITEP - (B.Sc. B.Ed. &  B.A. B.Ed.)</option>
+              <option value="ITEP - B.Sc. B.Ed. &  B.A. B.Ed.">ITEP - (B.Sc. B.Ed. &  B.A. B.Ed.)</option>
             </select>
           </div>
           <div class="col-md-6 mb-3">

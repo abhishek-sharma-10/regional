@@ -148,14 +148,20 @@ class Registration extends BaseController
             $data['details'] = $registrationModel->getRegistrationDetail($id);
             $data['ncet'] = $ncetScoreModel->getNcetScoreByRegistrationId($id);
 
-            $years = [];
+            $years_for_10th = [];
+            $years_for_12th = [];
             $currentYear = (int)date('Y');
 
-            for ($i = 2; $i >= 0; $i--) {
-                $years[] = $currentYear - $i;
+            for ($i = 14; $i >= 0; $i--) {
+                $years_for_10th[] = $currentYear - $i;
             }
 
-            $data['year_of_passing'] = $years;
+            for ($i = 2; $i >= 0; $i--) {
+                $years_for_12th[] = $currentYear - $i;
+            }
+
+            $data['years_for_10th'] = $years_for_10th;
+            $data['years_for_12th'] = $years_for_12th;
             $data['sectionArray'] = ["Section 1" => 2, "Section 2"=> "3", "Section 3"=> "1", "Section 4"=> 1];
 
             $data['active'] = "academic";
@@ -198,7 +204,7 @@ class Registration extends BaseController
                         'label' => 'Photo',
                         'rules' => [
                             'uploaded[photo]',
-                            'mime_in[photo,image/pdfimage/jpg,image/jpeg,image/png]',
+                            'mime_in[photo,image/pdfimage/jpg,image/jpeg,image/png,application/pdf]',
                             'max_size[photo, 200]'
                         ],
                     ],
@@ -220,7 +226,7 @@ class Registration extends BaseController
                         'label' => 'Signature',
                         'rules' => [
                             'uploaded[signature]',
-                            'mime_in[signature,image/pdfimage/jpg,image/jpeg,image/png]',
+                            'mime_in[signature,image/pdfimage/jpg,image/jpeg,image/png,application/pdf]',
                             'max_size[signature, 200]'
                         ],
                     ],
@@ -241,8 +247,8 @@ class Registration extends BaseController
                         'label' => 'certificate_10',
                         'rules' => [
                             'uploaded[certificate_10]',
-                            'mime_in[certificate_10,image/pdfimage/jpg,image/jpeg,image/png]',
-                            'max_size[certificate_10, 3072]'
+                            'mime_in[certificate_10,image/pdfimage/jpg,image/jpeg,image/png,application/pdf]',
+                            'max_size[certificate_10, 1024]'
                         ],
                     ],
                 ];
@@ -262,8 +268,8 @@ class Registration extends BaseController
                         'label' => 'certificate_12',
                         'rules' => [
                             'uploaded[certificate_12]',
-                            'mime_in[certificate_12,image/pdfimage/jpg,image/jpeg,image/png]',
-                            'max_size[certificate_12, 3072]'
+                            'mime_in[certificate_12,image/pdfimage/jpg,image/jpeg,image/png,application/pdf]',
+                            'max_size[certificate_12, 1024]'
                         ],
                     ],
                 ];
@@ -282,8 +288,8 @@ class Registration extends BaseController
                         'label' => 'ncet_score_card',
                         'rules' => [
                             'uploaded[ncet_score_card]',
-                            'mime_in[ncet_score_card,image/pdfimage/jpg,image/jpeg,image/png]',
-                            'max_size[ncet_score_card, 3072]'
+                            'mime_in[ncet_score_card,image/pdfimage/jpg,image/jpeg,image/png,application/pdf]',
+                            'max_size[ncet_score_card, 1024]'
                         ],
                     ],
                 ];
@@ -303,8 +309,8 @@ class Registration extends BaseController
                         'label' => 'caste_certificate',
                         'rules' => [
                             'uploaded[caste_certificate]',
-                            'mime_in[caste_certificate,image/pdfimage/jpg,image/jpeg,image/png]',
-                            'max_size[caste_certificate, 3072]'
+                            'mime_in[caste_certificate,image/pdfimage/jpg,image/jpeg,image/png,application/pdf]',
+                            'max_size[caste_certificate, 1024]'
                         ],
                     ],
                 ];
@@ -324,8 +330,8 @@ class Registration extends BaseController
                         'label' => 'pwbd',
                         'rules' => [
                             'uploaded[pwbd]',
-                            'mime_in[pwbd,image/pdfimage/jpg,image/jpeg,image/png]',
-                            'max_size[pwbd, 3072]'
+                            'mime_in[pwbd,image/pdfimage/jpg,image/jpeg,image/png,application/pdf]',
+                            'max_size[pwbd, 1024]'
                         ],
                     ],
                 ];
@@ -530,7 +536,6 @@ class Registration extends BaseController
     {
         try {
             $commonModel = new CommonModel();
-
             $section = $this->request->getVar('section');
             $result = $commonModel->getSubjectByCode($code, $section);
             return ($this->getResponse(['status' => 200, 'result' => $result]));
@@ -544,7 +549,6 @@ class Registration extends BaseController
 
     public function studentDashboard($id)
     {
-
         try {
             $registrationModel = new RegistrationModel();
 

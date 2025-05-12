@@ -47,7 +47,7 @@
     <div class="login-container text-center">
       <form id="loginForm" method="post" action="<?php echo base_url(); ?>login">
         <div class="mb-3 text-start">
-          <label for="userId" class="form-label"><strong>User Id:</strong></label>
+          <label for="userId" class="form-label"><strong>User Email:</strong></label>
           <input type="text" class="form-control" id="userId" placeholder="Enter your Email" name="email">
         </div>
         <div class="mb-3 text-start">
