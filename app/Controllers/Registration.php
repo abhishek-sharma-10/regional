@@ -131,6 +131,43 @@ class Registration extends BaseController
 
             $output = $registrationModel->save($request);
             var_dump($output);
+
+            if ($output) {
+                // Send email after successful registration
+                $emailService = \Config\Services::email();
+                
+                $toEmail = $request['email'];
+                $username = $request['email'];
+                $plainPassword = $password;
+                
+                $emailService->setTo($toEmail);
+                $emailService->setFrom('no-reply@riea.com', 'Academic Section RIE Ajmer');
+                $emailService->setSubject('Successful Registration for ITEP Course');
+                
+                $message = "
+                Dear Candidate,<br><br>
+                You have successfully registered for admission in the <strong>ITEP course</strong> at <strong>RIE, Ajmer</strong>.<br><br>
+                Please login on the portal with the below given details:<br><br>
+                <strong>Username:</strong> $username<br>
+                <strong>Password:</strong> $plainPassword<br><br>
+                Regards,<br>
+                Academic Section<br>
+                R.I.E., Ajmer";
+                //var_dump($message);
+                
+                $emailService->setMessage($message);
+                $emailService->setMailType('html'); // enable HTML
+                //var_dump($emailService);exit;
+        
+                if ($emailService->send()) {
+                    // Optional: Flash success message or redirect
+                    session()->setFlashdata('success', 'Registration successful! Email sent.');
+                } else {
+                    // Optional: Log error
+                    log_message('error', $emailService->printDebugger(['headers']));
+                    session()->setFlashdata('error', 'Registration successful but email failed.');
+                }
+            }
             return redirect()->to('/');
         }else if(isset($request) && empty($request)){
             return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');

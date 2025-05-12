@@ -1135,13 +1135,15 @@
                     let result = data.result;
 
                     if (data.status == 200) {
+                        $(element).next().remove('label');
                         if (data.result.length == 0) {
                             let idx = codes.indexOf(code);
                             if (idx > -1) {
                                 codes.splice(idx, 1);
                                 $(`#code${row}`).val('');
                             }
-                            toastr.warning('Please enter correct subject code.');
+                            // toastr.warning('Please enter correct subject code.');
+                            $(element).after('<label class="error">Please enter correct subject code</label>');
                         } else {
                             let selectedSubject = result[0].subject;
                             let oldSubject = $(`#subject${row}`).val();
