@@ -31,7 +31,7 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 		color: white;
 	}
 	
-	.forget-container label {
+	.forget-container label, .forget-container h4 {
 		color: white;
 	}
 
