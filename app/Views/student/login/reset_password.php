@@ -73,12 +73,12 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 				<input type="hidden" name="userid" id="userid" value="<?php echo $userId ?>" />
 				<div class="form-group mb-3">
 					<span class="control-label">New Password </span>
-					<input type="password" name="newpassword" class="form-control requiredfield" id="newpassword" data-rule-required="true" />
+					<input type="password" name="newpassword" class="form-control requiredfield" id="newpassword" placeholder="New Password" data-rule-required="true" />
 				</div>
 
 				<div class="form-group mb-3">
 					<span class="control-label">Confirm Password</span>
-					<input type="password" name="confirmpassword" class="form-control requiredfield" id="confirmpassword" data-rule-equalto="#newpassword" data-msg-equalto="Invalid Confirm Password !" data-rule-required="true" />
+					<input type="password" name="confirmpassword" class="form-control requiredfield" id="confirmpassword" placeholder="Confirm Password" data-rule-equalto="#newpassword" data-msg-equalto="Invalid Confirm Password !" data-rule-required="true" />
 				</div>
 
 				<div class="form-group text-center">
