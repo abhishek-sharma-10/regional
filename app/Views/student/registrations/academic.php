@@ -56,6 +56,10 @@
     .error {
         font-size: 13px;
     }
+
+    .required-icon {
+        color: red;
+    }
 </style>
 
 <!-- PART 1: Applicant Details -->
@@ -297,7 +301,7 @@
                 <div class="row">
                     <label class="col-sm-2 form-label fw-bold">Score</label>
                     <div class="col-sm-12">
-                        <h4>Fill the details of score obtained in Languages, Domain-Specific Subjects, and General Test in NCET <?=date('Y');?></h4>
+                        <h5><span class="required-icon">*</span> Fill the details of score obtained in Languages, Domain-Specific Subjects, and General Test in NCET <?=date('Y');?></h5>
                         <table class="table table-bordered text-center">
                             <thead class="table-light">
                                 <tr>
@@ -378,7 +382,11 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->photo) && !empty($details->photo) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewPhoto">
+                            <?php if(isset($details->photo) && !empty($details->photo) && str_ends_with($details->photo, '.pdf')){ ?>
+                                <a href="<?=base_url($details->photo);?>" target="_blank">Uploaded PDF</a>
+                            <?php }else{ ?>
+                                <img src="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewPhoto">
+                            <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="photo" name="photo" style="width: auto;" data-preview="previewPhoto" accept=".jpg,.jpeg,.png,.pdf" required>
@@ -395,7 +403,11 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->signature) && !empty($details->signature) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewSignature">
+                            <?php if(isset($details->signature) && !empty($details->signature) && str_ends_with($details->signature, '.pdf')){ ?>
+                                <a href="<?=base_url($details->signature);?>" target="_blank">Uploaded PDF</a>
+                            <?php }else{ ?>
+                                <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewSignature">
+                            <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="signature" name="signature" style="width: auto;" data-preview="previewSignature" accept=".jpg,.jpeg,.png,.pdf" required>
@@ -417,7 +429,11 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->certificate_10) && !empty($details->certificate_10) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_10">
+                            <?php if(isset($details->certificate_10) && !empty($details->certificate_10) && str_ends_with($details->certificate_10,'.pdf')){ ?>
+                                <a href="<?=base_url($details->certificate_10);?>" target="_blank">Uploaded PDF</a>
+                            <?php }else{ ?>
+                                <img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_10">
+                            <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="certificate_10" name="certificate_10" style="width: auto;"  data-preview="previewCertificate_10" accept=".jpg,.jpeg,.png,.pdf" required>
@@ -434,7 +450,11 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->certificate_12) && !empty($details->certificate_12) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_12">
+                            <?php if(isset($details->certificate_12) && !empty($details->certificate_12) && str_ends_with($details->certificate_12,'.pdf')){ ?>
+                                <a href="<?=base_url($details->certificate_12);?>" target="_blank">Uploaded PDF</a>
+                            <?php }else{ ?>
+                                <img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_12">
+                            <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="certificate_12" name="certificate_12" style="width: auto;"  data-preview="previewCertificate_12" accept=".jpg,.jpeg,.png,.pdf" required>
@@ -451,7 +471,11 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_ncet_score">
+                            <?php if(isset($details->ncet_score_card) && !empty($details->ncet_score_card) && str_ends_with($details->ncet_score_card,'.pdf')){ ?>
+                                <a href="<?=base_url($details->ncet_score_card);?>" target="_blank">Uploaded PDF</a>
+                            <?php }else{ ?>
+                                <img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_ncet_score">
+                            <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="ncet_score_card" name="ncet_score_card" style="width: auto;"  data-preview="preview_ncet_score" accept=".jpg,.jpeg,.png,.pdf" required>
@@ -468,7 +492,11 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->caste_certificate) && !empty($details->caste_certificate) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url($details->caste_certificate) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_caste_certificate">
+                            <?php if(isset($details->caste_certificate) && !empty($details->caste_certificate) && str_ends_with($details->caste_certificate,'.pdf')){ ?>
+                                <a href="<?=base_url($details->caste_certificate);?>" target="_blank">Uploaded PDF</a>
+                            <?php }else{ ?>
+                                <img src="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url($details->caste_certificate) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_caste_certificate">
+                            <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="caste_certificate" name="caste_certificate" style="width: auto;"  data-preview="preview_caste_certificate" accept=".jpg,.jpeg,.png,.pdf" required>
@@ -477,7 +505,7 @@
                 </div>
                 <div class="col-md-4 upload-section">
                     <div class="row">
-                        <h4 class="mb-4">PwBD</h4>
+                        <h4 class="mb-4">Physical Disability</h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
@@ -485,7 +513,11 @@
                         <div class="col-md-4 text-end">
                             <!-- <div class="me-3 text-muted upload-status" id="uploadStatus"><? //= isset($details->pwbd) && !empty($details->pwbd) ? 'Uploaded' : 'Pending'
                                                                                                 ?></div> -->
-                            <img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_pwbd">
+                            <?php if(isset($details->pwbd) && !empty($details->pwbd) && str_ends_with($details->pwbd,'.pdf')){ ?>
+                                <a href="<?=base_url($details->pwbd);?>" target="_blank">Uploaded PDF</a>
+                            <?php }else{ ?>
+                                <img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_pwbd">
+                            <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="pwbd" name="pwbd" style="width: auto;" data-preview="preview_pwbd" accept=".jpg,.jpeg,.png,.pdf" required>
@@ -1156,10 +1188,18 @@
                             $('.max_marks').trigger('blur');
                             if(section == 'Section 2'){
                                 for (let key in courses) {
-                                    courses[key] = courses[key].filter(subject => subject !== oldSubject);
+                                    if(oldSubject === "Biology/Biological Studies"){
+                                        courses[key] = courses[key].filter(subject => subject !== "Zoology" && subject !== "Botany");
+                                    }else{
+                                        courses[key] = courses[key].filter(subject => subject !== oldSubject);
+                                    }
                                 }
                                 console.log('adL ', courses);
-                                bscSubject = bscSubject.filter(subject => subject !== oldSubject);
+                                if(oldSubject === "Biology/Biological Studies"){
+                                    bscSubject = bscSubject.filter(subject => subject !== "Zoology" && subject !== "Botany");
+                                }else{
+                                    bscSubject = bscSubject.filter(subject => subject !== oldSubject);
+                                }
                                 baSubject = baSubject.filter(subject => subject !== oldSubject);
                                 if(result[0].course === 'B.Sc. B.Ed.'){
                                     if(selectedSubject == 'Biology/Biological Studies'){
@@ -1180,6 +1220,10 @@
                             }
                             
                             if(section == 'Section 1' && (selectedITEPCourse === 'ITEP - B.A. B.Ed.' || selectedITEPCourse === 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') && baSubjectCodes.includes(parseInt(code))){
+                                for (let key in courses) {
+                                    courses[key] = courses[key].filter(subject => subject !== oldSubject);
+                                }
+                                baSubject = baSubject.filter(subject => subject !== oldSubject);
                                 baSubject.push(selectedSubject);
                                 courses[result[0].course].push(selectedSubject);
                                 createPreferences();
