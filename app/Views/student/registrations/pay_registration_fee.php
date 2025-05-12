@@ -29,11 +29,11 @@
     color: #198754;
   }
 
-  .error {
+  /* .error {
     color: red;
     font-size: 0.875em;
     margin-top: 5px;
-  }
+  } */
 </style>
 
 <div class="container mt-4 mb-5">
@@ -86,7 +86,7 @@
         <div class="col-md-5 mb-3">
           <label class="form-label">Enter Receipt Number received from Payment Portal</label>
           <input type="text" class="form-control" id="receipt_no" name="receipt_no" <?php echo $status ? 'disabled': '';?>>
-          <div id="receiptError" class="error"></div>
+          <label id="receiptError" class="error"></label>
         </div>
       </div>
 
@@ -94,7 +94,7 @@
       <div class="row">
         <div class="col-md-4">
           <input type="file" class="form-control file-input" id="fileInput" accept=".jpg,.jpeg,.png,.pdf" name="payment_receipt" <?php echo $status ? 'disabled': '';?>>
-          <div id="fileError" class="error"></div>
+          <label id="fileError" class="error"></label>
           <p class="mt-2 mb-0">Status: <span class="file-status pending">Pending</span></p>
         </div>
         <div class="col-md-4">
