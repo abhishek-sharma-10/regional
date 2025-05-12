@@ -495,6 +495,7 @@
             </div>
         </div>
         <div class="d-flex gap-2 justify-content-center mt-3">
+            <input type="hidden" name="button_value" id="button_value" value="">
             <button type="button" class="btn btn-sm btn-outline-success" id="save_draft" value="Save as Draft" name="save_as_draft">Save as Draft</button>
             <button type="button" class="btn btn-sm primary-btn text-white" id="final_save" name="final_save">Save</button>
             <?php if($details->status == 'Request'){?>
@@ -908,6 +909,7 @@
 
             // If all validations pass, you can proceed with saving as draft
             if (validFileCount === 0 && validObtainCount === 0) {
+                $('#button_value').val('Save as Draft');
                 $('#academic-form').submit();
             }
         });
@@ -989,6 +991,7 @@
             // If all validations pass, you can proceed with saving
             if (validFileCount === 0 && validObtainCount === 0 && validRequiredCount === 0) {
                 // Submit the form or perform the final save action
+                $('#button_value').val('Final Save');
                 $('#academic-form').submit();
             }
         });

@@ -48,17 +48,26 @@
     position: relative;
   }
 
-  #togglePassword {
-    position: absolute;
-    right: 20px;
-    top: 70%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #999;
-    z-index: 2;
-  }
   #password {
-  padding-right: 40px;
+    padding-right: 40px;
+    /* height: 38px;
+    box-sizing: border-box; */
+  }
+
+  #togglePassword {
+    position: fixed;
+    top: 28%;
+    left: 47%;
+    transform: translate(25%, 4%);
+    cursor: pointer;
+    color: #333;
+    z-index: 10;
+    pointer-events: all;
+    font-size: 16px;
+  }
+
+  #password:invalid {
+    box-shadow: none;
   }
 </style>
 <!-- First Section-->
@@ -479,6 +488,7 @@ if ($register_container) {
 			const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
 			password.setAttribute('type', type);
 			// Toggle the eye and bi-eye icon
-			this.classList.toggle('bi-eye');
+			this.classList.toggle('bi-eye-slash');
+            this.classList.toggle('bi-eye');
 		});
 </script>

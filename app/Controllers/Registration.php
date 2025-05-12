@@ -509,10 +509,12 @@ class Registration extends BaseController
 
             // var_dump($input);
 
-            if (isset($input['final_save'])) {
+            if (isset($input['button_value']) && $input['button_value'] == 'Final Save') {
                 unset($input['final_save']);
+                unset($input['button_value']);
                 $input['status'] = "Save - Payment Pending";
-            }else{
+            }else if (isset($input['button_value']) && $input['button_value'] == 'Save as Draft'){
+                unset($input['button_value']);
                 $input['status'] = "Save as Draft";
             }
 
