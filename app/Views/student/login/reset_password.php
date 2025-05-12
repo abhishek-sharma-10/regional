@@ -21,7 +21,6 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 		border-radius: 10px;
 		max-width: 400px;
 		margin: 40px auto;
-		color: white;
 	}
 
 	.forget-msg-container {
@@ -32,9 +31,9 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 		color: white;
 	}
 	
-	/* .forget-container label, .forget-container h4 {
+	.forget-container span, .forget-container h4 {
 		color: white;
-	} */
+	}
 
 	.forget-container>div:first-child, .forget-msg-container>div:first-child {
 		padding: 15px 30px 0px;
@@ -73,12 +72,12 @@ if (isset($confirmBox) && !empty($confirmBox)) {
 			<form name="reset_form" id="reset_form" method="post" class="form-horizontal">
 				<input type="hidden" name="userid" id="userid" value="<?php echo $userId ?>" />
 				<div class="form-group mb-3">
-					<label class="control-label">New Password </label>
+					<span class="control-label">New Password </span>
 					<input type="password" name="newpassword" class="form-control requiredfield" id="newpassword" data-rule-required="true" />
 				</div>
 
 				<div class="form-group mb-3">
-					<label class="control-label">Confirm Password </label>
+					<span class="control-label">Confirm Password</span>
 					<input type="password" name="confirmpassword" class="form-control requiredfield" id="confirmpassword" data-rule-equalto="#newpassword" data-msg-equalto="Invalid Confirm Password !" data-rule-required="true" />
 				</div>
 
