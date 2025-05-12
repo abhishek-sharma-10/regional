@@ -87,8 +87,8 @@
         <!-- <img src="<?php echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" /> -->
         <a href="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" target="_blank" class="btn secondary-btn mt-4 ms-5">Download</a>
         
-        <a href="<?php echo base_url('instructions') ?>"><button class="btn secondary-btn mt-4 ms-5">Instructions</button></a>
-        <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn secondary-btn mt-4 ms-5"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
+        <a href="<?php echo base_url('instructions') ?>"><button class="btn secondary-btn mt-4 ms-2">Instructions</button></a>
+        <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn secondary-btn mt-4 ms-2"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
       </div>
     </div>
   </section>
