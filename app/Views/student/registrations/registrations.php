@@ -55,15 +55,19 @@
   }
 
   #togglePassword {
-    position: fixed;
-    top: 28%;
-    left: 47%;
-    transform: translate(25%, 4%);
+    position: relative;
+    /* top: 28%; */
+    /* left: 47%; */
+    /* transform: translate(25%, 4%); */
     cursor: pointer;
     color: #333;
     z-index: 10;
     pointer-events: all;
     font-size: 16px;
+    float: right;
+    margin-top: -25px;
+    margin-right: 13px;
+    z-index: 2;
   }
 
   #password:invalid {
