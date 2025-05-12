@@ -43,6 +43,23 @@
   .required-icon {
     color: red;
   }
+
+  .col-md-6 {
+    position: relative;
+  }
+
+  #togglePassword {
+    position: absolute;
+    right: 20px;
+    top: 70%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999;
+    z-index: 2;
+  }
+  #password {
+  padding-right: 40px;
+  }
 </style>
 <!-- First Section-->
 <?php
@@ -304,6 +321,17 @@ if ($register_container) {
           </div>
         </div>
         <div class="row">
+        <div class="col-md-6 mb-3">
+          <ul class="password-requirements">
+            <li>Must contain at least 8 characters</li>
+            <li>Must contain at least one uppercase letter & one lowercase letter</li>
+            <li>Must contain at least one number</li>
+            <li>Must contain at least one special character</li>
+            
+          </ul>
+        </div>
+        </div>
+        <div class="row">
           <div class="mt-3 d-grid justify-content-center">
             <button type="submit" class="btn form-submit-button submit-btn" name="submit">Submit</button>
           </div>
@@ -419,7 +447,7 @@ if ($register_container) {
 
     let messages = {
       confirm_password: {
-        equalTo: "Pawword is not matched."
+        equalTo: "Password is not matched."
       },
       phone: {
         minlength: "Mobile No. should be of 10 Digits only.",
@@ -430,7 +458,7 @@ if ($register_container) {
         maxlength: "Aadhar No. should be of 12 Digits only."
       },
       pincode: {
-        required: "Pincode is required.",
+        // required: "Pincode is required.",
         minlength: "Pincode must be exactly 6 digits.",
         maxlength: "Pincode must be exactly 6 digits.",
         number: "Pincode must contain only numbers.",
