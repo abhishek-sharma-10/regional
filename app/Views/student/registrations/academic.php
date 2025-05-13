@@ -714,38 +714,43 @@
 
         if (status === "Request") {
             for (key in attachment) {
-                $(`input[name=${key}]`).attr('required', true);
-                // rules[key] = {
-                //     required: true,
-                //     extension: "jpg|jpeg|png",
-                //     filesize: { size: 1, unit: 'MB' }
-                // };
-                // if(key === 'photo' || key === 'signature'){
-                //     rules[key].filesize = { size: 200, unit: 'KB' };
-                // }
-                // messages[key] = {
-                //     required: "Please upload an image.",
-                //     extension: "Please upload a file with a valid extension (jpg, jpeg, png)."
-                // }
+                if(key === 'caste_certificate'){
+                    if (category === "GEN") {
+                        $(`input[name=${key}]`).removeAttr('required');
+                    } else {
+                        $(`input[name=${key}]`).attr('required', true);
+                    }
+                }else if(key === 'pwbd'){
+                    if(physical_disable == 0){
+                        $(`input[name=${key}]`).removeAttr('required');
+                    }else{
+                        $(`input[name=${key}]`).attr('required', true);
+                    }
+                }else{
+                    $(`input[name=${key}]`).attr('required', true);
+                }
             }
-        } else {//if (status === "Save as Draft") {
+        } else {
             for (key in attachment) {
                 if (attachment[key] != '') {
                     $(`input[name=${key}]`).attr('required', false);
                 } else {
-                    $(`input[name=${key}]`).attr('required', true);
-                    // rules[key] = {
-                    //     required: true,
-                    //     extension: "jpg|jpeg|png",
-                    //     filesize: { size: 1, unit: 'MB' }
-                    // };
-                    // if(key === 'photo' || key === 'signature'){
-                    //     rules[key].filesize = { size: 200, unit: 'KB' };
-                    // }
-                    // messages[key] = {
-                    //     required: "Please upload an image.",
-                    //     extension: "Please upload a file with a valid extension (jpg, jpeg, png)."
-                    // };
+                    // $(`input[name=${key}]`).attr('required', true);
+                    if(key === 'caste_certificate'){
+                        if (category === "GEN") {
+                            $(`input[name=${key}]`).removeAttr('required');
+                        } else {
+                            $(`input[name=${key}]`).attr('required', true);
+                        }
+                    }else if(key === 'pwbd'){
+                        if(physical_disable == 0){
+                            $(`input[name=${key}]`).removeAttr('required');
+                        }else{
+                            $(`input[name=${key}]`).attr('required', true);
+                        }
+                    }else{
+                        $(`input[name=${key}]`).attr('required', true);
+                    }
                 }
             }
         };
@@ -956,18 +961,6 @@
 
             $('.error').remove();
 
-            if (category === "GEN") {
-                $('#caste_certificate').removeAttr('required');
-            } else {
-                $('#caste_certificate').attr('required', true);
-            }
-            
-            if(physical_disable == 0){
-                $('#pwbd').removeAttr('required');
-            }else{
-                $('#pwbd').attr('required', true);
-            }
-
             // Validate required fields and marks
             $('input[required], select[required]').each(function() {
                 if ($(this).val() === '') {
@@ -982,7 +975,6 @@
 
             // Validate obtained marks against maximum marks
             $('.obtained-marks, .obtain_marks').each(function() {
-
                 let obtained_id = $(this).attr('id');
                 let max_id = $(this).attr('data-max-id');
                 console.log(obtained_id, max_id);
@@ -1020,6 +1012,7 @@
                 }
             });
 
+            console.log(validFileCount, validObtainCount, validRequiredCount);
             // If all validations pass, you can proceed with saving
             if (validFileCount === 0 && validObtainCount === 0 && validRequiredCount === 0) {
                 // Submit the form or perform the final save action
