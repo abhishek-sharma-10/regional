@@ -64,6 +64,17 @@ a:hover {
   height: 40px;
   border-radius: 34px;
 }
+
+.header-anchor, .header-anchor:hover{
+  color: #203a72;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/

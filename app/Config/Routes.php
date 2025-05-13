@@ -24,7 +24,8 @@ $routes->post('reset-password', 'Login::stu_resetPassword');
 $routes->get('registrations', 'Registration::studentRegistration');
 $routes->post('registrations', 'Registration::studentRegistration');
 $routes->get('checkApplicationNo/(:num)', 'Registration::checkApplicationNo/$1');
-$routes->get('instructions', 'Registration::getInstruction');
+$routes->get('instructions', 'Common::getInstruction');
+$routes->get('contact-us', 'Common::contactUs');
 
 $routes->group('/', ['filter' => 'studentAuthGuard'], static function ($routes) {
     $routes->get('dashboard/(:num)', 'Registration::studentDashboard/$1');

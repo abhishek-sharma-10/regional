@@ -146,24 +146,19 @@ class Registration extends BaseController
                 
                 $message = "
                 Dear Candidate,<br><br>
-                You have successfully registered for admission in the <strong>ITEP course</strong> at <strong>RIE, Ajmer</strong>.<br><br>
-                Please login on the portal with the below given details:<br><br>
+                You have successfully registered to apply for admission in ITEP Course at Regional Institute of Education, Ajmer. Please login to apply for the ITEP course using the following information.<br><br>
                 <strong>Username:</strong> $username<br>
                 <strong>Password:</strong> $plainPassword<br><br>
-                Regards,<br>
                 Academic Section<br>
-                R.I.E., Ajmer";
-                //var_dump($message);
+                RIE, NCERT, Ajmer";
                 
                 $emailService->setMessage($message);
                 $emailService->setMailType('html'); // enable HTML
                 //var_dump($emailService);exit;
         
                 if ($emailService->send()) {
-                    // Optional: Flash success message or redirect
                     session()->setFlashdata('success', 'Registration successful! Email sent.');
                 } else {
-                    // Optional: Log error
                     log_message('error', $emailService->printDebugger(['headers']));
                     session()->setFlashdata('error', 'Registration successful but email failed.');
                 }
@@ -724,8 +719,8 @@ class Registration extends BaseController
                         'label' => 'Payment Receipt',
                         'rules' => [
                             'uploaded[payment_receipt]',
-                            'mime_in[payment_receipt,image/pdfimage/jpg,image/jpeg,image/png]',
-                            'max_size[payment_receipt, 3072]'
+                            'mime_in[payment_receipt,image/pdfimage/jpg,image/jpeg,image/png,application/pdf]',
+                            'max_size[payment_receipt, 1024]'
                         ],
                     ],
                 ];
@@ -758,7 +753,32 @@ class Registration extends BaseController
 
             $registrationModel = new RegistrationModel();
 
-            $registrationModel->upsert($input);
+            $result = $registrationModel->upsert($input);
+
+            if ($result) {
+                $emailService = \Config\Services::email();
+                
+                $toEmail = $input['email'];
+                
+                $emailService->setTo($toEmail);
+                $emailService->setFrom('no-reply@riea.com', 'Academic Section RIE Ajmer');
+                $emailService->setSubject('Successful Registration for ITEP Course');
+                
+                $message = "
+                Dear Candidate,<br><br>
+                You have successfully submitted your application for admission in ITEP Course at Regional Institute of Education, Ajmer.<br><br>
+                Academic Section<br>
+                RIE, NCERT, Ajmer";
+                
+                $emailService->setMessage($message);
+        
+                if ($emailService->send()) {
+                    session()->setFlashdata('success', 'Application submitted successful! Email sent.');
+                } else {
+                    log_message('error', $emailService->printDebugger(['headers']));
+                    session()->setFlashdata('error', 'Application submitted successful but email failed.');
+                }
+            }
 
             return redirect()->to('/payment/' . $input['id']);
         } catch (Exception $exception) {

@@ -85,10 +85,11 @@
       <div class="d-flex justify-content-end topbar-imgs">
         <img src="<?php echo base_url(); ?>public/assets/img/naac-logo.png" class="img-fluid" />
         <!-- <img src="<?php echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" /> -->
-        <a href="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" target="_blank" class="btn secondary-btn mt-4 ms-5">Download</a>
+        <a href="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" target="_blank" class="header-anchor mt-4 ms-5">Download</a>
         
-        <a href="<?php echo base_url('instructions') ?>"><button class="btn secondary-btn mt-4 ms-2">Instructions</button></a>
-        <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn secondary-btn mt-4 ms-2"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
+        <a href="<?php echo base_url('instructions') ?>" class="header-anchor mt-4">Instructions</a>
+        <a href="<?php echo base_url('contact-us') ?>" class="header-anchor mt-4">Contact Us</a>
+        <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn secondary-btn mt-4 ms-3"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
       </div>
     </div>
   </section>
