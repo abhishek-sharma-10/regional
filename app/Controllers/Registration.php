@@ -88,8 +88,15 @@ class Registration extends BaseController
             
             $emailService->setTo($email);
             $emailService->setFrom('no-reply@riea.com');
-            $emailService->setSubject('Your OTP Code');
-            $emailService->setMessage('Your OTP code is: ' . $otp);
+            $emailService->setSubject('Verification Code (OTP) for registration portal of RIE, Ajmer');
+
+            $message = "
+                Dear Candidate,<br><br>
+                ".$otp." is your verification code (OTP) for registration portal of RIE, Ajmer. Don't share your code with anyone.<br><br>
+                Academic Section<br>
+                RIE, NCERT, Ajmer";
+
+            $emailService->setMessage($message);
         
             if ($emailService->send()) {
                 $data['msg'] = ['box'=> 'success', 'msg' => 'OTP sent successfully to ' . $email];
@@ -142,7 +149,7 @@ class Registration extends BaseController
                 
                 $emailService->setTo($toEmail);
                 $emailService->setFrom('no-reply@riea.com', 'Academic Section RIE Ajmer');
-                $emailService->setSubject('Successful Registration for ITEP Course');
+                $emailService->setSubject('Successfully registered to apply for admission in ITEP course at RIE, Ajmer');
                 
                 $message = "
                 Dear Candidate,<br><br>
@@ -765,7 +772,7 @@ class Registration extends BaseController
                 
                 $emailService->setTo($toEmail);
                 $emailService->setFrom('no-reply@riea.com', 'Academic Section RIE Ajmer');
-                $emailService->setSubject('Successful Registration for ITEP Course');
+                $emailService->setSubject('Successfully submitted your application for admission in ITEP course at RIE, Ajmer');
                 
                 $message = "
                 Dear Candidate,<br><br>
