@@ -756,9 +756,12 @@ class Registration extends BaseController
             $result = $registrationModel->upsert($input);
 
             if ($result) {
+
+                $studentDetail = $registrationModel->getRegistrationDetail($input['id']);
+
                 $emailService = \Config\Services::email();
                 
-                $toEmail = $input['email'];
+                $toEmail = $studentDetail->email;
                 
                 $emailService->setTo($toEmail);
                 $emailService->setFrom('no-reply@riea.com', 'Academic Section RIE Ajmer');
