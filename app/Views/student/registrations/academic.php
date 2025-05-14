@@ -82,28 +82,18 @@
     <div class="row">
         <div class="col-md-6">
             <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label">RIEA Registration Number</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" value="<?= $details->registration_no ?>" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">NCET <?=date('Y');?> Application No.</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" value="<?= $details->ncet_application_no ?>" readonly>
-                </div>
-            </div>
-            
-            <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">Category</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" value="<?= $details->category ?>" readonly>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">Gender</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" value="<?= $details->gender ?>" readonly>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label">Mobile No.</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" value="<?= $details->phone ?>" readonly>
                 </div>
             </div>
         </div>
@@ -115,18 +105,54 @@
                     <input type="text" class="form-control" value="<?= $details->name ?>" readonly>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label">Gender</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" value="<?= $details->gender ?>" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label">Category</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" value="<?= $details->category ?>" readonly>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">Physical Disability</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" value="<?= $details->physical_disable == 1 ? 'Yes' : 'No'; ?>" readonly>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3 row">
+                <label class="col-sm-4 col-form-label">Mobile No.</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" value="<?= $details->phone ?>" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">Aadhar Number</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" value="<?= $details->aadhar_no ?>" readonly>
                 </div>
             </div>
+        </div>
+        
+        <div class="col-md-6">
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">Course</label>
                 <div class="col-sm-8">

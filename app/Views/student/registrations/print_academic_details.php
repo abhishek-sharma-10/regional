@@ -59,7 +59,7 @@
         <!-- Profile Info -->
         <div class="mt-4">
             <h4 class="mb-1"><?= $details->name ?></h4>
-            <p>Application No.: <strong><?= $details->ncet_application_no ?></strong></p>
+            <p>Registration Number: <strong><?= $details->registration_no ?></strong></p>
         </div>
 
         <!-- Applicant Details Table -->
@@ -67,10 +67,10 @@
             <table class="table table-bordered text-center">
                 <thead class="table-light">
                     <tr>
-                        <th>NCET <?=date('Y');?> Application No.</th>
+                        <th>NCET <?=date('Y');?> Application Number</th>
                         <th>Stream</th>
                         <th>Category</th>
-                        <th>PwBD</th>
+                        <th>Physical Disability</th>
                         <th>Mobile No.</th>
                         <th>Aadhar No.</th>
                         <th>Gender</th>
@@ -81,7 +81,7 @@
                         <td><?= $details->ncet_application_no ?></td>
                         <td><?= $details->course ?></td>
                         <td><?= $details->category ?></td>
-                        <td><?= $details->physical_disable ?></td>
+                        <td><?= $details->physical_disable == 1 ? 'Yes' : 'No'; ?></td>
                         <td><?= $details->phone ?></td>
                         <td><?= $details->aadhar_no ?></td>
                         <td><?= $details->gender ?></td>
@@ -277,7 +277,7 @@
                 </div>
                 <div class="col-md-2 col-6 mb-3">
                     <a href="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/assets/img/no-image.png'); ?>" target="_blank"><img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/assets/img/no-image.png'); ?>" class="img-fluid mb-2" alt="PwBD"></a>
-                    <label>PwBD</label>
+                    <label>Physical Disability</label>
                 </div>
             </div>
         </div>

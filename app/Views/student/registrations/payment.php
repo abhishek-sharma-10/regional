@@ -35,20 +35,20 @@
   <div class="text-start mb-3">
     <div class="p-4">
       <div class="row mb-3">
-        <div class="col-sm-4 fw-bold">Name:</div>
-        <div class="col-sm-8"><?= $details->name;?></div>
+        <div class="col-sm-6 fw-bold">RIEA Registration Number:</div>
+        <div class="col-sm-6"><?= $details->registration_no;?></div>
       </div>
       <div class="row mb-3">
-        <div class="col-sm-4 fw-bold">Application No.:</div>
-        <div class="col-sm-8"><?= $details->ncet_application_no;?></div>
+        <div class="col-sm-6 fw-bold">NCET <?=date('Y');?> Application Number:</div>
+        <div class="col-sm-6"><?= $details->ncet_application_no;?></div>
       </div>
       <div class="row mb-3">
-        <div class="col-sm-4 fw-bold">NCET 2024 Reg.No.:</div>
-        <div class="col-sm-8"><?= $details->ncet_roll_no;?></div>
+        <div class="col-sm-6 fw-bold">Name:</div>
+        <div class="col-sm-6"><?= $details->name;?></div>
       </div>
       <div class="row">
-        <div class="col-sm-4 fw-bold">Mobile No.:</div>
-        <div class="col-sm-8"><?= $details->phone;?></div>
+        <div class="col-sm-6 fw-bold">Mobile Number:</div>
+        <div class="col-sm-6"><?= $details->phone;?></div>
       </div>
     </div>
   </div>

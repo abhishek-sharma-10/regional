@@ -49,15 +49,15 @@
   <div class="shadow-box mx-auto">
     <h4 class="text-center mb-4">Payment</h4>
     <div class="row g-3">
-      <div class="col-md-6"><label class="form-label">Application No.</label><input type="text" class="form-control" value="<?= $details->ncet_application_no ?>" readonly></div>
-      <div class="col-md-6"><label class="form-label">NCET 2024 Reg. No.</label><input type="text" class="form-control" value="<?= $details->ncet_application_no ?>" readonly></div>
+      <div class="col-md-6"><label class="form-label">RIEA Registration Number</label><input type="text" class="form-control" value="<?= $details->registration_no ?>" readonly></div>
+      <div class="col-md-6"><label class="form-label">NCET <?=date('Y');?> Application Number</label><input type="text" class="form-control" value="<?= $details->ncet_application_no ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Name</label><input type="text" class="form-control" value="<?= $details->name ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Gender</label><input type="text" class="form-control" value="<?= $details->gender ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Category</label><input type="text" class="form-control" value="<?= $details->category ?>" readonly></div>
-      <div class="col-md-6"><label class="form-label">PwBD</label><input type="text" class="form-control" value="<?= $details->physical_disable == 1 ? 'Yes' : 'No'; ?>" readonly></div>
-      <div class="col-md-6"><label class="form-label">Mobile No.</label><input type="text" class="form-control" value="<?= $details->phone ?>" readonly></div>
-      <div class="col-md-6"><label class="form-label">Aadhaar No.</label><input type="text" class="form-control" value="<?= $details->aadhar_no ?>" readonly></div>
-      <div class="col-md-12"><label class="form-label">Stream</label><input type="text" class="form-control" value="Not Set Yet" readonly></div>
+      <div class="col-md-6"><label class="form-label">Physical Disability</label><input type="text" class="form-control" value="<?= $details->physical_disable == 1 ? 'Yes' : 'No'; ?>" readonly></div>
+      <div class="col-md-6"><label class="form-label">Mobile Number</label><input type="text" class="form-control" value="<?= $details->phone ?>" readonly></div>
+      <div class="col-md-6"><label class="form-label">Aadhaar Number</label><input type="text" class="form-control" value="<?= $details->aadhar_no ?>" readonly></div>
+      <div class="col-md-6"><label class="form-label">Course</label><input type="text" class="form-control" value="<?= $details->course ?>" readonly></div>
     </div>
 
     <?php
@@ -92,7 +92,7 @@
 
       <label class="form-label">Attach Screenshot / Receipt Copy of Payment</label>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-5">
           <input type="file" class="form-control file-input" id="fileInput" accept=".jpg,.jpeg,.png,.pdf" name="payment_receipt" <?php echo $status ? 'disabled': '';?>>
           <label id="fileError" class="error"></label>
           <p class="mt-2 mb-0">Status: <span class="file-status pending">Pending</span></p>

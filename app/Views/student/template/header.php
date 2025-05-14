@@ -89,7 +89,7 @@
         
         <a href="<?php echo base_url('instructions') ?>" class="header-anchor mt-4">Instructions</a>
         <a href="<?php echo base_url('contact-us') ?>" class="header-anchor mt-4">Contact Us</a>
-        <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>"><button class="btn secondary-btn mt-4 ms-3"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
+        <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>" class=" mt-4 ms-2"><button class="btn secondary-btn"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
       </div>
     </div>
   </section>
