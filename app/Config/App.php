@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = 'https://riea.ibirdsservices.in/';
+    public string $baseURL = 'https://demo.riea.in/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

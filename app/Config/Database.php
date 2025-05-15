@@ -27,9 +27,9 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => 'ibirdsse_riea',
-        'password'     => 'riea@#2025',
-        'database'     => 'ibirdsse_riea',
+        'username'     => 'riea_demo',
+        'password'     => 'riea@#2025demo',
+        'database'     => 'riea_demo',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
