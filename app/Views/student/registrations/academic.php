@@ -656,9 +656,9 @@
             selectBoard(this);
         });
 
-        $.validator.addMethod("lessThan", function(value, element, param) {
-            return this.optional(element) || parseInt(value) <= parseInt($(param).val());
-        }, "Obtained marks cannot be greater than maximum marks.");
+        // $.validator.addMethod("lessThan", function(value, element, param) {
+        //     return this.optional(element) || parseInt(value) <= parseInt($(param).val());
+        // }, "Obtained marks cannot be greater than maximum marks.");
 
         // $.validator.addMethod('filesize', function(value, element, param) {
         //     if (this.optional(element)) return true;
@@ -685,58 +685,58 @@
         // }, function(param, element) {
         //     return `Image size must be less than ${param.size} ${param.unit}`});
 
-        $.validator.addMethod("filesize", function(value, element, param) {
-            console.log('param: ',param);
-            if (element.files.length > 0) {
-                var fileSize = element.files[0].size; // size in bytes
-                return this.optional(element) || (fileSize <= param);
-            }
-            return true; // if no file is selected, don't validate
-        }, "File size must be less than {0} bytes.");
+        // $.validator.addMethod("filesize", function(value, element, param) {
+        //     // console.log('param: ',param);
+        //     if (element.files.length > 0) {
+        //         var fileSize = element.files[0].size; // size in bytes
+        //         return this.optional(element) || (fileSize <= param);
+        //     }
+        //     return true; // if no file is selected, don't validate
+        // }, "File size must be less than {0} bytes.");
 
-        $.validator.addMethod("obtainCheck", function(value, element) {
-            let row = $(element).attr('data-row'); // get the same row number
-            let maxMarks = $(`#max_marks${row}`).val();
-            if (maxMarks === "") return true; // skip if max marks not filled yet
-            return parseFloat(value) <= parseFloat(maxMarks);
-        }, "Obtained marks cannot be greater than maximum marks.");
+        // $.validator.addMethod("obtainCheck", function(value, element) {
+        //     let row = $(element).attr('data-row'); // get the same row number
+        //     let maxMarks = $(`#max_marks${row}`).val();
+        //     if (maxMarks === "") return true; // skip if max marks not filled yet
+        //     return parseFloat(value) <= parseFloat(maxMarks);
+        // }, "Obtained marks cannot be greater than maximum marks.");
 
-        var rules = {
-            obtain_marks_10th: {
-                required: true,
-                number: true,
-                lessThan: '#max-marks-10'
-            },
-            obtain_marks_12th: {
-                required: true,
-                number: true,
-                lessThan: '#max-marks-12'
-            },
-            "code[]": {
-                required: true,
-                number: true,
-                minlength: 1
-            },
-            "obtain_marks[]": {
-                required: true,
-                number: true,
-                min: 0,
-                obtainCheck: true
-            }
-        };
+        // var rules = {
+        //     obtain_marks_10th: {
+        //         required: true,
+        //         number: true,
+        //         lessThan: '#max-marks-10'
+        //     },
+        //     obtain_marks_12th: {
+        //         required: true,
+        //         number: true,
+        //         lessThan: '#max-marks-12'
+        //     },
+        //     "code[]": {
+        //         required: true,
+        //         number: true,
+        //         minlength: 1
+        //     },
+        //     "obtain_marks[]": {
+        //         required: true,
+        //         number: true,
+        //         min: 0,
+        //         obtainCheck: true
+        //     }
+        // };
 
-        var messages = {
-            "code[]": {
-                required: "Please enter subject code",
-                number: "Code must be a number",
-                minlength: "Code must be at least 1 digit"
-            },
-            "obtain_marks[]": {
-                required: "Please enter obtained marks",
-                number: "Must be a valid number",
-                min: "Marks cannot be negative"
-            }
-        };
+        // var messages = {
+        //     "code[]": {
+        //         required: "Please enter subject code",
+        //         number: "Code must be a number",
+        //         minlength: "Code must be at least 1 digit"
+        //     },
+        //     "obtain_marks[]": {
+        //         required: "Please enter obtained marks",
+        //         number: "Must be a valid number",
+        //         min: "Marks cannot be negative"
+        //     }
+        // };
 
         if (status === "Request") {
             for (key in attachment) {
@@ -1201,7 +1201,7 @@
                         } else {
                             let selectedSubject = result[0].subject;
                             let oldSubject = $(`#subject${row}`).val();
-                            console.log('oldSubject ', oldSubject);
+                            // console.log('oldSubject ', oldSubject);
                             $(`#subject${row}`).val(selectedSubject);
                             $(`#max_marks${row}`).val(result[0].max_score);
                             $('.max_marks').trigger('blur');
@@ -1213,7 +1213,7 @@
                                         courses[key] = courses[key].filter(subject => subject !== oldSubject);
                                     }
                                 }
-                                console.log('adL ', courses);
+                                // console.log('adL ', courses);
                                 if(oldSubject === "Biology/Biological Studies"){
                                     bscSubject = bscSubject.filter(subject => subject !== "Zoology" && subject !== "Botany");
                                 }else{
@@ -1252,7 +1252,7 @@
                     }
                     $('.loader-wrapper').hide();
                 }).fail(function(data) {
-                    console.log("failure", data);
+                    // console.log("failure", data);
                     toastr.error('Something is wrong', 'Error');
                     $('.loader-wrapper').hide();
                 });
@@ -1276,7 +1276,7 @@
 
         for (const key in courses) {
             for (const element of courses[key]) {
-                console.log('element: ', element);
+                // console.log('element: ', element);
                 if(key == 'B.Sc. B.Ed.'){
                     bscPreferences += `<div class="mb-3 row">
                                             <label class="col-sm-4 col-form-label">Preference ${bscCount}st</label>
