@@ -599,7 +599,7 @@ class Registration extends BaseController
             // $data['details'] = $registrationModel->getRegistrationDetail($id);
             
             // var_dump($request, $details);exit;
-            if(empty($request) && $details->acknowledged == 'false'){
+            if(empty($request) && ($details->acknowledged == 'false' || $details->acknowledged == null)){
                 $data['details'] = $details;
                 $data['pageTitle'] = "Student - Academic";
                 $data['active'] = '';
