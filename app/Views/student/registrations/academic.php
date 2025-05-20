@@ -325,7 +325,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <label class="col-sm-2 form-label fw-bold">Score</label>
+                    <h3 class="col-sm-3 form-label fw-bold mt-3">NCET <?=date('Y');?> Score</h3>
                     <div class="col-sm-12">
                         <h5><span class="required-icon">*</span> Fill the details of score obtained in Languages, Domain-Specific Subjects, and General Test in NCET <?=date('Y');?></h5>
                         <table class="table table-bordered text-center">
@@ -411,7 +411,7 @@
                             <?php if(isset($details->photo) && !empty($details->photo) && str_ends_with($details->photo, '.pdf')){ ?>
                                 <a href="<?=base_url($details->photo);?>" target="_blank">Uploaded PDF</a>
                             <?php }else{ ?>
-                                <img src="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewPhoto">
+                                <img src="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/public/assets/img/no-image.webp'); ?>" alt="Preview" class="preview me-3" id="previewPhoto">
                             <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
@@ -432,7 +432,7 @@
                             <?php if(isset($details->signature) && !empty($details->signature) && str_ends_with($details->signature, '.pdf')){ ?>
                                 <a href="<?=base_url($details->signature);?>" target="_blank">Uploaded PDF</a>
                             <?php }else{ ?>
-                                <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewSignature">
+                                <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/public/assets/img/no-image.webp'); ?>" alt="Preview" class="preview me-3" id="previewSignature">
                             <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
@@ -458,7 +458,7 @@
                             <?php if(isset($details->certificate_10) && !empty($details->certificate_10) && str_ends_with($details->certificate_10,'.pdf')){ ?>
                                 <a href="<?=base_url($details->certificate_10);?>" target="_blank">Uploaded PDF</a>
                             <?php }else{ ?>
-                                <img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_10">
+                                <img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/public/assets/img/no-image.webp'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_10">
                             <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
@@ -479,7 +479,7 @@
                             <?php if(isset($details->certificate_12) && !empty($details->certificate_12) && str_ends_with($details->certificate_12,'.pdf')){ ?>
                                 <a href="<?=base_url($details->certificate_12);?>" target="_blank">Uploaded PDF</a>
                             <?php }else{ ?>
-                                <img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_12">
+                                <img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/public/assets/img/no-image.webp'); ?>" alt="Preview" class="preview me-3" id="previewCertificate_12">
                             <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
@@ -500,11 +500,30 @@
                             <?php if(isset($details->ncet_score_card) && !empty($details->ncet_score_card) && str_ends_with($details->ncet_score_card,'.pdf')){ ?>
                                 <a href="<?=base_url($details->ncet_score_card);?>" target="_blank">Uploaded PDF</a>
                             <?php }else{ ?>
-                                <img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_ncet_score">
+                                <img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/public/assets/img/no-image.webp'); ?>" alt="Preview" class="preview me-3" id="preview_ncet_score">
                             <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
                             <input type="file" class="form-control form-control-sm me-2" id="ncet_score_card" name="ncet_score_card" style="width: auto;"  data-preview="preview_ncet_score" accept=".jpg,.jpeg,.png,.pdf" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 upload-section">
+                    <div class="row">
+                        <h4 class="mb-4">NCET Application Form</h4>
+                        <div class="col-md-8">
+                            <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
+                            <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <?php if(isset($details->ncet_application_form) && !empty($details->ncet_application_form) && str_ends_with($details->ncet_application_form,'.pdf')){ ?>
+                                <a href="<?=base_url($details->ncet_application_form);?>" target="_blank">Uploaded PDF</a>
+                            <?php }else{ ?>
+                                <img src="<?= isset($details->ncet_application_form) && !empty($details->ncet_application_form) ? base_url($details->ncet_application_form) : base_url('/assets/img/no-image.webp'); ?>" alt="Preview" class="preview me-3" id="preview_application_form">
+                            <?php } ?>
+                        </div>
+                        <div class="d-flex align-items-center flex-wrap mt-3">
+                            <input type="file" class="form-control form-control-sm me-2" id="ncet_application_form" name="ncet_application_form" style="width: auto;"  data-preview="preview_application_form" accept=".jpg,.jpeg,.png,.pdf" required>
                         </div>
                     </div>
                 </div>
@@ -521,7 +540,7 @@
                             <?php if(isset($details->caste_certificate) && !empty($details->caste_certificate) && str_ends_with($details->caste_certificate,'.pdf')){ ?>
                                 <a href="<?=base_url($details->caste_certificate);?>" target="_blank">Uploaded PDF</a>
                             <?php }else{ ?>
-                                <img src="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url($details->caste_certificate) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_caste_certificate">
+                                <img src="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url($details->caste_certificate) : base_url('/public/assets/img/no-image.webp'); ?>" alt="Preview" class="preview me-3" id="preview_caste_certificate">
                             <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
@@ -542,7 +561,7 @@
                             <?php if(isset($details->pwbd) && !empty($details->pwbd) && str_ends_with($details->pwbd,'.pdf')){ ?>
                                 <a href="<?=base_url($details->pwbd);?>" target="_blank">Uploaded PDF</a>
                             <?php }else{ ?>
-                                <img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/public/assets/img/no-image.png'); ?>" alt="Preview" class="preview me-3" id="preview_pwbd">
+                                <img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/public/assets/img/no-image.webp'); ?>" alt="Preview" class="preview me-3" id="preview_pwbd">
                             <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
@@ -616,6 +635,7 @@
     let certificate_10 = '<?php echo $details->certificate_10; ?>';
     let certificate_12 = '<?php echo $details->certificate_12; ?>';
     let ncet_score_card = '<?php echo $details->ncet_score_card; ?>';
+    let ncet_application_form = '<?php echo $details->ncet_application_form; ?>';
     let caste_certificate = '<?php echo $details->caste_certificate; ?>';
     let pwbd = '<?php echo $details->pwbd; ?>';
 
@@ -630,6 +650,7 @@
         certificate_10,
         certificate_12,
         ncet_score_card,
+        ncet_application_form,
         caste_certificate,
         pwbd
     };
@@ -901,7 +922,7 @@
         });
 
         // Real-time validation for file inputs
-        $('#photo, #signature, #certificate_10, #certificate_12, #ncet_score_card, #caste_certificate, #pwbd').on('change', function(e) {
+        $('#photo, #signature, #certificate_10, #certificate_12, #ncet_score_card, #ncet_application_form, #caste_certificate, #pwbd').on('change', function(e) {
             let maxSize = $(this).is('#photo, #signature') ? 200 : 1024;
             let allowedTypes = ['image/jpg', 'image/jpeg', 'image/png', 'application/pdf'];
             let preview = $(this).attr('data-preview');
@@ -948,6 +969,7 @@
                 { input: $('#certificate_10'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
                 { input: $('#certificate_12'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
                 { input: $('#ncet_score_card'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#ncet_application_form'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
                 { input: $('#caste_certificate'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
                 { input: $('#pwbd'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
             ];
@@ -1026,6 +1048,7 @@
                 { input: $('#certificate_10'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
                 { input: $('#certificate_12'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
                 { input: $('#ncet_score_card'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
+                { input: $('#ncet_application_form'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
                 { input: $('#caste_certificate'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
                 { input: $('#pwbd'), maxSize: 1024, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
             ];
@@ -1245,6 +1268,12 @@
                                 baSubject = baSubject.filter(subject => subject !== oldSubject);
                                 baSubject.push(selectedSubject);
                                 courses[result[0].course].push(selectedSubject);
+                                createPreferences();
+                            }else{
+                                for (let key in courses) {
+                                    courses[key] = courses[key].filter(subject => subject !== oldSubject);
+                                }
+                                baSubject = baSubject.filter(subject => subject !== oldSubject);
                                 createPreferences();
                             }
                         }

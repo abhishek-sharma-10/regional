@@ -58,16 +58,18 @@
 </div>
 <script>
   function openPrintPage() {
+    document.querySelector('#header').classList.add('d-none');
     document.querySelector('#topbar').classList.add('d-none');
     document.querySelector('footer').classList.add('d-none');
     document.querySelector('.print-btn').style = "display: none";
-    document.querySelector('.shadow-remove').style = "box-shadow: 0 0 0 rgba(0, 0, 0, 0)";
-
+    document.querySelector('.main-card').style = "border:1px solid #ccc; box-shadow: 0 0 0 rgba(0, 0, 0, 0)";
+    
     window.onafterprint = (event) => {
+      document.querySelector('#header').classList.remove('d-none');
       document.querySelector('#topbar').classList.remove('d-none');
       document.querySelector('footer').classList.remove('d-none');
       document.querySelector('.print-btn').style = "display: block";
-      document.querySelector('.shadow-remove').style = "display: block";
+      document.querySelector('.main-card').style = "border:none; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15)";
     }
     window.print();
   }

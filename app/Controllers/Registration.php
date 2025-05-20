@@ -381,6 +381,27 @@ class Registration extends BaseController
                     return redirect()->to('/academic/' . $input['id']);
                 }
             }
+
+            $ncet_application_form = $this->request->getFile('ncet_application_form');
+            if (!empty($ncet_application_form->getName())) {
+                // $videoFileExist = true;
+                $validationRule = [
+                    'ncet_application_form' => [
+                        'label' => 'ncet_application_form',
+                        'rules' => [
+                            'uploaded[ncet_application_form]',
+                            'mime_in[ncet_application_form,image/pdfimage/jpg,image/jpeg,image/png,application/pdf]',
+                            'max_size[ncet_application_form, 1024]'
+                        ],
+                    ],
+                ];
+
+                if (!$this->validate($validationRule)) {
+                    var_dump($this->validator->getErrors());
+                    $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
+                    return redirect()->to('/academic/' . $input['id']);
+                }
+            }
             // var_dump($input);
             // ----------------------------------
             if (!empty($photo->getName())) {
@@ -488,6 +509,21 @@ class Registration extends BaseController
                 unset($input['pwbd']);
             }
 
+            if (!empty($ncet_application_form->getName())) {
+                $type = $ncet_application_form->getClientMimeType();
+                $ext = "." . explode("/", $type)[1];
+
+                $newName = "ncet_application_form" . $ext;
+                $this->unlinkFiles($uploadPath . 'ncet_application_form');
+                // if (file_exists($uploadPath . $newName)) {
+                //     unlink($uploadPath . $newName);
+                // }
+                $ncet_application_form->move($uploadPath, $newName);
+                $input['ncet_application_form'] = $uploadPath . $newName;
+            } else {
+                unset($input['ncet_application_form']);
+            }
+
             // var_dump($input);
 
             $ncet_score_data = [];
@@ -541,7 +577,12 @@ class Registration extends BaseController
                 $ncetScoreModel->upsertBatch($ncet_score_data);
             }
 
-            return redirect()->to('/academic/' . $input['id']);
+            if (isset($input['button_value']) && $input['button_value'] == 'Final Save') {
+                return redirect()->to('/pay-registration-fee/' . $input['id']);
+            }else if (isset($input['button_value']) && $input['button_value'] == 'Save as Draft'){
+                return redirect()->to('/academic/' . $input['id']);
+            }
+            
 
             // $data = [];
 
@@ -551,6 +592,8 @@ class Registration extends BaseController
             // $data['pageTitle'] = "Student - Academic";
             // return view('student/template/header',$data). view('student/registrations/academic', $data). view('student/template/footer');
         } catch (Exception $exception) {
+            session()->setFlashdata('error', 'Something went wrong.\n'.$exception->getMessage());
+            return redirect()->to('/academic/' . $input['id']);
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],
                 ResponseInterface::HTTP_BAD_REQUEST

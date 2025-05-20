@@ -73,10 +73,10 @@
     <div class="mt-4">
       <p>Please pay the registration fee Rs. 500/- (Five Hundred Rupees Only) in the following account and attach the payment receipt / screenshot of payment made.</p>
       <ul class="list-unstyled">
-        <li><strong>Ac Name:</strong> Principal, RIE, Ajmer</li>
+        <li><strong>Ac Name:</strong> Principal, RIE, Ajmer - CEE</li>
         <li><strong>Bank Name:</strong> SBI, RIE, Ajmer</li>
-        <li><strong>Ac Number:</strong> 10200505552</li>
-        <li><strong>IFSC:</strong> SBIN0015095</li>
+        <li><strong>Ac Number:</strong> 33687215909</li>
+        <li><strong>IFSC:</strong> SBIN0015309</li>
       </ul>
     </div>
 
