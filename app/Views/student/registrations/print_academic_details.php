@@ -78,18 +78,16 @@
         <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-outline-primary mb-3 print-btn" onclick="openPrintPage()">🖨️ Print Form</button>
         </div>
-
         <div class="row align-items-start flex-row justify-content-center">
             <div style="width: 10%;">
-                <img src="/assets/img/logo1.png" alt="Logo" class="logo mb-2">
+                <img src="/public/assets/img/logo1.png" alt="Logo" class="logo mb-2">
             </div>
             <div style="width:fit-content;">
-        <div class="header-title">Regional Institute of Education</div>
-        <div class="subtitle">Pushkar Road, Ajmer (Raj.)</div>
-        <h3 class="mt-2">Academic Details</h3>
-                <h4><?= $details->course ?></h4>
-        <div class="final-status">(Final)</div>
-
+                <div class="header-title">Regional Institute of Education, Ajmer (Raj.)</div>
+                <!-- <div class="subtitle">Pushkar Road</div> -->
+                <h3 class="mt-2">Academic Details</h3>
+                <h4><?= $details->course.' - '. date('Y'); ?></h4>
+                <div class="final-status">(Final)</div>
             </div>
         </div>
         <div class="row table-responsive mt-3">
@@ -118,18 +116,18 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="text-center"><a href="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/public/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/public/assets/img/no-image.webp'); ?>" class="img-fluid mb-2 app_photo" alt="Photo" style="width:60%;height: 150px;object-fit: cover;object-position: center;"></a></div>
+                        <div class="text-center"><a href="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/public/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/public/assets/img/no-image.webp'); ?>" class="img-fluid mb-2 app_photo" alt="Photo" style="width:60%;height: 150px;object-fit: fill;object-position: center;"></a></div>
                     </td>
-                    </tr>
+                </tr>                
                 <tr>
                     <td style="padding: 0px;">
                         <div class="table-responsive">
-                            <table class="table table-bordered text-center" style="margin-bottom:0px;">
+                            <table width="100%" class="table table-bordered text-center" style="margin-bottom:0px;">
                                 <thead>
                                     <tr>
                                         <th colspan="7">Academic Details</th>
                                     </tr>
-                    <tr>
+                                    <tr>
                                         <th></th>
                                         <th>Board</th>
                                         <th>Stream</th>
@@ -137,31 +135,30 @@
                                         <th>Maximum Marks</th>
                                         <th>Obtained Marks</th>
                                         <th>Percentage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
                                         <td>10th (Secondary)</td>
-                        <td><?= $details->board_10th; ?><?php echo isset($details->board_10th_other) && !empty($details->board_10th_other) ? ' ('.$details->board_10th_other.')' : '';?></td>
+                                        <td><?= $details->board_10th; ?><?php echo isset($details->board_10th_other) && !empty($details->board_10th_other) ? ' ('.$details->board_10th_other.')' : '';?></td>
                                         <td>-</td>
-                        <td><?= $details->year_of_passing_10th; ?></td>
-                        <td><?= $details->max_marks_10th ?></td>
-                        <td><?= $details->obtain_marks_10th ?></td>
-                        <td><?= $details->percentage_10th ?></td>
-                    </tr>
-                    <tr>
+                                        <td><?= $details->year_of_passing_10th; ?></td>
+                                        <td><?= $details->max_marks_10th ?></td>
+                                        <td><?= $details->obtain_marks_10th ?></td>
+                                        <td><?= $details->percentage_10th ?></td>
+                                    </tr>
+                                    <tr>
                                         <td>12th (Secondary)</td>
                                         <td><?= $details->board_12th; ?><?php echo isset($details->board_12th_other) && !empty($details->board_12th_other) ? ' ('.$details->board_12th_other.')' : '';?></td>
-                        <td><?= $details->stream; ?></td>
-                        <td><?= $details->year_of_passing_12th; ?></td>
-                        <td><?= $details->max_marks_12th ?></td>
-                        <td><?= $details->obtain_marks_12th ?></td>
-                        <td><?= $details->percentage_12th ?></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
+                                        <td><?= $details->stream; ?></td>
+                                        <td><?= $details->year_of_passing_12th; ?></td>
+                                        <td><?= $details->max_marks_12th ?></td>
+                                        <td><?= $details->obtain_marks_12th ?></td>
+                                        <td><?= $details->percentage_12th ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </td>
                     <td>
                         <div class="text-center">
@@ -174,61 +171,63 @@
                     <td rowspan="2"><p class="text-center" style="height: 50px;">Sign. of Candidate</p></td>
                 </tr> -->
             </table>
-            </div>
+        </div>
+
         <div class="row table-responsive">
-            <table class="table table-bordered" style="text-align:center">
+            <table width="100%" class="table table-bordered" style="text-align:center">
                 <thead>
                     <tr>
                         <th colspan="7" class="text-center">Details of NCET <?=date('Y');?> Exam</th>
                     </tr>
                     <tr>
-                        <td colspan="3"><strong>NCET <?=date('Y');?> Roll No:</strong> <?= $details->ncet_application_no ?></td>
-                        <td colspan="2"><strong>Course:</strong> <?= $details->course ?></td>
+                        <td colspan="2"><strong>NCET <?=date('Y');?> Roll No:</strong> <?= $details->ncet_application_no ?></td>
+                        <td colspan="3"><strong>Course:</strong> <?= $details->course ?></td>
                     </tr>
-                        <tr>
-                            <th>Domain</th>
-                            <th>Subject</th>
-                            <th>Maximum Marks</th>
-                            <th>Score Obtained</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            if(isset($ncet) && !empty($ncet)){
-                                $total_max = 0;
-                                $total_obtain = 0;
-                                foreach($ncet as $data){
-                                    $total_max += $data->total_maximum_marks;
-                                    $total_obtain += $data->total_marks_obtain;
-                        ?>
-                                    <tr>
-                                        <td><?= $data->codes;?></td>
-                                        <td><?= $data->subjects;?></td>
-                                        <td><?= $data->total_maximum_marks;?></td>
-                                        <td><?= $data->total_marks_obtain;?></td>
-                                        <td><?= $data->percentage;?></td>
-                                    </tr>
-                        <?php
-                                }
-                        ?>
-                                <tr class="fw-bold">
-                                    <td colspan="2">Total</td>
-                                    <td><?= $total_max; ?></td>
-                                    <td><?= $total_obtain;?></td>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Subject</th>
+                        <th>Maximum Marks</th>
+                        <th>Score Obtained</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        if(isset($ncet) && !empty($ncet)){
+                            $total_max = 0;
+                            $total_obtain = 0;
+                            foreach($ncet as $data){
+                                $total_max += $data->total_maximum_marks;
+                                $total_obtain += $data->total_marks_obtain;
+                    ?>
+                                <tr>
+                                    <td><?= $data->codes;?></td>
+                                    <td><?= $data->subjects;?></td>
+                                    <td><?= $data->total_maximum_marks;?></td>
+                                    <td><?= $data->total_marks_obtain;?></td>
+                                    <td><?= $data->percentage;?></td>
                                 </tr>
-                        <?php
-                            }else{
-                        ?>
-                                <tr><td colspan="5">Please enter NCET Scores.</td></tr>
-                        <?php
+                    <?php
                             }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+                    ?>
+                            <tr class="fw-bold">
+                                <td colspan="2">Total</td>
+                                <td><?= $total_max; ?></td>
+                                <td><?= $total_obtain;?></td>
+                            </tr>
+                    <?php
+                        }else{
+                    ?>
+                            <tr><td colspan="5">Please enter NCET Scores.</td></tr>
+                    <?php
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
         <div class="row table-responsive">
-            <table class="table table-bordered text-center">
+            <table width="100%" class="table table-bordered text-center">
                 <thead class="table-light">
                     <tr>
                         <th colspan="2">Preference for Major Discipline in ITEP Course</th>
@@ -255,8 +254,9 @@
                 </tbody>
             </table>
         </div>
+
         <div class="row table-responsive">
-            <table class="table table-bordered text-center attachments">
+            <table width="100%" class="table table-bordered text-center attachments">
                 <thead class="table-light">
                     <tr>
                         <th colspan="7">Attachments</th>
@@ -280,7 +280,7 @@
                                 <?php }else{ ?>
                                     <a href="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/public/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/public/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="10th Marksheet"></a>
                                 <?php } ?>
-                </div>
+                            </div>
                         </td>
                         <td>
                             <div>
@@ -289,7 +289,7 @@
                                 <?php }else{ ?>
                                     <a href="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/public/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/public/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="12th Marksheet"></a>
                                 <?php } ?>
-                </div>
+                            </div>
                         </td>
                         <td>
                             <div>
@@ -307,7 +307,7 @@
                                 <?php }else{ ?>
                                     <a href="<?= isset($details->ncet_application_form) && !empty($details->ncet_application_form) ? base_url($details->ncet_application_form) : base_url('/public/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->ncet_application_form) && !empty($details->ncet_application_form) ? base_url($details->ncet_application_form) : base_url('/public/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Ncet Application Form"></a>
                                 <?php } ?>
-                </div>
+                            </div>
                         </td>
                         <?php if($details->category !== 'GEN'){ ?><td>
                             <div>
@@ -339,10 +339,11 @@
                     </tr>
                 </tbody>
             </table>
-                </div>
+        </div>
+
         <div class="row">
             <div class="offset-sm-9 col-sm-3 text-center">
-                <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Signature" style="width: 70%;height: 80px;object-fit: cover;object-position: center;"></a>
+                <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Signature" style="width: 70%;height: 80px;object-fit: contain;object-position: center;"></a>
                 <p style="margin-bottom: 0px;">Signature of Candidate</p>
             </div>
         </div>

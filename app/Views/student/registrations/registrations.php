@@ -362,7 +362,7 @@ if ($register_container) {
     let current_year = current.getFullYear();
     let old_year = current_year - 20;
     let old_date = old_year+'-01-01';
-    let current_date = current.getFullYear()+'-'+(parseInt(current.getMonth())+1).slice(-2)+'-'+current.getDate();
+    let current_date = current.getFullYear()+'-'+('0'+(current.getMonth()+1)).slice(-2)+'-'+current.getDate();
 
     $('input[name=dob]').attr('min', old_date);
     $('input[name=dob]').attr('max', current_date);

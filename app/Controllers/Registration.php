@@ -577,9 +577,9 @@ class Registration extends BaseController
                 $ncetScoreModel->upsertBatch($ncet_score_data);
             }
 
-            if (isset($input['button_value']) && $input['button_value'] == 'Final Save') {
+            if (isset($input['status']) && $input['status'] == 'Save - Payment Pending') {
                 return redirect()->to('/pay-registration-fee/' . $input['id']);
-            }else if (isset($input['button_value']) && $input['button_value'] == 'Save as Draft'){
+            }else if (isset($input['status']) && $input['status'] == 'Save as Draft'){
                 return redirect()->to('/academic/' . $input['id']);
             }
             
