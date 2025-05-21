@@ -85,7 +85,7 @@ if ($email_container) {
         <div class="row">
           <div class="col-md-6 mb-3">
             <b><label class="form-label">Email</label></b>
-            <input type="email" class="form-control" placeholder="Enter your Email" name="email" id="email" required>
+            <input type="email" class="form-control" placeholder="Enter your Email" name="email" id="email" value="<?php echo isset($email) && !empty($email) ? $email : '';?>" required>
             <input type="hidden" class="form-control" name="registrations-process" value="send-email">
           </div>
           <div class="col-md-4 mb-3">

@@ -72,6 +72,7 @@ class Registration extends BaseController
 
             $email_data = $registrationModel->getRegistrationByEmail($email);
             if(count($email_data) > 0){
+                $data['email'] = $email;
                 $data['msg'] = ['box'=> 'warning', 'msg' => 'This email is already registered.<br>Application No : <b>'.$email_data[0]->ncet_application_no.'</b>'];
                 return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
             }
