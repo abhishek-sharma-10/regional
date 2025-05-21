@@ -682,8 +682,8 @@
             selectBoard(this);
         });
 
-        courses['B.Sc. B.Ed.'] = bsc_preferences.filter(subject => subject !== "");        
-        courses['B.A. B.Ed.'] = ba_preferences.filter(subject => subject !== "");        
+        // courses['B.Sc. B.Ed.'] = bsc_preferences.filter(subject => subject !== "");        
+        // courses['B.A. B.Ed.'] = ba_preferences.filter(subject => subject !== "");        
 
         if (status === "Request") {
             for (key in attachment) {
