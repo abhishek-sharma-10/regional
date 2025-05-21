@@ -627,8 +627,9 @@
     let ba_preference_1 = '<?php echo $details->ba_preference_1; ?>';
     let ba_preference_2 = '<?php echo $details->ba_preference_2; ?>';
     let ba_preference_3 = '<?php echo $details->ba_preference_3; ?>';
+    let ba_preference_4 = '<?php echo $details->ba_preference_4; ?>';
     const bsc_preferences = [bsc_preference_1, bsc_preference_2, bsc_preference_3, bsc_preference_4];
-    const ba_preferences = [ba_preference_1, ba_preference_2, ba_preference_3];
+    const ba_preferences = [ba_preference_1, ba_preference_2, ba_preference_3, ba_preference_4];
 
     let photo = '<?php echo $details->photo; ?>';
     let signature = '<?php echo $details->signature; ?>';
@@ -658,6 +659,10 @@
     var bscSubject = [];
     var baSubject = [];
     var baSubjectCodes = [101, 102, 113];
+    const courses = {
+        "B.Sc. B.Ed.": [],
+        "B.A. B.Ed.": [],
+    };
 
     $(document).ready(function() {
         $('.baPreferences').hide();
@@ -677,87 +682,8 @@
             selectBoard(this);
         });
 
-        // $.validator.addMethod("lessThan", function(value, element, param) {
-        //     return this.optional(element) || parseInt(value) <= parseInt($(param).val());
-        // }, "Obtained marks cannot be greater than maximum marks.");
-
-        // $.validator.addMethod('filesize', function(value, element, param) {
-        //     if (this.optional(element)) return true;
-
-        //     const size = element.files[0].size; // size in bytes
-        //     const limit = param.size;
-        //     const unit = param.unit.toUpperCase();
-
-        //     let maxSizeInBytes;
-
-        //     switch (unit) {
-        //         case 'KB':
-        //             maxSizeInBytes = limit * 1000;
-        //             break;
-        //         case 'MB':
-        //             maxSizeInBytes = limit * 1000000;
-        //             break;
-        //         default:
-        //             console.warn('Unsupported unit for filesize validator. Use KB or MB.');
-        //             return false;
-        //     }
-
-        //     return size <= maxSizeInBytes;
-        // }, function(param, element) {
-        //     return `Image size must be less than ${param.size} ${param.unit}`});
-
-        // $.validator.addMethod("filesize", function(value, element, param) {
-        //     // console.log('param: ',param);
-        //     if (element.files.length > 0) {
-        //         var fileSize = element.files[0].size; // size in bytes
-        //         return this.optional(element) || (fileSize <= param);
-        //     }
-        //     return true; // if no file is selected, don't validate
-        // }, "File size must be less than {0} bytes.");
-
-        // $.validator.addMethod("obtainCheck", function(value, element) {
-        //     let row = $(element).attr('data-row'); // get the same row number
-        //     let maxMarks = $(`#max_marks${row}`).val();
-        //     if (maxMarks === "") return true; // skip if max marks not filled yet
-        //     return parseFloat(value) <= parseFloat(maxMarks);
-        // }, "Obtained marks cannot be greater than maximum marks.");
-
-        // var rules = {
-        //     obtain_marks_10th: {
-        //         required: true,
-        //         number: true,
-        //         lessThan: '#max-marks-10'
-        //     },
-        //     obtain_marks_12th: {
-        //         required: true,
-        //         number: true,
-        //         lessThan: '#max-marks-12'
-        //     },
-        //     "code[]": {
-        //         required: true,
-        //         number: true,
-        //         minlength: 1
-        //     },
-        //     "obtain_marks[]": {
-        //         required: true,
-        //         number: true,
-        //         min: 0,
-        //         obtainCheck: true
-        //     }
-        // };
-
-        // var messages = {
-        //     "code[]": {
-        //         required: "Please enter subject code",
-        //         number: "Code must be a number",
-        //         minlength: "Code must be at least 1 digit"
-        //     },
-        //     "obtain_marks[]": {
-        //         required: "Please enter obtained marks",
-        //         number: "Must be a valid number",
-        //         min: "Marks cannot be negative"
-        //     }
-        // };
+        courses['B.Sc. B.Ed.'] = bsc_preferences.filter(subject => subject !== "");        
+        courses['B.A. B.Ed.'] = ba_preferences.filter(subject => subject !== "");        
 
         if (status === "Request") {
             for (key in attachment) {
@@ -802,50 +728,6 @@
             }
         };
         
-        // console.log(rules, messages);
-
-        // const validator = $("#academic-form").validate({
-        //     rules,
-        //     messages
-        // });
-
-        // $('#save_draft').click(function (e) {
-        //     e.preventDefault();
-            
-        //     // Remove validation rules
-        //     $('input, select', '#academic-form').each(function () {
-        //         if ($(this).attr("name")) { // skip elements without a name
-        //             try {
-        //                 $(this).rules('remove');
-        //             } catch (e) {
-        //                 // Ignore elements that aren't part of the validator
-        //             }
-        //         }
-        //     });
-
-        //     // Clear validation errors
-        //     validator.resetForm();
-        //     $('.error').removeClass('error');
-
-        //     // Submit form without validation
-        //     $('#academic-form').off('submit').submit();
-        // });
-
-        // $('#final_save').click(function () {
-        //     if (category === "GEN") {
-        //         $('#caste_certificate').removeAttr('required').rules('remove');
-        //     } else {
-        //         $('#caste_certificate').attr('required', true);
-        //     }
-            
-        //     if(physical_disable == 0){
-        //         $('#pwbd').removeAttr('required').rules('remove');
-        //     }else{
-        //         $('#pwbd').attr('required', true);
-        //     }
-        //     $("#academic-form").submit();  // validate and submit
-        // });
-
         $('#cancel-btn').click(function(){
             let action = confirm("Are you sure you want to cancel?");
             console.log('action ', action);
@@ -1088,7 +970,7 @@
                 $('.baPreferences').hide();
                 $('.bscPreferences').hide();
             }
-
+            console.log('Course Changes');
             bindPreferenceOption();
         } catch (err) {
             console.log(err);
@@ -1164,10 +1046,6 @@
         $('#total_obtain_marks').val(total_obtain_marks);
     });
 
-    const courses = {
-        "B.Sc. B.Ed.": [],
-        "B.A. B.Ed.": [],
-    };
     $('.codes').on('blur', (e) => {
         let element = e.target;
         let row = $(element).attr('data-row');
