@@ -1088,7 +1088,7 @@
                 $('.baPreferences').hide();
                 $('.bscPreferences').hide();
             }
-            createPreferences();
+
             bindPreferenceOption();
         } catch (err) {
             console.log(err);
@@ -1277,7 +1277,7 @@
                                 createPreferences();
                             }
                         }
-                        // console.log(courses);
+                        console.log(courses);
                     }
                     $('.loader-wrapper').hide();
                 }).fail(function(data) {
