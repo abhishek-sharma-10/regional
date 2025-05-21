@@ -957,6 +957,9 @@
         try {
             let course = e.target.value;
             let subjects = [];
+            console.log('Course Changes', course);
+            console.log('Course Changes');
+            createPreferences();
 
             if (course == 'ITEP - B.A. B.Ed.') {
                 subjects = baSubject;
@@ -970,8 +973,6 @@
                 $('.baPreferences').hide();
                 $('.bscPreferences').hide();
             }
-            console.log('Course Changes');
-            createPreferences();
             bindPreferenceOption();
         } catch (err) {
             console.log(err);
