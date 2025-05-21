@@ -519,7 +519,7 @@
                             <?php if(isset($details->ncet_application_form) && !empty($details->ncet_application_form) && str_ends_with($details->ncet_application_form,'.pdf')){ ?>
                                 <a href="<?=base_url($details->ncet_application_form);?>" target="_blank">Uploaded PDF</a>
                             <?php }else{ ?>
-                                <img src="<?= isset($details->ncet_application_form) && !empty($details->ncet_application_form) ? base_url($details->ncet_application_form) : base_url('/assets/img/no-image.webp'); ?>" alt="Preview" class="preview me-3" id="preview_application_form">
+                                <img src="<?= isset($details->ncet_application_form) && !empty($details->ncet_application_form) ? base_url($details->ncet_application_form) : base_url('/public/assets/img/no-image.webp'); ?>" alt="Preview" class="preview me-3" id="preview_application_form">
                             <?php } ?>
                         </div>
                         <div class="d-flex align-items-center flex-wrap mt-3">
