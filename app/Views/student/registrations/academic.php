@@ -665,8 +665,8 @@
     };
 
     $(document).ready(function() {
-        // $('.baPreferences').hide();
-        // $('.bscPreferences').hide();
+        $('.baPreferences').hide();
+        $('.bscPreferences').hide();
 
         $('#course').trigger('change');
         $('.obtain_marks').trigger('blur');
@@ -1090,7 +1090,7 @@
                 }).done(function(data) {
                     // console.log("Complated", data);
                     // console.log("StatusCode", data.status);
-                    // console.log("Result", data.result);
+                    console.log("Result", data.result);
 
                     let result = data.result;
 
@@ -1107,7 +1107,7 @@
                         } else {
                             let selectedSubject = result[0].subject;
                             let oldSubject = $(`#subject${row}`).val();
-                            // console.log('oldSubject ', oldSubject);
+                            console.log('oldSubject ', oldSubject);
                             $(`#subject${row}`).val(selectedSubject);
                             $(`#max_marks${row}`).val(result[0].max_score);
                             $('.max_marks').trigger('blur');
@@ -1119,7 +1119,7 @@
                                         courses[key] = courses[key].filter(subject => subject !== oldSubject);
                                     }
                                 }
-                                // console.log('adL ', courses);
+                                console.log('adL ', courses);
                                 if(oldSubject === "Biology/Biological Studies"){
                                     bscSubject = bscSubject.filter(subject => subject !== "Zoology" && subject !== "Botany");
                                 }else{
@@ -1160,7 +1160,7 @@
                                 createPreferences();
                             }
                         }
-                        // console.log(courses);
+                        console.log(courses);
                     }
                     $('.loader-wrapper').hide();
                 }).fail(function(data) {
