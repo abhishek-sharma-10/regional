@@ -682,9 +682,6 @@
             selectBoard(this);
         });
 
-        // courses['B.Sc. B.Ed.'] = bsc_preferences.filter(subject => subject !== "");        
-        // courses['B.A. B.Ed.'] = ba_preferences.filter(subject => subject !== "");        
-
         if (status === "Request") {
             for (key in attachment) {
                 if(key === 'caste_certificate'){
@@ -957,24 +954,18 @@
         try {
             let course = e.target.value;
             let subjects = [];
-            console.log('Course Changes', course);
-            console.log('Course Changes');
-            createPreferences();
 
             if (course == 'ITEP - B.A. B.Ed.') {
                 subjects = baSubject;
                 $('.baPreferences').show();
                 $('.bscPreferences').hide();
-                console.log('1');
             } else if (course == 'ITEP - B.Sc. B.Ed.') {
                 subjects = bscSubject;
                 $('.baPreferences').hide();
                 $('.bscPreferences').show();
-                console.log('2');
             } else {
                 $('.baPreferences').hide();
                 $('.bscPreferences').hide();
-                console.log('3');
             }
             bindPreferenceOption();
         } catch (err) {
@@ -1090,7 +1081,7 @@
                 }).done(function(data) {
                     // console.log("Complated", data);
                     // console.log("StatusCode", data.status);
-                    console.log("Result", data.result);
+                    // console.log("Result", data.result);
 
                     let result = data.result;
 
@@ -1107,7 +1098,7 @@
                         } else {
                             let selectedSubject = result[0].subject;
                             let oldSubject = $(`#subject${row}`).val();
-                            console.log('oldSubject ', oldSubject);
+                            // console.log('oldSubject ', oldSubject);
                             $(`#subject${row}`).val(selectedSubject);
                             $(`#max_marks${row}`).val(result[0].max_score);
                             $('.max_marks').trigger('blur');
@@ -1119,7 +1110,7 @@
                                         courses[key] = courses[key].filter(subject => subject !== oldSubject);
                                     }
                                 }
-                                console.log('adL ', courses);
+                                // console.log('adL ', courses);
                                 if(oldSubject === "Biology/Biological Studies"){
                                     bscSubject = bscSubject.filter(subject => subject !== "Zoology" && subject !== "Botany");
                                 }else{
@@ -1160,7 +1151,7 @@
                                 createPreferences();
                             }
                         }
-                        console.log(courses);
+                        // console.log(courses);
                     }
                     $('.loader-wrapper').hide();
                 }).fail(function(data) {
