@@ -87,7 +87,7 @@
                 <!-- <div class="subtitle">Pushkar Road</div> -->
                 <h3 class="mt-2">Academic Details</h3>
                 <h4><?= $details->course.' - '. date('Y'); ?></h4>
-                <div class="final-status">(Final)</div>
+                <!-- <div class="final-status">(Final)</div> -->
             </div>
         </div>
         <div class="row table-responsive mt-3">
