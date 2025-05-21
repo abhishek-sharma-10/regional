@@ -965,13 +965,16 @@
                 subjects = baSubject;
                 $('.baPreferences').show();
                 $('.bscPreferences').hide();
+                console.log('1');
             } else if (course == 'ITEP - B.Sc. B.Ed.') {
                 subjects = bscSubject;
                 $('.baPreferences').hide();
                 $('.bscPreferences').show();
+                console.log('2');
             } else {
                 $('.baPreferences').hide();
                 $('.bscPreferences').hide();
+                console.log('3');
             }
             bindPreferenceOption();
         } catch (err) {
