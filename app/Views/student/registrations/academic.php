@@ -1088,7 +1088,7 @@
                 $('.baPreferences').hide();
                 $('.bscPreferences').hide();
             }
-
+            createPreferences();
             bindPreferenceOption();
         } catch (err) {
             console.log(err);
