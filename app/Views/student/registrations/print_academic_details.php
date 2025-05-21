@@ -296,7 +296,7 @@
                                 <?php if(isset($details->ncet_score_card) && !empty($details->ncet_score_card) && str_ends_with($details->ncet_score_card,'.pdf')){ ?>
                                     <a href="<?=base_url($details->ncet_score_card);?>" target="_blank">Uploaded PDF</a>
                                 <?php }else{ ?>
-                                    <a href="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Ncet Score Card"></a>
+                                    <a href="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/public/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/public/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Ncet Score Card"></a>
                                 <?php } ?>
                             </div>
                         </td>
@@ -323,7 +323,7 @@
                                 <?php if(isset($details->pwbd) && !empty($details->pwbd) && str_ends_with($details->pwbd,'.pdf')){ ?>
                                     <a href="<?=base_url($details->pwbd);?>" target="_blank">Uploaded PDF</a>
                                 <?php }else{ ?>
-                                    <a href="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="PwBD"></a>
+                                    <a href="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/public/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/public/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="PwBD"></a>
                                 <?php } ?>
                             </div>
                         </td><?php } ?>
@@ -332,7 +332,7 @@
                                 <?php if(isset($details->payment_receipt) && !empty($details->payment_receipt) && str_ends_with($details->payment_receipt,'.pdf')){ ?>
                                     <a href="<?=base_url($details->payment_receipt);?>" target="_blank">Uploaded PDF</a>
                                 <?php }else{ ?>
-                                    <a href="<?= isset($details->payment_receipt) && !empty($details->payment_receipt) ? base_url($details->payment_receipt) : base_url('/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->payment_receipt) && !empty($details->payment_receipt) ? base_url($details->payment_receipt) : base_url('/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Payment Receipt"></a>
+                                    <a href="<?= isset($details->payment_receipt) && !empty($details->payment_receipt) ? base_url($details->payment_receipt) : base_url('/public/assets/img/no-image.webp'); ?>" target="_blank"><img src="<?= isset($details->payment_receipt) && !empty($details->payment_receipt) ? base_url($details->payment_receipt) : base_url('/public/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Payment Receipt"></a>
                                 <?php } ?>
                             </div>
                         </td>
@@ -343,7 +343,7 @@
 
         <div class="row">
             <div class="offset-sm-9 col-sm-3 text-center">
-                <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Signature" style="width: 70%;height: 80px;object-fit: contain;object-position: center;"></a>
+                <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/public/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Signature" style="width: 50%;height: 75px;object-fit: contain;object-position: center;"></a>
                 <p style="margin-bottom: 0px;">Signature of Candidate</p>
             </div>
         </div>
