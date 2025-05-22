@@ -26,4 +26,9 @@ class Common extends BaseController
 
         return view('student/template/header', $data) . view('student/contact_us', $data) . view('student/template/footer');
     }
+    
+    public function internalServer(){
+        $data['pageTitle'] = "500 - Error";
+        return view('500_error', $data);
+    }
 }

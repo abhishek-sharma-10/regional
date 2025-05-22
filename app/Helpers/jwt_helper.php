@@ -11,7 +11,7 @@ function getSignedJWTForUser(string $regNo){
  
     $payload = array( 
         "iat" => $now, //Time the JWT issued at
-        "exp" => ($now + (60*60*2)), // Expiration time of token
+        "exp" => ($now + (60*2)), // Expiration time of token
         "sub" => $regNo,
     );
     

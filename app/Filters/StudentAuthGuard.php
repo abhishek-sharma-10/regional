@@ -36,7 +36,7 @@ class StudentAuthGuard implements FilterInterface{
         }catch (\Firebase\JWT\ExpiredException $ex){ 
             $this->refreshToken();
         }catch (\Exception | \UnexpectedValueException $ex) {
-            return redirect()->to('/');
+            return redirect()->to('/logout');
         }
         //     }
         //     else{
@@ -61,6 +61,7 @@ class StudentAuthGuard implements FilterInterface{
                 if($result){
                     $ses_data = [
                         'student' => $result,
+                        'role' => 'STUDENT',
                         'access_token' => getSignedJWTForUser($result[0]->id), 
                         'refresh_token' => getSignedRefreshToken($result[0]->id)
                     ];
@@ -69,7 +70,7 @@ class StudentAuthGuard implements FilterInterface{
                 }   
             } 
         } catch (\Exception $ex) {
-            return redirect()->to('/');
+            return redirect()->to('/logout');
         }
     }//method
 }

@@ -84,8 +84,8 @@
       </div>
       <div class="d-flex justify-content-end topbar-imgs">
         <img src="<?php echo base_url(); ?>public/assets/img/naac-logo.png" class="img-fluid" />
-        <!-- <img src="<?php echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" /> -->
-        <a href="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" target="_blank" class="header-anchor mt-4 ms-5">Download</a>
+        <!-- <img src="<?php //echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" /> -->
+        <a href="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" target="_blank" class="header-anchor mt-4 ms-5">Download Brochure</a>
         
         <a href="<?php echo base_url('instructions') ?>" class="header-anchor mt-4">Instructions to Apply</a>
         <a href="<?php echo base_url('contact-us') ?>" class="header-anchor mt-4">Contact Us</a>
@@ -96,16 +96,15 @@
 
   <!-- ======= Header ======= -->
   <?php if (isset($_SESSION['student'])){
-    $id = $_SESSION['student'][0]->id;
     $payment_status = $details->status === 'Complete' ? true : false;
   ?>
   <header id="header" class="pt-1 pb-2">
     <div class="container-fluid d-flex align-items-center justify-content-center">
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto <?php echo $active === 'academic' ? 'active' : ''; ?>" href="<?php echo base_url('academic/'. $id);?>">Academic Details</a></li>
-          <li><a class="nav-link scrollto <?php echo $active === 'pay-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-registration-fee/'. $id);?>">Pay Registration Fees</a></li>
-          <?php if($payment_status) { ?><li><a class="nav-link scrollto <?php echo $active === 'print-academic' ? 'active' : ''; ?>" href="<?php echo base_url('print-academic-details/'. $id); ?>">Print Academic Details</a></li><?php } ?>
+          <li><a class="nav-link scrollto <?php echo $active === 'academic' ? 'active' : ''; ?>" href="<?php echo base_url('academic');?>">Academic Details</a></li>
+          <li><a class="nav-link scrollto <?php echo $active === 'pay-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-registration-fee');?>">Pay Registration Fees</a></li>
+          <?php if($payment_status) { ?><li><a class="nav-link scrollto <?php echo $active === 'print-academic' ? 'active' : ''; ?>" href="<?php echo base_url('print-academic-details'); ?>">Print Academic Details</a></li><?php } ?>
         </ul>
         <!-- <i class="bi bi-list mobile-nav-toggle"></i> -->
       </nav><!-- .navbar -->

@@ -71,7 +71,11 @@
     </div>
   </div>
 <script>
+  
   $(document).ready(function() {
+    <?php if (session()->getFlashdata('err_msg')) { ?>
+      toastr.warning('Something went wrong.<br>Please try after sometime', 'Error');
+    <?php } ?>
     $("#loginForm").validate();
   });
 </script>

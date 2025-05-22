@@ -29,10 +29,11 @@ class Registration extends BaseController
             $data['pageTitle'] = "Registrations";
             return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/registrations/registration_list", $data) . view('admin/template/footer');
         } catch (Exception $exception) {
-            return $this->getResponse(
-                ['status' => 'ERROR', 'message' => $exception->getMessage()],
-                ResponseInterface::HTTP_BAD_REQUEST
-            );
+            return redirect()->to('/500');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
         }
     }
 
@@ -47,10 +48,11 @@ class Registration extends BaseController
             $data['pageTitle'] = "Registration - Details";
             return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/registrations/registration_detail", $data) . view('admin/template/footer');
         } catch (Exception $exception) {
-            return $this->getResponse(
-                ['status' => 'ERROR', 'message' => $exception->getMessage()],
-                ResponseInterface::HTTP_BAD_REQUEST
-            );
+            return redirect()->to('/500');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
         }
     }
 
@@ -178,9 +180,16 @@ class Registration extends BaseController
         return redirect()->to('/');
     }
 
-    public function academicProfile($id)
+    public function academicProfile()
     {
         try {
+            $id = '';
+            if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
+                $id = $_SESSION['student'][0]->id;
+            }else{
+                return redirect()->to('/logout');
+            }
+            
             $registrationModel = new RegistrationModel();
             $ncetScoreModel = new NcetScoreModel();
 
@@ -207,15 +216,16 @@ class Registration extends BaseController
             $data['active'] = "academic";
 
             if ($data['details']->status == 'Complete') {
-                return redirect()->to('print-academic-details/' . $data['details']->id);
+                return redirect()->to('print-academic-details');
             }
             $data['pageTitle'] = "Student - Academic";
             return view('student/template/header', $data) . view('student/registrations/academic', $data) . view('student/template/footer');
         } catch (Exception $exception) {
-            return $this->getResponse(
-                ['status' => 'ERROR', 'message' => $exception->getMessage()],
-                ResponseInterface::HTTP_BAD_REQUEST
-            );
+            return redirect()->to('/500');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
         }
     }
 
@@ -254,7 +264,7 @@ class Registration extends BaseController
                     var_dump($this->validator->getErrors());
                     // $session->set('store_form_values', $request_data); // keeping filled form field values 
                     $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
-                    return redirect()->to('/academic/' . $input['id']);
+                    return redirect()->to('/academic');
                 }
             }
 
@@ -275,7 +285,7 @@ class Registration extends BaseController
                 if (!$this->validate($validationRule)) {
                     var_dump($this->validator->getErrors());
                     $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
-                    return redirect()->to('/academic/' . $input['id']);
+                    return redirect()->to('/academic');
                 }
             }
 
@@ -296,7 +306,7 @@ class Registration extends BaseController
                 if (!$this->validate($validationRule)) {
                     var_dump($this->validator->getErrors());
                     $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
-                    return redirect()->to('/academic/' . $input['id']);
+                    return redirect()->to('/academic');
                 }
             }
 
@@ -317,7 +327,7 @@ class Registration extends BaseController
                 if (!$this->validate($validationRule)) {
                     var_dump($this->validator->getErrors());
                     $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
-                    return redirect()->to('/academic/' . $input['id']);
+                    return redirect()->to('/academic');
                 }
             }
 
@@ -337,7 +347,7 @@ class Registration extends BaseController
                 if (!$this->validate($validationRule)) {
                     var_dump($this->validator->getErrors());
                     $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
-                    return redirect()->to('/academic/' . $input['id']);
+                    return redirect()->to('/academic');
                 }
             }
 
@@ -358,7 +368,7 @@ class Registration extends BaseController
                 if (!$this->validate($validationRule)) {
                     var_dump($this->validator->getErrors());
                     $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
-                    return redirect()->to('/academic/' . $input['id']);
+                    return redirect()->to('/academic');
                 }
             }
 
@@ -379,7 +389,7 @@ class Registration extends BaseController
                 if (!$this->validate($validationRule)) {
                     var_dump($this->validator->getErrors());
                     $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
-                    return redirect()->to('/academic/' . $input['id']);
+                    return redirect()->to('/academic');
                 }
             }
 
@@ -400,7 +410,7 @@ class Registration extends BaseController
                 if (!$this->validate($validationRule)) {
                     var_dump($this->validator->getErrors());
                     $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
-                    return redirect()->to('/academic/' . $input['id']);
+                    return redirect()->to('/academic');
                 }
             }
             // var_dump($input);
@@ -579,9 +589,9 @@ class Registration extends BaseController
             }
 
             if (isset($input['status']) && $input['status'] == 'Save - Payment Pending') {
-                return redirect()->to('/pay-registration-fee/' . $input['id']);
+                return redirect()->to('/pay-registration-fee');
             }else if (isset($input['status']) && $input['status'] == 'Save as Draft'){
-                return redirect()->to('/academic/' . $input['id']);
+                return redirect()->to('/academic');
             }
             
 
@@ -594,11 +604,11 @@ class Registration extends BaseController
             // return view('student/template/header',$data). view('student/registrations/academic', $data). view('student/template/footer');
         } catch (Exception $exception) {
             session()->setFlashdata('error', 'Something went wrong.\n'.$exception->getMessage());
-            return redirect()->to('/academic/' . $input['id']);
-            return $this->getResponse(
-                ['status' => 'ERROR', 'message' => $exception->getMessage()],
-                ResponseInterface::HTTP_BAD_REQUEST
-            );
+            return redirect()->to('/academic');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
         }
     }
 
@@ -611,7 +621,7 @@ class Registration extends BaseController
             return ($this->getResponse(['status' => 200, 'result' => $result]));
         } catch (Exception $exception) {
             return $this->getResponse(
-                ['status' => '400', 'message' => $exception->getMessage()],
+                ['status' => '500', 'message' => $exception->getMessage()],
                 ResponseInterface::HTTP_BAD_REQUEST
             );
         }
@@ -626,15 +636,22 @@ class Registration extends BaseController
             return ($this->getResponse(['status' => 200, 'result' => $result]));
         } catch (Exception $exception) {
             return $this->getResponse(
-                ['status' => '400', 'message' => $exception->getMessage()],
+                ['status' => '500', 'message' => $exception->getMessage()],
                 ResponseInterface::HTTP_BAD_REQUEST
             );
         }
     }
 
-    public function studentDashboard($id)
+    public function studentDashboard()
     {
         try {
+            $id = '';
+            if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
+                $id = $_SESSION['student'][0]->id;
+            }else{
+                return redirect()->to('/logout');
+            }
+            
             $registrationModel = new RegistrationModel();
 
             $request = $this->request->getVar();
@@ -649,26 +666,34 @@ class Registration extends BaseController
                 $data['active'] = '';
                 return view('student/template/header', $data) . view("student/registrations/dashboard", $data) . view('student/template/footer');
             }elseif(empty($request) && $details->acknowledged == 'true'){
-                return redirect()->to('academic/'. $id);
+                return redirect()->to('/academic');
             }elseif(!empty($request) && !empty($request['ackCheckbox'])){
                 $request['acknowledged'] = $request['ackCheckbox'] == 'on' ? 'true' : 'false';
                 unset($request['submit']);
                 unset($request['ackCheckbox']);
                 $registrationModel->upsert($request);
                 
-                return redirect()->to('academic/'.$id);
+                return redirect()->to('/academic');
             }
         } catch (Exception $exception) {
-            return $this->getResponse(
-                ['status' => 'ERROR', 'message' => $exception->getMessage()],
-                ResponseInterface::HTTP_BAD_REQUEST
-            );
+            return redirect()->to('/logout');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
         }
     }
 
-    public function paymentInfo($id)
+    public function paymentInfo()
     {
         try {
+            $id = '';
+            if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
+                $id = $_SESSION['student'][0]->id;
+            }else{
+                return redirect()->to('/logout');
+            }
+            
             $registrationModel = new RegistrationModel();
 
             $data = [];
@@ -678,15 +703,23 @@ class Registration extends BaseController
             $data['active'] = "pay-fees";
             return view('student/template/header', $data) . view('student/registrations/payment', $data) . view('student/template/footer');
         } catch (Exception $exception) {
-            return $this->getResponse(
-                ['status' => 'ERROR', 'message' => $exception->getMessage()],
-                ResponseInterface::HTTP_BAD_REQUEST
-            );
+            return redirect()->to('/500');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
         }
     }
-    public function printAcademicDetails($id)
+    public function printAcademicDetails()
     {
         try {
+            $id = '';
+            if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
+                $id = $_SESSION['student'][0]->id;
+            }else{
+                return redirect()->to('/logout');
+            }
+
             $registrationModel = new RegistrationModel();
             $ncetScoreModel = new NcetScoreModel();
 
@@ -697,7 +730,7 @@ class Registration extends BaseController
 
             if(isset($data['details']) && ($data['details']->status === 'Save - Payment Pending' || $data['details']->status === 'Complete')){
                 $bscPreferences = [$data['details']->bsc_preference_1, $data['details']->bsc_preference_2, $data['details']->bsc_preference_3, $data['details']->bsc_preference_4];
-                $baPreferences = [$data['details']->ba_preference_1, $data['details']->ba_preference_2, $data['details']->ba_preference_3];
+                $baPreferences = [$data['details']->ba_preference_1, $data['details']->ba_preference_2, $data['details']->ba_preference_3, $data['details']->ba_preference_4];
     
                 $data['preferences'] = [
                     'B.Sc. B.Ed.' => array_filter($bscPreferences, fn($value) => !is_null($value) && $value !== ''), 
@@ -715,33 +748,42 @@ class Registration extends BaseController
                 return view('student/template/header', $data) . view('student/registrations/print_academic_details', $data) . view('student/template/footer');
             }
         } catch (Exception $exception) {
-            return $this->getResponse(
-                ['status' => 'ERROR', 'message' => $exception->getMessage()],
-                ResponseInterface::HTTP_BAD_REQUEST
-            );
+            return redirect()->to('/500');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
         }
     }
 
-    public function payRegistrationFee($id)
+    public function payRegistrationFee()
     {
         try {
+            $id = '';
+            if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
+                $id = $_SESSION['student'][0]->id;
+            }else{
+                return redirect()->to('/logout');
+            }
+            
             $registrationModel = new RegistrationModel();
 
             $data = [];
             $data['details'] = $registrationModel->getRegistrationDetail($id);
 
             if ($data['details']->status === 'Complete') {
-                return redirect()->to('/payment/' . $id);
+                return redirect()->to('/payment');
             }
 
             $data['pageTitle'] = "Pay - Registration - Fee";
             $data['active'] = "pay-fees";
             return  view('student/template/header', $data) . view('student/registrations/pay_registration_fee', $data) . view('student/template/footer');
         } catch (Exception $exception) {
-            return $this->getResponse(
-                ['status' => 'ERROR', 'message' => $exception->getMessage()],
-                ResponseInterface::HTTP_BAD_REQUEST
-            );
+            return redirect()->to('/500');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
         }
     }
 
@@ -780,7 +822,7 @@ class Registration extends BaseController
                     var_dump($this->validator->getErrors());
                     // $session->set('store_form_values', $request_data); // keeping filled form field values 
                     $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
-                    return redirect()->to('/pay-registration-fee/' . $input['id']);
+                    return redirect()->to('/pay-registration-fee');
                 }
 
                 $type = $payment_receipt->getClientMimeType();
@@ -829,17 +871,19 @@ class Registration extends BaseController
                 if ($emailService->send()) {
                     session()->setFlashdata('success', 'Application submitted successful! Email sent.');
                 } else {
-                    log_message('error', $emailService->printDebugger(['headers']));
+                    // log_message('error', $emailService->printDebugger(['headers']));
                     session()->setFlashdata('error', 'Application submitted successful but email failed.');
                 }
             }
 
-            return redirect()->to('/payment/' . $input['id']);
+            return redirect()->to('/payment');
         } catch (Exception $exception) {
-            return $this->getResponse(
-                ['status' => 'ERROR', 'message' => $exception->getMessage()],
-                ResponseInterface::HTTP_BAD_REQUEST
-            );
+            session()->setFlashdata('error', 'Something went wrong.\n'.$exception->getMessage());
+            return redirect()->to('/pay-registration-fee');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
         }
     }
 

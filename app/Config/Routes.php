@@ -12,6 +12,8 @@ $routes->set404Override(static function () {
     return view('admin/template/header',$data). view('admin/no_page_found');
 });
 
+$routes->get('/500', 'Common::internalServer');
+
 $routes->get('/', 'Login::studentLogin');
 $routes->post('login', 'Login::studentLogin');
 $routes->get('forget-password', 'Login::stu_forgetPassword');
@@ -28,17 +30,17 @@ $routes->get('instructions', 'Common::getInstruction');
 $routes->get('contact-us', 'Common::contactUs');
 
 $routes->group('/', ['filter' => 'studentAuthGuard'], static function ($routes) {
-    $routes->get('dashboard/(:num)', 'Registration::studentDashboard/$1');
-    $routes->post('dashboard/(:num)', 'Registration::studentDashboard/$1');
+    $routes->get('dashboard', 'Registration::studentDashboard');
+    $routes->post('dashboard', 'Registration::studentDashboard');
     
     $routes->get('academic', 'Registration::academicProfile');
-    $routes->get('academic/(:num)', 'Registration::academicProfile/$1');
+    // $routes->get('academic/(:num)', 'Registration::academicProfile/$1');
     $routes->post('update-academic-profile', 'Registration::updateAcademicProfile');
     $routes->get('fetch-subject/(:num)', 'Registration::fetchSubjects/$1');
     
-    $routes->get('payment/(:num)', 'Registration::paymentInfo/$1');
-    $routes->get('print-academic-details/(:num)','Registration::printAcademicDetails/$1');
-    $routes->get('pay-registration-fee/(:num)','Registration::payRegistrationFee/$1');
+    $routes->get('payment', 'Registration::paymentInfo');
+    $routes->get('print-academic-details','Registration::printAcademicDetails');
+    $routes->get('pay-registration-fee','Registration::payRegistrationFee');
     $routes->post('pay-registration-fee','Registration::paymentRegistrationFee');
     
     $routes->get('logout', 'Login::student_logout');
