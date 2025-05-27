@@ -65,10 +65,21 @@ a:hover {
   border-radius: 34px;
 }
 
+.blink-button {
+  animation: blink-bg 1.5s infinite;
+  animation-timing-function: ease;
+}
+
+@keyframes blink-bg {
+  0%   { background-color: #203a72; }
+  50%  { background-color: #6b85be; }
+  100% { background-color: #203a72; }
+}
+
 .header-anchor, .header-anchor:hover{
   color: #203a72;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
   height: 40px;
   text-align: center;
   display: flex;

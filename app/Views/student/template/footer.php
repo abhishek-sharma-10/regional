@@ -2,7 +2,7 @@
             <div class="footer">
                 <!-- <div class="pull-right"></div> -->
                 <div class="text-center">
-                    <strong>Copyright</strong> Regional Institute of Education&copy; <?php echo date('Y'); ?> <strong>• Developed By</strong> iBirds Software Services Pvt. Ltd.
+                    <strong>Copyright</strong> Regional Institute of Education&copy; <?php echo date('Y'); ?>
                 </div>
             </div>
         </footer>

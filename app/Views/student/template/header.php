@@ -72,7 +72,7 @@
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
-      <div class="w-100 d-flex">
+      <div class="col-6 d-flex">
         <div>
           <img src="<?php echo base_url(); ?>public/assets/img/logo1.png" class="img-fluid logo" />
         </div>
@@ -82,13 +82,14 @@
           <h5 class="blue-color">NAAC Accrediated A+ Grade Institute</h5>
         </div>
       </div>
-      <div class="d-flex justify-content-end topbar-imgs">
+      <div class="col-6 d-flex justify-content-end topbar-imgs">
         <img src="<?php echo base_url(); ?>public/assets/img/naac-logo.png" class="img-fluid" />
         <!-- <img src="<?php //echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" /> -->
-        <a href="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" target="_blank" class="header-anchor mt-4 ms-5">Download Brochure</a>
+        <a href="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" target="_blank" class="header-anchor mt-4 ms-4">Download Brochure</a>
         
         <a href="<?php echo base_url('instructions') ?>" class="header-anchor mt-4">Instructions to Apply</a>
         <a href="<?php echo base_url('contact-us') ?>" class="header-anchor mt-4">Contact Us</a>
+        <?php if(!(array_key_exists('student', $_SESSION) && isset($_SESSION['student']))){ ?><a href="<?php echo base_url('register'); ?>" class=" mt-4 ms-2"><button class="btn secondary-btn blink-button">Register</button></a><?php } ?>
         <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>" class=" mt-4 ms-2"><button class="btn secondary-btn"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
       </div>
     </div>
@@ -104,7 +105,7 @@
         <ul>
           <li><a class="nav-link scrollto <?php echo $active === 'academic' ? 'active' : ''; ?>" href="<?php echo base_url('academic');?>">Academic Details</a></li>
           <li><a class="nav-link scrollto <?php echo $active === 'pay-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-registration-fee');?>">Pay Registration Fees</a></li>
-          <?php if($payment_status) { ?><li><a class="nav-link scrollto <?php echo $active === 'print-academic' ? 'active' : ''; ?>" href="<?php echo base_url('print-academic-details'); ?>">Print Academic Details</a></li><?php } ?>
+          <?php if($payment_status) { ?><li><a class="nav-link scrollto <?php echo $active === 'print-academic' ? 'active' : ''; ?>" href="<?php echo base_url('print-academic-details'); ?>">Print Form</a></li><?php } ?>
         </ul>
         <!-- <i class="bi bi-list mobile-nav-toggle"></i> -->
       </nav><!-- .navbar -->
