@@ -34,7 +34,7 @@
   </style>
   <div class="container">
     <div class="main-box">
-      <h1 class="text-center mb-4">Welcome to RIE </h1>
+      <h1 class="text-center mb-4">Welcome to Regional Institute of Education</h1>
 
       <div class="step">
         <div class="step-title">Step 1:</div>
