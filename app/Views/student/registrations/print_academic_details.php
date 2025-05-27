@@ -233,8 +233,9 @@
                         <th colspan="2">Preference for Major Discipline in ITEP Course</th>
                     </tr>
                     <tr>
-                        <th>Course</th>
+                        <th>Courses</th>
                         <th>Preferences</th>
+                        <th>Subjects</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -245,6 +246,7 @@
                     ?>
                         <tr>
                             <?php if($count == 0){ ?><th rowspan="<?php echo count($subjects);?>"><?= $course ?></th> <?php } ?>
+                            <td><?=($count+1);?></td>
                             <td><?=$subject;?></td>
                         </tr>
                     <?php
@@ -342,8 +344,12 @@
         </div>
 
         <div class="row">
-            <div class="offset-sm-9 col-sm-3 text-center">
-                <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/public/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Signature" style="width: 50%;height: 75px;object-fit: contain;object-position: center;"></a>
+            <div class="col-sm-2 align-content-end">
+                <p style="margin-bottom: 0px;">Submitted On</p>
+                <p style="margin-bottom: 0px;">(<?=date('d-m-Y', strtotime($details->registration_date)); ?>)</p>
+            </div>
+            <div class="offset-sm-7 col-sm-3 text-center">
+                <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Signature" style="width: 50%;height: 75px;object-fit: contain;object-position: center;"></a>
                 <p style="margin-bottom: 0px;">Signature of Candidate</p>
             </div>
         </div>
