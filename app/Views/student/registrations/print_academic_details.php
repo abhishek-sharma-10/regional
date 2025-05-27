@@ -374,7 +374,7 @@
         document.querySelector('.main-box').style = "padding: 15px; margin-top: 15px;box-shadow:none;";
         document.querySelector('.table th, .table td').style = "font-size:12px";
         document.querySelector('.app_photo').style = "width: 70%; height: 100px;";
-        document.querySelector('.details > tbody > tr > td:nth-child(1)').style = "line-height: 1.1;";
+        document.querySelector('.details > tbody > tr > td:nth-child(1)').style = "line-height: 1;";
         
         window.onafterprint = (event) => {
             document.querySelector('#topbar').classList.remove('d-none');
