@@ -230,7 +230,7 @@
             <table width="100%" class="table table-bordered text-center">
                 <thead class="table-light">
                     <tr>
-                        <th colspan="2">Preference for Major Discipline in ITEP Course</th>
+                        <th colspan="3">Preference for Major Discipline in ITEP Course</th>
                     </tr>
                     <tr>
                         <th>Courses</th>
@@ -269,7 +269,7 @@
                         <th>NCET Score Card</th>
                         <th>NCET Application Form</th>
                         <?php if($details->category !== 'GEN'){ ?><th>Caste Certificate<br>(SC/ST/OBC-CL/OBC-NCL/EWS)</th><?php } ?>
-                        <?php if($details->physical_disable != '0'){ ?><th>Physical Disability</th><?php } ?>
+                        <?php if($details->physical_disable != 'No'){ ?><th>Physical Disability</th><?php } ?>
                         <th>Payment Receipt</th>
                     </tr>
                 </thead>
@@ -320,7 +320,7 @@
                                 <?php } ?>
                             </div>
                         </td><?php } ?>
-                        <?php if($details->physical_disable != '0'){ ?><td>
+                        <?php if($details->physical_disable != 'No'){ ?><td>
                             <div>
                                 <?php if(isset($details->pwbd) && !empty($details->pwbd) && str_ends_with($details->pwbd,'.pdf')){ ?>
                                     <a href="<?=base_url($details->pwbd);?>" target="_blank">Uploaded PDF</a>
@@ -345,7 +345,7 @@
 
         <div class="row">
             <div class="col-sm-2 align-content-end">
-                <p style="margin-bottom: 0px;">Submitted On</p>
+                <p style="margin-bottom: 0px;"><strong>Submitted On</strong></p>
                 <p style="margin-bottom: 0px;">(<?=date('d-m-Y', strtotime($details->registration_date)); ?>)</p>
             </div>
             <div class="offset-sm-7 col-sm-3 text-center">
