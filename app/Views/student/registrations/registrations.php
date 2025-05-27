@@ -337,10 +337,10 @@ if ($register_container) {
         <div class="col-md-6 mb-3">
           <ul class="password-requirements">
             <li>Must contain at least 8 characters</li>
-            <li>Must contain at least one uppercase letter & one lowercase letter</li>
-            <li>Must contain at least one number</li>
-            <li>Must contain at least one special character</li>
-            
+            <li>Must contain at least 1 uppercase letter & 1 lowercase letter</li>
+            <li>Must contain at least 1 number</li>
+            <li>Must contain at least 1 special character (@$!%*?&)</li>
+            <li>Password be like, <strong>Example@#1234</strong></li>            
           </ul>
         </div>
         </div>

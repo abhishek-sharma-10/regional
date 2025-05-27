@@ -25,12 +25,12 @@
 
 <div class="main-card text-center shadow-remove">
   <div class="d-flex justify-content-end mb-3">
-    <button type="button" class="btn btn-outline-primary print-btn" onclick="openPrintPage()">🖨️ Print Form</button>
+    <button type="button" class="btn btn-outline-primary print-btn" onclick="openPrintPage()">🖨️ Print Receipt</button>
   </div>
   <!-- <img src="<?php //echo base_url(); ?>assets/img/NIC_logo1.jpg" alt="Logo" class="header-logo mb-3"> -->
   <div class="header-title">Regional Institute of Education</div>
   <p class="subtitle">Pushkar Road, Ajmer (Raj.)</p>
-  <h4 class="mt-4 mb-2">Acknowledgement of Payment Entry Information</h4>
+  <h4 class="mt-4 mb-2">Acknowledgement of Payment</h4>
   <hr>
   <div class="text-start mb-3">
     <div class="p-4">
@@ -46,9 +46,13 @@
         <div class="col-sm-6 fw-bold">Name:</div>
         <div class="col-sm-6"><?= $details->name;?></div>
       </div>
-      <div class="row">
+      <div class="row mb-3">
         <div class="col-sm-6 fw-bold">Mobile Number:</div>
         <div class="col-sm-6"><?= $details->phone;?></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 fw-bold">Payment Date:</div>
+        <div class="col-sm-6"><?= date('d-m-Y', strtotime($details->payment_date));?></div>
       </div>
     </div>
   </div>

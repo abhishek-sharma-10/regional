@@ -76,7 +76,7 @@
 
     <div class="container main-box text-center shadow-remove">
         <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-outline-primary mb-3 print-btn" onclick="openPrintPage()">🖨️ Print Form</button>
+            <button type="button" class="btn btn-outline-primary mb-3 print-btn" onclick="openPrintPage()">🖨️ Print</button>
         </div>
         <div class="row align-items-start flex-row justify-content-center">
             <div style="width: 10%;">
@@ -108,7 +108,7 @@
                         </br>
                         <p><label>Category</label> <?= $details->category ?></p>
                         </br>
-                        <p><label>Physical Disability</label> <?= $details->physical_disable == 1 ? 'Yes' : 'No'; ?></p>
+                        <p><label>Physical Disability</label> <?= $details->physical_disable ?></p>
                         </br>
                         <p><label>Gender</label> <?= $details->gender ?></p>
                     </td>

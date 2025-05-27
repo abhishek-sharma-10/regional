@@ -66,14 +66,19 @@ a:hover {
 }
 
 .blink-button {
+  background-color: #d1001f;
   animation: blink-bg 1.5s infinite;
   animation-timing-function: ease;
 }
 
+.blink-button:hover {
+  background-color: #d60c2a;
+}
+
 @keyframes blink-bg {
-  0%   { background-color: #203a72; }
-  50%  { background-color: #6b85be; }
-  100% { background-color: #203a72; }
+  0%   { background-color: #d1001f; }
+  50%  { background-color: #ee6b6e; }
+  100% { background-color: #d1001f; }
 }
 
 .header-anchor, .header-anchor:hover{
@@ -150,7 +155,7 @@ a:hover {
     margin-top: 5px;
 }
 #topbar img {
-  width: 15%;
+  width: 10%;
   aspect-ratio: 1 / 1; 
   object-fit: contain;
   padding-left: 15px;   

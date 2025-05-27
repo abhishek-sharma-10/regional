@@ -562,6 +562,7 @@ class Registration extends BaseController
                 unset($input['final_save']);
                 unset($input['button_value']);
                 $input['status'] = "Save - Payment Pending";
+                $input['registration_date'] = date('Y-m-d h:i:s');
             }else if (isset($input['button_value']) && $input['button_value'] == 'Save as Draft'){
                 unset($input['button_value']);
                 $input['status'] = "Save as Draft";
@@ -839,9 +840,9 @@ class Registration extends BaseController
                 unset($input['payment_receipt']);
             }
 
-            var_dump($input);
-
+            $input['payment_date'] = date('Y-m-d h:i:s');
             $input['status'] = "Complete";
+
             var_dump($input);
 
             $registrationModel = new RegistrationModel();

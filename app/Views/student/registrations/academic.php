@@ -129,7 +129,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">Physical Disability</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" value="<?= $details->physical_disable == 1 ? 'Yes' : 'No'; ?>" readonly>
+                    <input type="text" class="form-control" value="<?= $details->physical_disable; ?>" readonly>
                 </div>
             </div>
         </div>
@@ -175,7 +175,7 @@
             <div class="col-md-6"><h3 class="mb-3">10<sup>th</sup> (Secondary)</h3></div>
             <div class="col-md-6">
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Board</label>
+                    <label class="col-sm-4 col-form-label">Board <span class="required-icon">*</span></label>
                     <div class="col-sm-8">
                         <select class="form-select" name="board_10th" id="board_10th" data-input="board-10-any-other" required>
                             <option value="" selected>Select Board</option>
@@ -187,14 +187,14 @@
                 </div>
 
                 <div class="mb-3 row" id="board-10-any-other">
-                    <label class="col-sm-4 col-form-label">Name of Board</label>
+                    <label class="col-sm-4 col-form-label">Name of Board <span class="required-icon">*</span></label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" name="board_10th_other" value="<?php echo $details->board_10th_other; ?>"/>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Year of Passing</label>
+                    <label class="col-sm-4 col-form-label">Year of Passing <span class="required-icon">*</span></label>
                     <div class="col-sm-8">
                         <select class="form-select" name="year_of_passing_10th" required>
                             <option value="" selected>Select Year</option>
@@ -211,8 +211,8 @@
                     <table class="table table-bordered text-center align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>Maximum Marks</th>
-                                <th>Obtained Marks</th>
+                                <th>Maximum Marks <span class="required-icon">*</span></th>
+                                <th>Obtained Marks <span class="required-icon">*</span></th>
                                 <th>Percentage(%)</th>
                             </tr>
                         </thead>
@@ -233,7 +233,7 @@
             <div class="col-md-6"><h3 class="mb-3">12<sup>th</sup> (Senior Secondary)</h3></div>
             <div class="col-md-6">
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Stream</label>
+                    <label class="col-sm-4 col-form-label">Stream <span class="required-icon">*</span></label>
                     <div class="col-sm-8">
                         <select class="form-select" name="stream" required>
                             <option value="" selected>Select Stream</option>
@@ -246,7 +246,7 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Board</label>
+                    <label class="col-sm-4 col-form-label">Board <span class="required-icon">*</span></label>
                     <div class="col-sm-8">
                         <select class="form-select" name="board_12th" id="board_12th" data-input="board-12-any-other" required>
                             <option value="" selected>Select Board</option>
@@ -258,14 +258,14 @@
                 </div>
 
                 <div class="mb-3 row" id="board-12-any-other">
-                    <label class="col-sm-4 col-form-label">Name of Board</label>
+                    <label class="col-sm-4 col-form-label">Name of Board <span class="required-icon">*</span></label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="board-12-any-other" name="board_12th_other"  value="<?php echo $details->board_12th_other; ?>" <?php isset($details->board_12th_other) && !empty($details->board_12th_other) ? "style='display:block';": "style='display:none';"?>/>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label class="col-sm-4 col-form-label">Year of Passing</label>
+                    <label class="col-sm-4 col-form-label">Year of Passing <span class="required-icon">*</span></label>
                     <div class="col-sm-8">
                         <select class="form-select" name="year_of_passing_12th" required>
                             <option value="" selected>Select Year</option>
@@ -282,8 +282,8 @@
                     <table class="table table-bordered text-center align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>Maximum Marks</th>
-                                <th>Obtained Marks</th>
+                                <th>Maximum Marks <span class="required-icon">*</span></th>
+                                <th>Obtained Marks <span class="required-icon">*</span></th>
                                 <th>Percentage(%)</th>
                             </tr>
                         </thead>
@@ -332,10 +332,10 @@
                             <thead class="table-light">
                                 <tr>
                                     <th style="width: 12%; vertical-align: middle"></th>
-                                    <th style="width: 12%; vertical-align: middle">Code</th>
+                                    <th style="width: 12%; vertical-align: middle">Code <span class="required-icon">*</span></th>
                                     <th style="width: 40%; vertical-align: middle">Name</th>
                                     <th style="width: 12%; vertical-align: middle">Maximum Score</th>
-                                    <th style="width: 12%; vertical-align: middle">Score Obtained</th>
+                                    <th style="width: 12%; vertical-align: middle">Score Obtained <span class="required-icon">*</span></th>
                                     <th style="width: 12%; vertical-align: middle">Percentage</th>
                                 </tr>
                             </thead>
@@ -362,8 +362,8 @@
                                 ?>
                                 <tr>
                                     <td colspan="3" style="vertical-align: middle; font-weight: 700;">Total Marks</td>
-                                    <td><input type="number" class="form-control" id="total_max_marks"></td>
-                                    <td><input type="number" class="form-control" id="total_obtain_marks"></td>
+                                    <td><input type="number" class="form-control" id="total_max_marks" readonly></td>
+                                    <td><input type="number" class="form-control" id="total_obtain_marks" readonly></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -381,7 +381,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">Course</label>
                     <div class="col-sm-8">
-                        <select class="form-select" name="course" id="course">
+                        <select class="form-select" id="course">
                             <option selected disabled>--Select Course--</option>
                             <option value="ITEP - B.Sc. B.Ed." <?php echo $details->course === 'ITEP - B.Sc. B.Ed.' ? 'selected' : ''; ?> <?php echo ($details->course !== 'ITEP - B.Sc. B.Ed.' && $details->course !== 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') ? 'disabled' : ''; ?>>ITEP - B.Sc. B.Ed.</option>
                             <option value="ITEP - B.A. B.Ed." <?php echo $details->course === 'ITEP - B.A. B.Ed.' ? 'selected' : ''; ?> <?php echo ($details->course !== 'ITEP - B.A. B.Ed.' && $details->course !== 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') ? 'disabled' : ''; ?>>ITEP - B.A. B.Ed.</option>
@@ -400,7 +400,7 @@
             <div class="row">
                 <div class="col-md-4 upload-section">
                     <div class="row">
-                        <h4 class="mb-4">Photo</h4>
+                        <h4 class="mb-4">Photo <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 200KB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
@@ -421,7 +421,7 @@
                 </div>
                 <div class="col-md-4 upload-section">
                     <div class="row">
-                        <h4 class="mb-4">Signature</h4>
+                        <h4 class="mb-4">Signature <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 200KB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
@@ -447,7 +447,7 @@
             <div class="row">
                 <div class="col-md-4 upload-section">
                     <div class="row">
-                        <h4 class="mb-4">10th Marksheet</h4>
+                        <h4 class="mb-4">10th Marksheet <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
@@ -468,7 +468,7 @@
                 </div>
                 <div class="col-md-4 upload-section">
                     <div class="row">
-                        <h4 class="mb-4">12th Marksheet</h4>
+                        <h4 class="mb-4">12th Marksheet <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
@@ -489,7 +489,7 @@
                 </div>
                 <div class="col-md-4 upload-section">
                     <div class="row">
-                        <h4 class="mb-4">NCET Score Card</h4>
+                        <h4 class="mb-4">NCET Score Card <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
@@ -510,7 +510,7 @@
                 </div>
                 <div class="col-md-4 upload-section">
                     <div class="row">
-                        <h4 class="mb-4">NCET Application Form</h4>
+                        <h4 class="mb-4">NCET Application Form <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
@@ -527,9 +527,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 upload-section">
+                
+                <div class="col-md-4 upload-section" style="<?php echo $details->category !== 'GEN' ? 'display:block' : 'display:none'; ?>">
                     <div class="row">
-                        <h4 class="mb-4">Caste Certificate</h4>
+                        <h4 class="mb-4">Caste Certificate <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
@@ -548,9 +549,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 upload-section">
+
+                <div class="col-md-4 upload-section" style="<?php echo $details->physical_disable != 'No' ? 'display:block' : 'display:none'; ?>">
                     <div class="row">
-                        <h4 class="mb-4">Physical Disability</h4>
+                        <h4 class="mb-4">Physical Disability <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
@@ -735,7 +737,7 @@
 
         // Function to validate file size and type
         function validateFile(fileInput, maxSize, allowedTypes) {
-            const file = fileInput[0].files[0];
+            const file = fileInput[0]?.files[0];
             if (file) {
                 const fileSize = file.size / 1024; // size in KB
                 const fileType = file.type;
@@ -756,7 +758,7 @@
             $('#'+obtained_id).each(function() {
                 const obtained = parseFloat($(this).val());
                 const max = parseFloat($(this).closest('tr').find('#'+max_id).val());
-                console.log(obtained, $(this).val(), max, $(this).closest('tr').find('#'+max_id).val());
+                // console.log(obtained, $(this).val(), max, $(this).closest('tr').find('#'+max_id).val());
                 if (obtained > max) {
                     $(this).next().remove('label');
                     $(this).addClass('is-invalid');
@@ -781,7 +783,7 @@
         $('input[required], select[required]').on('input change', function() {
             // console.log($(this));
             if ($(this).val() === '') {
-                console.log('Enter');
+                // console.log('Enter');
                 $(this).next().remove('label');
                 $(this).after('<label class="error">This field is required</label>');
                 $(this).addClass('is-invalid');
@@ -796,7 +798,7 @@
         $('.obtained-marks, .obtain_marks').on('input', function() {
             let obtained_id = $(this).attr('id');
             let max_id = $(this).attr('data-max-id');
-            console.log(obtained_id, max_id);
+            // console.log(obtained_id, max_id);
             validateObtainedMarks(obtained_id, max_id);
         });
 
@@ -815,7 +817,7 @@
                 // alert('Invalid file. Please check the file type and size.');
             } else {
                 if($(this).next().text() === 'Invalid file. Please check the file type and size.' || $(this).next().text() === 'This field is required'){
-                    console.log('84098');
+                    // console.log('84098');
                     $(this).next().remove('label');
                     $(this).removeClass('is-invalid');
                 }
@@ -828,19 +830,7 @@
             let isValid = true;
             let validObtainCount = 0;
             let validFileCount = 0;
-            // Validate file inputs for photo and signature
-            // const photoValid = validateFile($('#photo'), 200, ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']);
-            // const signatureValid = validateFile($('#signature'), 200, ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']);
-
-            // if (!photoValid) {
-            //     alert('Photo must be a JPG or PNG file and less than 200KB.');
-            //     isValid = false;
-            // }
-            // if (!signatureValid) {
-            //     alert('Signature must be a JPG or PNG file and less than 200KB.');
-            //     isValid = false;
-            // }
-
+            
             // Validate file inputs for all documents
             const fileInputs = [
                 { input: $('#photo'), maxSize: 200, types: ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'] },
@@ -865,7 +855,7 @@
             $('.obtained-marks, .obtain_marks').each(function() {
                 let obtained_id = $(this).attr('id');
                 let max_id = $(this).attr('data-max-id');
-                console.log(obtained_id, max_id);
+                // console.log(obtained_id, max_id);
                 if(!validateObtainedMarks(obtained_id, max_id)){
                     validObtainCount++;
                 }
@@ -904,20 +894,10 @@
             $('.obtained-marks, .obtain_marks').each(function() {
                 let obtained_id = $(this).attr('id');
                 let max_id = $(this).attr('data-max-id');
-                console.log(obtained_id, max_id);
+                // console.log(obtained_id, max_id);
                 if(!validateObtainedMarks(obtained_id, max_id)){
                     validObtainCount++;
                 }
-
-                // const obtained = parseFloat($(this).val());
-                // const max = parseFloat($(this).closest('tr').find('.max-marks').val());
-
-                // if (obtained <= 0 || obtained > max) {
-                //     alert('Obtained marks must be greater than zero and less than or equal to maximum marks.');
-                //     isObtainValid = false;
-                //     validObtainCount++;
-                //     // return false; // Break out of the loop
-                // }
             });
 
             // Validate file inputs for all documents
@@ -940,7 +920,6 @@
                 }
             });
 
-            console.log(validFileCount, validObtainCount, validRequiredCount);
             // If all validations pass, you can proceed with saving
             if (validFileCount === 0 && validObtainCount === 0 && validRequiredCount === 0) {
                 // Submit the form or perform the final save action
@@ -958,15 +937,16 @@
             if (course == 'ITEP - B.A. B.Ed.') {
                 subjects = baSubject;
                 $('.baPreferences').show();
-                $('.bscPreferences').hide();
+                // $('.bscPreferences').hide();
             } else if (course == 'ITEP - B.Sc. B.Ed.') {
                 subjects = bscSubject;
-                $('.baPreferences').hide();
+                // $('.baPreferences').hide();
                 $('.bscPreferences').show();
             } else {
                 $('.baPreferences').hide();
                 $('.bscPreferences').hide();
             }
+
             bindPreferenceOption();
         } catch (err) {
             console.log(err);
@@ -1182,7 +1162,7 @@
                 // console.log('element: ', element);
                 if(key == 'B.Sc. B.Ed.'){
                     bscPreferences += `<div class="mb-3 row">
-                                            <label class="col-sm-4 col-form-label">Preference ${bscCount}st</label>
+                                            <label class="col-sm-4 col-form-label">Preference ${bscCount}st <span class="required-icon">*</span></label>
                                             <div class="col-sm-8">
                                                 <select class="form-select bsc-preference-select" name="bsc_preference_${bscCount}" required></select>
                                             </div>
@@ -1190,7 +1170,7 @@
                     bscCount++;
                 }else if(key == 'B.A. B.Ed.'){
                     baPreferences += `<div class="mb-3 row">
-                                            <label class="col-sm-4 col-form-label">Preference ${baCount}st</label>
+                                            <label class="col-sm-4 col-form-label">Preference ${baCount}st <span class="required-icon">*</span></label>
                                             <div class="col-sm-8">
                                                 <select class="form-select ba-preference-select" name="ba_preference_${baCount}" required></select>
                                             </div>

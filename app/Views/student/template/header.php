@@ -71,8 +71,8 @@
 </div>
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center">
-    <div class="container d-flex justify-content-center justify-content-md-between">
-      <div class="col-6 d-flex">
+    <div class="container-fluid d-flex justify-content-center justify-content-md-between px-4 pt-1">
+      <div class="col-4 d-flex">
         <div>
           <img src="<?php echo base_url(); ?>public/assets/img/logo1.png" class="img-fluid logo" />
         </div>
@@ -82,7 +82,7 @@
           <h5 class="blue-color">NAAC Accrediated A+ Grade Institute</h5>
         </div>
       </div>
-      <div class="col-6 d-flex justify-content-end topbar-imgs">
+      <div class="col-8 d-flex justify-content-end topbar-imgs">
         <img src="<?php echo base_url(); ?>public/assets/img/naac-logo.png" class="img-fluid" />
         <!-- <img src="<?php //echo base_url(); ?>public/assets/img/AKAMLogo1.png" class="img-fluid" /> -->
         <a href="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" target="_blank" class="header-anchor mt-4 ms-4">Download Brochure</a>

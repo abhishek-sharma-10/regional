@@ -54,7 +54,7 @@
       <div class="col-md-6"><label class="form-label">Name</label><input type="text" class="form-control" value="<?= $details->name ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Gender</label><input type="text" class="form-control" value="<?= $details->gender ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Category</label><input type="text" class="form-control" value="<?= $details->category ?>" readonly></div>
-      <div class="col-md-6"><label class="form-label">Physical Disability</label><input type="text" class="form-control" value="<?= $details->physical_disable == 1 ? 'Yes' : 'No'; ?>" readonly></div>
+      <div class="col-md-6"><label class="form-label">Physical Disability</label><input type="text" class="form-control" value="<?= $details->physical_disable ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Mobile Number</label><input type="text" class="form-control" value="<?= $details->phone ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Aadhaar Number</label><input type="text" class="form-control" value="<?= $details->aadhar_no ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">Course</label><input type="text" class="form-control" value="<?= $details->course ?>" readonly></div>
