@@ -340,7 +340,7 @@ if ($register_container) {
             <li>Must contain at least 1 uppercase letter & 1 lowercase letter</li>
             <li>Must contain at least 1 number</li>
             <li>Must contain at least 1 special character (@$!%*?&)</li>
-            <li>Password be like, <strong>Example@#1234</strong></li>            
+            <li>Password be like, <strong>Rie@2025</strong></li>            
           </ul>
         </div>
         </div>
