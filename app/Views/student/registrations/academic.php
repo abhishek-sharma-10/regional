@@ -715,7 +715,7 @@
                             $(`input[name=${key}]`).attr('required', true);
                         }
                     }else if(key === 'pwbd'){
-                        if(physical_disable == 0){
+                        if(physical_disable === 'No'){
                             $(`input[name=${key}]`).removeAttr('required');
                         }else{
                             $(`input[name=${key}]`).attr('required', true);
