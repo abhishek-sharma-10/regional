@@ -881,7 +881,7 @@
             // Validate required fields and marks
             $('input[required], select[required]').each(function() {
                 if ($(this).val() === '') {
-                    // alert('Please fill all required fields.');
+                    alert('Please fill all required fields.');
                     // isRequiredValid = false;
                     $(this).after('<label class="error">This field is required</label>');
                     $(this).addClass('is-invalid');
@@ -894,7 +894,7 @@
             $('.obtained-marks, .obtain_marks').each(function() {
                 let obtained_id = $(this).attr('id');
                 let max_id = $(this).attr('data-max-id');
-                // console.log(obtained_id, max_id);
+                console.log(obtained_id, max_id);
                 if(!validateObtainedMarks(obtained_id, max_id)){
                     validObtainCount++;
                 }
@@ -920,6 +920,7 @@
                 }
             });
 
+            console.log(validFileCount, validObtainCount, validRequiredCount, validFileCount === 0 && validObtainCount === 0 && validRequiredCount === 0);
             // If all validations pass, you can proceed with saving
             if (validFileCount === 0 && validObtainCount === 0 && validRequiredCount === 0) {
                 // Submit the form or perform the final save action
