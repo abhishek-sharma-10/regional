@@ -1182,8 +1182,14 @@
             }
         }
         
-        $('.bscPreferences').append(bscPreferences);
-        $('.baPreferences').append(baPreferences);
+        if(selectedITEPCourse === 'ITEP - B.Sc. B.Ed.'){
+            $('.bscPreferences').append(bscPreferences);
+        } else if(selectedITEPCourse === 'ITEP - B.A. B.Ed.'){
+            $('.baPreferences').append(baPreferences);
+        } else if(selectedITEPCourse === 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.'){
+            $('.bscPreferences').append(bscPreferences);
+            $('.baPreferences').append(baPreferences);
+        }
 
         $('.ba-preference-select').each(function(idx) {
             let select = $(this);
