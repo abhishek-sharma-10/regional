@@ -882,6 +882,7 @@
             $('input[required], select[required]').each(function() {
                 if ($(this).val() === '') {
                     alert('Please fill all required fields.');
+                    console.log(this);
                     // isRequiredValid = false;
                     $(this).after('<label class="error">This field is required</label>');
                     $(this).addClass('is-invalid');
