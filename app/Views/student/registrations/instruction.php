@@ -78,7 +78,7 @@
           </div>
           <p>Then you have to fill the rest details once you have done submit the form the <strong>Print Academic Detail</strong> page is open.</p>
           <div class="screenshot-placeholder">
-            <a href="<?= base_url('/public/assets/img/instruction-images/RIE_Print_Academic_detail.png'); ?>" target="_blank"><img src="<?= base_url('/public/assets/img/instruction-images/RIE_Print_Academic_detail.png') ?>" alt="Step 2 Screenshot" class="screenshot-img"></a>
+            <a href="<?= base_url('/public/assets/img/instruction-images/RIE_Print_Academic_Detail.png'); ?>" target="_blank"><img src="<?= base_url('/public/assets/img/instruction-images/RIE_Print_Academic_detail.png') ?>" alt="Step 2 Screenshot" class="screenshot-img"></a>
           </div>
           <p>There is a print button on the top right corner you can download the academic detail in pdf format on click of that button.</p>
       </div>
