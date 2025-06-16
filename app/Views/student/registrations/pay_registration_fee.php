@@ -29,6 +29,12 @@
     color: #198754;
   }
 
+  @media screen and (min-width: 786px) {
+    .bank-details{
+      border-right: 1px solid #e0e0e0;
+    }    
+  }
+
   /* .error {
     color: red;
     font-size: 0.875em;
@@ -72,12 +78,32 @@
 
     <div class="mt-4">
       <p>Please pay the registration fee Rs. 500/- (Five Hundred Rupees Only) in the following account and attach the payment receipt / screenshot of payment made.</p>
-      <ul class="list-unstyled">
-        <li><strong>Ac Name:</strong> Principal, RIE, Ajmer - CEE</li>
-        <li><strong>Bank Name:</strong> SBI, RIE, Ajmer</li>
-        <li><strong>Ac Number:</strong> 33687215909</li>
-        <li><strong>IFSC:</strong> SBIN0015309</li>
-      </ul>
+      <div class="row">
+        <div class="col-sm-4 bank-details">
+          <h3 class="mb-3">Bank Details</h3>
+          <ul class="list-unstyled">
+            <li><strong>Ac Name:</strong> Principal, RIE, Ajmer - CEE</li>
+            <li><strong>Bank Name:</strong> SBI, RIE, Ajmer</li>
+            <li><strong>Ac Number:</strong> 33687215909</li>
+            <li><strong>IFSC:</strong> SBIN0015309</li>
+          </ul>
+        </div>
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-6">
+              <h3 class="mb-3">Scan & Pay</h3>
+              <ul class="list-unstyled">
+                <li><strong>Ac Name:</strong> Principal, RIE, Ajmer - CEE</li>
+                <li><strong>Bank Name:</strong> SBI, RIE, Ajmer</li>
+                <li><strong>UPI ID:</strong> rieajmer@sbi</li>
+              </ul>
+            </div>
+            <div class="col-sm-6">
+              <img src="<?php echo base_url('assets/sbi-qr-code.png');?>" alt="QR-Code" style="width: 170px;">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <form action="<?= base_url(); ?>pay-registration-fee" method="post" enctype="multipart/form-data" id="payment-form" novalidate>
