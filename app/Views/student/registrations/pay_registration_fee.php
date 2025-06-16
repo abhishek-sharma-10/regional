@@ -46,7 +46,7 @@
   <?php if (session()->getFlashdata('err_msg')): ?>
     <div class="col-lg-12">
       <div class="alert alert-danger alert-dismissable">
-        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">ï¿½</button>
         <?= session()->getFlashdata('err_msg') ?>
       </div>
     </div>
@@ -99,7 +99,7 @@
               </ul>
             </div>
             <div class="col-sm-6">
-              <img src="<?php echo base_url('assets/sbi-qr-code.png');?>" alt="QR-Code" style="width: 170px;">
+              <img src="<?php echo base_url('/public/assets/sbi-qr-code.png');?>" alt="QR-Code" style="width: 170px;">
             </div>
           </div>
         </div>
