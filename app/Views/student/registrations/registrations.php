@@ -189,7 +189,7 @@ if ($register_container) {
           <div class="col-md-6 mb-3">
             <b><label class="form-label">Gender <span class="required-icon">*</span></label></b>
             <select class="form-select" name="gender" required>
-              <option selected disabled>Select Gender</option>
+              <option value="" selected disabled>Select Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Trans">Trans</option>
@@ -239,7 +239,7 @@ if ($register_container) {
           <div class="col-md-6 mb-3">
             <b><label class="form-label">State <span class="required-icon">*</span></label></b>
             <select class="form-select" name="state" required>
-              <option selected disabled>Select State</option>
+              <option value="" selected disabled>Select State</option>
               <option value="Andhra Pradesh">Andhra Pradesh</option>
               <option value="Arunachal Pradesh">Arunachal Pradesh</option>
               <option value="Assam">Assam</option>
@@ -287,12 +287,12 @@ if ($register_container) {
           <div class="col-md-6 mb-3">
             <b><label class="form-label">Category <span class="required-icon">*</span></label></b>
             <select class="form-select" name="category" required>
-              <option selected disabled>Select Category</option>
-              <option value="GEN">General</option>
+              <option value="" selected disabled>Select Category</option>
+              <option value="GENERAL">General</option>
               <option value="SC">SC</option>
               <option value="ST">ST</option>
-              <option value="OBC-CL">OBC (Creamy Layer)</option>
-              <option value="OBC-NCL">OBC (Non-Creamy Layer)</option>
+              <option value="OBC-(CL)">OBC (Creamy Layer)</option>
+              <option value="OBC-(NCL)">OBC (Non-Creamy Layer)</option>
               <option value="EWS">EWS</option>
             </select>
           </div>
@@ -300,7 +300,7 @@ if ($register_container) {
           <div class="col-md-6 mb-3">
             <b><label class="form-label">Physical Disability <span class="required-icon">*</span></label></b>
             <select class="form-select" name="physical_disable" required>
-              <option selected disabled>Select Option</option>
+              <option value="" selected disabled>Select Option</option>
               <option value="Yes">Yes</option>
               <option value="No">No</option>
             </select>
@@ -363,6 +363,7 @@ if ($register_container) {
     let old_year = current_year - 25;
     let old_date = old_year+'-01-01';
     let current_date = current.getFullYear()+'-'+('0'+(current.getMonth()+1)).slice(-2)+'-'+current.getDate();
+    let check_application_msg = "";
 
     $('input[name=dob]').attr('min', old_date);
     $('input[name=dob]').attr('max', current_date);
@@ -387,17 +388,61 @@ if ($register_container) {
           contentType: "application/json",
           cache: false,
         }).done(function(data) {
-          console.log("Complated", data);
-          console.log("StatusCode", data.status);
-          console.log("Result", data.result);
+          // console.log("Complated", data);
+          // console.log("StatusCode", data.status);
+          // console.log("Result", data.result);
+          // console.log("Message", data.message);
+
+          var ncet_data;
+
           if (data.status == 200) {
-            if (data.result.length > 0) {
-              result = false;
-              $('.submit-btn').attr('disabled', true);
-            } else {
+            // if (data.result.length > 0) {
+              ncet_data = data.result;
+
+              console.log(ncet_data);
+
               result = true;
               $('.submit-btn').attr('disabled', false);
-            }
+
+              $('input[name="name"]').val((ncet_data.name).trim());
+
+              if($('select[name="gender"]').find('option[value="' + (ncet_data.gender).trim() + '"]').length){
+                $('select[name="gender"]').val((ncet_data.gender).trim()).change();
+              }else{
+                $('select[name="gender"] option[value=""]').attr('selected', "selected");
+              }
+
+              $('input[name="mother_name"]').val((ncet_data.mother_name).trim());
+              $('input[name="father_name"]').val((ncet_data.father_name).trim());
+              $('input[name="dob"]').val((ncet_data.dob).trim());
+              $('textarea[name="address"]').val((ncet_data.address).trim());
+
+              if($('select[name="state"]').find('option[value="' + toTitleCase(ncet_data.state).trim() + '"]').length){
+                $('select[name="state"]').val(toTitleCase(ncet_data.state).trim()).change();
+              }else{
+                $('select[name="state"] option[value=""]').attr('selected', "selected");
+              }
+
+              $('input[name="pincode"]').val((ncet_data.pincode).trim());
+
+              if($('select[name="category"]').find('option[value="' + (ncet_data.category_name.toUpperCase()).trim() + '"]').length){
+                $('select[name="category"]').val((ncet_data.category_name.toUpperCase()).trim()).change();
+              }else{
+                $('select[name="category"] option[value=""]').attr('selected', "selected");
+              }
+
+              if($('select[name="physical_disable"]').find('option[value="' + toTitleCase(ncet_data.physical_disability).trim() + '"]').length){
+                $('select[name="physical_disable"]').val(toTitleCase(ncet_data.physical_disability).trim()).change();
+              }else{
+                $('select[name="physical_disable"] option[value=""]').attr('selected', "selected");
+              }
+
+              $('input[name="phone"]').val((ncet_data.mobile_no).trim());
+            // }
+          }else if(data.status == 400){
+            check_application_msg = data.message;
+            result = false;
+            $('.submit-btn').attr('disabled', true);
           }
         }).fail(function(data) {
           result = true;
@@ -406,9 +451,9 @@ if ($register_container) {
       }
 
       return result;
-      // if (maxMarks === "") return true; // skip if max marks not filled yet
-      // return parseFloat(value) <= parseFloat(maxMarks);
-    }, "Application is already filled with the entered NCET Application No.");
+    },  function() {
+      return check_application_msg;
+    });
 
     $.validator.addMethod("charactersOnly", function(value, element) {
       return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
@@ -501,4 +546,10 @@ if ($register_container) {
     this.classList.toggle('bi-eye-slash');
     this.classList.toggle('bi-eye');
   });
+
+  function toTitleCase(str) {
+    return str.toLowerCase().split(' ').map(function(word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+  }
 </script>

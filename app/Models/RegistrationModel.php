@@ -51,6 +51,7 @@ class RegistrationModel extends Model {
         'password',
         'ncet_roll_no',
         'itep_course',
+        'ncet_average_percentile',
         'photo',
         'signature',
         'certificate_10',
@@ -85,6 +86,7 @@ class RegistrationModel extends Model {
         return [];
     }
 
+    // Check If User Already Registered
     function checkNCETApplication($id){
         $query = $this->db->query("SELECT id FROM registrations where ncet_application_no='$id'");
     
@@ -103,4 +105,13 @@ class RegistrationModel extends Model {
         return [];
     }
     
+    function getRegistrationCounseleDetail($id){
+        $query = $this->db->query("SELECT registrations.*, student_counselling.id AS student_counselling_id, student_counselling.counselling_id AS counselling_id, student_counselling.academic_receipt_no, student_counselling.academic_payment_receipt, student_counselling.payment_date AS academic_payment_date FROM registrations LEFT JOIN student_counselling ON registrations.id = student_counselling.registration_id where registrations.id=$id");
+    
+        if($query->getNumRows() > 0){
+            $result = $query->getResult();
+            return $result[0];
+        }
+        return [];
+    }
 }

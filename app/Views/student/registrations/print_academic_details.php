@@ -268,7 +268,7 @@
                         <th>12<sup>th</sup> Marksheet</th>
                         <th>NCET Score Card</th>
                         <th>NCET Application Form</th>
-                        <?php if($details->category !== 'GEN'){ ?><th>Caste Certificate<br>(SC/ST/OBC-CL/OBC-NCL/EWS)</th><?php } ?>
+                        <?php if($details->category !== 'GENERAL'){ ?><th>Caste Certificate<br>(SC/ST/OBC-CL/OBC-NCL/EWS)</th><?php } ?>
                         <?php if($details->physical_disable != 'No'){ ?><th>Physical Disability</th><?php } ?>
                         <th>Payment Receipt</th>
                     </tr>
@@ -311,7 +311,7 @@
                                 <?php } ?>
                             </div>
                         </td>
-                        <?php if($details->category !== 'GEN'){ ?><td>
+                        <?php if($details->category !== 'GENERAL'){ ?><td>
                             <div>
                                 <?php if(isset($details->caste_certificate) && !empty($details->caste_certificate) && str_ends_with($details->caste_certificate,'.pdf')){ ?>
                                     <a href="<?=base_url($details->caste_certificate);?>" target="_blank">Uploaded PDF</a>

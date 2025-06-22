@@ -179,9 +179,9 @@
                     <div class="col-sm-8">
                         <select class="form-select" name="board_10th" id="board_10th" data-input="board-10-any-other" required>
                             <option value="" selected>Select Board</option>
-                            <option value="CBSE" <?php echo $details->board_10th == 'CBSE' ? 'selected' : '';?>>CBSE</option>
-                            <option value="State Board" <?php echo $details->board_10th == 'State Board' ? 'selected' : '';?>>State Board</option>
-                            <option value="Any Other Board" <?php echo $details->board_10th == 'Any Other Board' ? 'selected' : '';?>>Any Other Board</option>
+                            <option value="CBSE" <?php echo $details->board_10th == 'CENTRAL BOARD OF SECONDARY EDUCATION' ? 'selected' : '';?>>CENTRAL BOARD OF SECONDARY EDUCATION</option>
+                            <option value="State Board" <?php echo $details->board_10th != 'CENTRAL BOARD OF SECONDARY EDUCATION' ? 'selected' : '';?>>State Board</option>
+                            <option value="Any Other Board" <?php echo $details->board_10th == 'OTHER' ? 'selected' : '';?>>Any Other Board</option>
                         </select>
                     </div>
                 </div>
@@ -189,7 +189,7 @@
                 <div class="mb-3 row" id="board-10-any-other">
                     <label class="col-sm-4 col-form-label">Name of Board <span class="required-icon">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="board_10th_other" value="<?php echo $details->board_10th_other; ?>"/>
+                        <input type="text" class="form-control" name="board_10th_other" value="<?php echo ($details->board_10th === 'OTHER' ? $details->board_10th_other : ($details->board_10th != 'CENTRAL BOARD OF SECONDARY EDUCATION' ? $details->board_10th : '')); ?>"/>
                     </div>
                 </div>
 
@@ -250,9 +250,9 @@
                     <div class="col-sm-8">
                         <select class="form-select" name="board_12th" id="board_12th" data-input="board-12-any-other" required>
                             <option value="" selected>Select Board</option>
-                            <option value="CBSE" <?php echo $details->board_12th == 'CBSE' ? 'selected' : '';?>>CBSE</option>
-                            <option value="State Board" <?php echo $details->board_12th == 'State Board' ? 'selected' : '';?>>State Board</option>
-                            <option value="Any Other Board" <?php echo $details->board_12th == 'Any Other Board' ? 'selected' : '';?>>Any Other Board</option>
+                            <option value="CBSE" <?php echo $details->board_12th == 'CENTRAL BOARD OF SECONDARY EDUCATION' ? 'selected' : '';?>>CENTRAL BOARD OF SECONDARY EDUCATION</option>
+                            <option value="State Board" <?php echo $details->board_12th !== 'CENTRAL BOARD OF SECONDARY EDUCATION' ? 'selected' : '';?>>State Board</option>
+                            <option value="Any Other Board" <?php echo $details->board_12th == 'OTHER' ? 'selected' : '';?>>Any Other Board</option>
                         </select>
                     </div>
                 </div>
@@ -260,7 +260,7 @@
                 <div class="mb-3 row" id="board-12-any-other">
                     <label class="col-sm-4 col-form-label">Name of Board <span class="required-icon">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="board-12-any-other" name="board_12th_other"  value="<?php echo $details->board_12th_other; ?>" <?php isset($details->board_12th_other) && !empty($details->board_12th_other) ? "style='display:block';": "style='display:none';"?>/>
+                        <input type="text" class="form-control" id="board-12-any-other" name="board_12th_other"  value="<?php echo ($details->board_12th == 'OTHER' ? $details->board_12th_other : ($details->board_12th !== 'CENTRAL BOARD OF SECONDARY EDUCATION' ? $details->board_12th : '')); ?>" <?php isset($details->board_12th_other) && !empty($details->board_12th_other) ? "style='display:block';": "style='display:none';"?>/>
                     </div>
                 </div>
 
@@ -334,9 +334,9 @@
                                     <th style="width: 12%; vertical-align: middle"></th>
                                     <th style="width: 12%; vertical-align: middle">Code <span class="required-icon">*</span></th>
                                     <th style="width: 40%; vertical-align: middle">Name</th>
-                                    <th style="width: 12%; vertical-align: middle">Maximum Score</th>
-                                    <th style="width: 12%; vertical-align: middle">Score Obtained <span class="required-icon">*</span></th>
-                                    <th style="width: 12%; vertical-align: middle">Percentage</th>
+                                    <!-- <th style="width: 12%; vertical-align: middle">Maximum Score</th> -->
+                                    <!-- <th style="width: 12%; vertical-align: middle">Score Obtained <span class="required-icon">*</span></th> -->
+                                    <th style="width: 12%; vertical-align: middle">Percentile</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -349,12 +349,12 @@
                                         <?php if($k == 0){?><th style="vertical-align: middle; white-space: nowrap;" rowspan="<?=$sections ?>"><?= $key ?></th><?php } ?>
                                         <td>
                                             <input type="hidden" value="<?php echo isset($ncet[$i]->id) ? $ncet[$i]->id : ''; ?>" name="ids[]" />
-                                            <input type="number" class="form-control codes" name="code[]" id="code<?= $i; ?>" data-row="<?= $i; ?>" data-section="<?= $key; ?>" value="<?php echo isset($ncet[$i]->codes) && $ncet[$i]->codes != 0 ? $ncet[$i]->codes : ''; ?>" required>
+                                            <input type="number" class="form-control codes" name="code[]" id="code<?= $i; ?>" data-row="<?= $i; ?>" data-section="<?= $key; ?>" value="<?php echo isset($ncet[$i]->codes) && $ncet[$i]->codes != 0 ? $ncet[$i]->codes : ''; ?>" readonly>
                                         </td>
                                         <td><input type="text" class="form-control subjects" name="subject[]" id="subject<?= $i; ?>" data-row="<?= $i; ?>" value="" readonly></td>
-                                        <td><input type="number" class="form-control max_marks" name="max_marks[]" id="max_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_maximum_marks) && $ncet[$i]->total_maximum_marks != 0 ? $ncet[$i]->total_maximum_marks : ''; ?>" readonly></td>
-                                        <td><input type="number" class="form-control obtain_marks" name="obtain_marks[]" id="obtain_marks<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->total_marks_obtain) && $ncet[$i]->total_marks_obtain != 0 ? $ncet[$i]->total_marks_obtain : ''; ?>" oninput="calculatePercent('#max_marks<?= $i; ?>', '#obtain_marks<?= $i; ?>', '#percentage<?= $i; ?>')" data-max-id="max_marks<?= $i; ?>" required></td>
-                                        <td><input type="number" class="form-control percentage" name="percentage[]" id="percentage<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->percentage) && $ncet[$i]->percentage != 0 ? $ncet[$i]->percentage : ''; ?>" readonly></td>
+                                        <!-- <td><input type="number" class="form-control max_marks" name="max_marks[]" id="max_marks<?//= $i; ?>" data-row="<?//= $i; ?>" value="<?php //echo isset($ncet[$i]->total_maximum_marks) && $ncet[$i]->total_maximum_marks != 0 ? $ncet[$i]->total_maximum_marks : ''; ?>" readonly></td> -->
+                                        <!-- <td><input type="number" class="form-control obtain_marks" name="obtain_marks[]" id="obtain_marks<?//= $i; ?>" data-row="<?//= $i; ?>" value="<?php //echo isset($ncet[$i]->total_marks_obtain) && $ncet[$i]->total_marks_obtain != 0 ? $ncet[$i]->total_marks_obtain : ''; ?>" oninput="calculatePercent('#max_marks<?//= $i; ?>', '#obtain_marks<//?= $i; ?>', '#percentage<?//= $i; ?>')" data-max-id="max_marks<?//= $i; ?>" required></td> -->
+                                        <td><input type="number" class="form-control percentile" name="percentile[]" id="percentile<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->percentile) && $ncet[$i]->percentile != 0 ? $ncet[$i]->percentile : ''; ?>" readonly></td>
                                     </tr>
                                 <?php
                                 $i++;
@@ -362,8 +362,9 @@
                                 ?>
                                 <tr>
                                     <td colspan="3" style="vertical-align: middle; font-weight: 700;">Total Marks</td>
-                                    <td><input type="number" class="form-control" id="total_max_marks" readonly></td>
-                                    <td><input type="number" class="form-control" id="total_obtain_marks" readonly></td>
+                                    <td><input type="number" class="form-control" id="total_percentile" name="ncet_average_percentile" value="<?php echo $details->ncet_average_percentile; ?>" readonly></td>
+                                    <!-- <td><input type="number" class="form-control" id="total_max_marks" readonly></td>
+                                    <td><input type="number" class="form-control" id="total_obtain_marks" readonly></td> -->
                                 </tr>
                             </tbody>
                         </table>
@@ -528,7 +529,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-4 upload-section" style="<?php echo $details->category !== 'GEN' ? 'display:block' : 'display:none'; ?>">
+                <div class="col-md-4 upload-section" style="<?php echo $details->category !== 'GENERAL' ? 'display:block' : 'display:none'; ?>">
                     <div class="row">
                         <h4 class="mb-4">Caste Certificate <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
@@ -671,8 +672,9 @@
         $('.bscPreferences').hide();
 
         $('#course').trigger('change');
-        $('.obtain_marks').trigger('blur');
-        $('.max_marks').trigger('blur');
+        // $('.obtain_marks').trigger('blur');
+        // $('.max_marks').trigger('blur');
+        // $('.percentile').trigger('blur');
         $('.codes').trigger('blur');
         
         $(`#board-10-any-other`).hide();
@@ -687,7 +689,7 @@
         if (status === "Request") {
             for (key in attachment) {
                 if(key === 'caste_certificate'){
-                    if (category === "GEN") {
+                    if (category === "GENERAL") {
                         $(`input[name=${key}]`).removeAttr('required');
                     } else {
                         $(`input[name=${key}]`).attr('required', true);
@@ -709,7 +711,7 @@
                 } else {
                     // $(`input[name=${key}]`).attr('required', true);
                     if(key === 'caste_certificate'){
-                        if (category === "GEN") {
+                        if (category === "GENERAL") {
                             $(`input[name=${key}]`).removeAttr('required');
                         } else {
                             $(`input[name=${key}]`).attr('required', true);
@@ -895,7 +897,7 @@
             $('.obtained-marks, .obtain_marks').each(function() {
                 let obtained_id = $(this).attr('id');
                 let max_id = $(this).attr('data-max-id');
-                console.log(obtained_id, max_id);
+                // console.log(obtained_id, max_id);
                 if(!validateObtainedMarks(obtained_id, max_id)){
                     validObtainCount++;
                 }
@@ -921,7 +923,7 @@
                 }
             });
 
-            console.log(validFileCount, validObtainCount, validRequiredCount, validFileCount === 0 && validObtainCount === 0 && validRequiredCount === 0);
+            // console.log(validFileCount, validObtainCount, validRequiredCount, validFileCount === 0 && validObtainCount === 0 && validRequiredCount === 0);
             // If all validations pass, you can proceed with saving
             if (validFileCount === 0 && validObtainCount === 0 && validRequiredCount === 0) {
                 // Submit the form or perform the final save action
@@ -1008,21 +1010,29 @@
 </script>
 
 <script>
-    $('.max_marks').on('blur', (e) => {
-        let total_marks = 0;
-        $('.max_marks').each(function() {
-            total_marks += parseInt($(this).val() || 0);
-        });
-        $('#total_max_marks').val(total_marks);
-    });
+    // $('.max_marks').on('blur', (e) => {
+    //     let total_marks = 0;
+    //     $('.max_marks').each(function() {
+    //         total_marks += parseInt($(this).val() || 0);
+    //     });
+    //     $('#total_max_marks').val(total_marks);
+    // });
 
-    $('.obtain_marks').on('blur', (e) => {
-        let total_obtain_marks = 0;
-        $('.obtain_marks').each(function() {
-            total_obtain_marks += parseInt($(this).val() || 0);
-        });
-        $('#total_obtain_marks').val(total_obtain_marks);
-    });
+    // $('.obtain_marks').on('blur', (e) => {
+    //     let total_obtain_marks = 0;
+    //     $('.obtain_marks').each(function() {
+    //         total_obtain_marks += parseInt($(this).val() || 0);
+    //     });
+    //     $('#total_obtain_marks').val(total_obtain_marks);
+    // });
+
+    // $('.percentile').on('blur', (e) => {
+    //     let total_percentile = 0;
+    //     $('.percentile').each(function() {
+    //         total_percentile += parseFloat($(this).val() || 0);
+    //     });
+    //     $('#total_percentile').val((total_percentile / 7).toFixed(7));
+    // });
 
     $('.codes').on('blur', (e) => {
         let element = e.target;
@@ -1082,8 +1092,9 @@
                             let oldSubject = $(`#subject${row}`).val();
                             // console.log('oldSubject ', oldSubject);
                             $(`#subject${row}`).val(selectedSubject);
-                            $(`#max_marks${row}`).val(result[0].max_score);
-                            $('.max_marks').trigger('blur');
+                            // $(`#max_marks${row}`).val(result[0].max_score);
+                            // $('.max_marks').trigger('blur');
+                            // $('.percentile').trigger('blur');
                             if(section == 'Section 2'){
                                 for (let key in courses) {
                                     if(oldSubject === "Biology/Biological Studies"){

@@ -9,6 +9,8 @@ use ReflectionException;
 
 use App\Models\RegistrationModel;
 use App\Models\NcetScoreModel;
+use App\Models\StudentCounsellingModel;
+use App\Models\NCETApplicationModel;
 use App\Models\CommonModel;
 
 class Registration extends BaseController
@@ -44,6 +46,14 @@ class Registration extends BaseController
 
             $data = [];
             $data['details'] = $registrationModel->getRegistrationDetail($id);
+
+            $bscPreferences = [$data['details']->bsc_preference_1, $data['details']->bsc_preference_2, $data['details']->bsc_preference_3, $data['details']->bsc_preference_4];
+            $baPreferences = [$data['details']->ba_preference_1, $data['details']->ba_preference_2, $data['details']->ba_preference_3, $data['details']->ba_preference_4];
+
+            $data['preferences'] = [
+                'B.Sc. B.Ed.' => array_filter($bscPreferences, fn($value) => !is_null($value) && $value !== ''), 
+                'B.A. B.Ed.' => array_filter($baPreferences, fn($value) => !is_null($value) && $value !== '')
+            ];
 
             $data['pageTitle'] = "Registration - Details";
             return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/registrations/registration_detail", $data) . view('admin/template/footer');
@@ -132,15 +142,54 @@ class Registration extends BaseController
             }
             return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
         }else if($process == "registration") {
+
+            $ncetApplicationModel = new NCETApplicationModel();
+            $ncetScoreModel = new NcetScoreModel();
+
             unset($request["submit"]);
             unset($request["confirm_password"]);
-            $request["status"] = "Request";
 
             $password = $request['password'];
-            $request['password'] = password_hash($password, PASSWORD_DEFAULT);
+            $ncet_application_no = $request['ncet_application_no'];
 
-            $output = $registrationModel->save($request);
-            var_dump($output);
+            $ncetData = $ncetApplicationModel->checkApplication($ncet_application_no, 'yes');
+
+            // var_dump($ncetData);
+
+            $request['board_10th'] = trim($ncetData['board_10'], " \n\r\t");
+            $request['year_of_passing_10th'] = trim($ncetData['passing_year_10'], " \n\r\t");
+            $request['board_10th_other'] = trim($ncetData['board_other_10'], " \n\r\t");
+            $request['max_marks_10th'] = trim($ncetData['total_marks_10'], " \n\r\t");
+            $request['obtain_marks_10th'] = trim($ncetData['obtain_marks_10'], " \n\r\t");
+            $request['percentage_10th'] = trim($ncetData['percentage_10'], " \n\r\t");
+            $request['board_12th'] = trim($ncetData['board_12'], " \n\r\t");
+            $request['year_of_passing_12th'] = trim($ncetData['passing_year_12'], " \n\r\t");
+            $request['board_12th_other'] = trim($ncetData['board_other_12'], " \n\r\t");
+            $request['max_marks_12th'] = trim($ncetData['total_marks_12'], " \n\r\t");
+            $request['obtain_marks_12th'] = trim($ncetData['obtain_marks_12'], " \n\r\t");
+            $request['percentage_12th'] = trim($ncetData['percentage_12'], " \n\r\t");
+            $request['ncet_average_percentile'] = trim($ncetData['percentile_total'], " \n\r\t");
+
+            $ncet_subject_data = $ncetApplicationModel->fetchSubjectDetailsByApplicationNo($ncet_application_no);
+
+            $request["status"] = "Request";        
+            $request['password'] = password_hash($password, PASSWORD_DEFAULT);
+            
+            $output = $registrationModel->insert($request);
+            $last_insert_id = $registrationModel->getInsertID();
+            // $last_insert_id = 45;
+
+            $ncet_score_data = [];
+
+            foreach ($ncet_subject_data as $row) {
+                $ncet_score_data[] = ['codes' => $row->subject_code, 'subjects' => $row->subject_name, 'percentile' => $row->subject_percentile, 'registration_id' => $last_insert_id];
+            }
+
+            $ncetScoreModel->upsertBatch($ncet_score_data);
+
+            // var_dump($request, $ncet_score_data);
+            // exit;
+            // var_dump($output);
 
             if ($output) {
                 // Send email after successful registration
@@ -537,24 +586,24 @@ class Registration extends BaseController
 
             // var_dump($input);
 
-            $ncet_score_data = [];
+            // $ncet_score_data = [];
 
-            for ($i = 0; $i < count($input['code']); $i++) {
+            // for ($i = 0; $i < count($input['code']); $i++) {
                 // var_dump($ncet_score_data);
-                $ncet_score_data[$i] = array(
-                    "registration_id" => $input['id'],
-                    "codes"  => $input['code'][$i],
-                    "subjects" => $input['subject'][$i],
-                    "total_maximum_marks" => $input['max_marks'][$i],
-                    "total_marks_obtain" => $input['obtain_marks'][$i],
-                    "percentage" => $input['percentage'][$i]
-                );
+                // $ncet_score_data[$i] = array(
+                //     "registration_id" => $input['id'],
+                //     "codes"  => $input['code'][$i],
+                //     "subjects" => $input['subject'][$i],
+                //     "total_maximum_marks" => $input['max_marks'][$i],
+                //     "total_marks_obtain" => $input['obtain_marks'][$i],
+                //     "percentage" => $input['percentage'][$i]
+                // );
 
-                if(isset($input['ids'][$i]) && !empty($input['ids'][$i])){
-                    $ncet_score_data[$i]['id'] = $input['ids'][$i];
-                }
+                // if(isset($input['ids'][$i]) && !empty($input['ids'][$i])){
+                //     $ncet_score_data[$i]['id'] = $input['ids'][$i];
+                // }
                 // var_dump($ncet_score_data);
-            }
+            // }
 
             // var_dump($input);
 
@@ -575,19 +624,32 @@ class Registration extends BaseController
             unset($input['obtain_marks']);
             unset($input['total_max_marks']);
             unset($input['total_obtain_marks']);
-            unset($input['percentage']);
+            unset($input['percentile']);
+
+            if($input['board_10th'] === 'State Board'){
+                $input['board_10th'] = $input['board_10th_other'];
+                unset($input['board_10th_other']);
+            }else if($input['board_10th'] === 'Any Other Board'){
+                $input['board_10th'] = 'OTHER';
+            }
+
+            if($input['board_12th'] === 'State Board'){
+                $input['board_12th'] = $input['board_12th_other'];
+                unset($input['board_12th_other']);
+            }else if($input['board_12th'] === 'Any Other Board'){
+                $input['board_12th'] = 'OTHER';
+            }
 
             // var_dump($input);
             // exit;
             $registrationModel = new RegistrationModel();
-            $ncetScoreModel = new NcetScoreModel();
-            // var_dump($input, $ncet_score_data);
+            // $ncetScoreModel = new NcetScoreModel();
 
             $registrationModel->upsert($input);
 
-            if(count($ncet_score_data) > 0){
-                $ncetScoreModel->upsertBatch($ncet_score_data);
-            }
+            // if(count($ncet_score_data) > 0){
+            //     $ncetScoreModel->upsertBatch($ncet_score_data);
+            // }
 
             if (isset($input['status']) && $input['status'] == 'Save - Payment Pending') {
                 return redirect()->to('/pay-registration-fee');
@@ -613,12 +675,23 @@ class Registration extends BaseController
         }
     }
 
-    public function checkApplicationNo($id)
+    public function checkApplicationNo($ncet_application_no)
     {
         try {
             $registrationModel = new RegistrationModel();
+            $ncetApplicationModel = new NcetApplicationModel();
 
-            $result = $registrationModel->checkNCETApplication($id);
+            $result = $registrationModel->checkNCETApplication($ncet_application_no);
+            if(count($result) > 0){
+                return ($this->getResponse(['status' => 400, 'message' => 'Application is already filled with the entered NCET Application No.......']));
+            }else{
+                $ncetCheck = $ncetApplicationModel->checkApplication($ncet_application_no);
+                if(count($ncetCheck) > 0){
+                    return ($this->getResponse(['status' => 200, 'result' => $ncetCheck]));
+                }else{
+                    return ($this->getResponse(['status' => 400, 'message' => 'No Data Found in NCET Application.']));
+                }
+            }
             return ($this->getResponse(['status' => 200, 'result' => $result]));
         } catch (Exception $exception) {
             return $this->getResponse(
@@ -685,32 +758,6 @@ class Registration extends BaseController
         }
     }
 
-    public function paymentInfo()
-    {
-        try {
-            $id = '';
-            if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
-                $id = $_SESSION['student'][0]->id;
-            }else{
-                return redirect()->to('/logout');
-            }
-            
-            $registrationModel = new RegistrationModel();
-
-            $data = [];
-            $data['details'] = $registrationModel->getRegistrationDetail($id);
-
-            $data['pageTitle'] = "Payment";
-            $data['active'] = "pay-fees";
-            return view('student/template/header', $data) . view('student/registrations/payment', $data) . view('student/template/footer');
-        } catch (Exception $exception) {
-            return redirect()->to('/500');
-            // return $this->getResponse(
-            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
-            //     ResponseInterface::HTTP_BAD_REQUEST
-            // );
-        }
-    }
     public function printAcademicDetails()
     {
         try {
@@ -757,6 +804,32 @@ class Registration extends BaseController
         }
     }
 
+    public function paymentInfo()
+    {
+        try {
+            $id = '';
+            if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
+                $id = $_SESSION['student'][0]->id;
+            }else{
+                return redirect()->to('/logout');
+            }
+            
+            $registrationModel = new RegistrationModel();
+
+            $data = [];
+            $data['details'] = $registrationModel->getRegistrationDetail($id);
+
+            $data['pageTitle'] = "Payment";
+            $data['active'] = "pay-fees";
+            return view('student/template/header', $data) . view('student/registrations/payment', $data) . view('student/template/footer');
+        } catch (Exception $exception) {
+            return redirect()->to('/500');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
+        }
+    }
     public function payRegistrationFee()
     {
         try {
@@ -897,6 +970,161 @@ class Registration extends BaseController
                 unlink($file);
                 // echo "Deleted: " . $file . "<br>";
             }
+        }
+    }
+
+    public function academicFees(){
+        try {
+            $id = '';
+            if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
+                $id = $_SESSION['student'][0]->id;
+            }else{
+                return redirect()->to('/logout');
+            }
+            
+            $registrationModel = new RegistrationModel();
+
+            $data = [];
+            $data['details'] = $registrationModel->getRegistrationCounseleDetail($id);
+
+            $data['pageTitle'] = "Pay-Academic-Fee";
+            $data['active'] = "pay-academic-fees";
+            return  view('student/template/header', $data) . view('student/registrations/academic_payment', $data) . view('student/template/footer');
+        } catch (Exception $exception) {
+            return redirect()->to('/500');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
+        }
+    }
+
+    public function payAcademicFees(){
+        try {
+            $session = session();
+            $input = $this->request->getVar();
+
+            $reg_id = $input['r_id'];
+            unset($input['r_id']);
+
+            // var_dump($this->request);
+            // var_dump($this->request->getFiles());
+
+            $uploadPath = "public/uploads/" . $reg_id . "/";
+
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath);
+            }
+
+            $validationRule = [];
+
+            $academic_payment_receipt = $this->request->getFile('academic_payment_receipt');
+            if (!empty($academic_payment_receipt->getName())) {
+                // $videoFileExist = true;
+                $validationRule = [
+                    'academic_payment_receipt' => [
+                        'label' => 'Payment Receipt',
+                        'rules' => [
+                            'uploaded[academic_payment_receipt]',
+                            'mime_in[academic_payment_receipt,image/pdfimage/jpg,image/jpeg,image/png,application/pdf]',
+                            'max_size[academic_payment_receipt, 1024]'
+                        ],
+                    ],
+                ];
+
+                if (!$this->validate($validationRule)) {
+                    var_dump($this->validator->getErrors());
+                    // $session->set('store_form_values', $request_data); // keeping filled form field values 
+                    $session->setFlashdata('err_msg', 'Invalid file format/ Max. File Size upload attempted.');
+                    return redirect()->to('/pay-registration-fee');
+                }
+
+                $type = $academic_payment_receipt->getClientMimeType();
+                $ext = "." . explode("/", $type)[1];
+
+                $newName = "academic_payment_receipt" . $ext;
+                $this->unlinkFiles($uploadPath . 'academic_payment_receipt');
+                // if (file_exists($uploadPath . $newName)) {
+                //     unlink($uploadPath . $newName);
+                // }
+                $academic_payment_receipt->move($uploadPath, $newName);
+                $input['academic_payment_receipt'] = $uploadPath . $newName;
+            } else {
+                unset($input['academic_payment_receipt']);
+            }
+
+            $input['payment_date'] = date('Y-m-d h:i:s');
+
+            // var_dump($input);exit;
+
+            $registrationModel = new RegistrationModel();
+            $studentCounsellingModel = new StudentCounsellingModel();
+
+            $result = $studentCounsellingModel->upsert($input);
+
+            if ($result) {
+
+                $studentDetail = $registrationModel->getRegistrationDetail($reg_id);
+
+                $emailService = \Config\Services::email();
+                
+                $toEmail = $studentDetail->email;
+                
+                $emailService->setTo($toEmail);
+                $emailService->setFrom('no-reply@riea.com', 'Academic Section RIE Ajmer');
+                $emailService->setSubject('Successfully submitted your Academic Fees in ITEP course at RIE, Ajmer');
+                
+                $message = "
+                Dear Candidate,<br><br>
+                You have successfully submitted your application for admission in ITEP Course at Regional Institute of Education, Ajmer.<br><br>
+                Academic Section<br>
+                RIE, NCERT, Ajmer";
+                
+                $emailService->setMessage($message);
+        
+                if ($emailService->send()) {
+                    session()->setFlashdata('success', 'Application submitted successful! Email sent.');
+                } else {
+                    // log_message('error', $emailService->printDebugger(['headers']));
+                    session()->setFlashdata('error', 'Application submitted successful but email failed.');
+                }
+            }
+
+            return redirect()->to('/print-academic-fee-receipt');
+        } catch (Exception $exception) {
+            session()->setFlashdata('error', 'Something went wrong.\n'.$exception->getMessage());
+            // return redirect()->to('/pay-academic-fee');
+            return $this->getResponse(
+                ['status' => 'ERROR', 'message' => $exception->getMessage()],
+                ResponseInterface::HTTP_BAD_REQUEST
+            );
+        }
+    }
+
+    public function academicPaymentInfo()
+    {
+        try {
+            $id = '';
+            if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
+                $id = $_SESSION['student'][0]->id;
+            }else{
+                return redirect()->to('/logout');
+            }
+            
+            $registrationModel = new RegistrationModel();
+
+            $data = [];
+            $data['details'] = $registrationModel->getRegistrationCounseleDetail($id);
+
+            $data['pageTitle'] = "Print Academic Fees Receipt";
+            $data['active'] = "pay-academic-fees";
+            return view('student/template/header', $data) . view('student/registrations/print_academic_payment', $data) . view('student/template/footer');
+        } catch (Exception $exception) {
+            return redirect()->to('/500');
+            // return $this->getResponse(
+            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
+            //     ResponseInterface::HTTP_BAD_REQUEST
+            // );
         }
     }
 

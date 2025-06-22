@@ -85,7 +85,7 @@ class LoginModel extends Model {
             $msg.="RIE recently received a request to reset the password for the username ".$user.".<br/>To finish resetting your password, go to the following link.<br/><br/>".$url;
 
             $msg.="<br/><br/><b>Thanks,</b> <br/>";
-            $msg.="<b>Star Infotech College</b></i>";
+            $msg.="<b>RIE Ajmer</b></i>";
 
             $to = $userInfo[0]->email;
             $toName = $name;
