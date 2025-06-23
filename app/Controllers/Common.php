@@ -43,12 +43,12 @@ class Common extends BaseController
             $ncetApplicationModel = new NCETApplicationModel();
             $records = $ncetApplicationModel->getApplicantEmails();
     
-            $email_array = [];
+            $email_array = ['abhishek.sharma@ibirdsservices.com'];
             foreach ($records as $value) {
                 var_dump($value);
                 // $email_array[] = $value->email;
             }
-            exit;
+            // exit;
             $email = \Config\Services::email();
             $from = "rieajmer@no-reply.com";
             $fromName = "RIE Ajmer";
