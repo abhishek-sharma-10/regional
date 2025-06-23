@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\RegistrationModel;
 use App\Models\NCETApplicationModel;
 use Exception;
+use CodeIgniter\HTTP\ResponseInterface;
 
 class Common extends BaseController
 {
@@ -76,7 +77,10 @@ class Common extends BaseController
             }
 
         }catch(Exception $e){
-
+            return $this->getResponse(
+                ['status' => 'ERROR', 'message' => $e->getMessage()],
+                ResponseInterface::HTTP_BAD_REQUEST
+            );
         }
     }
     
