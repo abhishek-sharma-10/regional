@@ -47,7 +47,7 @@ class Common extends BaseController
                 var_dump($value);
                 $email_array[] = $value->email;
             }
-
+            exit;
             $email = \Config\Services::email();
             $from = "rieajmer@no-reply.com";
             $fromName = "RIE Ajmer";
