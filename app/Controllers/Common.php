@@ -55,7 +55,7 @@ class Common extends BaseController
 
             $msg="Dear Candidate,<br/>";
             $msg .= "Online admission process for ITEP <b>B.Sc. B.Ed.</b> and <b>B.A. B.Ed.</b> Courses at the <b>Regional Institute of Education, NCERT, Ajmer</b> has started. ";
-            $msg .= "Please apply on https://riea.in/registrations (<a href='https://riea.in/registrations'>Click Here</a>) the link.<br/>The link is open from <b>25-JUNE-2025</b> to <b>04-JULY-2025</b>.<br/><br/>For more details, please visit https://rieajmer.raj.nic.in/ (<a href='https://rieajmer.raj.nic.in/'>Click Here</a>)";
+            $msg .= "Please apply on https://riea.in/registrations (<a href='https://riea.in/registrations'>Click Here</a>) the link.<br/>The link is open from <b>25-JUNE-2025</b> to <b>04-JULY-2025</b>.<br/><br/>For more details, please visit https://rieajmer.raj.nic.in (<a href='https://rieajmer.raj.nic.in/'>Click Here</a>)";
 
             $msg.="<br/><br/>Academic Section<br>RIE, NCERT, Ajmer<br/>";
 
