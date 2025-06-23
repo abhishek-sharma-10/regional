@@ -86,7 +86,7 @@ class NCETApplicationModel extends Model {
     }
 
     function getApplicantEmails(){
-        $query = $this->db->query("SELECT DISTINCT ncet_application_no, name, email FROM `ncet_applications` LIMIT 100");
+        $query = $this->db->query("SELECT DISTINCT ncet_application_no, name FROM `ncet_applications` LIMIT 100");
 
         if($query->getNumRows() > 0){
             return $query->getResult();

@@ -46,7 +46,7 @@ class Common extends BaseController
             $email_array = [];
             foreach ($records as $value) {
                 var_dump($value);
-                $email_array[] = $value->email;
+                // $email_array[] = $value->email;
             }
             exit;
             $email = \Config\Services::email();
