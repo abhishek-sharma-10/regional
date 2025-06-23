@@ -41,13 +41,13 @@ class Common extends BaseController
     public function sendRegistrationOpenMail(){
         try{
             $ncetApplicationModel = new NCETApplicationModel();
-            $records = $ncetApplicationModel->getApplicantEmails();
+            // $records = $ncetApplicationModel->getApplicantEmails();
     
             $email_array = ['abhishek.sharma@ibirdsservices.com'];
-            foreach ($records as $value) {
-                var_dump($value);
-                // $email_array[] = $value->email;
-            }
+            // foreach ($records as $value) {
+            //     var_dump($value);
+            //     // $email_array[] = $value->email;
+            // }
             // exit;
             $email = \Config\Services::email();
             $from = "rieajmer@no-reply.com";
