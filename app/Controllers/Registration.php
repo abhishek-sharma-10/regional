@@ -74,12 +74,17 @@ class Registration extends BaseController
         $process = isset($request['registrations-process']) ? $request['registrations-process'] : '';
         $data['pageTitle'] = "Registration";
 
+        $data['waiting_container'] = false;
         $data['email_container'] = true;
         $data['otp_container'] = false;
         $data['register_container'] = false;
         $data['msg'] = '';
 
-        if($process == "send-email"){
+        if(date('Y-m-d') < date('Y-m-d', strtotime('2025-06-25'))){
+            $data['waiting_container'] = true;
+            $data['email_container'] = false;
+            return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
+        }else if($process == "send-email"){
             $email = $request['email'];
 
             $email_data = $registrationModel->getRegistrationByEmail($email);

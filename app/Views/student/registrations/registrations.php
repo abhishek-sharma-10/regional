@@ -74,6 +74,21 @@
     box-shadow: none;
   }
 </style>
+
+<?php
+if ($waiting_container) {
+?>
+  <div class="container">
+    <div class="small-container">
+      <h2 class="form-title">Registration for Admission in ITEP Courses - 2025</h2>
+      <h3 class="form-title" style="font-size:18px;">Thank You for Visit!</h3>
+      <h4 class="form-title blink-heading" style="font-size:16px;">Please apply from 25-JUNE-2025</h4>
+    </div>
+  </div>
+<?php
+}
+?>
+
 <!-- First Section-->
 <?php
 if ($email_container) {
