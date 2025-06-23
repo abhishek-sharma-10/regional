@@ -184,11 +184,11 @@
                         <td colspan="3"><strong>Course:</strong> <?= $details->course ?></td>
                     </tr>
                     <tr>
-                        <th>Domain</th>
+                        <th>Code</th>
                         <th>Subject</th>
-                        <th>Maximum Marks</th>
-                        <th>Score Obtained</th>
-                        <th>Percentage</th>
+                        <!-- <th>Maximum Marks</th> -->
+                        <!-- <th>Score Obtained</th> -->
+                        <th>Percentile</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -197,23 +197,24 @@
                             $total_max = 0;
                             $total_obtain = 0;
                             foreach($ncet as $data){
-                                $total_max += $data->total_maximum_marks;
-                                $total_obtain += $data->total_marks_obtain;
+                                // $total_max += $data->total_maximum_marks;
+                                // $total_obtain += $data->total_marks_obtain;
                     ?>
                                 <tr>
                                     <td><?= $data->codes;?></td>
                                     <td><?= $data->subjects;?></td>
-                                    <td><?= $data->total_maximum_marks;?></td>
-                                    <td><?= $data->total_marks_obtain;?></td>
-                                    <td><?= $data->percentage;?></td>
+                                    <!-- <td><?//= $data->total_maximum_marks;?></td> -->
+                                    <!-- <td><?//= $data->total_marks_obtain;?></td> -->
+                                    <td><?= $data->percentile;?></td>
                                 </tr>
                     <?php
                             }
                     ?>
                             <tr class="fw-bold">
                                 <td colspan="2">Total</td>
-                                <td><?= $total_max; ?></td>
-                                <td><?= $total_obtain;?></td>
+                                <td><?= $details->ncet_average_percentile; ?></td>
+                                <!-- <td><?//= $total_max; ?></td> -->
+                                <!-- <td><?//= $total_obtain;?></td> -->
                             </tr>
                     <?php
                         }else{

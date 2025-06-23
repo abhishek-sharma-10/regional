@@ -14,6 +14,8 @@ $routes->set404Override(static function () {
 
 $routes->get('/500', 'Common::internalServer');
 
+$routes->get('send-registration-open-emails', 'Common::sendRegistrationOpenMail');
+
 $routes->get('/', 'Login::studentLogin');
 $routes->post('login', 'Login::studentLogin');
 $routes->get('forget-password', 'Login::stu_forgetPassword');
@@ -37,9 +39,9 @@ $routes->group('/', ['filter' => 'studentAuthGuard'], static function ($routes) 
     // $routes->get('academic/(:num)', 'Registration::academicProfile/$1');
     $routes->post('update-academic-profile', 'Registration::updateAcademicProfile');
     $routes->get('fetch-subject/(:num)', 'Registration::fetchSubjects/$1');
+    $routes->get('print-academic-details','Registration::printAcademicDetails');
     
     $routes->get('payment', 'Registration::paymentInfo');
-    $routes->get('print-academic-details','Registration::printAcademicDetails');
     $routes->get('pay-registration-fee','Registration::payRegistrationFee');
     $routes->post('pay-registration-fee','Registration::paymentRegistrationFee');
     

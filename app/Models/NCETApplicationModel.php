@@ -79,8 +79,17 @@ class NCETApplicationModel extends Model {
                 $data['percentage_12'] = $row->percentage_12;
                 $data['percentile_total'] = $row->percentile_total;
             }
-
             return $data;
+        }
+
+        return [];
+    }
+
+    function getApplicantEmails(){
+        $query = $this->db->query("SELECT DISTINCT ncet_application_no, name, email FROM `ncet_applications` LIMIT 100");
+
+        if($query->getNumRows() > 0){
+            return $query->getResult();
         }
 
         return [];
