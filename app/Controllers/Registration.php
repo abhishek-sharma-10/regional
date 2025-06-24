@@ -688,7 +688,7 @@ class Registration extends BaseController
 
             $result = $registrationModel->checkNCETApplication($ncet_application_no);
             if(count($result) > 0){
-                return ($this->getResponse(['status' => 400, 'message' => 'Application is already filled with the entered NCET Application No.......']));
+                return ($this->getResponse(['status' => 400, 'message' => 'Application is already filled with the entered NCET Application No.']));
             }else{
                 $ncetCheck = $ncetApplicationModel->checkApplication($ncet_application_no);
                 if(count($ncetCheck) > 0){
