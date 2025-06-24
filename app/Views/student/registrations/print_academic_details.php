@@ -68,6 +68,10 @@
         object-fit: contain;
         object-position: center;
     }
+
+    .required-icon {
+        color: red;
+    }
 </style>
 
 <?php
@@ -211,7 +215,7 @@
                             }
                     ?>
                             <tr class="fw-bold">
-                                <td colspan="2">Total</td>
+                                <td colspan="2"><span style="font-weight: 700;">Overall Percentile</span> <span class="required-icon">(Calculation and Data provided by NTA)</span></td>
                                 <td><?= $details->ncet_average_percentile; ?></td>
                                 <!-- <td><?//= $total_max; ?></td> -->
                                 <!-- <td><?//= $total_obtain;?></td> -->
