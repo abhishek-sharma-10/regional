@@ -184,13 +184,22 @@ class Registration extends BaseController
             $last_insert_id = $registrationModel->getInsertID();
             // $last_insert_id = 45;
 
-            $ncet_score_data = [];
+            if($output){
+                // $counterModel->set('counter', $counter+1, false)->where("year", $year)->update();
 
-            foreach ($ncet_subject_data as $row) {
-                $ncet_score_data[] = ['codes' => $row->subject_code, 'subjects' => $row->subject_name, 'percentile' => $row->subject_percentile, 'registration_id' => $last_insert_id];
+                // $registration_no = date('Y') . '-' . str_pad($last_insert_id, 5, '0');
+                $registration_no = sprintf('%s-%05d', date('Y'), $last_insert_id);
+                $registrationModel->set('registration_no', $registration_no)->where('id', $last_insert_id)->update();
+                
+                $ncet_score_data = [];
+    
+                foreach ($ncet_subject_data as $row) {
+                    $ncet_score_data[] = ['codes' => $row->subject_code, 'subjects' => $row->subject_name, 'percentile' => $row->subject_percentile, 'registration_id' => $last_insert_id];
+                }
+    
+                $ncetScoreModel->upsertBatch($ncet_score_data);
             }
 
-            $ncetScoreModel->upsertBatch($ncet_score_data);
 
             // var_dump($request, $ncet_score_data);
             // exit;

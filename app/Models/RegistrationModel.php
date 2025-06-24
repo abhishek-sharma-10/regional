@@ -11,6 +11,7 @@ class RegistrationModel extends Model {
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'id',
+        'registration_no',
         'ncet_application_no',
         'name',
         'gender',
