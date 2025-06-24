@@ -80,7 +80,7 @@ class Registration extends BaseController
         $data['register_container'] = false;
         $data['msg'] = '';
 
-        if(date('Y-m-d') < date('Y-m-d', strtotime('2025-06-25'))){
+        if(date('Y-m-d') < date('Y-m-d', strtotime('2025-06-24'))){
             $data['waiting_container'] = true;
             $data['email_container'] = false;
             return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
