@@ -41,14 +41,8 @@ class Common extends BaseController
     public function sendRegistrationOpenMail(){
         try{
             $ncetApplicationModel = new NCETApplicationModel();
-            // $records = $ncetApplicationModel->getApplicantEmails();
+            $records = $ncetApplicationModel->getApplicantEmails();
     
-            $email_array = ['abhishek.sharma@ibirdsservices.com', 'panjak.g@ibirdsservices.com'];
-            // foreach ($records as $value) {
-            //     var_dump($value);
-            //     // $email_array[] = $value->email;
-            // }
-            // exit;
             $email = \Config\Services::email();
             $from = "rieajmer@no-reply.com";
             $fromName = "RIE Ajmer";
@@ -62,18 +56,21 @@ class Common extends BaseController
             $subject = "Admission in ITEP Courses at RIE NCERT Ajmer";
 
             $email->setFrom($from,$fromName);
-            $email->setTo($email_array);
-
             $email->setSubject($subject);
             $email->setMessage($msg);
 
-            $mail = $email->send();
+            foreach ($records as $value) {
+                // var_dump($value);
+                $email->setTo($value->email);
+                $mail = $email->send();
 
-            if( $mail == true ) {
-                return json_encode(['message' => 'Mail Sent Successfully.', 'success' => true]);
-            }else {
-                // print_r($email->printDebugger(['headers']));exit;
-                return json_encode(['message' => 'Something went wrong', 'success' => false]);
+                if( $mail == true ) {
+                    $ncetApplicationModel->set('notification_status', 'NOT SENT')->where("ncet_application_no", $value->ncet_application_no)->update();
+                    echo json_encode(['message' => 'Mail Sent Successfully.', 'success' => true]);
+                }else {
+                    // print_r($email->printDebugger(['headers']));exit;
+                    echo json_encode(['message' => 'Something went wrong', 'success' => false]);
+                }
             }
 
         }catch(Exception $e){

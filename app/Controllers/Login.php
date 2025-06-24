@@ -230,6 +230,8 @@ class Login extends BaseController
 
         $loginModel = new LoginModel();
 
+        return redirect()->to('/500');
+
         try {
             $data = [];
             if (!isset($_SESSION['student'])) {
