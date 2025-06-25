@@ -384,19 +384,14 @@ if ($register_container) {
     $('input[name=dob]').attr('max', current_date);
 
     $('.form-submit-button').click(function() {
-      $('.form-submit-button').attr('disabled', true);
       if ($("#registration-form").valid()) {
-        $('.loader-wrapper').show();
-        $("#registration-form").submit();
-      }else{
-        $('.loader-wrapper').hide();
-        $('.form-submit-button').attr('disabled', false);
+        // $('.loader-wrapper').show();
       }
     });
 
-    // $("#registration-form").submit(function(){
-    //   $('.form-submit-button').attr('disabled', true);
-    // });
+    $("#registration-form").submit(function(){
+      $('.form-submit-button').attr('disabled', true);
+    });
 
     $.validator.addMethod("exists", function(value, element) {
       console.log($(element).val());
@@ -561,7 +556,11 @@ if ($register_container) {
 
     $("#registration-form").validate({
       rules,
-      messages
+      messages,
+      submitHandler: function(){
+        $('.loader-wrapper').show();
+        form.submit();
+      }, 
     });
   });
 
