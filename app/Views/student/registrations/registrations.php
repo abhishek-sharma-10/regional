@@ -388,6 +388,7 @@ if ($register_container) {
       if ($("#registration-form").valid()) {
         $('.loader-wrapper').show();
       }else{
+        $('.loader-wrapper').hide();
         $('.form-submit-button').attr('disabled', false);
       }
     });
@@ -559,11 +560,7 @@ if ($register_container) {
 
     $("#registration-form").validate({
       rules,
-      messages,
-      submitHandler: function(){
-        $('.loader-wrapper').show();
-        form.submit();
-      }, 
+      messages
     });
   });
 
