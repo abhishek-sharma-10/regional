@@ -461,7 +461,7 @@ if ($register_container) {
           }else if(data.status == 400){
             check_application_msg = data.message;
             result = false;
-            $('.submit-btn').attr('disabled', true);
+            // $('.submit-btn').attr('disabled', true);
             // $('.loader-wrapper').hide();
             $('.submit-btn').attr('disabled', false);
           }
