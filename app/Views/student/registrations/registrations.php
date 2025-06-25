@@ -384,11 +384,11 @@ if ($register_container) {
     $('input[name=dob]').attr('max', current_date);
 
   
-    $("#registration-form").submit(function(){
-      $('.form-submit-button').attr('disabled', true);
-      $("#registration-form").valid();
-      // return false;
-    });
+    // $("#registration-form").submit(function(){
+    //   $('.form-submit-button').attr('disabled', true);
+    //   $("#registration-form").valid();
+    //   // return false;
+    // });
 
     $.validator.addMethod("exists", function(value, element) {
       console.log($(element).val());
