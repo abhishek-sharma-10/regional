@@ -554,7 +554,8 @@ if ($register_container) {
       rules,
       messages,
       submitHandler: function(){
-        $('.loader-wrapper').show();
+        $('.form-submit-button').attr('disabled', true);
+        // $('.loader-wrapper').show();
         form.submit();
       }, 
     });
