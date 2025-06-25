@@ -384,8 +384,11 @@ if ($register_container) {
     $('input[name=dob]').attr('max', current_date);
 
     $('.form-submit-button').click(function() {
+      $('.form-submit-button').attr('disabled', true);
       if ($("#registration-form").valid()) {
         $('.loader-wrapper').show();
+      }else{
+        $('.form-submit-button').attr('disabled', false);
       }
     });
 
