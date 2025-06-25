@@ -370,8 +370,8 @@ if ($register_container) {
 <?php } ?>
 <script>
   $(document).ready(function() {
-    $("#preloadercustom").hide();
-    $(".myspin").hide();
+    // $("#preloadercustom").hide();
+    // $(".myspin").hide();
 
     let current = new Date();
     let current_year = current.getFullYear();
@@ -385,7 +385,7 @@ if ($register_container) {
 
     $('.form-submit-button').click(function() {
       if ($("#registration-form").valid()) {
-        $("#spinner").removeClass("hidden")
+        $('.loader-wrapper').show();
       }
     });
 
@@ -395,6 +395,7 @@ if ($register_container) {
       let applicationNo = $(element).val();
 
       if (applicationNo != '') {
+        $('.loader-wrapper').show();
         $.ajax({
           type: "GET",
           url: "<?php echo base_url('checkApplicationNo'); ?>/" + applicationNo,
@@ -454,10 +455,12 @@ if ($register_container) {
 
               $('input[name="phone"]').val((ncet_data.mobile_no).trim());
             // }
+              $('.loader-wrapper').hide();
           }else if(data.status == 400){
             check_application_msg = data.message;
             result = false;
             $('.submit-btn').attr('disabled', true);
+            $('.loader-wrapper').hide();
           }
         }).fail(function(data) {
           result = true;
@@ -549,13 +552,17 @@ if ($register_container) {
 
     $("#registration-form").validate({
       rules,
-      messages
+      messages,
+      submitHandler: function(){
+        $('.loader-wrapper').show();
+        form.submit();
+      }, 
     });
   });
 
   const togglePassword = document.querySelector('#togglePassword');
   const password = document.querySelector('#password');
-  togglePassword.addEventListener('click', function () {
+  togglePassword?.addEventListener('click', function () {
     const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
     this.classList.toggle('bi-eye-slash');
