@@ -389,6 +389,10 @@ if ($register_container) {
       }
     });
 
+    $("#registration-form").submit(function(){
+      $('.form-submit-button').attr('disabled', true);
+    });
+
     $.validator.addMethod("exists", function(value, element) {
       console.log($(element).val());
       var result = false;
