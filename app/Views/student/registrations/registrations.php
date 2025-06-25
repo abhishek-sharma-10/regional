@@ -387,6 +387,7 @@ if ($register_container) {
       $('.form-submit-button').attr('disabled', true);
       if ($("#registration-form").valid()) {
         $('.loader-wrapper').show();
+        $("#registration-form").submit();
       }else{
         $('.loader-wrapper').hide();
         $('.form-submit-button').attr('disabled', false);
