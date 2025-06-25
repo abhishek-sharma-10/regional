@@ -400,7 +400,7 @@ if ($register_container) {
           type: "GET",
           url: "<?php echo base_url('checkApplicationNo'); ?>/" + applicationNo,
           dataType: "json",
-          async: true,
+          async: false,
           contentType: "application/json",
           cache: false,
         }).done(function(data) {
