@@ -392,6 +392,7 @@ if ($register_container) {
     $("#registration-form").submit(function(){
       $('.form-submit-button').attr('disabled', true);
       $("#registration-form").valid();
+      return false;
     });
 
     $.validator.addMethod("exists", function(value, element) {
@@ -400,12 +401,11 @@ if ($register_container) {
       let applicationNo = $(element).val();
 
       if (applicationNo != '') {
-        $('.loader-wrapper').show();
         $.ajax({
           type: "GET",
           url: "<?php echo base_url('checkApplicationNo'); ?>/" + applicationNo,
           dataType: "json",
-          async: false,
+          async: true,
           contentType: "application/json",
           cache: false,
         }).done(function(data) {
@@ -460,12 +460,12 @@ if ($register_container) {
 
               $('input[name="phone"]').val((ncet_data.mobile_no).trim());
             // }
-              $('.loader-wrapper').hide();
+              // $('.loader-wrapper').hide();
           }else if(data.status == 400){
             check_application_msg = data.message;
             result = false;
             $('.submit-btn').attr('disabled', true);
-            $('.loader-wrapper').hide();
+            // $('.loader-wrapper').hide();
           }
         }).fail(function(data) {
           result = true;
