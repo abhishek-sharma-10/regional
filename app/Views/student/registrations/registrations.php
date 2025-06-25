@@ -396,6 +396,7 @@ if ($register_container) {
       let applicationNo = $(element).val();
 
       if (applicationNo != '') {
+        $('.submit-btn').attr('disabled', true);
         $.ajax({
           type: "GET",
           url: "<?php echo base_url('checkApplicationNo'); ?>/" + applicationNo,
@@ -456,11 +457,13 @@ if ($register_container) {
               $('input[name="phone"]').val((ncet_data.mobile_no).trim());
             // }
               // $('.loader-wrapper').hide();
+              $('.submit-btn').attr('disabled', false);
           }else if(data.status == 400){
             check_application_msg = data.message;
             result = false;
             $('.submit-btn').attr('disabled', true);
             // $('.loader-wrapper').hide();
+            $('.submit-btn').attr('disabled', false);
           }
         }).fail(function(data) {
           result = true;
