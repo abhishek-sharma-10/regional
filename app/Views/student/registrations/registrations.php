@@ -383,12 +383,7 @@ if ($register_container) {
     $('input[name=dob]').attr('min', old_date);
     $('input[name=dob]').attr('max', current_date);
 
-    // $('.form-submit-button').click(function() {
-      // if ($("#registration-form").valid()) {
-        // $('.loader-wrapper').show();
-      // }
-    // });
-
+  
     $("#registration-form").submit(function(){
       $('.form-submit-button').attr('disabled', true);
       $("#registration-form").valid();
