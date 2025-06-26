@@ -179,7 +179,7 @@
                     <div class="col-sm-8">
                         <select class="form-select" name="board_10th" id="board_10th" data-input="board-10-any-other" required>
                             <option value="" selected>Select Board</option>
-                            <option value="CBSE" <?php echo $details->board_10th == 'CENTRAL BOARD OF SECONDARY EDUCATION' ? 'selected' : '';?>>CENTRAL BOARD OF SECONDARY EDUCATION</option>
+                            <option value="CENTRAL BOARD OF SECONDARY EDUCATION" <?php echo $details->board_10th == 'CENTRAL BOARD OF SECONDARY EDUCATION' || $details->board_10th == 'CBSE' ? 'selected' : '';?>>CENTRAL BOARD OF SECONDARY EDUCATION</option>
                             <option value="State Board" <?php echo $details->board_10th != 'CENTRAL BOARD OF SECONDARY EDUCATION' ? 'selected' : '';?>>State Board</option>
                             <option value="Any Other Board" <?php echo $details->board_10th == 'OTHER' ? 'selected' : '';?>>Any Other Board</option>
                         </select>
@@ -250,7 +250,7 @@
                     <div class="col-sm-8">
                         <select class="form-select" name="board_12th" id="board_12th" data-input="board-12-any-other" required>
                             <option value="" selected>Select Board</option>
-                            <option value="CBSE" <?php echo $details->board_12th == 'CENTRAL BOARD OF SECONDARY EDUCATION' ? 'selected' : '';?>>CENTRAL BOARD OF SECONDARY EDUCATION</option>
+                            <option value="CENTRAL BOARD OF SECONDARY EDUCATION" <?php echo $details->board_12th == 'CENTRAL BOARD OF SECONDARY EDUCATION' || $details->board_12th == 'CBSE' ? 'selected' : '';?>>CENTRAL BOARD OF SECONDARY EDUCATION</option>
                             <option value="State Board" <?php echo $details->board_12th !== 'CENTRAL BOARD OF SECONDARY EDUCATION' ? 'selected' : '';?>>State Board</option>
                             <option value="Any Other Board" <?php echo $details->board_12th == 'OTHER' ? 'selected' : '';?>>Any Other Board</option>
                         </select>
