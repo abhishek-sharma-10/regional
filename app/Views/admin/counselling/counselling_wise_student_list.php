@@ -21,11 +21,20 @@
                             <th>S.No.</th>
                             <th>Name</th>
                             <th>Course</th>
+                            <th>Actual Category</th>
+                            <th>Category</th>
                             <th>Preference</th>
                             <th>Percentile</th>
-                            <th>Category</th>
                             <th>Physical Disable</th>
                             <th>Academic Receipt No.</th>
+                            <th>BSC Pref. 1</th>
+                            <th>BSC Pref. 2</th>
+                            <th>BSC Pref. 3</th>
+                            <th>BSC Pref. 4</th>
+                            <th>BA Pref. 1</th>
+                            <th>BA Pref. 2</th>
+                            <th>BA Pref. 3</th>
+                            <th>BA Pref. 4</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -41,11 +50,20 @@
                                     <td><?php echo $count++; ?></td>
                                     <td><?=$value->name;?></td>
                                     <td><?=$value->course;?></td>
+                                    <td><?=$value->category;?></td>
+                                    <td><?=$value->student_counselling_category;?></td>
                                     <td><?=$value->student_counselling_subject;?></td>
                                     <td><?=$value->ncet_average_percentile;?></td>
-                                    <td><?=$value->student_counselling_category;?></td>
                                     <td><?=$value->student_counselling_physical_disable;?></td>
                                     <td><?=$value->academic_receipt_no;?></td>
+                                    <td><?=$value->bsc_preference_1;?></td>
+                                    <td><?=$value->bsc_preference_2;?></td>
+                                    <td><?=$value->bsc_preference_3;?></td>
+                                    <td><?=$value->bsc_preference_4;?></td>
+                                    <td><?=$value->ba_preference_1;?></td>
+                                    <td><?=$value->ba_preference_2;?></td>
+                                    <td><?=$value->ba_preference_3;?></td>
+                                    <td><?=$value->ba_preference_4;?></td>
                                     <td><?=$value->counselling_status;?></td>
                                     <td><?php if(isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] == 'account') {?><a href="<?php echo base_url('admin/counselling/student-detail/'.$value->id);?>"><button class='btn btn-success btn-sm'>Student Details</button><?php }?></td>
                                 </tr>
