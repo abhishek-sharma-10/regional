@@ -21,6 +21,9 @@
                             <th>S.No.</th>
                             <th>Name</th>
                             <th>Course</th>
+                            <th>Preference</th>
+                            <th>Category</th>
+                            <th>Physical Disable</th>
                             <th>Academic Receipt No.</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -37,6 +40,9 @@
                                     <td><?php echo $count++; ?></td>
                                     <td><?=$value->name;?></td>
                                     <td><?=$value->course;?></td>
+                                    <td><?=$value->student_counselling_subject;?></td>
+                                    <td><?=$value->student_counselling_category;?></td>
+                                    <td><?=$value->student_counselling_physical_disable;?></td>
                                     <td><?=$value->academic_receipt_no;?></td>
                                     <td><?=$value->counselling_status;?></td>
                                     <td><?php if(isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] == 'account') {?><a href="<?php echo base_url('admin/counselling/student-detail/'.$value->id);?>"><button class='btn btn-success btn-sm'>Student Details</button><?php }?></td>
