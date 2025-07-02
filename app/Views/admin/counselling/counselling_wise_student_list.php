@@ -22,6 +22,7 @@
                             <th>Name</th>
                             <th>Course</th>
                             <th>Preference</th>
+                            <th>Percentile</th>
                             <th>Category</th>
                             <th>Physical Disable</th>
                             <th>Academic Receipt No.</th>
@@ -41,6 +42,7 @@
                                     <td><?=$value->name;?></td>
                                     <td><?=$value->course;?></td>
                                     <td><?=$value->student_counselling_subject;?></td>
+                                    <td><?=$value->ncet_average_percentile;?></td>
                                     <td><?=$value->student_counselling_category;?></td>
                                     <td><?=$value->student_counselling_physical_disable;?></td>
                                     <td><?=$value->academic_receipt_no;?></td>
