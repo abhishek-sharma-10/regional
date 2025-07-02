@@ -15,69 +15,71 @@
                 </div>
             </div>
             <div class="ibox-content">
-                <table class="table table-striped table-bordered table-hover student-list" style="font-size: 14px !important;">
-                    <thead>
-                        <tr>
-                            <th>S.No.</th>
-                            <th>Name</th>
-                            <th>Course</th>
-                            <th>Actual Category</th>
-                            <th>Category</th>
-                            <th>Preference</th>
-                            <th>Percentile</th>
-                            <th>Physical Disable</th>
-                            <th>Academic Receipt No.</th>
-                            <th>BSC Pref. 1</th>
-                            <th>BSC Pref. 2</th>
-                            <th>BSC Pref. 3</th>
-                            <th>BSC Pref. 4</th>
-                            <th>BA Pref. 1</th>
-                            <th>BA Pref. 2</th>
-                            <th>BA Pref. 3</th>
-                            <th>BA Pref. 4</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            // var_dump($records);
-                            $count = 1;
-                            if(count($records) > 1){
-                                foreach ($records as $value) {
-                        ?>
-                                <tr>
-                                    <td><?php echo $count++; ?></td>
-                                    <td><?=$value->name;?></td>
-                                    <td><?=$value->course;?></td>
-                                    <td><?=$value->category;?></td>
-                                    <td><?=$value->student_counselling_category;?></td>
-                                    <td><?=$value->student_counselling_subject;?></td>
-                                    <td><?=$value->ncet_average_percentile;?></td>
-                                    <td><?=$value->student_counselling_physical_disable;?></td>
-                                    <td><?=$value->academic_receipt_no;?></td>
-                                    <td><?=$value->bsc_preference_1;?></td>
-                                    <td><?=$value->bsc_preference_2;?></td>
-                                    <td><?=$value->bsc_preference_3;?></td>
-                                    <td><?=$value->bsc_preference_4;?></td>
-                                    <td><?=$value->ba_preference_1;?></td>
-                                    <td><?=$value->ba_preference_2;?></td>
-                                    <td><?=$value->ba_preference_3;?></td>
-                                    <td><?=$value->ba_preference_4;?></td>
-                                    <td><?=$value->counselling_status;?></td>
-                                    <td><?php if(isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] == 'account') {?><a href="<?php echo base_url('admin/counselling/student-detail/'.$value->id);?>"><button class='btn btn-success btn-sm'>Student Details</button><?php }?></td>
-                                </tr>
-                        <?php
-                        }
-                            }else{
-                        ?>
-                            <tr><td colspan="5" style="text-align:center;">No Data Available</td></tr>
-                        <?php   
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover student-list" style="font-size: 14px !important;">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Actual Category</th>
+                                <th>Category</th>
+                                <th>Preference</th>
+                                <th>Percentile</th>
+                                <th>Physical Disable</th>
+                                <th>Academic Receipt No.</th>
+                                <th>BSC Pref. 1</th>
+                                <th>BSC Pref. 2</th>
+                                <th>BSC Pref. 3</th>
+                                <th>BSC Pref. 4</th>
+                                <th>BA Pref. 1</th>
+                                <th>BA Pref. 2</th>
+                                <th>BA Pref. 3</th>
+                                <th>BA Pref. 4</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                // var_dump($records);
+                                $count = 1;
+                                if(count($records) > 1){
+                                    foreach ($records as $value) {
+                            ?>
+                                    <tr>
+                                        <td><?php echo $count++; ?></td>
+                                        <td><?=$value->name;?></td>
+                                        <td><?=$value->course;?></td>
+                                        <td><?=$value->category;?></td>
+                                        <td><?=$value->student_counselling_category;?></td>
+                                        <td><?=$value->student_counselling_subject;?></td>
+                                        <td><?=$value->ncet_average_percentile;?></td>
+                                        <td><?=$value->student_counselling_physical_disable;?></td>
+                                        <td><?=$value->academic_receipt_no;?></td>
+                                        <td><?=$value->bsc_preference_1;?></td>
+                                        <td><?=$value->bsc_preference_2;?></td>
+                                        <td><?=$value->bsc_preference_3;?></td>
+                                        <td><?=$value->bsc_preference_4;?></td>
+                                        <td><?=$value->ba_preference_1;?></td>
+                                        <td><?=$value->ba_preference_2;?></td>
+                                        <td><?=$value->ba_preference_3;?></td>
+                                        <td><?=$value->ba_preference_4;?></td>
+                                        <td><?=$value->counselling_status;?></td>
+                                        <td><?php if(isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] == 'account') {?><a href="<?php echo base_url('admin/counselling/student-detail/'.$value->id);?>"><button class='btn btn-success btn-sm'>Student Details</button><?php }?></td>
+                                    </tr>
+                            <?php
                             }
-                        ?>
-                    </tbody>
-                    <tbody></tbody>
-                </table>
+                                }else{
+                            ?>
+                                <tr><td colspan="5" style="text-align:center;">No Data Available</td></tr>
+                            <?php   
+                                }
+                            ?>
+                        </tbody>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
