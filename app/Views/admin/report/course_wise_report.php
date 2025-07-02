@@ -21,18 +21,15 @@ if (isset($registrations)) {
                 </div>
             </div>
             <div class="ibox-content">
-                <form action="<?php echo base_url('/admin/report/category-wise-report'); ?>" method="POST">
+                <form action="<?php echo base_url('/admin/report/course-wise-report'); ?>" method="POST">
                     <div class="row">
                         <div class="col-6 col-sm-3">
-                            <input type="hidden" name="filterType" value="category"/>
+                            <input type="hidden" name="filterType" value="course"/>
                             <select class="form-control form-select-sm" name="filterValue">
-                                <option value="">--Select--</option>
-                                <option value="GEN" <?php echo isset($filterValue) && $filterValue == 'GEN' ? 'selected' : ''; ?>>GEN</option>
-                                <option value="SC" <?php echo isset($filterValue) && $filterValue == 'SC' ? 'selected' : ''; ?>>SC</option>
-                                <option value="ST" <?php echo isset($filterValue) && $filterValue == 'ST' ? 'selected' : ''; ?>>ST</option>
-                                <option value="OBC (Creamy Layer)" <?php echo isset($filterValue) && $filterValue == 'OBC (Creamy Layer)' ? 'selected' : ''; ?>>OBC (Creamy Layer)</option>
-                                <option value="OBC (Non-Creamy Layer)" <?php echo isset($filterValue) && $filterValue == 'OBC (Non-Creamy Layer)' ? 'selected' : ''; ?>>OBC (Non-Creamy Layer)</option>
-                                <option value="EWS" <?php echo isset($filterValue) && $filterValue == 'EWS' ? 'selected' : ''; ?>>EWS</option>
+                                    <option value="">--Select--</option>
+                                    <option value="ITEP - B.Sc. B.Ed." <?php echo isset($filterValue) && $filterValue == 'ITEP - B.Sc. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.Sc. B.Ed.</option>
+                                    <option value="ITEP - B.A. B.Ed." <?php echo isset($filterValue) && $filterValue == 'ITEP - B.A. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.A. B.Ed.</option>
+                                    <option value="ITEP - B.Sc. B.Ed. & B.A. B.Ed." <?php echo isset($filterValue) && $filterValue == 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.' ? 'selected' : ''; ?>>ITEP - B.Sc. B.Ed. & B.A. B.Ed.</option>
                             </select>
                         </div>
                         <div class="col-6 col-sm-2">
@@ -45,11 +42,11 @@ if (isset($registrations)) {
     </div>
 </div>
 
-<div class="row">
+<div class="row2">
     <div class="col-md-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Category Wise Report List</h5>
+                <h5>Subject Wise Filter List</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -63,8 +60,8 @@ if (isset($registrations)) {
                             <th>S.No.</th>
                             <th>Name</th>
                             <th>Father Name</th>
+                            <th>Course</th>
                             <th>Email</th>
-                            <th>Category</th>
                             <th>Phone No.</th>
                             <th>Action</th>
                         </tr>
@@ -79,6 +76,7 @@ if (isset($registrations)) {
 </div>
 
 <script>
+var table;
 
 $(document).ready(function() {
     $("#preloadercustom").hide();
@@ -86,30 +84,64 @@ $(document).ready(function() {
 
     // Initialize DataTable
     var registrations = <?php echo json_encode(isset($registrations) ? $registrations : []); ?>;
-    var table = $('.dataTables-example').DataTable({
-        responsive: true,
+    table = $('.dataTables-example').DataTable({
         layout: {
             topStart: {
                 buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
             }
         },
+        responsive: true,
         data: registrations,
         columns: [
             { data: "id" },
             { data: "name" },
             { data: "father_name" },
+            { data: "course" },
             { data: "email" },
-            { data: "category" },
             { data: "phone" },
             {
                 data: null,
                 render: function(data, type, row) {
-                    console.log(row.id);
                     return "<a href='/admin/registrations/detail/" + row.id + "'>link</a>";
                 }
             }
         ]
     });
+
+    // // Function to fetch data based on course selection
+    // function getOption() {
+    //     let course = $('.form-select').val();
+
+    //     $.ajax({
+    //         type: "GET",
+    //         url: `<?php //echo base_url('/admin/registrations/fetch-registrations'); ?>?filterType=course&filterValue=${course}`,
+    //         dataType: "json",
+    //         contentType: "application/json",
+    //         cache: false,
+    //     }).done(function(data) {
+    //         console.log(data.result);
+    //         console.log(data);
+    //         if (data.status == '200') {
+    //             if (Array.isArray(data.result) && data.result.length > 0) {
+    //                 table.clear();
+    //                 table.rows.add(data.result).draw();
+    //             } else {
+    //                 table.clear().draw();
+    //                 alert('No registrations found for selected course.');
+    //             }
+    //         } else {
+    //             alert('Failed to fetch data from server.');
+    //         }
+    //     }).fail(function(xhr, status, error) {
+    //         console.log("AJAX Error:", xhr.responseText);
+    //         alert('Something went wrong while fetching data.');
+    //     });
+    // }
+
+    // // Attach event listener to select dropdown
+    // $(".form-select").on("change", function() {
+    //     getOption();
+    // });
 
 });
 </script>

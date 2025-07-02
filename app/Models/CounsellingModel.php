@@ -28,11 +28,43 @@ class CounsellingModel extends Model {
         return [];
     }
 
-    function getCounsellingStudentList(){
-        $query = $this->db->query("SELECT * FROM registrations where status='Complete'");
+    // Fetch Student List to Create Counselling Data.
+    function getCounsellingStudentList($condition = null){
+
+        $query = "SELECT * FROM registrations where status='Complete' ";
+
+        if($condition != null){
+            $query .= $condition;
+        }
+
+        $query = $this->db->query($query);
 
         if($query->getNumRows() > 0){
             return $query->getResult();
+        }
+
+        return [];
+    }
+
+    function getCounsellingWiseStudentList($counsellingId){
+        $query = "SELECT registrations.*, student_counselling.counselling_id, student_counselling.academic_receipt_no, student_counselling.payment_date, student_counselling.status AS counselling_status FROM registrations JOIN student_counselling ON registrations.id = student_counselling.registration_id where student_counselling.counselling_id=$counsellingId";
+
+        $query = $this->db->query($query);
+
+        if($query->getNumRows() > 0){
+            return $query->getResult();
+        }
+
+        return [];
+    }
+
+    function getCounsellingStudentDetail($registrationId){
+        $query = "SELECT registrations.*, student_counselling.id AS student_counselling_id, student_counselling.counselling_id, student_counselling.academic_receipt_no, student_counselling.payment_date, student_counselling.academic_payment_receipt, student_counselling.category AS student_counselling_category, student_counselling.subject AS student_counselling_subject, student_counselling.physical_disable AS student_counselling_physical_disable FROM registrations JOIN student_counselling ON registrations.id = student_counselling.registration_id WHERE student_counselling.registration_id=$registrationId";
+
+        $query = $this->db->query($query);
+
+        if($query->getNumRows() > 0){
+            return $query->getResult()[0];
         }
 
         return [];

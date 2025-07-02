@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Counselling;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -45,6 +46,10 @@ $routes->group('/', ['filter' => 'studentAuthGuard'], static function ($routes) 
     $routes->get('pay-registration-fee','Registration::payRegistrationFee');
     $routes->post('pay-registration-fee','Registration::paymentRegistrationFee');
     
+    $routes->get('pay-academic-fee','Registration::academicFees');
+    $routes->post('pay-academic-fee','Registration::payAcademicFees');
+    $routes->get('print-academic-fee-receipt','Registration::academicPaymentInfo');
+
     $routes->get('logout', 'Login::student_logout');
 });
 
@@ -66,10 +71,9 @@ $routes->group('admin', ['filter' => 'authGuard'], static function ($routes) {
         $routes->get('/', 'Home::index');
         $routes->get('profile', 'Home::profile');    
         $routes->get('edit-profile', 'Home::profileEdit');    
-        $routes->post('edit-profile', 'Home::profileEdit');    
-        $routes->get('cities-of-state', 'Home::getCitiesOfState');    
-        $routes->get('reset-password', 'Home::resetPassword');    
-        $routes->post('reset-password', 'Home::resetPassword');    
+        $routes->post('edit-profile', 'Home::profileEdit');
+        $routes->get('reset-password', 'Home::resetPassword');
+        $routes->post('reset-password', 'Home::resetPassword');
     });
 
     $routes->group('registrations', static function ($routes) {
@@ -77,14 +81,31 @@ $routes->group('admin', ['filter' => 'authGuard'], static function ($routes) {
         $routes->get('detail/(:num)', 'Registration::getRegistrationDetail/$1');
     });
 
+    $routes->group('ncet-applications', static function ($routes) {
+        $routes->get('/', 'NCETApplication::index');
+        $routes->post('/', 'NCETApplication::import');
+    });
+
+    $routes->group('counselling', static function ($routes) {
+        $routes->get('add', 'Counselling::add');
+        $routes->get('show', 'Counselling::show');
+        $routes->post('/', 'Counselling::insert');
+        $routes->get('student-list/(:num)', 'Counselling::counsellingWiseStudentList/$1');
+        $routes->get('student-detail/(:num)', 'Counselling::counsellingWiseStudentDetail/$1');
+        $routes->post('send-email/(:num)', 'sendEmailToCounsellingStudents/$1');
+        $routes->get('reject/(:num)', 'Counselling::rejectCounselling/$1');
+        $routes->post('accept/(:num)', 'Counselling::acceptCounselling/$1');
+    });
+
     $routes->group('report', static function ($routes) {
         $routes->get('state-wise-report', 'Report::registrationReport');
         $routes->post('state-wise-report', 'Report::registrationReport');
-        $routes->get('subject-wise-report', 'Report::subjectWiseReport');
-        $routes->post('subject-wise-report', 'Report::subjectWiseReport');
+        $routes->get('course-wise-report', 'Report::subjectWiseReport');
+        $routes->post('course-wise-report', 'Report::subjectWiseReport');
         $routes->get('category-wise-report', 'Report::categoryWiseReport');
         $routes->post('category-wise-report', 'Report::categoryWiseReport');
     });
     
     $routes->get('logout', 'Login::logout');
 });
+$routes->get('calculate-counselling', 'Counselling::calculate');

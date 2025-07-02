@@ -98,6 +98,7 @@ class Home extends BaseController
             //     $data['feedbackResponse'] = $feedbackResult;
             // }
             $data['pageTitle'] = "Home";
+            $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
             return view('admin/template/header',$data). view('admin/template/navbar',$data) . view("admin/home/home", $data) . view('admin/template/footer');
         }catch(Exception $exception){
             var_dump($exception);
@@ -130,7 +131,8 @@ class Home extends BaseController
     function profile(){
         $data = array();
         $data['pageTitle'] = "Profile";
-        return view('admin/template/header',$data). view('admin/template/navbar') . view("admin/home/profile", $data) . view('admin/template/footer');
+        $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
+        return view('admin/template/header',$data). view('admin/template/navbar', $data) . view("admin/home/profile", $data) . view('admin/template/footer');
     }
 
     function profileEdit($newValue=null){
@@ -152,24 +154,7 @@ class Home extends BaseController
         $data['btnTitle'] = $_REQUEST['btnTitle'];
         unset($_REQUEST['btnTitle']);
         $data['pageTitle'] = "Edit Profile";
-        return view('admin/template/header',$data). view('admin/template/navbar') . view("admin/home/edit_profile", $data) . view('admin/template/footer');
-    }
-
-    function getCitiesOfState(){
-
-        $commonModel = new CommonModel();
-
-        $result = $commonModel->getAllCitiesOfState($_REQUEST['selectedState'],$_SESSION['student'][0]->city);
-        $sessionCity = $_SESSION['student'][0]->city;
-        $option = '';
-        if(count($result)){
-            foreach($result as $district){
-                $districtName = $district->districts;
-                $option .= "<option value='$districtName'>".$districtName."</option>";
-            }
-        }
-        
-        echo json_encode($option);
-        exit;
+        $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
+        return view('admin/template/header',$data). view('admin/template/navbar', $data) . view("admin/home/edit_profile", $data) . view('admin/template/footer');
     }
 }

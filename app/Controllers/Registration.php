@@ -12,6 +12,7 @@ use App\Models\NcetScoreModel;
 use App\Models\StudentCounsellingModel;
 use App\Models\NCETApplicationModel;
 use App\Models\CommonModel;
+use App\Models\CounterModel;
 
 class Registration extends BaseController
 {
@@ -29,6 +30,7 @@ class Registration extends BaseController
             $data['registrations'] = $registrationModel->getRegistrations();
 
             $data['pageTitle'] = "Registrations";
+            $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
             return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/registrations/registration_list", $data) . view('admin/template/footer');
         } catch (Exception $exception) {
             return redirect()->to('/500');
@@ -56,6 +58,7 @@ class Registration extends BaseController
             ];
 
             $data['pageTitle'] = "Registration - Details";
+            $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
             return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/registrations/registration_detail", $data) . view('admin/template/footer');
         } catch (Exception $exception) {
             return redirect()->to('/500');
@@ -150,6 +153,7 @@ class Registration extends BaseController
 
             $ncetApplicationModel = new NCETApplicationModel();
             $ncetScoreModel = new NcetScoreModel();
+            $counterModel = new CounterModel();
 
             unset($request["submit"]);
             unset($request["confirm_password"]);
@@ -1001,7 +1005,11 @@ class Registration extends BaseController
             $data = [];
             $data['details'] = $registrationModel->getRegistrationCounseleDetail($id);
 
-            $data['pageTitle'] = "Pay-Academic-Fee";
+            if(!empty($data['details']->academic_receipt_no) && !empty($data['details']->academic_payment_receipt)){
+                return redirect()->to('print-academic-fee-receipt');
+            }
+
+            $data['pageTitle'] = "Pay Academic Fees";
             $data['active'] = "pay-academic-fees";
             return  view('student/template/header', $data) . view('student/registrations/academic_payment', $data) . view('student/template/footer');
         } catch (Exception $exception) {
@@ -1130,7 +1138,11 @@ class Registration extends BaseController
             $data = [];
             $data['details'] = $registrationModel->getRegistrationCounseleDetail($id);
 
-            $data['pageTitle'] = "Print Academic Fees Receipt";
+            if(empty($data['details']->academic_receipt_no) && empty($data['details']->academic_payment_receipt)){
+                return redirect()->to('pay-academic-fee');
+            }
+
+            $data['pageTitle'] = "Academic Fees Receipt";
             $data['active'] = "pay-academic-fees";
             return view('student/template/header', $data) . view('student/registrations/print_academic_payment', $data) . view('student/template/footer');
         } catch (Exception $exception) {

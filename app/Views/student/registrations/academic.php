@@ -376,6 +376,7 @@
 
         <div class="mt-4 section-title">
             <h2>Preference for Major Discipline in ITEP Course</h2>
+            <p class="both-course-msg">(<span class="required-icon">* Please select preferences from both courses.</span> )</p>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -670,6 +671,7 @@
     $(document).ready(function() {
         $('.baPreferences').hide();
         $('.bscPreferences').hide();
+        $('.both-course-msg').hide();
 
         $('#course').trigger('change');
         // $('.obtain_marks').trigger('blur');
@@ -685,6 +687,10 @@
         $('#board_10th,#board_12th').change(function(){
             selectBoard(this);
         });
+
+        if(selectedITEPCourse === 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.'){
+            $('.both-course-msg').show();
+        }
 
         if (status === "Request") {
             for (key in attachment) {

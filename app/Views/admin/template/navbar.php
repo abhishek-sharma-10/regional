@@ -9,7 +9,7 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> 
                                 <span class="block m-t-xs"> <strong class="font-bold"></strong> </span>
-                                <span class="text-muted text-xs block"><?php echo $_SESSION['admin'][0]->name ?><b class="caret"></b></span> 
+                                <span class="text-muted text-xs block"><?php echo $_SESSION['user'][0]->name ?><b class="caret"></b></span>
                             </span> 
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -24,14 +24,16 @@
                     </div>
                 </li>
                 <?php
-                function menuActive($pages) {
-                    $pageName = basename($_SERVER['REDIRECT_URL']);
+                function menuActive($pages)
+                {
+                    $pageName = basename($_SERVER['PHP_SELF']);
                     #if ($pageName == trim($page)) {
                     if (in_array($pageName, $pages)) {
                         return 'active';
                     }
                 }
-                function subMenuActive($pages, $module) {
+                function subMenuActive($pages, $module)
+                {
                     //session_start();
                     $pageName = basename($_SERVER['PHP_SELF']);
                     if (in_array($pageName, $pages)) {
@@ -39,26 +41,58 @@
                     }
                 }
 
-                if (!empty($_SESSION['admin'])) {
+                // if (!empty($_SESSION['user'])) {
                 ?>
-                    <li class="<?= menuActive(array('h','home')) ?>">
+                <!-- <li class="<?= menuActive(array('h', 'home')) ?>">
                         <a href="<?php echo base_url();?>admin/home"><i class="fa fa-home "></i> <span class="nav-label">Home</span></a>
                     </li>
                     
                     <li class="<?= menuActive(array('registrations')) ?>">
                         <a href="<?php echo base_url();?>admin/registrations"><i class="fa fa-file"></i> <span class="nav-label">Registrations</span></a>
                     </li>
-                    <li class="<?= subMenuActive(array('state-wise-report', 'category-wise-report', 'subject-wise-report'), 'Reports') ?>">
+                <li class="<?= menuActive(array('ncet-applications')) ?>">
+                    <a href="<?php echo base_url(); ?>admin/ncet-applications"><i class="fa fa-file"></i> <span class="nav-label">NCET Applications</span></a>
+                </li> -->
+
+                <!-- <li class="<?= menuActive(array('counselling')) ?>">
+                        <a href="<?php echo base_url(); ?>admin/counselling"><i class="fa fa-file"></i> <span class="nav-label">Counselling</span></a>
+                    </li> -->
+
+                <!-- <li class="<?= subMenuActive(array('add', 'show'), 'Counselling') ?>">
+                    <a><i class="fa fa-users"></i> <span class="nav-label">Counselling</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'add' ? 'active' : '';  ?>"><a href="<?php echo base_url('admin/counselling/add'); ?>">Add Counselling</a></li>
+                        <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'show' ? 'active' : '';  ?>"><a href="<?php echo base_url('admin/counselling/show'); ?>">Show Counselling</a></li>
+                    </ul>
+                </li>
+
+                <li class="<?= subMenuActive(array('state-wise-report', 'category-wise-report', 'course-wise-report'), 'Reports') ?>">
                         <a><i class="fa fa-users"></i> <span class="nav-label">Reports</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'category-wise-report' ? 'active' : '';  ?>"><a href="<?php echo base_url('admin/report/category-wise-report'); ?>">Course-wise Report</a></li>
                             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'state-wise-report' ? 'active' : '';  ?>"><a href="<?php echo base_url('admin/report/state-wise-report'); ?>">State-wise Report</a></li>
-                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'subject-wise-report' ? 'active' : '';  ?>"><a href="<?php echo base_url('admin/report/subject-wise-report'); ?>">Subject-wise Report</a></li>
+                        <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'course-wise-report' ? 'active' : '';  ?>"><a href="<?php echo base_url('admin/report/course-wise-report'); ?>">Subject-wise Report</a></li>
                         </ul>
-                    </li>
+                </li> -->
                 <?php
-                }
+                // }
                 ?>
+                <?php if (!empty($navbar)) {
+                    foreach ($navbar as $menu) {   ?>
+                        <li id="<?php echo $menu->routes_name ?>-tab" class="parent-menu">
+                            <a href="<?php echo base_url('admin'.$menu->url) ?>"><i class="fa <?php echo $menu->icon ?>"></i> <span class="nav-label"><?php echo $menu->title ?></span>
+                            <?php
+                                echo ($menu->has_submenu ?  '<span class="fa arrow"></span> </a>' : '</a>');
+                                if ($menu->has_submenu) { ?>
+                                    <ul class="nav nav-second-level collapse">
+                                        <?php foreach ($menu->submenus as $submenu) {   ?>
+                                            <li><a href="<?php echo base_url('admin'.$submenu->url) ?>"><?php echo $submenu->title ?></a></li>
+                                        <?php } ?>
+                                    </ul>
+                            <?php } ?>
+                        </li>
+                <?php }
+                } ?>
             </ul>
         </div>
     </nav>

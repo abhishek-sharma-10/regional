@@ -37,4 +37,23 @@ class Services extends BaseService
     public static function getRefreshTokenSecretKey(){
         return getenv('JWT_REFRESH_SECRET_KEY');
     }
+
+    public static function getRoleBasedRoutes($role_name){
+
+		$reservedRoutes = [
+			'ADMIN' => ['home', 'registrations', 'ncet-applications', 'counselling', 'report', 'logout'], 
+			'ACCOUNT' => ['home', 'counselling', 'logout'], 
+		];
+
+		$accessable_menus = [];
+
+		if(!is_null($role_name) || !empty($role_name)){
+			$role = strtoupper($role_name);
+			if(isset($reservedRoutes[$role])){
+				$accessable_menus = $reservedRoutes[$role];
+			}
+		}
+		
+		return $accessable_menus;
+	} 
 }

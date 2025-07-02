@@ -2,7 +2,76 @@
 // var_dump($details);
 ?>
 
-<div class="row">
+<style>
+    .application-header {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: center;
+    }
+
+    .logo {
+        width: 60px;
+        height: auto;
+    }
+
+    .header-title {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .final-status {
+        color: red;
+        font-weight: bold;
+    }
+
+    .table th,
+    .table td {
+        vertical-align: middle;
+        font-size: 14px;
+    }
+
+    .attachments img{
+        width: 80%;
+        height: 80%;
+        object-fit: cover;
+    }
+
+    .details label{
+        font-weight: 700;
+        width: 25%;
+    }
+
+    .details > tbody > tr > td:nth-child(1){
+        width: 80%;
+        line-height: 1.2;
+    }
+
+    .details > tbody > tr > td:nth-child(2){
+        width: 20%;
+    }
+
+    .details > tbody > tr > td > p{
+        margin: 0px;
+    }
+
+    .table, .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td{
+        border: 1px solid #000;
+    }
+
+    .attachments img{
+        width: 100%;
+        height: 150px;
+        object-fit: contain;
+        object-position: center;
+    }    
+</style>
+
+<div class="row m-t">
     <div class="col-md-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -14,16 +83,20 @@
                 </div>
             </div>
             <div class="ibox-content">
-                <div class="application-header m-t">
+                <!-- <div class="application-header m-t">
                     <div style="width: 10%;">
                         <img src="/assets/img/logo1.png" alt="Logo" class="logo">
                     </div>
                     <div style="width:fit-content;">
                         <div class="header-title">Regional Institute of Education, Ajmer (Raj.)</div>
-                        <!-- <div class="subtitle">Pushkar Road</div> -->
                         <h3 class="mt-2">Academic Details</h3>
-                        <h4><?= $details->course.' - '. date('Y'); ?></h4>
-                        <!-- <div class="final-status">(Final)</div> -->
+                        <h4><?//= $details->course.' - '. date('Y'); ?></h4>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-sm-12 text-right">
+                        <button type="button" id="accept" class="btn btn-primary">Accept</button>
+                        <button type="button" id="reject" class="btn btn-danger">Reject</button>
                     </div>
                 </div>
                 <div class="table-responsive m-t">
@@ -119,46 +192,37 @@
                                 <td colspan="2"><strong>NCET <?=date('Y');?> Roll No:</strong> <?= $details->ncet_application_no ?></td>
                                 <td colspan="3"><strong>Course:</strong> <?= $details->course ?></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <th>Domain</th>
                                 <th>Subject</th>
-                                <th>Maximum Marks</th>
-                                <th>Score Obtained</th>
-                                <th>Percentage</th>
-                            </tr>
+                                <th>Percentile</th>
+                            </tr> -->
                         </thead>
-                        <tbody>
+                        <!-- <tbody>
                             <?php
-                                if(isset($ncet) && !empty($ncet)){
-                                    $total_max = 0;
-                                    $total_obtain = 0;
-                                    foreach($ncet as $data){
-                                        $total_max += $data->total_maximum_marks;
-                                        $total_obtain += $data->total_marks_obtain;
+                                // if(isset($ncet) && !empty($ncet)){
+                                //     foreach($ncet as $data){
                             ?>
                                         <tr>
-                                            <td><?= $data->codes;?></td>
-                                            <td><?= $data->subjects;?></td>
-                                            <td><?= $data->total_maximum_marks;?></td>
-                                            <td><?= $data->total_marks_obtain;?></td>
-                                            <td><?= $data->percentage;?></td>
+                                            <td><?//= $data->codes;?></td>
+                                            <td><?//= $data->subjects;?></td>
+                                            <td><?//= $data->percentile;?></td>
                                         </tr>
                             <?php
-                                    }
+                                    // }
                             ?>
                                     <tr class="fw-bold">
                                         <td colspan="2">Total</td>
-                                        <td><?= $total_max; ?></td>
-                                        <td><?= $total_obtain;?></td>
+                                        <td><?//= $details->ncet_average_percentile; ?></td>
                                     </tr>
                             <?php
-                                }else{
+                                // }else{
                             ?>
                                     <tr><td colspan="5">Please enter NCET Scores.</td></tr>
                             <?php
-                                }
+                                // }
                             ?>
-                        </tbody>
+                        </tbody> -->
                     </table>
                 </div>
 
@@ -204,7 +268,8 @@
                                 <th>NCET Application Form</th>
                                 <?php if($details->category !== 'GENERAL'){ ?><th>Caste Certificate<br>(SC/ST/OBC-CL/OBC-NCL/EWS)</th><?php } ?>
                                 <?php if($details->physical_disable != 'No'){ ?><th>Physical Disability</th><?php } ?>
-                                <th>Payment Receipt</th>
+                                <th>Registration Payment Receipt</th>
+                                <th>Academic Payment Receipt<br/><?php echo $details->academic_receipt_no != '' ? '('.$details->academic_receipt_no.')' : ''?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -272,232 +337,142 @@
                                         <?php } ?>
                                     </div>
                                 </td>
+                                <td>
+                                    <div>
+                                        <?php if(isset($details->academic_payment_receipt) && !empty($details->academic_payment_receipt) && str_ends_with($details->academic_payment_receipt,'.pdf')){ ?>
+                                            <a href="<?=base_url($details->academic_payment_receipt);?>" target="_blank">Uploaded PDF</a>
+                                        <?php }else{ ?>
+                                            <a href="<?= isset($details->academic_payment_receipt) && !empty($details->academic_payment_receipt) ? base_url($details->academic_payment_receipt) : base_url('/assets/img/no-image.webp'); ?>" target="_blank" download="payment-receipt"><img src="<?= isset($details->academic_payment_receipt) && !empty($details->academic_payment_receipt) ? base_url($details->academic_payment_receipt) : base_url('/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Payment Receipt"></a>
+                                        <?php } ?>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-sm-offset-9 col-sm-3 text-center">
-                        <img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Signature" style="width: 50%;height: 75px;object-fit: contain;object-position: center;"></a>
+                        <img src="<?//= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/assets/img/no-image.webp'); ?>" class="img-fluid mb-2" alt="Signature" style="width: 50%;height: 75px;object-fit: contain;object-position: center;"></a>
                         <p style="margin-bottom: 0px;">Signature of Candidate</p>
                     </div>
-                </div>
-                <!-- Header -->
-                <!-- <img src="<?php //echo base_url(); ?>assets/img/NIC_logo1.jpg" alt="Logo" class="logo mb-2">
-                <div class="header-title">Regional Institute of Education</div>
-                <div class="subtitle">Pushkar Road, Ajmer (Raj.)</div>
-                <h5 class="mt-2">Academic Details</h5>
-                <div class="final-status">(Final)</div> -->
-
-                <!-- Profile Info -->
-                <!-- <div class="mt-4">
-                    <h5 class="mb-1"><?//= $details->name ?></h5>
-                    <p class="text-muted">Application No.: <strong><?//= $details->ncet_application_no ?></strong></p>
                 </div> -->
-
-                <!-- Applicant Details Table -->
-                <!-- <div class="table-responsive mb-4">
-                    <table class="table table-bordered text-center">
-                        <thead class="table-light">
-                            <tr>
-                                <th>NCET 2024 Application No.</th>
-                                <th>Stream</th>
-                                <th>Category</th>
-                                <th>PwBD</th>
-                                <th>Mobile No.</th>
-                                <th>Aadhar No.</th>
-                                <th>Gender</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><?= $details->ncet_application_no ?></td>
-                                <td><?= $details->course ?></td>
-                                <td><?= $details->category ?></td>
-                                <td><?= $details->physical_disable ?></td>
-                                <td><?= $details->phone ?></td>
-                                <td><?= $details->aadhar_no ?></td>
-                                <td><?= $details->gender ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> -->
-
-                <!-- Preference Table -->
-                <!-- <h6 class="text-center mb-4">Disciplinary Major Subject Choice on Preference Order</h6>
-                <div class="table-responsive mb-4">
-                    <table class="table table-bordered text-center">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Course</th>
-                                <th>Preferences</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                foreach ($preferences as $course => $subjects) {
-                                    $count = 0;
-                                    foreach($subjects as $subject){
-                            ?>
-                            <tr>
-                                    <?php if($count == 0){ ?><th rowspan="<?php echo count($subjects);?>"><?= $course ?></th> <?php } ?>
-                                    <td><?=$subject;?></td>
-                            </tr>
-                            <?php
-                                $count++;
-                                }}
-                            ?>
-                        </tbody>
-                    </table>
-                </div> -->
-
-                <!-- Exam Details -->
-                <!-- <h6 class="text-center mb-4">Details of Sr. Secondary or Equivalent Exam</h6>
-                <div class="table-responsive mb-3">
-                    <table class="table table-bordered text-center">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Stream</th>
-                                <th>Year of Passing</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><?= $details->course ?></td>
-                                <td><?= $details->year_of_passing_10th ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> -->
-
-                <!-- <div class="table-responsive">
-                    <table class="table table-bordered text-center">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Maximum Marks</th>
-                                <th>Obtained Marks</th>
-                                <th>Percent</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><?= $details->max_marks_12th ?></td>
-                                <td><?= $details->obtain_marks_12th ?></td>
-                                <td><?= $details->percentage_12th ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> -->
-
-                <!-- <div>
-                    <h5 class="text-center mb-4">Details of NCET 2024 Exam</h5>
-                    <div class="row text-center mb-3">
-                        <div class="col-md-4"><strong>NCET 2024 Roll No:</strong> <?= $details->ncet_roll_no ?></div>
-                        <div class="col-md-4"><strong>Course:</strong> <?= $details->course ?></div>
-                    </div>
-                    <div class="table-responsive mb-5">
-                        <table class="table table-bordered text-center">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Subject</th>
-                                    <th>Total Maximum Marks</th>
-                                    <th>Total Obtained Marks</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>102</td>
-                                    <td>Hindi</td>
-                                    <td>300</td>
-                                    <td>120</td>
-                                </tr>
-                                <tr>
-                                    <td>103</td>
-                                    <td>Assamese</td>
-                                    <td>300</td>
-                                    <td>120</td>
-                                </tr>
-                                <tr>
-                                    <td>104</td>
-                                    <td>Bengali</td>
-                                    <td>300</td>
-                                    <td>120</td>
-                                </tr>
-                                <tr>
-                                    <td>105</td>
-                                    <td>Gujarati</td>
-                                    <td>300</td>
-                                    <td>120</td>
-                                </tr>
-                                <tr>
-                                    <td>108</td>
-                                    <td>Kannada</td>
-                                    <td>300</td>
-                                    <td>120</td>
-                                </tr>
-                                <tr>
-                                    <td>107</td>
-                                    <td>Malayalam</td>
-                                    <td>300</td>
-                                    <td>120</td>
-                                </tr>
-                                <tr>
-                                    <td>301</td>
-                                    <td>ACCOUNTCY/BOOK KEEPING</td>
-                                    <td>300</td>
-                                    <td>120</td>
-                                </tr>
-                                <tr class="fw-bold">
-                                    <td colspan="2">Total</td>
-                                    <td>2100</td>
-                                    <td>840</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <h6 class="mb-3">Attachments</h6>
-                    <div class="row text-center mb-5">
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/assets/img/no-image.png'); ?>" target="_blank"><img src="<?= isset($details->photo) && !empty($details->photo) ? base_url($details->photo) : base_url('/assets/img/no-image.png'); ?>" class="img-fluid mb-2" alt="Photo"></a>
-                            <label>Photo</label>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/assets/img/no-image.png'); ?>" target="_blank"><img src="<?= isset($details->signature) && !empty($details->signature) ? base_url($details->signature) : base_url('/assets/img/no-image.png'); ?>" class="img-fluid mb-2" alt="Signature"></a>
-                            <label>Signature</label>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/assets/img/no-image.png'); ?>" target="_blank"><img src="<?= isset($details->certificate_10) && !empty($details->certificate_10) ? base_url($details->certificate_10) : base_url('/assets/img/no-image.png'); ?>" class="img-fluid mb-2" alt="10th Marksheet"></a>
-                            <label>10th Marksheet</label>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/assets/img/no-image.png'); ?>" target="_blank"><img src="<?= isset($details->certificate_12) && !empty($details->certificate_12) ? base_url($details->certificate_12) : base_url('/assets/img/no-image.png'); ?>" class="img-fluid mb-2" alt="12th Marksheet"></a>
-                            <label>12th Marksheet</label>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/assets/img/no-image.png'); ?>" target="_blank"><img src="<?= isset($details->ncet_score_card) && !empty($details->ncet_score_card) ? base_url($details->ncet_score_card) : base_url('/assets/img/no-image.png'); ?>" class="img-fluid mb-2" alt="Ncet Score Card"></a>
-                            <label>NCET Score Card</label>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url($details->caste_certificate) : base_url('/assets/img/no-image.png'); ?>" target="_blank"><img src="<?= isset($details->caste_certificate) && !empty($details->caste_certificate) ? base_url($details->caste_certificate) : base_url('/assets/img/no-image.png'); ?>" class="img-fluid mb-2" alt="Caste Certificate"></a>
-                            <label>Caste Certificate<br>(SC/ST/OBC-NCL/EWS)</label>
-                        </div>
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/assets/img/no-image.png'); ?>" target="_blank"><img src="<?= isset($details->pwbd) && !empty($details->pwbd) ? base_url($details->pwbd) : base_url('/assets/img/no-image.png'); ?>" class="img-fluid mb-2" alt="PwBD"></a>
-                            <label>PwBD</label>
-                        </div>
-                    </div>
-
-            </div> -->
-                </div>
             </div>
         </div>
     </div>
+</div>
 
 <script>
     $(document).ready(function() {
         $("#preloadercustom").hide();
         $(".myspin").hide();
+
+        $('#accept').click(function(){
+            var id = <?php echo $details->student_counselling_id; ?>;
+            var data = {
+                course: '<?php echo $details->course; ?>',
+                category: '<?php echo $details->student_counselling_category; ?>',
+                subject: '<?php echo $details->student_counselling_subject; ?>',
+                physical_disable: '<?php echo $details->student_counselling_physical_disable; ?>'
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url('admin/counselling/accept/') ?>"+id,
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json',
+                cache: false,
+                beforeSend: function() {
+                    $("#preloadercustom").show();
+                    $(".myspin").show();
+                }, 
+                success: function(result) {
+                    console.log(result);
+                    let response = result;
+
+                    if(response.status == 200){
+                        toastr.success(response.message);
+                        window.location.href = '<?php echo base_url('admin/counselling/student-list/'.$details->counselling_id);?>';
+                    }else{
+                        toastr.error(response.message);
+                    }
+                    
+                    $("#preloadercustom").hide();
+                    $(".myspin").hide();
+
+                },error(e){
+                    console.log('Error', e);
+                }
+            });
+        });
+
+        $('#reject').click(function(){
+            var id = <?php echo $details->student_counselling_id; ?>
+
+            $.ajax({
+                type: 'GET',
+                url: "<?php echo base_url('admin/counselling/reject/') ?>"+id,
+                // data: JSON.stringify(counselling_student),
+                dataType: 'json',
+                contentType: 'application/json',
+                cache: false,
+                beforeSend: function() {
+                    $("#preloadercustom").show();
+                    $(".myspin").show();
+                }, 
+                success: function(result) {
+                    console.log(result);
+                    let response = result;
+
+                    if(response.status == 200){
+                        toastr.success(response.message);
+                    }else{
+                        toastr.error(response.message);
+                    }
+                    
+                    $("#preloadercustom").hide();
+                    $(".myspin").hide();
+
+                    window.location.href = '<?php echo base_url('admin/counselling/student-list/'.$details->counselling_id);?>';
+                },error(e){
+                    console.log('Error', e);
+                }
+            });
+        });
+
+        // function rejectCounselling(){
+        //     var id = <?php echo $details->student_counselling_id; ?>
+
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: "<?php echo base_url('admin/counselling/reject/') ?>"+id,
+        //         // data: JSON.stringify(counselling_student),
+        //         dataType: 'json',
+        //         contentType: 'application/json',
+        //         cache: false,
+        //         beforeSend: function() {
+        //             $("#preloadercustom").show();
+        //             $(".myspin").show();
+        //         }, 
+        //         success: function(result) {
+        //             console.log(result);
+        //             let response = result;
+
+        //             if(response.status == 200){
+        //                 toastr.success(response.message);
+        //             }else{
+        //                 toastr.error(response.message);
+        //             }
+                    
+        //             $("#preloadercustom").hide();
+        //             $(".myspin").hide();
+
+        //             window.location.href = '<?php echo base_url('admin/counselling/student-list/'.$details->counselling_id);?>';
+        //         },error(e){
+        //             console.log('Error', e);
+        //         }
+        //     });
+        // }
     });
 </script>

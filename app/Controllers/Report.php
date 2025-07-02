@@ -38,7 +38,9 @@ class Report extends BaseController
                 $data['registrations'] = $registrationModel->findAll();
             }
 
-            return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/report/registration_report", $data) . view('admin/template/footer');
+            $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
+
+            return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/report/state_wise_report", $data) . view('admin/template/footer');
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],
@@ -73,7 +75,9 @@ class Report extends BaseController
             }
 
             $data['pageTitle'] = "Registrations";
-            return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/report/subject_wise_report", $data) . view('admin/template/footer');
+            $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
+
+            return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/report/course_wise_report", $data) . view('admin/template/footer');
         } catch (Exception $exception) {
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $exception->getMessage()],
@@ -108,6 +112,8 @@ class Report extends BaseController
             }
 
             $data['pageTitle'] = "Registrations";
+            $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
+
             return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/report/category_wise_report", $data) . view('admin/template/footer');
         } catch (Exception $exception) {
             return $this->getResponse(
@@ -124,6 +130,7 @@ class Report extends BaseController
 
             $data = [];
             $data['pageTitle'] = 'Report';
+            $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
             
             $filterType = $this->request->getVar('filterType'); // 'state' or 'subject'
             $filterValue = $this->request->getVar('filterValue'); // e.g., 'Rajasthan' or 'Mathematics'
@@ -146,9 +153,9 @@ class Report extends BaseController
             }
 
             if($filterType == 'course'){
-                return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/registrations/subject_wise_report", $data) . view('admin/template/footer');
+                return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/registrations/course_wise_report", $data) . view('admin/template/footer');
             }elseif($filterType == 'state'){
-                return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/registrations/registration_report", $data) . view('admin/template/footer');
+                return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/registrations/state_wise_report", $data) . view('admin/template/footer');
             }elseif($filterType == 'category') {
                 return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/registrations/category_wise_report", $data) . view('admin/template/footer');
             }

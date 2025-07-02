@@ -22,8 +22,9 @@ class Login extends BaseController
     {
         $loginModel = new LoginModel();
 
-        try {
+		try{
             $data = [];
+            if(!isset($_SESSION['user'])){
             if (isset($_REQUEST["username"])) {
                 $userDetails = array_intersect_key($_REQUEST, array_flip(array('username', 'passcode')));
                 $data = $loginModel->getLoginAccess($userDetails);
@@ -35,17 +36,17 @@ class Login extends BaseController
                         $a[(date('Y') - 1) . '-' . ((date('Y') + 1) - 1)] = (date('Y') - 1) . '-' . ((date('Y') + 1) - 1);
                     }
 
-                    foreach ($a as $key => $value) {
-                        $session_data['current_year'] = $key;
-                    }
+                        // foreach($a as $key=> $value){
+                        // 	$session_data['current_year']=$key;
+                        // }
                     // $sessionDateArray = $loginModel->getCurrentSessionStartAndEndDate($session_data['current_year']);
                     // $_SESSION['session_start'] = $sessionDateArray[0]->session_start;
                     // $_SESSION['session_end'] = $sessionDateArray[0]->session_end;
 
                     // $session_data['session_start'] = $sessionDateArray[0]->session_start;
                     // $session_data['session_end'] = $sessionDateArray[0]->session_end;
-                    $session_data['admin'] = $data;
-                    $session_data['OTP'] = rand(10000, 99999);
+                        $session_data['user'] = $data;
+                        // $session_data['OTP'] = rand(10000,99999);
 
                     session()->set($session_data);
                     // $_SESSION['paymentInfo'] = array('merchant_id'=>'267501',
@@ -64,23 +65,23 @@ class Login extends BaseController
 
                     // $token = JWT::encode($payload, $key, 'HS256');
 
-                    $_SESSION['access_token'] = getSignedJWTForUser($data[0]->id);
-                    $_SESSION['refresh_token'] = getSignedRefreshToken($data[0]->id);
-                    $_SESSION['role'] = 'ADMIN';
+                        $_SESSION['access_token'] = getSignedJWTForUser($data[0]->username);
+                        $_SESSION['refresh_token'] = getSignedRefreshToken($data[0]->username);
+                        $_SESSION['role'] = $data[0]->role;
 
                     // var_dump($session_data);exit;
 
-                    $msg = 'Dear ' . $data[0]->name . ',<br/>';
-                    $msg .= 'Please find below detail of OTP .<br/>';
-                    $msg .= 'Your OTP is :' . $session_data['OTP'];
+                        // $msg='Dear '.$data[0]->name.',<br/>';
+                        // $msg.='Please find below detail of OTP .<br/>';
+                        // $msg.='Your OTP is :'.$session_data['OTP'];
 
-                    $email = \Config\Services::email();
+                        // $email = \Config\Services::email();
 
                     // $to = $data[0]->email;
                     // $toName = $data[0]->name;
-                    $from = "abhishek.sharma@ibirdsservices.com";
-                    $fromName = "Star Infotech College";
-                    $subject = "Star Infotech College : OTP";
+                        $from = "no-reply@riea.com";
+                        $fromName = "RIE AJMER";
+                        $subject = "RIE AJMER : OTP";
 
                     // $email->setFrom($from,$fromName);
                     // $email->setTo($to,$toName);
@@ -92,12 +93,12 @@ class Login extends BaseController
 
                     // var_dump($retval);exit;
 
-                    if ($email->send()) {
-                        $isSent = true;
-                    } else {
-                        $isSent = false;
-                        // var_dump($email->printDebugger(['headers']));exit;
-                    }
+                        // if( $email->send() ) {
+                        //     $isSent = true;
+                        // }else {
+                        //     $isSent = false;
+                        //     // var_dump($email->printDebugger(['headers']));exit;
+                        // }
 
 
                     $data['pageTitle'] = "Login";
@@ -112,17 +113,17 @@ class Login extends BaseController
                 $data['invalid'] = false;
                 $data['pageTitle'] = "Login";
             }
+            }else {
+                return redirect()->to('admin/home');
+            }
 
             return view("admin/login/login", $data);
         } catch (Exception $e) {
-            echo "<pre>";
-            print_r($e->getTrace());
-            die();
+            echo "<pre>";print_r($e->getTrace());die();
         }
     }
 
-    function forgetPassword()
-    {
+	function forgetPassword(){
         $loginModel = new LoginModel();
         $data = array();
         // var_dump($this->request->getVar());exit;
@@ -142,8 +143,7 @@ class Login extends BaseController
         // return $this->view("forget_password", $data);
     }
 
-    function success()
-    {
+    function success(){
         $msg = $this->request->getVar('msg');
         if (is_null($msg)) {
             $data['msg'] = "Sent you an email with reset password link, please check your inbox!";
@@ -154,8 +154,7 @@ class Login extends BaseController
         return view('admin/template/header', $data) . view("admin/login/success_failure_message.php", $data) . view('admin/template/footer');
     }
 
-    function resetPassword()
-    {
+    function resetPassword(){
 
         $loginModel = new LoginModel();
 
@@ -189,25 +188,25 @@ class Login extends BaseController
         // $this->view("reset_password", $data);
     }
 
-    function otpPage()
-    {
+    function otpPage(){
         session();
         $data['pageTitle'] = "OTP";
         return view('admin/template/header', $data) . view("admin/login/otp_page", $data) . view('admin/template/footer');
     }
 
-    function otpProcess()
-    {
+    function otpProcess(){
         // var_dump($_REQUEST);exit;
         session();
         if (isset($_REQUEST['otp'])) {
             if (strlen($_REQUEST['otp']) == 5) {
                 if ($_SESSION['OTP'] == $_REQUEST['otp']) {
                     return json_encode(['status' => 'success', 'message' => "OTP Verified Successfully."]);
-                } else {
+                }
+                else{
                     return json_encode(['status' => 'error', 'message' => "Invalid OTP Please try again."]);
                 }
-            } else {
+            }
+            else{
                 return json_encode(['status' => 'error', 'message' => "Please Enter a valid OTP."]);
             }
         } else {
@@ -215,14 +214,12 @@ class Login extends BaseController
         }
     }
 
-    function not_found()
-    {
+    function not_found(){
         return view('admin/no_page_found');
     }
 
     // ----------------------------------------------------------
-    function studentLogin()
-    {
+    function studentLogin(){
         session();
         $data = [];
         $data['pageTitle'] = "Student Login";
@@ -230,7 +227,6 @@ class Login extends BaseController
 
         $loginModel = new LoginModel();
 
-        return redirect()->to('/500');
 
         try {
             $data = [];
@@ -264,14 +260,13 @@ class Login extends BaseController
 
             return view('student/template/header', $data) . view("student/login/login", $data) . view('student/template/footer');
         } catch (Exception $e) {
+            // echo "<pre>";print_r($e->getTrace());die();
             session()->setFlashdata('err_msg', 'Something went wrong. Please try after sometime');
             return redirect()->to('/');
-            // echo "<pre>";print_r($e->getTrace());die();
         }
     }
 
-    function stu_forgetPassword()
-    {
+    function stu_forgetPassword(){
         $loginModel = new LoginModel();
         $data = array();
         // var_dump($this->request->getVar());exit;
@@ -291,8 +286,7 @@ class Login extends BaseController
         // return $this->view("forget_password", $data);
     }
 
-    function stu_success()
-    {
+    function stu_success(){
         $msg = $this->request->getVar('msg');
         if (is_null($msg)) {
             $data['msg'] = "Sent you an email with reset password link, please check your inbox!";
@@ -303,8 +297,7 @@ class Login extends BaseController
         return view('student/template/header', $data) . view("student/login/success_failure_message.php", $data) . view('student/template/footer');
     }
 
-    function stu_resetPassword()
-    {
+    function stu_resetPassword(){
         try {
             $loginModel = new LoginModel();
 
@@ -340,16 +333,14 @@ class Login extends BaseController
         }
     }
 
-    function logout()
-    {
+    function logout(){
         session();
         session()->destroy();
         // header("location: ".base_url());
         return redirect()->to('admin/logout');
     }
 
-    function student_logout()
-    {
+    function student_logout(){
         session();
         session()->destroy();
         // header("location: ".base_url());

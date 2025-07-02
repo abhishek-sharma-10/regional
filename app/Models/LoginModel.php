@@ -52,7 +52,7 @@ class LoginModel extends Model {
     	
         $email = \Config\Services::email();
 
-        $from = "abhishek.sharma@ibirdsservices.com";
+        $from = "no-reply@riea.com";
         $fromName = "RIE Ajmer";
         
         $userId = $userKey;
@@ -152,7 +152,7 @@ class LoginModel extends Model {
     }
 
     function getStudentById($id){
-        $result = $this->db->query("SELECT id, name, email FROM registrations where id='$id'");
+        $result = $this->db->query("SELECT registrations.id, registrations.name, registrations.email, student_counselling.id AS student_counselling_id, student_counselling.counselling_id AS counselling_id FROM registrations LEFT JOIN student_counselling on registrations.id = student_counselling.registration_id where registrations.id ='$id'");
 
         if($result->getNumRows() > 0)
         	return $result->getResult();
@@ -235,7 +235,7 @@ class LoginModel extends Model {
         $email = $userDetails['email'];
         $password = $userDetails['password'];
 
-        $result = $this->db->query('SELECT * FROM registrations where email="'.$email.'"');
+        $result = $this->db->query('SELECT registrations.*, student_counselling.id AS student_counselling_id, student_counselling.counselling_id AS counselling_id FROM registrations LEFT JOIN student_counselling ON registrations.id = student_counselling.registration_id WHERE email = "'.$email.'" AND registrations.status != "Cancel"');
 
         if($result->getNumRows() > 0)
         {

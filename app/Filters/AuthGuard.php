@@ -10,11 +10,13 @@ use Config\Services;
 use App\Libraries\AuthLibrary;
 
 use App\Models\LoginModel;
- 
+use Exception;
+use UnexpectedValueException;
+
 class AuthGuard implements FilterInterface{ 
 
     public function before(RequestInterface $request, $arguments = null){
-        $key = Services::getSecretKey();
+        // $key = Services::getSecretKey();
         $header = session()->get('access_token');
         $token = null;
 
@@ -25,24 +27,26 @@ class AuthGuard implements FilterInterface{
             }
         }
         
-        // check if token is null or empty
-        if(is_null($token) || empty($token)) {
-            return redirect()->to('/admin/');
-        }// else{
-            //     $role = session()->get('role');
-            //     if(AuthLibrary::route_access($role)){
         try {
-            $decoded = JWT::decode($token, new Key($key, 'HS256'));
+            // $token = session()->get('access_token');
+
+            if ($token != null) {
+                $role_name = session()->get('role');
+                if (strcasecmp($role_name,  'ADMIN') == 0 || AuthLibrary::route_access($role_name)) {
+                    $decoded = JWT::decode($token, new Key(Services::getSecretKey(), 'HS256'));
+                } else {
+                    return redirect()->to('/no_page_found');
+                }
+            } else {
+                return redirect()->to('/admin');
+            }
+
+            // $decoded = JWT::decode($token, new Key($key, 'HS256'));
         }catch (\Firebase\JWT\ExpiredException $ex){ 
             $this->refreshToken();
         }catch (Exception | UnexpectedValueException $ex) {
-            return redirect()->to('/admin/');
+            return redirect()->to('/admin');
         }
-        //     }
-        //     else{
-        //         return redirect()->to('no-page-found');
-        //     }
-        // }  
     }
     
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null){
@@ -60,9 +64,10 @@ class AuthGuard implements FilterInterface{
                 $result = $loginModel->getUserByUsername($response);
                 if($result){
                     $ses_data = [
-                        'admin' => $result,
+                        'user' => $result,
                         'access_token' => getSignedJWTForUser($result[0]->username), 
-                        'refresh_token' => getSignedRefreshToken($result[0]->username)
+                        'refresh_token' => getSignedRefreshToken($result[0]->username),
+                        'role' => $result[0]->role
                     ];
                     session()->set($ses_data);
                     return redirect()->to(current_url());

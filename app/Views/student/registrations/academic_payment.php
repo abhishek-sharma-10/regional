@@ -53,7 +53,7 @@
   <?php endif; ?>
 
   <div class="shadow-box mx-auto">
-    <h4 class="text-center mb-4">Payment</h4>
+    <h4 class="text-center mb-4">Academic Payment</h4>
     <div class="row g-3">
       <div class="col-md-6"><label class="form-label">RIEA Registration Number</label><input type="text" class="form-control" value="<?= $details->registration_no ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">NCET <?=date('Y');?> Application Number</label><input type="text" class="form-control" value="<?= $details->ncet_application_no ?>" readonly></div>

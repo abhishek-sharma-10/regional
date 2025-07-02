@@ -30,6 +30,7 @@ class NCETApplication extends BaseController
             $data ["result"] = $ncetApplicationModel->fetchAll();
 
             $data['pageTitle'] = "NCET Applications";
+            $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
             return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/ncet_application/ncet_application", $data) . view('admin/template/footer');
         } catch (Exception $exception) {
             return redirect()->to('/500');

@@ -30,7 +30,7 @@
   <!-- <img src="<?php //echo base_url(); ?>assets/img/NIC_logo1.jpg" alt="Logo" class="header-logo mb-3"> -->
   <div class="header-title">Regional Institute of Education</div>
   <p class="subtitle">Pushkar Road, Ajmer (Raj.)</p>
-  <h4 class="mt-4 mb-2">Acknowledgement of Payment</h4>
+  <h4 class="mt-4 mb-2">Acknowledgement of Academic Payment</h4>
   <hr>
   <div class="text-start mb-3">
     <div class="p-4">

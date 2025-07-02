@@ -43,7 +43,7 @@
   }
 </style>
 
-  <div class="container main-div">
+<div class="container main-div">
     <div class="login-container text-center">
       <form id="loginForm" method="post" action="<?php echo base_url(); ?>login">
         <div class="mb-3 text-start">

@@ -13,19 +13,41 @@ class NCETApplicationModel extends Model {
         'id',
         'ncet_application_no',
         'name',
-        'mobile',
         'email',
-        'city',
-        'created_at',
-        'updated_at',
-        'status',
+        'mobile_no',
+        'father_name',
+        'mother_name',
+        'dob',
+        'subject_code',
+        'subject_name',
+        'gender',
+        'category_name',
+        'physical_disablility',
+        'state',
+        'address',
+        'district',
+        'pincode',
+        'passing_year_10',
+        'board_10',
+        'board_other_10',
+        'total_marks_10',
+        'obtain_marks_10',
+        'percentage_10',
+        'passing_year_12',
+        'board_12',
+        'board_other_12',
+        'total_marks_12',
+        'obtain_marks_12',
+        'percentage_12',
+        'subject_percentile',
+        'notification_status'
     ];
 
     public $errorMsg;
 
 
     function fetchAll(){
-        $query = $this->db->query("SELECT * FROM ncet_applications");
+        $query = $this->db->query("SELECT * FROM ncet_applications ");
 
         if($query->getNumRows() > 0){
             return $query->getResult();
@@ -86,7 +108,7 @@ class NCETApplicationModel extends Model {
     }
 
     function getApplicantEmails(){
-        $query = $this->db->query("SELECT DISTINCT ncet_application_no, name, email FROM `ncet_applications` WHERE notification_status='NOT SENT' LIMIT 100");
+        $query = $this->db->query("SELECT DISTINCT ncet_application_no, name, email FROM `ncet_applications` LIMIT 1");
 
         if($query->getNumRows() > 0){
             return $query->getResult();

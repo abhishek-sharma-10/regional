@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use App\Libraries\NavbarConfiguration;
 
 /**
  * Class BaseController
@@ -37,6 +38,8 @@ abstract class BaseController extends Controller
      */
     protected $helpers = ['form', 'url', 'utility','email', 'curl', 'jwt'];
 
+    protected $navbar_configuration;
+
     /**
      * Be sure to declare properties for any property fetch you initialized.
      * The creation of dynamic property is deprecated in PHP 8.2.
@@ -52,6 +55,8 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
+
+        $this->navbar_configuration = new NavbarConfiguration();
 
         // E.g.: $this->session = service('session');
     }
