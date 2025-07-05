@@ -783,7 +783,7 @@ class Counselling extends BaseController
                     $email = \Config\Services::email();
                     foreach ($subject_array as $value) {
                         $info = $this->subjectPdf($value);
-
+                        var_dump($info);
                         foreach ($info as $key => $value) {
                             $from = "no-reply@riea.com";
                             $fromName = "RIE Ajmer";
