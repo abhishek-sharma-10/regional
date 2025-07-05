@@ -30,9 +30,9 @@ $status = isset($details->status) && ($details->status == "Request" || $details-
   }
 
   @media screen and (min-width: 786px) {
-    .bank-details{
+    .bank-details {
       border-right: 1px solid #e0e0e0;
-    }    
+    }
   }
 
   /* .error {
@@ -109,6 +109,7 @@ $status = isset($details->status) && ($details->status == "Request" || $details-
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-sm-4 bank-details">
           <h3 class="mb-3">Bank Details</h3>
@@ -130,29 +131,30 @@ $status = isset($details->status) && ($details->status == "Request" || $details-
               </ul>
             </div>
             <div class="col-sm-6">
-              <img src="<?php echo base_url('assets/sbi-qr-code.png');?>" alt="QR-Code" style="width: 170px;">
+              <img src="<?php echo base_url('public/assets/sbi-qr-code.png');?>" alt="QR-Code" style="width: 170px;">
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <form action="<?= base_url(); ?>pay-academic-fee" method="post" enctype="multipart/form-data" id="payment-form" novalidate>
       <input type="hidden" value="<?= $details->student_counselling_id; ?>" name="id">
       <input type="hidden" value="<?= $details->id; ?>" name="r_id">
-      <?php if($details->course == 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') { ?>
+      
+      <?php //if($details->course == 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') { ?>
         <div class="row mt-4">
           <div class="col-md-5 mb-3">
             <label class="form-label">Select Course</label>
-            <select name="course" id="course" class="form-select">
-              <option value="">Select Course</option>
-              <option value="">B.Sc. B.Ed.</option>
-              <option value="">B.A. B.Ed.</option>
+            <select name="course" id="course" class="form-select" required>
+              <option value="" disabled>Select Course</option>
+              <option value="ITEP - B.Sc. B.Ed." <?php echo ($details->course == 'ITEP - B.Sc. B.Ed.' ? 'selected' : ($details->course == 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.' ? '' : 'disabled'));?>>B.Sc. B.Ed.</option>
+              <option value="ITEP - B.A. B.Ed." <?php echo ($details->course == 'ITEP - B.A. B.Ed.' ? 'selected' : ($details->course == 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.' ? '' : 'disabled'));?>>B.A. B.Ed.</option>
             </select>
             <label id="courseError" class="error"></label>
           </div>
         </div>
-      <?php } ?>
+      <?php //} ?>
+
       <div class="row mt-4">
         <div class="col-md-5 mb-3">
           <label class="form-label">Enter Receipt Number received from Payment Portal</label>
