@@ -18,4 +18,15 @@ class CommonModel extends Model {
         
         return [];
     }
+
+    function getFeesStructureByCategory($category){
+        $query = "SELECT * from fees_structure where category = '".strtolower($category)."'";
+        $result = $this->db->query($query);
+        
+		if($result->getNumRows() > 0){
+			return $result->getResult()[0];
+		}
+        
+        return [];
+    }
 }

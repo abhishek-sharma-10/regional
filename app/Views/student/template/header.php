@@ -104,13 +104,14 @@
     <div class="container-fluid d-flex align-items-center justify-content-center">
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto <?php echo $active === 'academic' ? 'active' : ''; ?>" href="<?php echo base_url('academic');?>">Academic Details</a></li>
-          <li><a class="nav-link scrollto <?php echo $active === 'pay-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-registration-fee');?>">Pay Registration Fees</a></li>
+          <!-- <li><a class="nav-link scrollto <?php echo $active === 'academic' ? 'active' : ''; ?>" href="<?php echo base_url('academic');?>">Academic Details</a></li> -->
+          <!-- <li><a class="nav-link scrollto <?php echo $active === 'pay-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-registration-fee');?>">Pay Registration Fees</a></li> -->
           <?php if($payment_status) { ?><li><a class="nav-link scrollto <?php echo $active === 'print-academic' ? 'active' : ''; ?>" href="<?php echo base_url('print-academic-details'); ?>">Print Form</a></li><?php } ?>
           <?php
             if(array_key_exists('student', $_SESSION) && isset($_SESSION['student']) && array_key_exists('student_counselling_id', (array)$_SESSION['student'][0]) && $_SESSION['student'][0]->student_counselling_id !== null && array_key_exists('counselling_id', (array)$_SESSION['student'][0]) && $_SESSION['student'][0]->counselling_id !== null){
           ?>
-              <li><a class="nav-link scrollto <?php echo $active === 'pay-academic-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-academic-fee');?>">Pay Academic Fees</a></li>
+              <li><a class="nav-link scrollto <?php echo $active === 'pay-academic-fees' ? 'active' : ''; ?>" href="<?php echo base_url('pay-academic-fee');?>">Pay Admission Fees</a></li>
+              <li><a class="nav-link scrollto " href="<?php echo base_url('/Documents-proforma-online-counselling.pdf');?>" target="_blank">Download Counselling Form</a></li>
           <?php
             }
           ?>

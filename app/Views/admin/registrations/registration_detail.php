@@ -2,7 +2,76 @@
 // var_dump($details);
 ?>
 
-<div class="row">
+<style>
+    .application-header {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: center;
+    }
+
+    .logo {
+        width: 60px;
+        height: auto;
+    }
+
+    .header-title {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .final-status {
+        color: red;
+        font-weight: bold;
+    }
+
+    .table th,
+    .table td {
+        vertical-align: middle;
+        font-size: 14px;
+    }
+
+    .attachments img{
+        width: 80%;
+        height: 80%;
+        object-fit: cover;
+    }
+
+    .details label{
+        font-weight: 700;
+        width: 25%;
+    }
+
+    .details > tbody > tr > td:nth-child(1){
+        width: 80%;
+        line-height: 1.2;
+    }
+
+    .details > tbody > tr > td:nth-child(2){
+        width: 20%;
+    }
+
+    .details > tbody > tr > td > p{
+        margin: 0px;
+    }
+
+    .table, .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td{
+        border: 1px solid #000;
+    }
+
+    .attachments img{
+        width: 100%;
+        height: 150px;
+        object-fit: contain;
+        object-position: center;
+    }    
+</style>
+
+<div class="row m-t">
     <div class="col-md-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -283,6 +352,8 @@
                         <p style="margin-bottom: 0px;">Signature of Candidate</p>
                     </div>
                 </div>
+
+
                 <!-- Header -->
                 <!-- <img src="<?php //echo base_url(); ?>assets/img/NIC_logo1.jpg" alt="Logo" class="logo mb-2">
                 <div class="header-title">Regional Institute of Education</div>
@@ -340,10 +411,10 @@
                                     $count = 0;
                                     foreach($subjects as $subject){
                             ?>
-                            <tr>
+                                <tr>
                                     <?php if($count == 0){ ?><th rowspan="<?php echo count($subjects);?>"><?= $course ?></th> <?php } ?>
                                     <td><?=$subject;?></td>
-                            </tr>
+                                </tr>
                             <?php
                                 $count++;
                                 }}
@@ -391,11 +462,13 @@
                 </div> -->
 
                 <!-- <div>
+                    
                     <h5 class="text-center mb-4">Details of NCET 2024 Exam</h5>
                     <div class="row text-center mb-3">
                         <div class="col-md-4"><strong>NCET 2024 Roll No:</strong> <?= $details->ncet_roll_no ?></div>
                         <div class="col-md-4"><strong>Course:</strong> <?= $details->course ?></div>
                     </div>
+                    
                     <div class="table-responsive mb-5">
                         <table class="table table-bordered text-center">
                             <thead class="table-light">
@@ -457,6 +530,7 @@
                             </tbody>
                         </table>
                     </div>
+                    
                     <h6 class="mb-3">Attachments</h6>
                     <div class="row text-center mb-5">
                         <div class="col-md-2 col-6 mb-3">
@@ -488,12 +562,11 @@
                             <label>PwBD</label>
                         </div>
                     </div>
-
-            </div> -->
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
+</div>
 
 <script>
     $(document).ready(function() {

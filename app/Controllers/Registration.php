@@ -993,6 +993,8 @@ class Registration extends BaseController
 
     public function academicFees(){
         try {
+            $registrationModel = new RegistrationModel();
+            $commonModel = new CommonModel();
             $id = '';
             if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
                 $id = $_SESSION['student'][0]->id;
@@ -1000,10 +1002,10 @@ class Registration extends BaseController
                 return redirect()->to('/logout');
             }
             
-            $registrationModel = new RegistrationModel();
 
             $data = [];
             $data['details'] = $registrationModel->getRegistrationCounseleDetail($id);
+            $category = $data['details']->category;
 
             if(!empty($data['details']->academic_receipt_no) && !empty($data['details']->academic_payment_receipt)){
                 return redirect()->to('print-academic-fee-receipt');

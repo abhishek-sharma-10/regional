@@ -25,6 +25,8 @@ use Config\Services;
 				return NavbarConfiguration::get_admin_navbar_menus();
 			}else if($role_name == 'account'){
 				return NavbarConfiguration::get_account_navbar_menus();
+			}else if($role_name == 'subject'){
+				return NavbarConfiguration::get_subject_navbar_menus();
 			}
 		}
 
@@ -33,12 +35,14 @@ use Config\Services;
 				'home' => new Menu('home', 'Home', '/home', false, 'fa-home'),
 				'registrations' => new Menu('registrations', 'Registrations', '/registrations', false, 'fa-file'),
 				'ncet-applications' => new Menu('ncet-applications', 'NCET-Applications', '/ncet-applications', false, 'fa-file'),
-
+				
 				'counselling' => new Menu('counselling', 'Counselling', '', true, 'fa-sitemap', 
-					[
-                        new SubMenu("Add Counselling", "/counselling/add"), 
-                        new SubMenu("Show Counselling", "/counselling/show"),]
+				[
+					new SubMenu("Add Counselling", "/counselling/add"), 
+					new SubMenu("Show Counselling", "/counselling/show"),]
 				),
+				
+				'subject' => new Menu('subject', 'Subject Wise Student list', '/subject', false, 'fa-file'),
 
                 'report' => new Menu('report', 'Reports', '', true, 'fa-sitemap', 
 					[
@@ -55,6 +59,13 @@ use Config\Services;
 				'counselling' => new Menu('counselling', 'Counselling', '', true, 'fa-sitemap', 
 					[new SubMenu("Show Counselling", "/counselling/show"),]
 				),
+			];
+		}
+
+		public static function get_subject_navbar_menus(){
+			return [
+				'home' => new Menu('home', 'Home', '/home', false, 'fa-home'),
+				'subject' => new Menu('subject', 'Subject Wise Student list', '/subject', false, 'fa-file'),
 			];
 		}
 

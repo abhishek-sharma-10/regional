@@ -41,8 +41,9 @@ class Services extends BaseService
     public static function getRoleBasedRoutes($role_name){
 
 		$reservedRoutes = [
-			'ADMIN' => ['home', 'registrations', 'ncet-applications', 'counselling', 'report', 'logout'], 
+			'ADMIN' => ['home', 'registrations', 'ncet-applications', 'subject', 'counselling', 'report', 'logout'], 
 			'ACCOUNT' => ['home', 'counselling', 'logout'], 
+			'SUBJECT' => ['home', 'subject', 'logout'], 
 		];
 
 		$accessable_menus = [];

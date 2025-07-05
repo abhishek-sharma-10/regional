@@ -105,7 +105,14 @@ $routes->group('admin', ['filter' => 'authGuard'], static function ($routes) {
         $routes->get('category-wise-report', 'Report::categoryWiseReport');
         $routes->post('category-wise-report', 'Report::categoryWiseReport');
     });
+
+    $routes->group('subject', static function ($routes) {
+        $routes->get('/', 'Counselling::subjectWiseStudentList');
+        $routes->post('/', 'Counselling::subjectWiseStudentList');
+        // $routes->post('/', 'NCETApplication::import');
+    });
     
     $routes->get('logout', 'Login::logout');
 });
 $routes->get('calculate-counselling', 'Counselling::calculate');
+$routes->get('subject-pdf', 'Counselling::subjectPdf');

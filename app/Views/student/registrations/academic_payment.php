@@ -1,5 +1,5 @@
 <?php
-  $status = isset($details->status) && ($details->status == "Request" || $details->status == "Save as Draft");
+$status = isset($details->status) && ($details->status == "Request" || $details->status == "Save as Draft");
 ?>
 
 <style>
@@ -53,7 +53,7 @@
   <?php endif; ?>
 
   <div class="shadow-box mx-auto">
-    <h4 class="text-center mb-4">Academic Payment</h4>
+    <h4 class="text-center mb-4">Admission Payment</h4>
     <div class="row g-3">
       <div class="col-md-6"><label class="form-label">RIEA Registration Number</label><input type="text" class="form-control" value="<?= $details->registration_no ?>" readonly></div>
       <div class="col-md-6"><label class="form-label">NCET <?=date('Y');?> Application Number</label><input type="text" class="form-control" value="<?= $details->ncet_application_no ?>" readonly></div>
@@ -77,7 +77,38 @@
     ?>
 
     <div class="mt-4">
-      <p>Please pay the registration fee Rs. 500/- (Five Hundred Rupees Only) in the following account and attach the payment receipt / screenshot of payment made.</p>
+      <p class="fw-bold">Please pay Institute fees as given below:</p>
+
+      <div class="row mb-4">
+        <div class="col-md-8">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered" style="font-size: 14px !important;">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Category</th>
+                  <th>Fees (Without Hostel)</th>
+                  <th>Fees (With Hostel)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>GENERAL/ OBC/ EWS</td>
+                  <td>Rs. 7,450/-</td>
+                  <td>Rs. 29,650/-</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>SC/ ST/ PH</td>
+                  <td>Rs. 4,950/-</td>
+                  <td>Rs. 27,150/-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-sm-4 bank-details">
           <h3 class="mb-3">Bank Details</h3>
@@ -109,6 +140,19 @@
     <form action="<?= base_url(); ?>pay-academic-fee" method="post" enctype="multipart/form-data" id="payment-form" novalidate>
       <input type="hidden" value="<?= $details->student_counselling_id; ?>" name="id">
       <input type="hidden" value="<?= $details->id; ?>" name="r_id">
+      <?php if($details->course == 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') { ?>
+        <div class="row mt-4">
+          <div class="col-md-5 mb-3">
+            <label class="form-label">Select Course</label>
+            <select name="course" id="course" class="form-select">
+              <option value="">Select Course</option>
+              <option value="">B.Sc. B.Ed.</option>
+              <option value="">B.A. B.Ed.</option>
+            </select>
+            <label id="courseError" class="error"></label>
+          </div>
+        </div>
+      <?php } ?>
       <div class="row mt-4">
         <div class="col-md-5 mb-3">
           <label class="form-label">Enter Receipt Number received from Payment Portal</label>

@@ -69,6 +69,9 @@ class Login extends BaseController
                         $_SESSION['refresh_token'] = getSignedRefreshToken($data[0]->username);
                         $_SESSION['role'] = $data[0]->role;
 
+                        if($_SESSION['role'] == 'subject'){
+                            $_SESSION['subject'] = $data[0]->name;
+                        }
                     // var_dump($session_data);exit;
 
                         // $msg='Dear '.$data[0]->name.',<br/>';

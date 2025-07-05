@@ -31,6 +31,7 @@ class ITEPSeatMatrixModel extends Model {
         'pwd',
         'pwd_used',
         'pwd_available',
+        'pwd_general',
         'session',
     ];
 
@@ -61,6 +62,8 @@ class ITEPSeatMatrixModel extends Model {
 
         $total_bsc_physical = 0;
         $total_ba_physical = 0;
+        $bsc_pwd_general = 0;
+        $ba_pwd_general = 0;
 
         if($query->getNumRows() > 0){
             foreach($query->getResultArray() as $value){
@@ -73,26 +76,32 @@ class ITEPSeatMatrixModel extends Model {
                 if($value['course'] == 'B.Sc. B.Ed.'){
                     // $bsc_total_student += $value['general'] + $value['obc-(ncl)'] + $value['sc'] + $value['st'] + $value['ews'];
                     $total_bsc_physical = $value['pwd_available'];
+                    $bsc_pwd_general = $value['pwd_general'];
                 }else{
                     // $ba_total_student += $value['general'] + $value['obc-(ncl)'] + $value['sc'] + $value['st'] + $value['ews'];
                     $total_ba_physical = $value['pwd_available'];
+                    $ba_pwd_general = $value['pwd_general'];
                 }
             }
 
             // $total_bsc_physical = ($bsc_total_student * 5)/100;
             // $total_ba_physical = ceil(($ba_total_student * 5)/100);
 
-            return [$matrix, $total_bsc_physical, $total_ba_physical];
+            return [$matrix, $total_bsc_physical, $total_ba_physical, $bsc_pwd_general, $ba_pwd_general];
         }
 
         return [];
     }
 
-    public function getUser($where) {
-        return $this->db
-                        ->table($this->table)
-                        ->where($where)
-                        ->get()
-                        ->getRow();
+    function fetchBySubject($subject){
+        $session = date('Y') . '-' . date('Y', strtotime('+1 year'));
+
+        $query = $this->db->query("SELECT * FROM itep_seats_matrix WHERE disciplinary_major='$subject' AND session = '$session'");
+
+        if($query->getNumRows() > 0){
+            return $query->getResultArray()[0];
+        }
+
+        return [];
     }
 }

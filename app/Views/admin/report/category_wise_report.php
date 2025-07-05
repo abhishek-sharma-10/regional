@@ -1,5 +1,4 @@
 <?php
-//var_dump($registrations);
 if (isset($registrations)) {
     $registrations = $registrations;
 }
