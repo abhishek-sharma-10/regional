@@ -780,11 +780,11 @@ class Counselling extends BaseController
 
                     $subject_array = ['Physics', 'Chemistry', 'Mathematics', 'Botany', 'Zoology', 'History', 'Geography', 'English Language and Literature', 'Hindi Language and Literature', 'Urdu'];
 
-                    $email = \Config\Services::email();
                     foreach ($subject_array as $value) {
                         $info = $this->subjectPdf($value);
                         // var_dump(count($info));
                         foreach ($info as $key => $value) {
+                            $email = \Config\Services::email();
                             $from = "no-reply@riea.com";
                             $fromName = "RIE Ajmer";
         
