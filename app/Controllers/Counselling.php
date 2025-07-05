@@ -805,10 +805,10 @@ class Counselling extends BaseController
                             $mail = $email->send();
         
                             if( $mail == true ) {
-                                echo json_encode(['message' => 'Counselling Mail Sent Successfully.', 'success' => true]);
+                                // echo json_encode(['message' => 'Counselling Mail Sent Successfully.', 'success' => true]);
                             }else {
                                 // print_r($email->printDebugger(['headers']));exit;
-                                echo json_encode(['message' => 'Something went wrong', 'success' => false]);
+                                // echo json_encode(['message' => 'Something went wrong', 'success' => false]);
                             }
                             $email->clear(true);
                         }
