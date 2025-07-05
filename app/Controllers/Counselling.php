@@ -383,12 +383,12 @@ class Counselling extends BaseController
                     foreach ($bsc_pwd_counselling as $key => $value) {
                         if($value->course == 'ITEP - B.Sc. B.Ed.'){
                             if($selected_bsc_physical < $total_bsc_physical){
-                                var_dump($key .' ---- '. $selected_bsc_physical .' --- '.$value->id);
+                                // var_dump($key .' ---- '. $selected_bsc_physical .' --- '.$value->id);
                                 // Extract registration_ids from existing array
                                 $existingIds = array_column($selected_student_id, 'registration_id');
                                 // Check if registration_id already exists
                                 if (!in_array($value->id, $existingIds)) {
-                                    var_dump('Enter');
+                                    // var_dump('Enter');
                         if(!empty($value->bsc_preference_1)){
                                         if($selected_bsc_pwd_general < $bsc_pwd_general){
                                             if ($selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] < $matrix[strtolower($value->bsc_preference_1)][strtolower('general')]) {
@@ -414,7 +414,7 @@ class Counselling extends BaseController
                                             $selected_bsc_physical++;
                                         }else{
                                             if(strtolower($value->category) != 'general'){
-                                                var_dump('Category Entr');
+                                                // var_dump('Category Entr');
                                                 if ($selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] < $matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)]) {
                                 $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
                                                     $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'course' => 'ITEP - B.Sc. B.Ed.'];
@@ -1500,8 +1500,8 @@ class Counselling extends BaseController
         ini_set("xdebug.var_display_max_depth", '-1');
 
         // var_dump($selected_matrix);
-        var_dump($selected_student);
-        var_dump($selected_student_id);
+        // var_dump($selected_student);
+        // var_dump($selected_student_id);
         $bsc_pwd_counselling = $counsellingModel->getCounsellingStudentList(" AND course IN ('ITEP - B.Sc. B.Ed.', 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') AND physical_disable='Yes' ORDER BY ncet_average_percentile DESC");
         // var_dump($bsc_pwd_counselling);
 
@@ -1513,12 +1513,12 @@ class Counselling extends BaseController
         foreach ($bsc_pwd_counselling as $key => $value) {
             if($value->course == 'ITEP - B.Sc. B.Ed.'){
                 if($selected_bsc_physical < $total_bsc_physical){
-                    var_dump($key .' ---- '. $selected_bsc_physical .' --- '.$value->id);
+                    // var_dump($key .' ---- '. $selected_bsc_physical .' --- '.$value->id);
                     // Extract registration_ids from existing array
                     $existingIds = array_column($selected_student_id, 'registration_id');
                     // Check if registration_id already exists
                     if (!in_array($value->id, $existingIds)) {
-                        var_dump('Enter');
+                        // var_dump('Enter');
                         if (!empty($value->bsc_preference_1)) {
                             if($selected_bsc_pwd_general < $bsc_pwd_general){
                                 if ($selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] < $matrix[strtolower($value->bsc_preference_1)][strtolower('general')]) {
@@ -1544,7 +1544,7 @@ class Counselling extends BaseController
                                 $selected_bsc_physical++;
                             }else{
                                 if(strtolower($value->category) != 'general'){
-                                    var_dump('Category Entr');
+                                    // var_dump('Category Entr');
                                     if ($selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] < $matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
                                         $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'course' => 'ITEP - B.Sc. B.Ed.'];
@@ -1873,9 +1873,9 @@ class Counselling extends BaseController
             }
         }
 
-        var_dump($selected_student);
-        var_dump(($selected_student_id));
+        // var_dump($selected_student);
+        // var_dump(($selected_student_id));
         // var_dump($bsc_pwd_counselling, $ba_pwd_counselling);
-        var_dump($selected_bsc_physical,   $selected_ba_physical,   $selected_bsc_pwd_general,   $selected_ba_pwd_general);
+        // var_dump($selected_bsc_physical,   $selected_ba_physical,   $selected_bsc_pwd_general,   $selected_ba_pwd_general);
     }
 }
