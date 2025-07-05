@@ -108,7 +108,7 @@ class Registration extends BaseController
             $emailService = \Config\Services::email();
             
             $emailService->setTo($email);
-            $emailService->setFrom('no-reply@riea.com');
+                $emailService->setFrom('no-reply@riea.com', 'Academic Section RIE Ajmer');
             $emailService->setSubject('Verification Code (OTP) for registration portal of RIE, Ajmer');
 
             $message = "
@@ -218,6 +218,7 @@ class Registration extends BaseController
                 $plainPassword = $password;
                 
                 $emailService->setTo($toEmail);
+                    $emailService->setBCC('abhishek.sharma@ibirdsservices.com');
                 $emailService->setFrom('no-reply@riea.com', 'Academic Section RIE Ajmer');
                 $emailService->setSubject('Successfully registered to apply for admission in ITEP course at RIE, Ajmer');
                 

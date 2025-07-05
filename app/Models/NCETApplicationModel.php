@@ -57,8 +57,7 @@ class NCETApplicationModel extends Model {
     }
 
     function fetchSubjectDetailsByApplicationNo($ncet_application_no){
-        $query = $this->db->query("
-            SELECT ncet_applications.subject_code, ncet_applications.subject_percentile, subjects.subject as subject_name FROM `ncet_applications` JOIN subjects ON ncet_applications.subject_code = subjects.code WHERE ncet_application_no = $ncet_application_no");
+        $query = $this->db->query("SELECT ncet_applications.subject_code, ncet_applications.subject_percentile, subjects.subject as subject_name FROM `ncet_applications` JOIN subjects ON ncet_applications.subject_code = subjects.code WHERE ncet_application_no = $ncet_application_no");
 
         if($query->getNumRows() > 0){
             return $query->getResult();
@@ -108,7 +107,7 @@ class NCETApplicationModel extends Model {
     }
 
     function getApplicantEmails(){
-        $query = $this->db->query("SELECT DISTINCT ncet_application_no, name, email FROM `ncet_applications` LIMIT 1");
+        $query = $this->db->query("SELECT DISTINCT ncet_application_no, name, email FROM `ncet_applications` WHERE notification_status='NOT SENT' LIMIT 100");
 
         if($query->getNumRows() > 0){
             return $query->getResult();

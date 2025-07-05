@@ -44,7 +44,7 @@ class Common extends BaseController
             $records = $ncetApplicationModel->getApplicantEmails();
     
             $email = \Config\Services::email();
-            $from = "rieajmer@no-reply.com";
+            $from = "no-reply@riea.com";
             $fromName = "RIE Ajmer";
 
             $msg="Dear Candidate,<br/>";

@@ -512,7 +512,7 @@
                 </div>
                 <div class="col-md-4 upload-section">
                     <div class="row">
-                        <h4 class="mb-4">NCET Application Form <span class="required-icon">*</span></h4>
+                        <h4 class="mb-4">NCET <?=date('Y');?> Application Form <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>

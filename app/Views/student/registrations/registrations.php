@@ -189,7 +189,7 @@ if ($register_container) {
             <input type="text" class="form-control" value="<?php echo $email; ?>" name="email" id="email" readonly>
           </div>
           <div class="col-md-6 mb-3">
-            <b><label class="form-label">NCET <?= date('Y'); ?> Application Number <span class="required-icon">*</span></label></b>
+            <b><label class="form-label">NCET <?= date('Y'); ?> Application Number <span class="required-icon">*</span> (Start Here)</label></b>
             <input type="hidden" class="form-control" name="registrations-process" value="registration">
             <input type="text" class="form-control" placeholder="Enter Your Application Number" name="ncet_application_no" id="ncet_application_no" required>
           </div>
@@ -323,7 +323,7 @@ if ($register_container) {
         </div>
         <div class="row">
           <div class="col-md-6 mb-3">
-            <b><label class="form-label">Course <span class="required-icon">*</span></label></b>
+            <b><label class="form-label">Select Course <span class="required-icon">*</span></label></b>
             <select class="form-select" name="course" required>
               <option selected disabled>Select Course</option>
               <option value="ITEP - B.Sc. B.Ed.">ITEP - B.Sc. B.Ed.</option>

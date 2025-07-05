@@ -91,20 +91,6 @@ class Counselling extends BaseController
                     $bsc_pwd_general = $matrixResult[3];
                     $ba_pwd_general = $matrixResult[4];
 
-                    // $matrix = [
-                    //     'physics' => ['general' => 9, 'obc-(ncl)' => 5, "sc" => 3, "st" => 1, "ews" => 2],
-                    //     'chemistry' => ['general' => 8, 'obc-(ncl)' => 5, "sc" => 3, "st" => 2, "ews" => 2],
-                    //     'mathematics' => ['general' => 8, 'obc-(ncl)' => 5, "sc" => 3, "st" => 2, "ews" => 2],
-                    //     'botany' => ['general' => 8, 'obc-(ncl)' => 6, "sc" => 3, "st" => 1, "ews" => 2],
-                    //     'zoology' => ['general' => 8, 'obc-(ncl)' => 6, "sc" => 3, "st" => 1, "ews" => 2],
-
-                    //     'history' => ['general' => 5, 'obc-(ncl)' => 3, "sc" => 2, "st" => 1, "ews" => 1],
-                    //     'geography' => ['general' => 6, 'obc-(ncl)' => 3, "sc" => 2, "st" => 1, "ews" => 1],
-                    //     'english language and literature' => ['general' => 4, 'obc-(ncl)' => 3, "sc" => 1, "st" => 1, "ews" => 1],
-                    //     'hindi language and literature' => ['general' => 4, 'obc-(ncl)' => 3, "sc" => 1, "st" => 1, "ews" => 1],
-                    //     'urdu' => ['general' => 2, 'obc-(ncl)' => 1, "sc" => 1, "st" => 0, "ews" => 1],
-                    // ];
-
                     $selected_student = [
                         'physics' => ['general' => 0, 'obc-(ncl)' => 0, "sc" => 0, "st" => 0, "ews" => 0],
                         'chemistry' => ['general' => 0, 'obc-(ncl)' => 0, "sc" => 0, "st" => 0, "ews" => 0],
@@ -134,8 +120,6 @@ class Counselling extends BaseController
                     ];
 
                     $selected_student_id = [];
-
-                    // var_dump($matrix['physics']['general']);
 
                     $bsc_subject_array = ['Physics', 'Chemistry', 'Mathematics', 'Botany', 'Zoology'];
 
@@ -323,58 +307,10 @@ class Counselling extends BaseController
                             }
                             }
                         // }
-
-                        // var_dump($value->bsc_preference_1." -- ". $value->bsc_preference_2." -- ". $value->bsc_preference_3." -- ". $value->bsc_preference_4. ' =---> '. $value->category);
                     }
                     
-                    // ini_set("xdebug.var_display_max_children", '-1');
-                    // ini_set("xdebug.var_display_max_data", '-1');
-                    // ini_set("xdebug.var_display_max_depth", '-1');
-
-                    // var_dump($selected_matrix);
-                    // var_dump($selected_student);
-                    // var_dump($selected_student_id);
                     $bsc_pwd_counselling = $counsellingModel->getCounsellingStudentList(" AND course IN ('ITEP - B.Sc. B.Ed.', 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') AND physical_disable='Yes' ORDER BY ncet_average_percentile DESC");
                     // var_dump($counselling);
-
-                    // foreach ($bsc_pwd_counselling as $key => $value) {
-                    //     if (!empty($value->bsc_preference_1)) {
-                    //         if (($selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)]) < $matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)]) {
-                    //             $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
-                    //             // $selected_matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)][] = [$value->id, $value->bsc_preference_1, $value->category];
-                    //             $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
-                    //         } else {
-                    //             // array_pop($selected_matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)]);
-                    //             $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] - 1;
-                    //             // if (($key = array_search($value->id, $selected_student_id['registration_id'])) !== false) {
-                    //             //     unset($selected_student_id[$key]);
-                    //             // }
-                    //             // foreach ($selected_student_id as $key => $item) {
-                    //             //     if ($item['registration_id'] == $value->id) {
-                    //             //         unset($selected_student_id[$key]);
-                    //             //     }
-                    //             // }
-
-                    //             $idx = '';
-                    //             foreach ($selected_student_id as $key => $item) {
-                    //                 // var_dump($item['category'], $item['subject']);
-                    //                 if (strtolower($item['category']) == strtolower($value->category) && strtolower($item['subject']) == strtolower($value->bsc_preference_1)) {
-                    //                     // var_dump('Key --> '.$key, $item['category'], $item['subject']);
-                    //                     $idx = $key;
-                    //                 }
-                    //             }
-
-                    //             // var_dump('idx --> ', $idx);
-                    //             if(!empty($idx)){
-                    //                 unset($selected_student_id[$idx]);
-                    //             }
-
-                    //             // $selected_matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)][] = [$value->id, $value->bsc_preference_1, $value->category];
-                    //             $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
-                    //             $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
-                    //         }
-                    //     }
-                    // }
 
                     $selected_bsc_physical = 0;
                     $selected_ba_physical = 0;
@@ -561,41 +497,6 @@ class Counselling extends BaseController
                     $ba_pwd_counselling = $counsellingModel->getCounsellingStudentList(" AND course IN ('ITEP - B.A. B.Ed.', 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.') AND physical_disable='Yes' ORDER BY ncet_average_percentile DESC");
                     // var_dump($counselling);
 
-                    // foreach ($ba_pwd_counselling as $key => $value) {
-                    //     if (!empty($value->ba_preference_1)) {
-                    //         if (($selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_1)][strtolower($value->category)]) {
-                    //             $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] + 1;
-                    //             $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
-                    //             // $selected_matrix[strtolower($value->ba_preference_1)][strtolower($value->category)][] = [$value->id, $value->ba_preference_1, $value->category];
-                    //         } else {
-                    //             // array_pop($selected_matrix[strtolower($value->ba_preference_1)][strtolower($value->category)]);
-                    //             $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] - 1;
-                    //             // foreach ($selected_student_id as $key => $item) {
-                    //             //     if ($item['registration_id'] == $value->id) {
-                    //             //         unset($selected_student_id[$key]);
-                    //             //     }
-                    //             // }
-
-                    //             $idx = '';
-                    //             foreach ($selected_student_id as $key => $item) {
-                    //                 // var_dump($item['category'], $item['subject']);
-                    //                 if (strtolower($item['category']) == strtolower($value->category) && strtolower($item['subject']) == strtolower($value->ba_preference_1)) {
-                    //                     // var_dump('Key --> '.$key, $item['category'], $item['subject']);
-                    //                     $idx = $key;
-                    //                 }
-                    //             }
-
-                    //             // var_dump('idx --> ', $idx);
-                    //             if(!empty($idx)){
-                    //                 unset($selected_student_id[$idx]);
-                    //             }
-
-                    //             // $selected_matrix[strtolower($value->ba_preference_1)][strtolower($value->category)][] = [$value->id, $value->ba_preference_1, $value->category];
-                    //             $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] + 1;
-                    //             $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
-                    //         }
-                    //     }
-                    // }
                     foreach ($ba_pwd_counselling as $key => $value) {
                         if($value->course == 'ITEP - B.A. B.Ed.'){
                             if($selected_ba_physical < $total_ba_physical){
@@ -795,8 +696,9 @@ class Counselling extends BaseController
                             $subject = "Admission in 4-Year ".$value['course']." (".$value["subject"].") for the session 2025-26 regarding";
         
                             $email->setFrom($from,$fromName);
-                            // $email->setTo($value['email']);
-                            $email->setTo("abhishek.sharma@ibirdsservices.com");
+                            $email->setTo($value['email']);
+                            $email->setBCC('abhishek.sharma@ibirdsservices.com');;
+                            // $email->setTo("abhishek.sharma@ibirdsservices.com");
         
                             $email->setSubject($subject);
                             $email->setMessage($msg);

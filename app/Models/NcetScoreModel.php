@@ -14,9 +14,9 @@ class NcetScoreModel extends Model {
         'registration_id',
         'codes',
         'subjects',
-        'total_maximum_marks',
-        'total_marks_obtain',
-        'percentage',
+        // 'total_maximum_marks',
+        // 'total_marks_obtain',
+        'percentile',
     ];
 
     public $errorMsg;
