@@ -15,6 +15,7 @@ class StudentCounsellingModel extends Model {
         'registration_id',
         'category',
         'subject',
+        'course',
         'physical_disable',
         'academic_receipt_no',
         'academic_payment_receipt',
