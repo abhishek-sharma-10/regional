@@ -1249,7 +1249,7 @@ class Counselling extends BaseController
         // $dompdf->stream($subject.'.pdf', ['Attachment' => false]);
         
         $output = $dompdf->output();
-        file_put_contents(FCPATH.'subject_wise_lists/'.$subject.'.pdf', $output);
+        file_put_contents(FCPATH.'public/subject_wise_lists/'.$subject.'.pdf', $output);
         // var_dump($info);
         return $info;
     }
