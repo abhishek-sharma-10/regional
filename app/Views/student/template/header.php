@@ -90,7 +90,7 @@
         
         <a href="<?php echo base_url('instructions') ?>" class="header-anchor mt-4">Instructions to Apply</a>
         <a href="<?php echo base_url('contact-us') ?>" class="header-anchor mt-4">Contact Us</a>
-        <?php if(!(array_key_exists('student', $_SESSION) && isset($_SESSION['student']))){ ?><a href="<?php echo base_url('registrations'); ?>" class=" mt-4 ms-2"><button class="btn secondary-btn blink-button">Register</button></a><?php } ?>
+        <!-- <?php if(!(array_key_exists('student', $_SESSION) && isset($_SESSION['student']))){ ?><a href="<?php echo base_url('registrations'); ?>" class=" mt-4 ms-2"><button class="btn secondary-btn blink-button">Register</button></a><?php } ?> -->
         <a href="<?php echo base_url(). (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? '/logout' : ''; ?>" class=" mt-4 ms-2"><button class="btn secondary-btn"><?php echo (array_key_exists('student', $_SESSION) && isset($_SESSION['student'])) ? 'Logout' : 'Login'; ?></button></a>
       </div>
     </div>
