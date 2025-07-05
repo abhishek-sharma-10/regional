@@ -795,7 +795,8 @@ class Counselling extends BaseController
                             $subject = "Admission in 4-Year ITEP-".$info['course']." (".$value["subject"].") for the session 2025-26 regarding";
         
                             $email->setFrom($from,$fromName);
-                            $email->setTo($value['email']);
+                            // $email->setTo($value['email']);
+                            $email->setTo("abhishek.sharma@ibirdsservices.com");
         
                             $email->setSubject($subject);
                             $email->setMessage($msg);
