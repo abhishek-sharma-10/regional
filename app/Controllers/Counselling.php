@@ -800,7 +800,7 @@ class Counselling extends BaseController
         
                             $email->setSubject($subject);
                             $email->setMessage($msg);
-                            $email->attach('https://demo.riea.in/public/subject_wise_lists/'.$value['subject'].'.pdf');
+                            $email->attach('https://demo.riea.in/public/subject_wise_lists/'.str_replace(" ","_",$value['subject']).'.pdf');
         
                             $mail = $email->send();
         
@@ -1250,7 +1250,7 @@ class Counselling extends BaseController
         // $dompdf->stream($subject.'.pdf', ['Attachment' => false]);
         
         $output = $dompdf->output();
-        file_put_contents(FCPATH.'public/subject_wise_lists/'.$subject.'.pdf', $output);
+        file_put_contents(FCPATH.'public/subject_wise_lists/'.str_replace(" ","_",$subject).'.pdf', $output);
         // var_dump($info);
         return $info;
     }
