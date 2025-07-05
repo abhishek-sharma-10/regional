@@ -98,23 +98,23 @@
             $(".myspin").hide();
             $("#send_mail").hide();
 
-            var counselling = <?php echo json_encode(isset($counselling) ? $counselling : []); ?>;
+            // var counselling = <?php echo json_encode(isset($counselling) ? $counselling : []); ?>;
 
-            var table = $('.counselling').DataTable({
-                responsive: true,
-                data: counselling,
-                columns: [
-                    { data: "id" },
-                    { data: "start_date" },
-                    { data: "end_date" },
-                    {
-                        data: null,
-                        render: function(data, type, row) {
-                            return "<button class='btn btn-success btn-sm' onclick='showCounsellingStudentList("+ row.id +")'>Student Details</button>";
-                        }
-                    }
-                ]
-            });
+            // var table = $('.counselling').DataTable({
+            //     responsive: true,
+            //     data: counselling,
+            //     columns: [
+            //         { data: "id" },
+            //         { data: "start_date" },
+            //         { data: "end_date" },
+            //         {
+            //             data: null,
+            //             render: function(data, type, row) {
+            //                 return "<button class='btn btn-success btn-sm' onclick='showCounsellingStudentList("+ row.id +")'>Student Details</button>";
+            //             }
+            //         }
+            //     ]
+            // });
 
             $("body").on("submit", "#counselling_form", function(e) {
                 e.preventDefault();
@@ -150,73 +150,73 @@
             });
         });
 
-        function sendEmail(){
-            console.log('Send Mail');
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo base_url('admin/counselling/send-email/') ?>"+c_id,
-                data: JSON.stringify(counselling_student),
-                dataType: 'json',
-                contentType: 'application/json',
-                cache: false,
-                beforeSend: function() {
-                    $("#preloadercustom").show();
-                    $(".myspin").show();
-                }, 
-                success: function(result) {
-                    console.log(result);
-                    let response = result;
+        // function sendEmail(){
+        //     console.log('Send Mail');
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: "<?php echo base_url('admin/counselling/send-email/') ?>"+c_id,
+        //         data: JSON.stringify(counselling_student),
+        //         dataType: 'json',
+        //         contentType: 'application/json',
+        //         cache: false,
+        //         beforeSend: function() {
+        //             $("#preloadercustom").show();
+        //             $(".myspin").show();
+        //         }, 
+        //         success: function(result) {
+        //             console.log(result);
+        //             let response = result;
 
-                    if(response.success){
-                        toastr.success(response.message);
-                    }else{
-                        toastr.error(response.message);
-                    }
+        //             if(response.success){
+        //                 toastr.success(response.message);
+        //             }else{
+        //                 toastr.error(response.message);
+        //             }
                     
-                    $("#preloadercustom").hide();
-                    $(".myspin").hide();
-                },error(e){
-                    console.log('Error', e);
-                }
-            });
-        }
+        //             $("#preloadercustom").hide();
+        //             $(".myspin").hide();
+        //         },error(e){
+        //             console.log('Error', e);
+        //         }
+        //     });
+        // }
 
-        function showCounsellingStudentList(id){
-            console.log('ENter');
-            c_id = id;
-            $.ajax({
-                type: 'GET',
-                url: "<?php echo base_url('admin/counselling/student-list') ?>",
-                // data: data,
-                dataType: 'json',
-                contentType: false,
-                cache: false,
-                processData:false,
-                beforeSend: function() {
-                    $("#preloadercustom").show();
-                    $(".myspin").show();
-                }, 
-                success: function(result) {
-                    console.log(result);
-                    counselling_student = (result);
+        // function showCounsellingStudentList(id){
+        //     console.log('ENter');
+        //     c_id = id;
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: "<?php echo base_url('admin/counselling/student-list') ?>",
+        //         // data: data,
+        //         dataType: 'json',
+        //         contentType: false,
+        //         cache: false,
+        //         processData:false,
+        //         beforeSend: function() {
+        //             $("#preloadercustom").show();
+        //             $(".myspin").show();
+        //         }, 
+        //         success: function(result) {
+        //             console.log(result);
+        //             counselling_student = (result);
 
-                    if(counselling_student.length > 0){
-                        $("#send_mail").show();
-                    }
-                    $('.counselling-student').DataTable({
-                        responsive: true,
-                        data: counselling_student,
-                        columns: [
-                            { data: "id" },
-                            { data: "registration_no" },
-                            { data: "name" },
-                            { data: "email" }
-                        ]
-                    });
+        //             if(counselling_student.length > 0){
+        //                 $("#send_mail").show();
+        //             }
+        //             $('.counselling-student').DataTable({
+        //                 responsive: true,
+        //                 data: counselling_student,
+        //                 columns: [
+        //                     { data: "id" },
+        //                     { data: "registration_no" },
+        //                     { data: "name" },
+        //                     { data: "email" }
+        //                 ]
+        //             });
 
-                    $("#preloadercustom").hide();
-                    $(".myspin").hide();
-                }
-            });
-        }
+        //             $("#preloadercustom").hide();
+        //             $(".myspin").hide();
+        //         }
+        //     });
+        // }
     </script>
