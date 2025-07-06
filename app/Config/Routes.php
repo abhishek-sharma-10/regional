@@ -92,9 +92,9 @@ $routes->group('admin', ['filter' => 'authGuard'], static function ($routes) {
         $routes->post('/', 'Counselling::insert');
         $routes->get('student-list/(:num)', 'Counselling::counsellingWiseStudentList/$1');
         $routes->get('student-detail/(:num)', 'Counselling::counsellingWiseStudentDetail/$1');
-        $routes->post('send-email/(:num)', 'sendEmailToCounsellingStudents/$1');
         $routes->get('reject/(:num)', 'Counselling::rejectCounselling/$1');
         $routes->post('accept/(:num)', 'Counselling::acceptCounselling/$1');
+        $routes->get('send-email', 'sendEmailToCounsellingStudents');
     });
 
     $routes->group('report', static function ($routes) {

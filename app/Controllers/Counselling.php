@@ -832,31 +832,31 @@ class Counselling extends BaseController
         }
     }
 
-    public function sendEmailToCounsellingStudents($id)
+    public function sendEmailToCounsellingStudents()
     {
         try {
-            $email_array = [];
+            $email_array = ['abhishek.sharma@ibirdsservices.com'];
             $counsel_student = [];
             
-            $input = $this->request->getVar();
+            // $input = $this->request->getVar();
 
-            foreach ($input as $value) {
-                $email_array[] = $value->email;
-                $counsel_student[] = [$id, $value->id];
-            }
+            // foreach ($input as $value) {
+            //     $email_array[] = $value->email;
+            //     $counsel_student[] = [$id, $value->id];
+            // }
 
             $email = \Config\Services::email();
             $from = "no-reply@riea.com";
             $fromName = "RIE Ajmer";
 
-            $msg="<i><b>Hi</b>,<br/><br/>";
+            $msg="Dear candidate,<br/><br/>";
 
-            $msg.="This is a reminder for your couselling session scheduled on 18/06/2025.";
+            $msg.="Please pay the Institute fees by logging on ITEP Admission Portal of RIE, Ajmer using your login Id and password. Link to pay fees is <a href='https://riea.in/'>Click Here</a>";
 
-            $msg.="<br/><br/><b>Thanks,</b> <br/>";
-            $msg.="<b>RIE Ajmer</b></i>";
+            $msg.="<br/><br/><b>Academic Section</b> <br/>";
+            $msg.="<b>RIE, Ajmer</b>";
 
-            $subject = "RIE : Counselling Mail";
+            $subject = "Information to pay Institute fees for admission in ITEP";
 
             $email->setFrom($from,$fromName);
             $email->setTo($email_array);
