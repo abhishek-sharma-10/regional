@@ -697,7 +697,7 @@ class Counselling extends BaseController
         
                             $email->setFrom($from,$fromName);
                             $email->setTo($value['email']);
-                            $email->setBCC('abhishek.sharma@ibirdsservices.com');;
+                            $email->setBCC('abhishek.sharma@ibirdsservices.com');
                             // $email->setTo("abhishek.sharma@ibirdsservices.com");
         
                             $email->setSubject($subject);
@@ -839,39 +839,37 @@ class Counselling extends BaseController
                         
             $result = $studentCounsellingModel->getStudentCounsellingListWithoutFeesPay();
             foreach ($result as $key => $value) {
-                echo '<br>'.$key.'<br>';
-                var_dump($value['email']);
-                // $email = \Config\Services::email();
-                // $from = "no-reply@riea.com";
-                // $fromName = "RIE Ajmer";
+                // var_dump($value['email']);
+                $email = \Config\Services::email();
+                $from = "no-reply@riea.com";
+                $fromName = "RIE Ajmer";
     
-                // $msg="Dear candidate,<br/><br/>";
+                $msg="Dear candidate,<br/><br/>";
     
-                // $msg.="Please pay the Institute fees by logging on ITEP Admission Portal of RIE, Ajmer using your login Id and password. Link to pay fees is <a href='https://riea.in/'>Click Here</a>";
+                $msg.="Please pay the Institute fees by logging on ITEP Admission Portal of RIE, Ajmer using your login Id and password. Link to pay fees is <a href='https://riea.in/'>Click Here</a>";
     
-                // $msg.="<br/><br/><b>Academic Section</b> <br/>";
-                // $msg.="<b>RIE, Ajmer</b>";
+                $msg.="<br/><br/><b>Academic Section</b> <br/>";
+                $msg.="<b>RIE, Ajmer</b>";
     
-                // $subject = "Information to pay Institute fees for admission in ITEP";
+                $subject = "Information to pay Institute fees for admission in ITEP";
     
-                // $email->setFrom($from,$fromName);
-                // $email->setTo($email_array);
+                $email->setFrom($from,$fromName);
+                $email->setTo($value['email']);
+                $email->setBCC('abhishek.sharma@ibirdsservices.com');
     
-                // $email->setSubject($subject);
-                // $email->setMessage($msg);
+                $email->setSubject($subject);
+                $email->setMessage($msg);
     
-                // $mail = $email->send();
+                $mail = $email->send();
     
-                // if( $mail == true ) {
-                //     echo json_encode(['message' => 'Counselling Mail Sent Successfully.', 'success' => true]);
-                // }else {
-                //     // print_r($email->printDebugger(['headers']));exit;
-                //     echo json_encode(['message' => 'Something went wrong', 'success' => false]);
-                // }
-                // $email->clear(true);
+                if( $mail == true ) {
+                    echo json_encode(['message' => 'Counselling Mail Sent Successfully.', 'success' => true]);
+                }else {
+                    // print_r($email->printDebugger(['headers']));exit;
+                    echo json_encode(['message' => 'Something went wrong', 'success' => false]);
+                }
+                $email->clear(true);
             }
-            // $email_array = ['abhishek.sharma@ibirdsservices.com'];
-            // $counsel_student = [];
         } catch(Exception $e) {
             echo json_encode($e->getMessage());
         }
