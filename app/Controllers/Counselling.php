@@ -842,7 +842,7 @@ class Counselling extends BaseController
             foreach($subject_array as $subject){
                 $result = $studentCounsellingModel->getSubjectWiseStudentList($subject);
                 foreach ($result as $key => $value) {
-                    var_dump($value->email);
+                    var_dump($value['email']);
                     // $email = \Config\Services::email();
                     // $from = "no-reply@riea.com";
                     // $fromName = "RIE Ajmer";
