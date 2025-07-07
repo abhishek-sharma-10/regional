@@ -734,7 +734,19 @@ class Counselling extends BaseController
             $data['pageTitle'] = "Counselling";
             $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
 
-            $data['records'] = $counsellingModel->getCounsellingWiseStudentList($id);
+            $data['fees'] = 'with fees';
+            $input = $this->request->getVar();
+            if(isset($input['fees']) && !empty($input['fees'])){
+                if($input['fees'] == 'with fees'){
+                    $data['fees'] = 'with fees';
+                }else if($input['fees'] == 'without fees'){
+                    $data['fees'] = 'without fees';
+                }else{
+                    $data['fees'] = 'all';
+                }
+            }
+
+            $data['records'] = $counsellingModel->getCounsellingWiseStudentList($id, $data['fees']);
 
             return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/counselling/counselling_wise_student_list", $data) . view('admin/template/footer');
         } catch (Exception $e) {
