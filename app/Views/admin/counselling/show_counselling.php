@@ -29,6 +29,7 @@
             </div>
         </div>
     </div>
+</div>
     <!-- <div class="col-md-7">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -87,73 +88,4 @@
             });
         });
 
-        function sendEmail(){
-            console.log('Send Mail');
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo base_url('admin/counselling/send-email/') ?>"+c_id,
-                data: JSON.stringify(counselling_student),
-                dataType: 'json',
-                contentType: 'application/json',
-                cache: false,
-                beforeSend: function() {
-                    $("#preloadercustom").show();
-                    $(".myspin").show();
-                }, 
-                success: function(result) {
-                    console.log(result);
-                    let response = result;
-
-                    if(response.success){
-                        toastr.success(response.message);
-                    }else{
-                        toastr.error(response.message);
-                    }
-                    
-                    $("#preloadercustom").hide();
-                    $(".myspin").hide();
-                },error(e){
-                    console.log('Error', e);
-                }
-            });
-        }
-
-        function showCounsellingStudentList(id){
-            console.log('ENter');
-            c_id = id;
-            $.ajax({
-                type: 'GET',
-                url: "<?php echo base_url('admin/counselling/student-list') ?>",
-                // data: data,
-                dataType: 'json',
-                contentType: false,
-                cache: false,
-                processData:false,
-                beforeSend: function() {
-                    $("#preloadercustom").show();
-                    $(".myspin").show();
-                }, 
-                success: function(result) {
-                    console.log(result);
-                    counselling_student = (result);
-
-                    if(counselling_student.length > 0){
-                        $("#send_mail").show();
-                    }
-                    $('.counselling-student').DataTable({
-                        responsive: true,
-                        data: counselling_student,
-                        columns: [
-                            { data: "id" },
-                            { data: "registration_no" },
-                            { data: "name" },
-                            { data: "email" }
-                        ]
-                    });
-
-                    $("#preloadercustom").hide();
-                    $(".myspin").hide();
-                }
-            });
-        }
     </script>

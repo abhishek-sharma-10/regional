@@ -1,9 +1,43 @@
+<?php
+    // var_dump($records);
+?>
+
 <style>
     .dataTables_empty{
         text-align: center;
     }
 </style>
 <div class="row m-t">
+    <div class="col-md-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Select Fees</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <form method="POST" class="form-horizontal" id="fees">
+                    <div class="row" style="display: flex; align-items: flex-end;">
+                        <div class="col-6 col-sm-3">
+                            <label class="form-label">Fees:</label>
+                            <select name="fees" id="fees" class="form-control">
+                                <option value="">Select</option>
+                                <option value="with fees" <?php echo $fees == 'with fees' ? 'selected' : '';?>>With Fees</option>
+                                <option value="without fees" <?php echo $fees == 'without fees' ? 'selected' : '';?>>Without Fees</option>
+                                <option value="all" <?php echo $fees == 'all' ? 'selected' : '';?>>All</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-sm-2">
+                            <button class="btn btn-primary m-n" id="show-list" type="submit">Show</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="col-md-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -16,7 +50,7 @@
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover " style="font-size: 14px !important;">
+                    <table class="table table-striped table-bordered table-hover student-list" style="font-size: 14px !important;">
                         <thead>
                             <tr>
                                 <th>S.No.</th>
@@ -44,7 +78,7 @@
                             <?php
                                 // var_dump($records);
                                 $count = 1;
-                                if(count($records) > 1){
+                                if(count($records) > 0){
                                     foreach ($records as $value) {
                             ?>
                                     <tr>

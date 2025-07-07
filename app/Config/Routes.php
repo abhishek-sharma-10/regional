@@ -91,6 +91,7 @@ $routes->group('admin', ['filter' => 'authGuard'], static function ($routes) {
         $routes->get('show', 'Counselling::show');
         $routes->post('/', 'Counselling::insert');
         $routes->get('student-list/(:num)', 'Counselling::counsellingWiseStudentList/$1');
+        $routes->post('student-list/(:num)', 'Counselling::counsellingWiseStudentList/$1');
         $routes->get('student-detail/(:num)', 'Counselling::counsellingWiseStudentDetail/$1');
         $routes->get('reject/(:num)', 'Counselling::rejectCounselling/$1');
         $routes->post('accept/(:num)', 'Counselling::acceptCounselling/$1');
