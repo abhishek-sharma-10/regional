@@ -762,7 +762,7 @@ class Counselling extends BaseController
             $data = [];
             $data['details'] = $counsellingModel->getCounsellingStudentDetail($id);
             unset($data['details']->password);
-            $data['ncet'] = $ncetScoreModel->getNcetScoreByRegistrationId(22);
+            $data['ncet'] = $ncetScoreModel->getNcetScoreByRegistrationId($data['details']->id);
 
             $bscPreferences = [$data['details']->bsc_preference_1, $data['details']->bsc_preference_2, $data['details']->bsc_preference_3, $data['details']->bsc_preference_4];
             $baPreferences = [$data['details']->ba_preference_1, $data['details']->ba_preference_2, $data['details']->ba_preference_3, $data['details']->ba_preference_4];
