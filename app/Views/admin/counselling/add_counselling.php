@@ -18,7 +18,7 @@
                 <form method="POST" class="form-horizontal" id="counselling_form">
                     <div class="row" style="display: flex; align-items: flex-end;">
                         <div class="col-6 col-sm-3">
-                            <label class="form-label">Counselling Name:</label>
+                            <label class="form-label">Name:</label>
                             <input type="text" class="form-control" name="name">
                         </div>
                         <div class="col-6 col-sm-3">
