@@ -21,7 +21,7 @@
             <div class="ibox-content">
                 <form method="POST" class="form-horizontal" id="fees">
                     <div class="row" style="display: flex; align-items: flex-end;">
-                        <div class="col-6 col-sm-3">
+                        <div class="col-sm-3">
                             <label class="form-label">Fees:</label>
                             <select name="fees" id="fees" class="form-control">
                                 <option value="">Select</option>
@@ -30,9 +30,14 @@
                                 <option value="all" <?php echo $fees == 'all' ? 'selected' : '';?>>All</option>
                             </select>
                         </div>
-                        <div class="col-6 col-sm-2">
+                        <div class="col-sm-1">
                             <button class="btn btn-primary m-n" id="show-list" type="submit">Show</button>
                         </div>
+                        <?php if($_SESSION['user'][0]->role == 'admin'){?>
+                        <div class="col-sm-3">
+                            <a href="<?php echo base_url('admin/counselling/course-wise-pdf/'.$id);?>"><button class="btn btn-success m-n" type="button">Generate Course Wise PDF</button></a>
+                        </div>
+                        <?php } ?>
                     </div>
                 </form>
             </div>

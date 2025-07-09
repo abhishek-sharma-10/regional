@@ -96,6 +96,7 @@ $routes->group('admin', ['filter' => 'authGuard'], static function ($routes) {
         $routes->get('reject/(:num)', 'Counselling::rejectCounselling/$1');
         $routes->post('accept/(:num)', 'Counselling::acceptCounselling/$1');
         $routes->get('send-email', 'Counselling::sendEmailToCounsellingStudents');
+        $routes->get('course-wise-pdf/(:num)', 'Counselling::courseWisePdfGenerate/$1');
     });
 
     $routes->group('report', static function ($routes) {
@@ -115,5 +116,7 @@ $routes->group('admin', ['filter' => 'authGuard'], static function ($routes) {
     
     $routes->get('logout', 'Login::logout');
 });
+
 $routes->get('calculate-counselling', 'Counselling::calculate');
+$routes->get('calculate-counselling2', 'Counselling::calculateCounselling2');
 $routes->get('subject-pdf', 'Counselling::subjectPdf');

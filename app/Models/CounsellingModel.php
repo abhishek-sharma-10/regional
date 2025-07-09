@@ -11,8 +11,10 @@ class CounsellingModel extends Model {
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'id',
+        'name',
         'start_date',
         'end_date',
+        'status',
     ];
 
     public $errorMsg;

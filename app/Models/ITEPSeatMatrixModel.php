@@ -68,7 +68,7 @@ class ITEPSeatMatrixModel extends Model {
         if($query->getNumRows() > 0){
             foreach($query->getResultArray() as $value){
                 $matrix[strtolower($value['disciplinary_major'])]['general'] = $value['general_available'];
-                $matrix[strtolower($value['disciplinary_major'])]['obc-(ncl)'] = $value['obc-ncl_available'];
+                $matrix[strtolower($value['disciplinary_major'])]['obc-(ncl)'] = $value['obc_ncl_available'];
                 $matrix[strtolower($value['disciplinary_major'])]['sc'] = $value['sc_available'];
                 $matrix[strtolower($value['disciplinary_major'])]['st'] = $value['st_available'];
                 $matrix[strtolower($value['disciplinary_major'])]['ews'] = $value['ews_available'];
