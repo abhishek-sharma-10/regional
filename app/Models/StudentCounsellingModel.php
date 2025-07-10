@@ -61,7 +61,7 @@ class StudentCounsellingModel extends Model {
     public function getAcceptedStudentCounsellingList(){
         $data = [];
         
-        $query1 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.bsc_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.Sc. B.Ed.' AND student_counselling.status='Accept'";
+        $query1 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.bsc_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.Sc. B.Ed.' AND student_counselling.status='Accept' ORDER BY registrations.ncet_application_no DESC";
 
         $result1 = $this->db->query($query1);
         if($result1->getNumRows() > 0){
@@ -71,7 +71,7 @@ class StudentCounsellingModel extends Model {
             }
         }
         
-        $query2 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.ba_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.A. B.Ed.' AND student_counselling.status='Accept'";
+        $query2 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.ba_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.A. B.Ed.' AND student_counselling.status='Accept' ORDER BY registrations.ncet_application_no DESC";
 
         $result2 = $this->db->query($query2);
         if($result2->getNumRows() > 0){
@@ -81,7 +81,7 @@ class StudentCounsellingModel extends Model {
             }
         }
         
-        $query3 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.course = 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.' AND student_counselling.status='Accept'";
+        $query3 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.course = 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.' AND student_counselling.status='Accept' ORDER BY registrations.ncet_application_no DESC";
 
         $result3 = $this->db->query($query3);
         if($result3->getNumRows() > 0){
