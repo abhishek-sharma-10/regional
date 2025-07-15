@@ -2930,7 +2930,7 @@ class Counselling extends BaseController
             // var_dump($bsc_pwd_counselling, $ba_pwd_counselling);
             // var_dump($selected_bsc_physical,   $selected_ba_physical,   $selected_bsc_pwd_general,   $selected_ba_pwd_general);
         }catch(Exception $e){
-            var_dump($e->getTrace());
+            echo "<pre>";print_r($e->getTrace());
         }
     }
 
