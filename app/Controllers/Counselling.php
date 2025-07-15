@@ -1061,9 +1061,6 @@ class Counselling extends BaseController
             $data = [];
             if (count($result) > 0) {
                 foreach ($result as $value) {
-                    // $percentileRecord = $commonModel->getOverallPercentage($value['ncet_application_no']);
-
-                    // $value['overall_percentage'] = $percentileRecord->overall_percentage;
                     if ($value['student_counselling_category'] ==  'obc-(ncl)') {
                         $data['obc_ncl'][] = $value;
                     } else {
