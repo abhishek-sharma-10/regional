@@ -105,7 +105,7 @@
                                         <td><?=$value->ba_preference_3;?></td>
                                         <td><?=$value->ba_preference_4;?></td>
                                         <td><?=$value->counselling_status;?></td>
-                                        <td><?php if(isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] == 'account') {?><a href="<?php echo base_url('admin/counselling/student-detail/'.$value->id);?>"><button class='btn btn-success btn-sm'>Student Details</button><?php }?></td>
+                                        <td><?php if(isset($_SESSION['role']) && !empty($_SESSION['role']) && $_SESSION['role'] == 'account') {?><a href="<?php echo base_url('admin/counselling/student-detail/'.$value->id.'c_id='.$id);?>"><button class='btn btn-success btn-sm'>Student Details</button><?php }?></td>
                                     </tr>
                             <?php
                                     }

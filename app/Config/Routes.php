@@ -111,6 +111,7 @@ $routes->group('admin', ['filter' => 'authGuard'], static function ($routes) {
     $routes->group('subject', static function ($routes) {
         $routes->get('/', 'Counselling::subjectWiseStudentList');
         $routes->post('/', 'Counselling::subjectWiseStudentList');
+        $routes->post('send-subject-mail', 'Counselling::sendEmailToCounsellingStudentsBySubject');
         // $routes->post('/', 'NCETApplication::import');
     });
     

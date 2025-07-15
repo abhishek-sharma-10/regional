@@ -235,7 +235,7 @@ class LoginModel extends Model {
         $email = $userDetails['email'];
         $password = $userDetails['password'];
 
-        $result = $this->db->query('SELECT registrations.*, student_counselling.id AS student_counselling_id, student_counselling.counselling_id AS counselling_id FROM registrations JOIN student_counselling ON registrations.id = student_counselling.registration_id WHERE email = "'.$email.'" AND registrations.status != "Cancel"');
+        $result = $this->db->query('SELECT registrations.*, student_counselling.id AS student_counselling_id, student_counselling.counselling_id AS counselling_id FROM registrations JOIN student_counselling ON registrations.id = student_counselling.registration_id JOIN counselling ON counselling.id = student_counselling.counselling_id WHERE email = "'.$email.'" AND registrations.status != "Cancel"  AND counselling.status != "inactive"');
 
         if($result->getNumRows() > 0)
         {

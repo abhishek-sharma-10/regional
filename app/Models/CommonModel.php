@@ -29,4 +29,14 @@ class CommonModel extends Model {
         
         return [];
     }
+
+    function getOverallPercentage($ncet_application_no){
+        $query = "SELECT * from percentile WHERE ncet_application_no= '".$ncet_application_no."'";
+        $result = $this->db->query($query);
+        if($result->getNumRows() > 0){
+			return $result->getResult()[0];
+		}
+        
+        return [];
+    }
 }

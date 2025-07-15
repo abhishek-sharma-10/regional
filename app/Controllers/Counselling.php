@@ -786,35 +786,37 @@ class Counselling extends BaseController
 
                     foreach ($subject_array as $value) {
                         $info = $this->subjectPdf($counsellingId, $value);
-                        foreach ($info as $key => $value) {
-                            $email = \Config\Services::email();
-                            $from = "no-reply@riea.com";
-                            $fromName = "RIE Ajmer";
+                        if(count($info) > 0){
+                            // foreach ($info as $key => $value) {
+                            //     $email = \Config\Services::email();
+                            //     $from = "no-reply@riea.com";
+                            //     $fromName = "RIE Ajmer";
         
-                            $msg="Dear Candidate,<br/><br/>";
+                            //     $msg = "Dear Candidate,<br/><br/>";
         
-                            $msg .= '<html lang=en><meta charset=UTF-8><title>ITEP Admission 2025</title><style>body{text-align:center;padding:40px}.content{text-align:left;display:inline-block;max-width:800px;text-align:justify;border:2px solid #000;padding:10px 20px}h2{text-align:center;text-decoration:underline}ul{margin-top:0}</style><div class=content><ol><li>On the basis of your application, you have been provisionally selected for admission to the above programme in this Institute for the academic session 2025-26 (' . $value["subject"] . '). Please log in at <a href=www.riea.in>www.riea.in</a> with your login ID & Password to access all details including fee deposition.<li>In order to confirm your provisional admission you have to <strong>deposit Institute fees on or before 13.07.2025 by 11:59 pm</strong> as given below:-<ul style=list-style-type:disc><li>GENERAL/ OBC/ EWS students: Rs. 7,450/- (without Hostel)<li>SC/ST/PH students: Rs. 4,950/- (without Hostel)<li>GENERAL/ OBC/ EWS students: Rs. 29,650/- (with Hostel)<li>SC/ST/PH students: Rs. 27,150/- (with Hostel)</ul><li>You will only be considered for upward movement as per preferences for <strong>"Major"</strong> subjects in further rounds of counselling on deposition of Institute fees.<li>Your provisional admission will be treated as cancelled if-<ol type=a><li>Any of your documents is found to be forged or false.<li>Any misleading statement or suppression of facts is detected in your application at any time during the session.<li>In case there is incomplete/wrong entry in the marks obtained in the qualifying examination filled online by the applicant in the NCET 2025 application form.<li>If the requisite fees is not deposited within the prescribed time.<li>If your conduct in and outside the Institute during the session is found to be unsatisfactory.</ol><li>Following documents are to be produced in original at the time of physical reporting in the Institute on 28.07.2025 at 10:00 am in Room No.126 at RIE, Ajmer.<ol type=i><li>NCET-2025 Online Application Form and NTA - Score Card<li>Secondary Examination Mark Sheet/Secondary Examination Certificate (for Date of Birth).<li>Mark sheet of qualifying examination and other mark sheets, if any.<li>As per rules issued valid category certificate (SC/ST/OBC/EWS if required), OBC certificate must necessarily show that the applicant does not belong to the Creamy Layer<li>Disability Certificate (if required).<li>Transfer Certificate and Character Certificate of last School/College attended.<li>Certificate issued by the authorized Medical Officer as per the format available in your login document section.<li>The candidate has to submit a declaration/commitment signed by himself and the parents/guardian in the format available in your login document section.<li>The candidate will have to submit an undertaking signed by himself and the parent/guardian that if semester wise prescribed attendance is not completed in the Institute, the admission of the candidate in the hostel or the Institute or both can be cancelled.<li>Student and Parents/Guardian have to submit respective undertakings for the declaration of Anti-Ragging as per the format available in your login document section.<li>It will be mandatory to submit the police verification certificate of the student issued by the Police Department to the effect that no case is pending against the student concerned.<li>It is mandatory to submit the Income Certificate of the financial year 2024-25 of the total family (mother and father) which has been issued on or after 01.04.2025. In case the mother is a housewife, an affidavit on a ten rupee stamp has to be submitted by the father stating that my wife is a housewife and is completely dependent on the husband&apos;s income. This affidavit has to be submitted signed by a notary.<li>Five photographs of the student (when attending the Institute).</ol><li>Please pay special attention to the following points-<ol type=i><li>As per the undertaking/commitment prescribed for the students and parents, they are expected to go through the UGC Regulations on Controlling the menace of Ragging 2009 thoroughly available on the website of Regional Institute of Education, Ajmer.<li>After admission in the Institute, it is mandatory for the student to get himself/herself registered on the MoE Anti Ragging Portal and its URID number will be made available to the institute.</ol></ol><p><strong>NOTE - In case of any query the candidates may contact on helpline No. 0145-2643760 and e-mail ID <a href=mailto:helpitepadmission@rieajmer.ac.in>helpitepadmission@rieajmer.ac.in</a>.</strong><p style=text-align:start><a href=https://demo.riea.in/public/Documents-proforma-online-counselling.pdf>Click Here</a> to Download Counselling Form.<p style=text-align:right;margin-top:15px><strong>Academic Section<br>R.I.E., Ajmer</strong></div>';
+                            //     $msg .= '<html lang=en><meta charset=UTF-8><title>ITEP Admission 2025</title><style>body{text-align:center;padding:40px}.content{text-align:left;display:inline-block;max-width:800px;text-align:justify;border:2px solid #000;padding:10px 20px}h2{text-align:center;text-decoration:underline}ul{margin-top:0}</style><div class=content><ol><li>On the basis of your application, you have been provisionally selected for admission to the above programme in this Institute for the academic session 2025-26 (' . $value["subject"] . '). Please log in at <a href=www.riea.in>www.riea.in</a> with your login ID & Password to access all details including fee deposition.<li>In order to confirm your provisional admission you have to <strong>deposit Institute fees on or before 13.07.2025 by 11:59 pm</strong> as given below:-<ul style=list-style-type:disc><li>GENERAL/ OBC/ EWS students: Rs. 7,450/- (without Hostel)<li>SC/ST/PH students: Rs. 4,950/- (without Hostel)<li>GENERAL/ OBC/ EWS students: Rs. 29,650/- (with Hostel)<li>SC/ST/PH students: Rs. 27,150/- (with Hostel)</ul><li>You will only be considered for upward movement as per preferences for <strong>"Major"</strong> subjects in further rounds of counselling on deposition of Institute fees.<li>Your provisional admission will be treated as cancelled if-<ol type=a><li>Any of your documents is found to be forged or false.<li>Any misleading statement or suppression of facts is detected in your application at any time during the session.<li>In case there is incomplete/wrong entry in the marks obtained in the qualifying examination filled online by the applicant in the NCET 2025 application form.<li>If the requisite fees is not deposited within the prescribed time.<li>If your conduct in and outside the Institute during the session is found to be unsatisfactory.</ol><li>Following documents are to be produced in original at the time of physical reporting in the Institute on 28.07.2025 at 10:00 am in Room No.126 at RIE, Ajmer.<ol type=i><li>NCET-2025 Online Application Form and NTA - Score Card<li>Secondary Examination Mark Sheet/Secondary Examination Certificate (for Date of Birth).<li>Mark sheet of qualifying examination and other mark sheets, if any.<li>As per rules issued valid category certificate (SC/ST/OBC/EWS if required), OBC certificate must necessarily show that the applicant does not belong to the Creamy Layer<li>Disability Certificate (if required).<li>Transfer Certificate and Character Certificate of last School/College attended.<li>Certificate issued by the authorized Medical Officer as per the format available in your login document section.<li>The candidate has to submit a declaration/commitment signed by himself and the parents/guardian in the format available in your login document section.<li>The candidate will have to submit an undertaking signed by himself and the parent/guardian that if semester wise prescribed attendance is not completed in the Institute, the admission of the candidate in the hostel or the Institute or both can be cancelled.<li>Student and Parents/Guardian have to submit respective undertakings for the declaration of Anti-Ragging as per the format available in your login document section.<li>It will be mandatory to submit the police verification certificate of the student issued by the Police Department to the effect that no case is pending against the student concerned.<li>It is mandatory to submit the Income Certificate of the financial year 2024-25 of the total family (mother and father) which has been issued on or after 01.04.2025. In case the mother is a housewife, an affidavit on a ten rupee stamp has to be submitted by the father stating that my wife is a housewife and is completely dependent on the husband&apos;s income. This affidavit has to be submitted signed by a notary.<li>Five photographs of the student (when attending the Institute).</ol><li>Please pay special attention to the following points-<ol type=i><li>As per the undertaking/commitment prescribed for the students and parents, they are expected to go through the UGC Regulations on Controlling the menace of Ragging 2009 thoroughly available on the website of Regional Institute of Education, Ajmer.<li>After admission in the Institute, it is mandatory for the student to get himself/herself registered on the MoE Anti Ragging Portal and its URID number will be made available to the institute.</ol></ol><p><strong>NOTE - In case of any query the candidates may contact on helpline No. 0145-2643760 and e-mail ID <a href=mailto:helpitepadmission@rieajmer.ac.in>helpitepadmission@rieajmer.ac.in</a>.</strong><p style=text-align:start><a href=https://demo.riea.in/public/Documents-proforma-online-counselling.pdf>Click Here</a> to Download Counselling Form.<p style=text-align:right;margin-top:15px><strong>Academic Section<br>R.I.E., Ajmer</strong></div>';
         
-                            $subject = "Admission in 4-Year ".$value['course']." (".$value["subject"].") for the session 2025-26 regarding";
+                            //     $subject = "Admission in 4-Year " . $value['course'] . " (" . $value["subject"] . ") for the session 2025-26 regarding";
         
-                            $email->setFrom($from,$fromName);
-                            $email->setTo($value['email']);
-                            $email->setBCC('abhishek.sharma@ibirdsservices.com');
-                            // $email->setTo("abhishek.sharma@ibirdsservices.com");
+                            //     $email->setFrom($from, $fromName);
+                            // $email->setTo($value['email']);
+                            // $email->setBCC('abhishek.sharma@ibirdsservices.com');
+                            //     // $email->setTo("abhishek.sharma@ibirdsservices.com");
         
-                            $email->setSubject($subject);
-                            $email->setMessage($msg);
-                            $email->attach('https://demo.riea.in/public/subject_wise_lists/'.str_replace(" ","_",$value['subject']).'.pdf');
+                            //     $email->setSubject($subject);
+                            //     $email->setMessage($msg);
+                            //     $email->attach('https://demo.riea.in/public/subject_wise_lists/' . str_replace(" ", "_", $value['subject']) . '_' . $counsellingId .'.pdf');
         
-                            $mail = $email->send();
+                            //     // $mail = $email->send();
         
-                            if( $mail == true ) {
-                                // echo json_encode(['message' => 'Counselling Mail Sent Successfully.', 'success' => true]);
-                            }else {
-                                // print_r($email->printDebugger(['headers']));exit;
-                                // echo json_encode(['message' => 'Something went wrong', 'success' => false]);
-                            }
-                            $email->clear(true);
+                            //     // if ($mail == true) {
+                            //     //     echo json_encode(['message' => 'Counselling Mail Sent Successfully.', 'success' => true]);
+                            //     // } else {
+                            //     //     // print_r($email->printDebugger(['headers']));exit;
+                            //     //     echo json_encode(['message' => 'Something went wrong', 'success' => false]);
+                            //     // }
+                            //     $email->clear(true);
+                            // }
                         }
                     }
                     $data['success_message'] = "Counselling session created successfully";
@@ -993,33 +995,40 @@ class Counselling extends BaseController
     public function subjectWiseStudentList(){
         try {
             $studentCounsellingModel = new StudentCounsellingModel();
+            $counsellingModel = new CounsellingModel();
 
             $data['pageTitle'] = "Subject Wise Student List";
             $data['navbar'] = $this->navbar_configuration->get_navbar(session()->get('role'));
 
+            $data['counselling_list'] = $counsellingModel->fetchAll();
             $input = $this->request->getVar();
             $data['subject']= '';
+            $data['counsellingId'] = '';
             $subject = '';
+            $counsellingId = '';
 
             if(count($input)){
                 $subject = $input['subject'];
+                $counsellingId = $input['counsellingId'];
             }
 
             if(isset($_SESSION['subject']) && $_SESSION['subject'] != ''){
                 $subject = session()->get('subject');
             }
 
-            if($subject != ''){
+            if ($subject != '' && $counsellingId != '') {
                 // $subject = $input['subject'];
                 $data['subject'] = $subject;
-                $result = $studentCounsellingModel->getSubjectWiseStudentList($subject);
+                $data['counsellingId'] = $counsellingId;
+                $result = $studentCounsellingModel->getSubjectWiseStudentList($counsellingId, $subject);
                 
                 foreach ($result as $value) {
                     if($value['student_counselling_category'] ==  'obc-(ncl)'){
                         $data['obc_ncl'][] = $value;
                     }else{
-                        $data[$value['student_counselling_category']][] = $value;
+                        $data[strtolower($value['student_counselling_category'])][] = $value;
                     }
+                    $data['info'][] = ['subject' => $value['student_counselling_subject'], 'email' => $value['email'], 'course' => $value['course']];
                 }
             }
             return view('admin/template/header', $data) . view('admin/template/navbar', $data) . view("admin/subject/subject_wise_student_list", $data) . view('admin/template/footer');
@@ -1037,6 +1046,7 @@ class Counselling extends BaseController
         try{
         $studentCounsellingModel = new StudentCounsellingModel();
         $itepMatrixModel = new ITEPSeatMatrixModel();
+            $commonModel = new CommonModel();
 
             $result = $studentCounsellingModel->getSubjectWiseStudentList($counsellingId, $subject);
         $matrixResult = $itepMatrixModel->fetchBySubject($subject);
@@ -1045,7 +1055,11 @@ class Counselling extends BaseController
 
         // var_dump($result);exit;
         $data = [];
+            if(count($result) > 0){
         foreach ($result as $value) {
+                    $percentileRecord = $commonModel->getOverallPercentage($value['ncet_application_no']);
+                    
+                    $value['overall_percentage'] = $percentileRecord->overall_percentage;
             if($value['student_counselling_category'] ==  'obc-(ncl)'){
                 $data['obc_ncl'][] = $value;
             }else{
@@ -1075,7 +1089,7 @@ class Counselling extends BaseController
         <body>
             <div class="title">REGIONAL INSTITUTE OF EDUCATION, AJMER</div>
             <div class="subtitle">Class : 4-Year ITEP '.$matrixResult['course'].' Session : 2025-26</div>
-                <div class="list-title">Provisional Selected Candidate List in 2<sup>nd</sup> round of Counselling - (' . $subject . ')</div>
+                <div class="list-title">Provisional Selected Candidate List in 3<sup>rd</sup> round of Counselling - (' . $subject . ')</div>
             <div class="categories">
                     <span>(General - <strong>' . $matrixResult['general_available'] . '</strong></span> |
                     <span>OBC-NCL - <strong>' . $matrixResult['obc_ncl_available'] . '</strong></span> |
@@ -1120,7 +1134,7 @@ class Counselling extends BaseController
             }
             $html .= '</tbody></table>';
 
-            if($subject == 'Urdu'){
+                if($subject == 'Urdu' && $key > 1){
                 $html .= '<div style="text-align:left;"><p style="font-weight: bold;">
                 <span style="color: red;font-size: 14px;">*</span> Admitted against vacant SC / OBC-(NCL) quota seat.</p>
                 </div>';
@@ -1256,7 +1270,7 @@ class Counselling extends BaseController
             if(isset($data['ews']) && count($data['ews']) > 0){ foreach ($data['ews'] as $key => $value) {
                 $html .= '<tr>
                 <td>'.$value["ncet_application_no"].'</td>
-                    <td>' . $value["name"] . ($subject == 'Urdu' ? ' <span style="color: red;font-size: 14px;">*</span>' : '') . '</td>
+                        <td>' . $value["name"] . (($subject == 'Urdu' && $key > 0) ? ' <span style="color: red;font-size: 14px;">*</span>' : '') . '</td>
                 <td>'.$value["category"] . ($value["physical_disable"]== 'Yes' ? ' - PwD' : '') .'</td>
                 <td>'.$value["student_counselling_subject"].'</td>
                 <td>'.$value["ncet_average_percentile"].'</td>';
@@ -1274,7 +1288,7 @@ class Counselling extends BaseController
             }
             $html .= '</tbody></table>';
             
-            if($subject == 'Urdu'){
+                if($subject == 'Urdu' && $key > 0){
                 $html .= '<div style="text-align:left;"><p style="font-weight: bold;">
                 <span style="color: red;font-size: 14px;">*</span> Admitted against vacant SC / OBC-(NCL) quota seat.</p>
                 </div>';
@@ -1298,6 +1312,7 @@ class Counselling extends BaseController
         $output = $dompdf->output();
         file_put_contents(FCPATH.'public/subject_wise_lists/'.str_replace(" ","_",$subject) . '_' . $counsellingId .'.pdf', $output);
         // var_dump($info);
+            }
         return $info;
         }catch(Exception $e){
             var_dump($e->getTrace());
@@ -1321,7 +1336,7 @@ class Counselling extends BaseController
     
             // $info = [];
     
-            var_dump($course,$c_name,$result);//exit;
+            // var_dump($course,$c_name,$result);//exit;
             $data = [];
             foreach ($result as $value) {
                 if($value['student_counselling_category'] ==  'obc-(ncl)'){
@@ -2909,5 +2924,54 @@ class Counselling extends BaseController
             }
         }
         return -1; // subject not found
+    }
+    public function sendEmailToCounsellingStudentsBySubject()
+    {
+        try {
+            $input = $this->request->getVar();
+            
+            $counsellingId = $input['counsellingId'];
+            $subject = $input['subject'];
+
+            $studentCounsellingModel = new StudentCounsellingModel();
+            $itepMatrixModel = new ITEPSeatMatrixModel();
+
+            $result = $studentCounsellingModel->getSubjectWiseStudentList($counsellingId, $subject);
+
+            echo json_encode(count($result));
+
+            foreach ($result as $key => $value) {
+                $email = \Config\Services::email();
+                $from = "no-reply@riea.com";
+                $fromName = "RIE Ajmer";
+
+                $msg = "Dear Candidate,<br/><br/>";
+
+                $msg .= '<html lang=en><meta charset=UTF-8><title>ITEP Admission 2025</title><style>body{text-align:center;padding:40px}.content{text-align:left;display:inline-block;max-width:800px;text-align:justify;border:2px solid #000;padding:10px 20px}h2{text-align:center;text-decoration:underline}ul{margin-top:0}</style><div class=content><ol><li>On the basis of your application, you have been provisionally selected for admission to the above programme in this Institute for the academic session 2025-26 (' . $value["student_counselling_subject"] . '). Please log in at <a href=www.riea.in>www.riea.in</a> with your login ID & Password to access all details including fee deposition.<li>In order to confirm your provisional admission you have to <strong>deposit Institute fees on or before 13.07.2025 by 11:59 pm</strong> as given below:-<ul style=list-style-type:disc><li>GENERAL/ OBC/ EWS students: Rs. 7,450/- (without Hostel)<li>SC/ST/PH students: Rs. 4,950/- (without Hostel)<li>GENERAL/ OBC/ EWS students: Rs. 29,650/- (with Hostel)<li>SC/ST/PH students: Rs. 27,150/- (with Hostel)</ul><li>You will only be considered for upward movement as per preferences for <strong>"Major"</strong> subjects in further rounds of counselling on deposition of Institute fees.<li>Your provisional admission will be treated as cancelled if-<ol type=a><li>Any of your documents is found to be forged or false.<li>Any misleading statement or suppression of facts is detected in your application at any time during the session.<li>In case there is incomplete/wrong entry in the marks obtained in the qualifying examination filled online by the applicant in the NCET 2025 application form.<li>If the requisite fees is not deposited within the prescribed time.<li>If your conduct in and outside the Institute during the session is found to be unsatisfactory.</ol><li>Following documents are to be produced in original at the time of physical reporting in the Institute on 28.07.2025 at 10:00 am in Room No.126 at RIE, Ajmer.<ol type=i><li>NCET-2025 Online Application Form and NTA - Score Card<li>Secondary Examination Mark Sheet/Secondary Examination Certificate (for Date of Birth).<li>Mark sheet of qualifying examination and other mark sheets, if any.<li>As per rules issued valid category certificate (SC/ST/OBC/EWS if required), OBC certificate must necessarily show that the applicant does not belong to the Creamy Layer<li>Disability Certificate (if required).<li>Transfer Certificate and Character Certificate of last School/College attended.<li>Certificate issued by the authorized Medical Officer as per the format available in your login document section.<li>The candidate has to submit a declaration/commitment signed by himself and the parents/guardian in the format available in your login document section.<li>The candidate will have to submit an undertaking signed by himself and the parent/guardian that if semester wise prescribed attendance is not completed in the Institute, the admission of the candidate in the hostel or the Institute or both can be cancelled.<li>Student and Parents/Guardian have to submit respective undertakings for the declaration of Anti-Ragging as per the format available in your login document section.<li>It will be mandatory to submit the police verification certificate of the student issued by the Police Department to the effect that no case is pending against the student concerned.<li>It is mandatory to submit the Income Certificate of the financial year 2024-25 of the total family (mother and father) which has been issued on or after 01.04.2025. In case the mother is a housewife, an affidavit on a ten rupee stamp has to be submitted by the father stating that my wife is a housewife and is completely dependent on the husband&apos;s income. This affidavit has to be submitted signed by a notary.<li>Five photographs of the student (when attending the Institute).</ol><li>Please pay special attention to the following points-<ol type=i><li>As per the undertaking/commitment prescribed for the students and parents, they are expected to go through the UGC Regulations on Controlling the menace of Ragging 2009 thoroughly available on the website of Regional Institute of Education, Ajmer.<li>After admission in the Institute, it is mandatory for the student to get himself/herself registered on the MoE Anti Ragging Portal and its URID number will be made available to the institute.</ol></ol><p><strong>NOTE - In case of any query the candidates may contact on helpline No. 0145-2643760 and e-mail ID <a href=mailto:helpitepadmission@rieajmer.ac.in>helpitepadmission@rieajmer.ac.in</a>.</strong><p style=text-align:start><a href=https://demo.riea.in/public/Documents-proforma-online-counselling.pdf>Click Here</a> to Download Counselling Form.<p style=text-align:right;margin-top:15px><strong>Academic Section<br>R.I.E., Ajmer</strong></div>';
+
+                $subject = "Admission in 4-Year " . $value['course'] . " (" . $value["student_counselling_subject"] . ") for the session 2025-26 regarding";
+
+                $email->setFrom($from, $fromName);
+                // $email->setTo($value['email']);
+                // $email->setBCC('abhishek.sharma@ibirdsservices.com');
+                $email->setTo("abhishek.sharma@ibirdsservices.com");
+
+                $email->setSubject($subject);
+                $email->setMessage($msg);
+                $email->attach('https://demo.riea.in/public/subject_wise_lists/' . str_replace(" ", "_", $value['student_counselling_subject']) . '_' . $counsellingId .'.pdf');
+
+                // $mail = $email->send();
+
+                // if ($mail == true) {
+                //     echo json_encode(['message' => 'Counselling Mail Sent Successfully.', 'success' => true]);
+                // } else {
+                //     // print_r($email->printDebugger(['headers']));exit;
+                //     echo json_encode(['message' => 'Something went wrong', 'success' => false]);
+                // }
+                $email->clear(true);
+            }
+        } catch (Exception $e) {
+            echo json_encode($e->getMessage());
+        }
     }
 }

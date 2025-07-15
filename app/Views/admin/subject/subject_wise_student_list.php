@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Select Subject</h5>
+                <h5>Filter</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -17,9 +17,26 @@
                 </div>
             </div>
             <div class="ibox-content">
-                <form method="POST" class="form-horizontal" id="subject">
+                <form method="POST" class="form-horizontal" id="filter">
                     <div class="row" style="display: flex; align-items: flex-end;">
-                        <div class="col-6 col-sm-3">
+                        <div class="col-sm-3">
+                            <label class="form-label">Counelling:</label>
+                            <!-- <input type="date" class="form-control" name="start_date"> -->
+                            <select name="counsellingId" id="counsellingId" class="form-control">
+                                <option value="">Select Counselling</option>
+                                <?php
+                                    if(count($counselling_list) > 0){
+                                        foreach ($counselling_list as $key => $value) {
+                                ?>
+                                            <option value="<?php echo $value->id;?>" <?php echo $counsellingId == $value->id ? 'selected' : '';?>><?php echo $value->name;?></option>
+                                <?php
+                                        }
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    
+                        <div class="col-sm-3">
                             <label class="form-label">Subject:</label>
                             <!-- <input type="date" class="form-control" name="start_date"> -->
                             <select name="subject" id="subject" class="form-control">
@@ -36,8 +53,11 @@
                                 <option value="Urdu" <?php echo $subject == 'Urdu' ? 'selected' : '';?>>Urdu</option>
                             </select>
                         </div>
-                        <div class="col-6 col-sm-2">
+                        <div class="col-sm-1">
                             <button class="btn btn-primary m-n" id="show-list" type="submit">Show</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-success m-n" id="send-mail" type="button">Send Mail</button>
                         </div>
                     </div>
                 </form>
@@ -386,5 +406,46 @@
         $(document).ready(function() {
             $("#preloadercustom").hide();
             $(".myspin").hide();
+
+
+            $("#send-mail").click(function(e) {
+
+                let counsellingId = $('#counsellingId').find(":selected").val();
+                let subject = $('#subject').find(":selected").val();
+                
+                let data = {
+                    counsellingId: counsellingId,
+                    subject: subject
+                }
+
+                console.log(data);
+                // e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "<?php echo base_url('admin/subject/send-subject-mail') ?>",
+                    data: data,
+                    dataType: 'json',
+                    beforeSend: function() {
+                        $("#send-mail").prop('disabled', true);
+                        $("#preloadercustom").show();
+                        $(".myspin").show();
+                    }, 
+                    success: function(result) {
+                        $("#send-mail").prop('disabled', false);
+                        console.log(result);
+                        if($.isEmptyObject(result.error_message)) {
+                            // $(".result").html(result.success_message);
+                            toastr.success(result.success_message);
+                            // window.location.reload();
+                        } else {
+                            // $(".sub-result").html(result.error_message);
+                            toastr.warning(result.error_message);
+                        }
+                        $("#form-upload")[0].reset();
+                        $("#preloadercustom").hide();
+                        $(".myspin").hide();
+                    }
+                });
+            });
         });
     </script>

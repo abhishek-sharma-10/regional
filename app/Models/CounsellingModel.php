@@ -38,7 +38,7 @@ class CounsellingModel extends Model {
         if($condition != null){
             $query .= $condition;
         }
-
+        
         $query = $this->db->query($query);
 
         if($query->getNumRows() > 0){

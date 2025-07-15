@@ -61,7 +61,23 @@ class StudentCounsellingModel extends Model {
     public function getAcceptedStudentCounsellingList(){
         $data = [];
         
-        $query1 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.bsc_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.Sc. B.Ed.' AND student_counselling.status='Accept' ORDER BY registrations.ncet_application_no DESC";
+        $lastCounsellingQuery = "SELECT * FROM counselling WHERE status='inactive' ORDER BY id DESC LIMIT 1";
+        $lastCounsellingResult = $this->db->query($lastCounsellingQuery);
+
+        // var_dump($lastCounsellingResult->getResult()[0]);exit;
+        $lastCounsellingId = '';
+
+        if($lastCounsellingResult->getNumRows() > 0){
+            $lastCounsellingId = $lastCounsellingResult->getResult()[0]->id;
+        }        
+
+        $query1 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.bsc_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.Sc. B.Ed.' AND student_counselling.status='Accept'";
+
+        if($lastCounsellingId != ''){
+            $query1 .= " AND student_counselling.counselling_id=$lastCounsellingId";
+        }
+
+        $query1 .= " ORDER BY registrations.ncet_application_no DESC";
 
         $result1 = $this->db->query($query1);
         if($result1->getNumRows() > 0){
@@ -71,7 +87,13 @@ class StudentCounsellingModel extends Model {
             }
         }
         
-        $query2 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.ba_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.A. B.Ed.' AND student_counselling.status='Accept' ORDER BY registrations.ncet_application_no DESC";
+        $query2 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.ba_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.A. B.Ed.' AND student_counselling.status='Accept'";
+
+        if($lastCounsellingId != ''){
+            $query2 .= " AND student_counselling.counselling_id=$lastCounsellingId";
+        }
+
+        $query2 .= " ORDER BY registrations.ncet_application_no DESC";
 
         $result2 = $this->db->query($query2);
         if($result2->getNumRows() > 0){
@@ -81,7 +103,13 @@ class StudentCounsellingModel extends Model {
             }
         }
         
-        $query3 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.course = 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.' AND student_counselling.status='Accept' ORDER BY registrations.ncet_application_no DESC";
+        $query3 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.course = 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.' AND student_counselling.status='Accept'";
+
+        if($lastCounsellingId != ''){
+            $query3 .= " AND student_counselling.counselling_id=$lastCounsellingId";
+        }
+
+        $query3 .= " ORDER BY registrations.ncet_application_no DESC";
 
         $result3 = $this->db->query($query3);
         if($result3->getNumRows() > 0){
