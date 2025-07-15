@@ -1061,9 +1061,9 @@ class Counselling extends BaseController
             $data = [];
             if (count($result) > 0) {
                 foreach ($result as $value) {
-                    $percentileRecord = $commonModel->getOverallPercentage($value['ncet_application_no']);
+                    // $percentileRecord = $commonModel->getOverallPercentage($value['ncet_application_no']);
 
-                    $value['overall_percentage'] = $percentileRecord->overall_percentage;
+                    // $value['overall_percentage'] = $percentileRecord->overall_percentage;
                     if ($value['student_counselling_category'] ==  'obc-(ncl)') {
                         $data['obc_ncl'][] = $value;
                     } else {
@@ -2956,7 +2956,7 @@ class Counselling extends BaseController
 
             $result = $studentCounsellingModel->getSubjectWiseStudentList($counsellingId, $subject);
 
-            echo json_encode(count($result));
+            // echo json_encode(count($result));
 
             foreach ($result as $key => $value) {
                 $email = \Config\Services::email();
@@ -3086,14 +3086,14 @@ class Counselling extends BaseController
                 $email->setMessage($msg);
                 $email->attach('https://demo.riea.in/public/subject_wise_lists/' . str_replace(" ", "_", $value['student_counselling_subject']) . '_' . $counsellingId . '.pdf');
 
-                // $mail = $email->send();
+                $mail = $email->send();
 
-                // if ($mail == true) {
-                //     echo json_encode(['message' => 'Counselling Mail Sent Successfully.', 'success' => true]);
-                // } else {
-                //     // print_r($email->printDebugger(['headers']));exit;
-                //     echo json_encode(['message' => 'Something went wrong', 'success' => false]);
-                // }
+                if ($mail == true) {
+                    echo json_encode(['message' => 'Counselling Mail Sent Successfully.', 'success' => true]);
+                } else {
+                    // print_r($email->printDebugger(['headers']));exit;
+                    echo json_encode(['message' => 'Something went wrong', 'success' => false]);
+                }
                 $email->clear(true);
             }
         } catch (Exception $e) {
