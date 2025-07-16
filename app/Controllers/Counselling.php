@@ -786,7 +786,7 @@ class Counselling extends BaseController
 
                     foreach ($subject_array as $value) {
                         $info = $this->subjectPdf($counsellingId, $value);
-                        if (count($info) > 0) {
+                        // if (count($info) > 0) {
                             // foreach ($info as $key => $value) {
                             //     $email = \Config\Services::email();
                             //     $from = "no-reply@riea.com";
@@ -817,7 +817,7 @@ class Counselling extends BaseController
                             //     // }
                             //     $email->clear(true);
                             // }
-                        }
+                        // }
                     }
                     $data['success_message'] = "Counselling session created successfully";
                 } else {
@@ -1586,6 +1586,7 @@ class Counselling extends BaseController
 
         return redirect()->to('admin/counselling/student-list/' . $id);
     }
+
     public function calculate()
     {
         $itepMatrixModel = new ITEPSeatMatrixModel();

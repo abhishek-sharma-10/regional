@@ -168,8 +168,8 @@
                         </thead>
                         <tbody>
                             <?php
-                                if(isset($general) && !empty($general) && count($general) > 0){
-                                foreach ($general as $key => $value) {
+                                if(isset($obc_ncl) && !empty($obc_ncl) && count($obc_ncl) > 0){
+                                foreach ($obc_ncl as $key => $value) {
                             ?>
                                 <tr>
                                     <td><?=($key+1);?></td>
@@ -191,7 +191,7 @@
                             <?php
                                 }}
                                 else{
-                                    echo "<td colspan='15' style='text-align:center;'>No Record For General Category</td>";
+                                    echo "<td colspan='15' style='text-align:center;'>No Record For OBC-(NCL) Category</td>";
                                 }
                             ?>
                         </tbody>
@@ -235,8 +235,8 @@
                         </thead>
                         <tbody>
                             <?php
-                                if(isset($general) && !empty($general) && count($general) > 0){
-                                foreach ($general as $key => $value) {
+                                if(isset($sc) && !empty($sc) && count($sc) > 0){
+                                foreach ($sc as $key => $value) {
                             ?>
                                 <tr>
                                     <td><?=($key+1);?></td>
@@ -258,7 +258,7 @@
                             <?php
                                 }}
                                 else{
-                                    echo "<td colspan='15' style='text-align:center;'>No Record For General Category</td>";
+                                    echo "<td colspan='15' style='text-align:center;'>No Record For SC Category</td>";
                                 }
                             ?>
                         </tbody>
@@ -302,8 +302,8 @@
                         </thead>
                         <tbody>
                             <?php
-                                if(isset($general) && !empty($general) && count($general) > 0){
-                                foreach ($general as $key => $value) {
+                                if(isset($st) && !empty($st) && count($st) > 0){
+                                foreach ($st as $key => $value) {
                             ?>
                                 <tr>
                                     <td><?=($key+1);?></td>
@@ -325,7 +325,7 @@
                             <?php
                                 }}
                                 else{
-                                    echo "<td colspan='15' style='text-align:center;'>No Record For General Category</td>";
+                                    echo "<td colspan='15' style='text-align:center;'>No Record For ST Category</td>";
                                 }
                             ?>
                         </tbody>
@@ -369,8 +369,8 @@
                         </thead>
                         <tbody>
                             <?php
-                                if(isset($general) && !empty($general) && count($general) > 0){
-                                foreach ($general as $key => $value) {
+                                if(isset($ews) && !empty($ews) && count($ews) > 0){
+                                foreach ($ews as $key => $value) {
                             ?>
                                 <tr>
                                     <td><?=($key+1);?></td>
@@ -392,7 +392,7 @@
                             <?php
                                 }}
                                 else{
-                                    echo "<td colspan='15' style='text-align:center;'>No Record For General Category</td>";
+                                    echo "<td colspan='15' style='text-align:center;'>No Record For EWS Category</td>";
                                 }
                             ?>
                         </tbody>
