@@ -2923,7 +2923,7 @@ class Counselling extends BaseController
                 }
             }
     
-            var_dump($selected_student);
+            // var_dump($selected_student);
             var_dump(($selected_student_id));
             // var_dump($bsc_pwd_counselling, $ba_pwd_counselling);
             // var_dump($selected_bsc_physical,   $selected_ba_physical,   $selected_bsc_pwd_general,   $selected_ba_pwd_general);
@@ -2941,6 +2941,7 @@ class Counselling extends BaseController
         }
         return -1; // subject not found
     }
+
     public function sendEmailToCounsellingStudentsBySubject()
     {
         try {
