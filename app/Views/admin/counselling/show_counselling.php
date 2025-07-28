@@ -1,5 +1,5 @@
 <style>
-    .dataTables_empty{
+    .dataTables_empty {
         text-align: center;
     }
 </style>
@@ -74,18 +74,22 @@
             var table = $('.counselling').DataTable({
                 responsive: true,
                 data: counselling,
-                columns: [
-                    { data: "id" },
-                    { data: "start_date" },
-                    { data: "end_date" },
+                columns: [{
+                        data: "id"
+                    },
+                    {
+                        data: "start_date"
+                    },
+                    {
+                        data: "end_date"
+                    },
                     {
                         data: null,
                         render: function(data, type, row) {
-                            return "<a href='<?php echo base_url('/admin/counselling/student-list/');?>"+row.id+"'><button class='btn btn-success btn-sm'>Student List</button></a>";
+                            return "<a href='<?php echo base_url('/admin/counselling/student-list/'); ?>" + row.id + "'><button class='btn btn-success btn-sm'>Student List</button></a>";
                         }
                     }
                 ]
             });
         });
-
     </script>

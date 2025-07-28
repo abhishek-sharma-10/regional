@@ -69,12 +69,13 @@ class CounsellingModel extends Model {
     }
 
     function getCounsellingStudentDetail($registrationId){
-        $query = "SELECT registrations.*, student_counselling.id AS student_counselling_id, student_counselling.counselling_id, student_counselling.academic_receipt_no, student_counselling.payment_date, student_counselling.academic_payment_receipt, student_counselling.category AS student_counselling_category, student_counselling.subject AS student_counselling_subject, student_counselling.physical_disable AS student_counselling_physical_disable FROM registrations JOIN student_counselling ON registrations.id = student_counselling.registration_id WHERE student_counselling.registration_id=$registrationId";
+        $query = "SELECT registrations.*, student_counselling.id AS student_counselling_id, student_counselling.counselling_id, student_counselling.academic_receipt_no, student_counselling.payment_date, student_counselling.academic_payment_receipt, student_counselling.category AS student_counselling_category, student_counselling.subject AS student_counselling_subject, student_counselling.physical_disable AS student_counselling_physical_disable FROM registrations JOIN student_counselling ON registrations.id = student_counselling.registration_id WHERE student_counselling.registration_id=$registrationId ORDER BY student_counselling_id";
 
         $query = $this->db->query($query);
 
         if($query->getNumRows() > 0){
-            return $query->getResult()[0];
+            // return $query->getResult()[0];
+            return $query->getLastRow();
         }
 
         return [];

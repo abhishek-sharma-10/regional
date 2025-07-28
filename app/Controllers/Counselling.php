@@ -150,7 +150,9 @@ class Counselling extends BaseController
                                                 'registration_id' => $value->id,
                                                 'category' => 'general',
                                                 'subject' => $preference,
-                                                'physical_disable' => 'No'
+                                                'physical_disable' => 'No',
+                                                'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                                'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                             ];
                                             break; // Stop at first valid upward allotment
                                         }
@@ -162,7 +164,9 @@ class Counselling extends BaseController
                                                 'registration_id' => $value->id,
                                                 'category' => $categoryKey,
                                                 'subject' => $preference,
-                                                'physical_disable' => 'No'
+                                                'physical_disable' => 'No',
+                                                'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                                'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                             ];
                                             break;
                                         }
@@ -170,28 +174,28 @@ class Counselling extends BaseController
                                 } else {
                                     if (!empty($value->bsc_preference_1) && ($selected_student[strtolower($value->bsc_preference_1)]['general']) < $matrix[strtolower($value->bsc_preference_1)]['general']) {
                                         $selected_student[strtolower($value->bsc_preference_1)]['general'] = $selected_student[strtolower($value->bsc_preference_1)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_1, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_1, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_1) && ($selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)]) < $matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_2) && ($selected_student[strtolower($value->bsc_preference_2)]['general']) < $matrix[strtolower($value->bsc_preference_2)]['general']) {
                                         $selected_student[strtolower($value->bsc_preference_2)]['general'] = $selected_student[strtolower($value->bsc_preference_2)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_2, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_2, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_2) && ($selected_student[strtolower($value->bsc_preference_2)][strtolower($value->category)]) < $matrix[strtolower($value->bsc_preference_2)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->bsc_preference_2)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_2)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_2, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_2, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_3) && ($selected_student[strtolower($value->bsc_preference_3)]['general']) < $matrix[strtolower($value->bsc_preference_3)]['general']) {
                                         $selected_student[strtolower($value->bsc_preference_3)]['general'] = $selected_student[strtolower($value->bsc_preference_3)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_3, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_3, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_3) && ($selected_student[strtolower($value->bsc_preference_3)][strtolower($value->category)]) < $matrix[strtolower($value->bsc_preference_3)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->bsc_preference_3)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_3)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_3, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_3, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_4) && ($selected_student[strtolower($value->bsc_preference_4)]['general']) < $matrix[strtolower($value->bsc_preference_4)]['general']) {
                                         $selected_student[strtolower($value->bsc_preference_4)]['general'] = $selected_student[strtolower($value->bsc_preference_4)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_4, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_4, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_4) && ($selected_student[strtolower($value->bsc_preference_4)][strtolower($value->category)]) < $matrix[strtolower($value->bsc_preference_4)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->bsc_preference_4)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_4)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_4, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_4, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     }
                                 }
                             }
@@ -220,7 +224,9 @@ class Counselling extends BaseController
                                                 'registration_id' => $value->id,
                                                 'category' => 'general',
                                                 'subject' => $preference,
-                                                'physical_disable' => 'No'
+                                                'physical_disable' => 'No',
+                                                'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                                'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                             ];
                                             break; // Stop at first valid upward allotment
                                         }
@@ -232,7 +238,9 @@ class Counselling extends BaseController
                                                 'registration_id' => $value->id,
                                                 'category' => $categoryKey,
                                                 'subject' => $preference,
-                                                'physical_disable' => 'No'
+                                                'physical_disable' => 'No',
+                                                'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                                'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                             ];
                                             break;
                                         }
@@ -240,28 +248,28 @@ class Counselling extends BaseController
                                 } else {
                                     if (!empty($value->ba_preference_1) && ($selected_student[strtolower($value->ba_preference_1)]['general']) < $matrix[strtolower($value->ba_preference_1)]['general']) {
                                         $selected_student[strtolower($value->ba_preference_1)]['general'] = $selected_student[strtolower($value->ba_preference_1)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_1, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_1, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_1) && ($selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_1)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_2) && ($selected_student[strtolower($value->ba_preference_2)]['general']) < $matrix[strtolower($value->ba_preference_2)]['general']) {
                                         $selected_student[strtolower($value->ba_preference_2)]['general'] = $selected_student[strtolower($value->ba_preference_2)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_2, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_2, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_2) && ($selected_student[strtolower($value->ba_preference_2)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_2)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->ba_preference_2)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_2)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_2, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_2, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_3) && ($selected_student[strtolower($value->ba_preference_3)]['general']) < $matrix[strtolower($value->ba_preference_3)]['general']) {
                                         $selected_student[strtolower($value->ba_preference_3)]['general'] = $selected_student[strtolower($value->ba_preference_3)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_3, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_3, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_3) && ($selected_student[strtolower($value->ba_preference_3)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_3)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->ba_preference_3)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_3)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_3, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_3, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_4) && ($selected_student[strtolower($value->ba_preference_4)]['general']) < $matrix[strtolower($value->ba_preference_4)]['general']) {
                                         $selected_student[strtolower($value->ba_preference_4)]['general'] = $selected_student[strtolower($value->ba_preference_4)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_4, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_4, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_4) && ($selected_student[strtolower($value->ba_preference_4)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_4)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->ba_preference_4)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_4)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_4, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_4, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     }
                                 }
                             }
@@ -298,7 +306,9 @@ class Counselling extends BaseController
                                                 'registration_id' => $value->id,
                                                 'category' => 'general',
                                                 'subject' => $preference,
-                                                'physical_disable' => 'No'
+                                                'physical_disable' => 'No',
+                                                'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                                'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                             ];
                                             break; // Stop at first valid upward allotment
                                         }
@@ -311,7 +321,9 @@ class Counselling extends BaseController
                                                 'registration_id' => $value->id,
                                                 'category' => $categoryKey,
                                                 'subject' => $preference,
-                                                'physical_disable' => 'No'
+                                                'physical_disable' => 'No',
+                                                'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                                'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                             ];
                                             break;
                                         }
@@ -332,7 +344,9 @@ class Counselling extends BaseController
                                                 'registration_id' => $value->id,
                                                 'category' => 'general',
                                                 'subject' => $preference,
-                                                'physical_disable' => 'No'
+                                                'physical_disable' => 'No',
+                                                'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                                'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                             ];
                                             break; // Stop at first valid upward allotment
                                         }
@@ -345,7 +359,9 @@ class Counselling extends BaseController
                                                 'registration_id' => $value->id,
                                                 'category' => $categoryKey,
                                                 'subject' => $preference,
-                                                'physical_disable' => 'No'
+                                                'physical_disable' => 'No',
+                                                'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                                'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                             ];
                                             break;
                                         }
@@ -353,55 +369,55 @@ class Counselling extends BaseController
                                 } else {
                                     if (!empty($value->bsc_preference_1) && ($selected_student[strtolower($value->bsc_preference_1)]['general']) < $matrix[strtolower($value->bsc_preference_1)]['general']) {
                                         $selected_student[strtolower($value->bsc_preference_1)]['general'] = $selected_student[strtolower($value->bsc_preference_1)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_1, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_1, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_1) && ($selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)]) < $matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_2) && ($selected_student[strtolower($value->bsc_preference_2)]['general']) < $matrix[strtolower($value->bsc_preference_2)]['general']) {
                                         $selected_student[strtolower($value->bsc_preference_2)]['general'] = $selected_student[strtolower($value->bsc_preference_2)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_2, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_2, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_2) && ($selected_student[strtolower($value->bsc_preference_2)][strtolower($value->category)]) < $matrix[strtolower($value->bsc_preference_2)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->bsc_preference_2)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_2)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_2, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_2, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_3) && ($selected_student[strtolower($value->bsc_preference_3)]['general']) < $matrix[strtolower($value->bsc_preference_3)]['general']) {
                                         $selected_student[strtolower($value->bsc_preference_3)]['general'] = $selected_student[strtolower($value->bsc_preference_3)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_3, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_3, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_3) && ($selected_student[strtolower($value->bsc_preference_3)][strtolower($value->category)]) < $matrix[strtolower($value->bsc_preference_3)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->bsc_preference_3)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_3)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_3, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_3, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_4) && ($selected_student[strtolower($value->bsc_preference_4)]['general']) < $matrix[strtolower($value->bsc_preference_4)]['general']) {
                                         $selected_student[strtolower($value->bsc_preference_4)]['general'] = $selected_student[strtolower($value->bsc_preference_4)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_4, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->bsc_preference_4, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->bsc_preference_4) && ($selected_student[strtolower($value->bsc_preference_4)][strtolower($value->category)]) < $matrix[strtolower($value->bsc_preference_4)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->bsc_preference_4)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_4)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_4, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_4, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     }
 
                                     // BA STUDENT
                                     if (!empty($value->ba_preference_1) && ($selected_student[strtolower($value->ba_preference_1)]['general']) < $matrix[strtolower($value->ba_preference_1)]['general']) {
                                         $selected_student[strtolower($value->ba_preference_1)]['general'] = $selected_student[strtolower($value->ba_preference_1)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_1, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_1, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_1) && ($selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_1)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_2) && ($selected_student[strtolower($value->ba_preference_2)]['general']) < $matrix[strtolower($value->ba_preference_2)]['general']) {
                                         $selected_student[strtolower($value->ba_preference_2)]['general'] = $selected_student[strtolower($value->ba_preference_2)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_2, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_2, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_2) && ($selected_student[strtolower($value->ba_preference_2)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_2)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->ba_preference_2)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_2)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_2, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_2, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_3) && ($selected_student[strtolower($value->ba_preference_3)]['general']) < $matrix[strtolower($value->ba_preference_3)]['general']) {
                                         $selected_student[strtolower($value->ba_preference_3)]['general'] = $selected_student[strtolower($value->ba_preference_3)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_3, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_3, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_3) && ($selected_student[strtolower($value->ba_preference_3)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_3)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->ba_preference_3)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_3)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_3, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_3, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_4) && ($selected_student[strtolower($value->ba_preference_4)]['general']) < $matrix[strtolower($value->ba_preference_4)]['general']) {
                                         $selected_student[strtolower($value->ba_preference_4)]['general'] = $selected_student[strtolower($value->ba_preference_4)]['general'] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_4, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => 'general', 'subject' => $value->ba_preference_4, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     } else if (!empty($value->ba_preference_4) && ($selected_student[strtolower($value->ba_preference_4)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_4)][strtolower($value->category)]) {
                                         $selected_student[strtolower($value->ba_preference_4)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_4)][strtolower($value->category)] + 1;
-                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_4, 'physical_disable' => 'No'];
+                                        $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_4, 'physical_disable' => 'No', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                     }
                                 }
                             }
@@ -435,7 +451,7 @@ class Counselling extends BaseController
                                         if ($selected_bsc_pwd_general < $bsc_pwd_general) {
                                             if ($selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] < $matrix[strtolower($value->bsc_preference_1)][strtolower('general')]) {
                                                 $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] = $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             } else {
                                                 $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] = $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] - 1;
 
@@ -450,7 +466,7 @@ class Counselling extends BaseController
                                                 }
 
                                                 $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] = $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             }
                                             $selected_bsc_pwd_general++;
                                             $selected_bsc_physical++;
@@ -459,7 +475,7 @@ class Counselling extends BaseController
                                                 // var_dump('Category Entr');
                                                 if ($selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] < $matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)]) {
                                                     $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 } else {
                                                     $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] - 1;
                                                     $idx = '';
@@ -473,7 +489,7 @@ class Counselling extends BaseController
                                                     }
 
                                                     $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 }
                                                 $selected_bsc_physical++;
                                             }
@@ -495,7 +511,7 @@ class Counselling extends BaseController
                                         if ($selected_bsc_pwd_general < $bsc_pwd_general) {
                                             if ($selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] < $matrix[strtolower($value->bsc_preference_1)][strtolower('general')]) {
                                                 $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] = $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             } else {
                                                 $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] = $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] - 1;
 
@@ -510,7 +526,7 @@ class Counselling extends BaseController
                                                 }
 
                                                 $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] = $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             }
                                             $selected_bsc_pwd_general++;
                                             $selected_bsc_physical++;
@@ -518,7 +534,7 @@ class Counselling extends BaseController
                                             if (strtolower($value->category) != 'general') {
                                                 if ($selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] < $matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)]) {
                                                     $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 } else {
                                                     $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] - 1;
 
@@ -532,7 +548,7 @@ class Counselling extends BaseController
                                                         unset($selected_student_id[$idx]);
                                                     }
                                                     $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 }
                                                 $selected_bsc_physical++;
                                             }
@@ -549,7 +565,7 @@ class Counselling extends BaseController
                                         if ($selected_ba_pwd_general < $ba_pwd_general) {
                                             if (($selected_student[strtolower($value->ba_preference_1)][strtolower('general')]) < $matrix[strtolower($value->ba_preference_1)][strtolower('general')]) {
                                                 $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] = $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             } else {
                                                 $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] = $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] - 1;
 
@@ -565,7 +581,7 @@ class Counselling extends BaseController
                                                 }
 
                                                 $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] = $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             }
                                             $selected_ba_pwd_general++;
                                             $selected_ba_physical++;
@@ -573,7 +589,7 @@ class Counselling extends BaseController
                                             if (strtolower($value->category) != 'general') {
                                                 if (($selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_1)][strtolower($value->category)]) {
                                                     $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 } else {
                                                     $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] - 1;
 
@@ -589,7 +605,7 @@ class Counselling extends BaseController
                                                     }
 
                                                     $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 }
                                                 $selected_ba_physical++;
                                             }
@@ -613,7 +629,7 @@ class Counselling extends BaseController
                                         if ($selected_ba_pwd_general < $ba_pwd_general) {
                                             if (($selected_student[strtolower($value->ba_preference_1)][strtolower('general')]) < $matrix[strtolower($value->ba_preference_1)][strtolower('general')]) {
                                                 $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] = $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             } else {
                                                 $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] = $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] - 1;
 
@@ -629,7 +645,7 @@ class Counselling extends BaseController
                                                 }
 
                                                 $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] = $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             }
                                             $selected_ba_pwd_general++;
                                             $selected_ba_physical++;
@@ -637,7 +653,7 @@ class Counselling extends BaseController
                                             if (strtolower($value->category) != 'general') {
                                                 if (($selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_1)][strtolower($value->category)]) {
                                                     $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 } else {
                                                     $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] - 1;
 
@@ -653,7 +669,7 @@ class Counselling extends BaseController
                                                     }
 
                                                     $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 }
                                                 $selected_ba_physical++;
                                             }
@@ -675,7 +691,7 @@ class Counselling extends BaseController
                                         if ($selected_bsc_pwd_general < $bsc_pwd_general) {
                                             if ($selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] < $matrix[strtolower($value->bsc_preference_1)][strtolower('general')]) {
                                                 $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] = $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             } else {
                                                 $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] = $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] - 1;
 
@@ -690,7 +706,7 @@ class Counselling extends BaseController
                                                 }
 
                                                 $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] = $selected_student[strtolower($value->bsc_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             }
                                             $selected_bsc_pwd_general++;
                                             $selected_bsc_physical++;
@@ -698,7 +714,7 @@ class Counselling extends BaseController
                                             if (strtolower($value->category) != 'general') {
                                                 if ($selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] < $matrix[strtolower($value->bsc_preference_1)][strtolower($value->category)]) {
                                                     $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 } else {
                                                     $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] - 1;
 
@@ -713,7 +729,7 @@ class Counselling extends BaseController
                                                     }
 
                                                     $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->bsc_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->bsc_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 }
                                                 $selected_bsc_physical++;
                                             }
@@ -730,7 +746,7 @@ class Counselling extends BaseController
                                         if ($selected_ba_pwd_general < $ba_pwd_general) {
                                             if (($selected_student[strtolower($value->ba_preference_1)][strtolower('general')]) < $matrix[strtolower($value->ba_preference_1)][strtolower('general')]) {
                                                 $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] = $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             } else {
                                                 $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] = $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] - 1;
 
@@ -746,7 +762,7 @@ class Counselling extends BaseController
                                                 }
 
                                                 $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] = $selected_student[strtolower($value->ba_preference_1)][strtolower('general')] + 1;
-                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower('general'), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                             }
                                             $selected_ba_pwd_general++;
                                             $selected_ba_physical++;
@@ -754,7 +770,7 @@ class Counselling extends BaseController
                                             if (strtolower($value->category) != 'general') {
                                                 if (($selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)]) < $matrix[strtolower($value->ba_preference_1)][strtolower($value->category)]) {
                                                     $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 } else {
                                                     $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] - 1;
                                                     $idx = '';
@@ -768,7 +784,7 @@ class Counselling extends BaseController
                                                         unset($selected_student_id[$idx]);
                                                     }
                                                     $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] = $selected_student[strtolower($value->ba_preference_1)][strtolower($value->category)] + 1;
-                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes'];
+                                                    $selected_student_id[] = ['counselling_id' => $counsellingId, 'registration_id' => $value->id, 'category' => strtolower($value->category), 'subject' => $value->ba_preference_1, 'physical_disable' => 'Yes', 'academic_receipt_no' => '','academic_payment_receipt' => ''];
                                                 }
                                                 $selected_ba_physical++;
                                             }
@@ -1090,7 +1106,7 @@ class Counselling extends BaseController
         <body>
             <div class="title">REGIONAL INSTITUTE OF EDUCATION, AJMER</div>
             <div class="subtitle">Class : 4-Year ITEP ' . $matrixResult['course'] . ' Session : 2025-26</div>
-                <div class="list-title">Provisional Selected Candidate List in 3<sup>rd</sup> round of Counselling - (' . $subject . ')</div>
+                    <div class="list-title">Provisional Selected Candidate List in 5<sup>th</sup> round of Counselling - (' . $subject . ')</div>
             <div class="categories">
                     <span>(General - <strong>' . $matrixResult['general_available'] . '</strong></span> |
                     <span>OBC-NCL - <strong>' . $matrixResult['obc_ncl_available'] . '</strong></span> |
@@ -1585,6 +1601,302 @@ class Counselling extends BaseController
         }
 
         return redirect()->to('admin/counselling/student-list/' . $id);
+    }
+
+    public function admittedStudentsubjectPdf()
+    {
+        try{
+            $studentCounsellingModel = new StudentCounsellingModel();
+            $itepMatrixModel = new ITEPSeatMatrixModel();
+            $commonModel = new CommonModel();
+
+            $subject_array = ['Physics', 'Chemistry', 'Mathematics', 'Botany', 'Zoology', 'History', 'Geography', 'English Language and Literature', 'Hindi Language and Literature', 'Urdu'];
+
+            foreach ($subject_array as $subject) {
+                $result = $studentCounsellingModel->getAdmittedStudentSubjectWiseList($subject);
+                $matrixResult = $itepMatrixModel->fetchBySubject($subject);
+        
+                $info = [];
+        
+                // var_dump($result);exit;
+                $data = [];
+    
+                if(count($result) > 0){
+                    foreach ($result as $value) {
+                        $percentileRecord = $commonModel->getOverallPercentage($value['ncet_application_no']);
+                        
+                        $value['overall_percentage'] = $percentileRecord->overall_percentage;
+                        if ($value['student_counselling_category'] ==  'obc-(ncl)') {
+                            $data['obc_ncl'][] = $value;
+                        } else {
+                            $data[$value['student_counselling_category']][] = $value;
+                        }
+                        $info[] = ['subject' => $value['student_counselling_subject'], 'email' => $value['email'], 'course' => $value['course']];
+                    }
+                    // var_dump($data);exit;
+            
+                    $html = '
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Selected Candidate List - (' . $subject . ')</title>
+                        <style>
+                            body { font-family: DejaVu Sans, sans-serif; font-size: 12px; text-align: center; }
+                            .list-title,.subtitle,.title{font-weight:700}
+                            .title{font-size:22px}
+                            .subtitle{font-size:18px}
+                            .categories,.list-title{font-size:16px}
+                            .categories span{margin:0 5px}
+                            table { width: 100%; border-collapse: collapse; margin-top:2rem; }
+                            table, th, td { border: 1px solid black; padding: 5px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="title">REGIONAL INSTITUTE OF EDUCATION, AJMER</div>
+                        <div class="subtitle">Class : 4-Year ITEP ' . $matrixResult['course'] . ' Session : 2025-26</div>
+                        <div class="list-title">Admitted Student List - (' . $subject . ')</div>
+                        <div class="categories">
+                        <span>(General - <strong>' . $matrixResult['general_used'] . '</strong></span> |
+                        <span>OBC-NCL - <strong>' . $matrixResult['obc_ncl_used'] . '</strong></span> |
+                        <span>SC - <strong>' . $matrixResult['sc_used'] . '</strong></span> |
+                        <span>ST - <strong>' . $matrixResult['st_used'] . '</strong></span> |
+                        <span>EWS - <strong>' . $matrixResult['ews_used'] . '</strong>)</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr><th colspan="9" style="text-align: center;">Category: GENERAL</th></tr>
+                                <tr>
+                                    <th>NCET Application</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Major Allotment</th>
+                                    <th>Overall Percentile</th>
+                                    <th>Preference 1</th>
+                                    <th>Preference 2</th>
+                                    <th>Preference 3</th>
+                                    <th>Preference 4</th>
+                                </tr>
+                            </thead>
+                            <tbody>';
+                    if (isset($data['general']) && count($data['general']) > 0) {
+                        foreach ($data['general'] as $key => $value) {
+                            $html .= '<tr>
+                                <td>' . $value["ncet_application_no"] . '</td>
+                                <td>' . $value["name"] . (($subject == 'Urdu' && $key > 1) ? ' <span style="color: red;font-size: 14px;">*</span>' : '') . '</td>
+                                <td>' . $value["category"] . ($value["physical_disable"] == 'Yes' ? ' - PwD' : '') . '</td>
+                                <td>' . $value["student_counselling_subject"] . '</td>
+                                <td>' . $value["ncet_average_percentile"] . '</td>';
+            
+                            if ($matrixResult['course'] == 'B.Sc. B.Ed.') {
+                                $html .= '<td>' . $value["bsc_preference_1"] . '</td><td>' . $value["bsc_preference_2"] . '</td><td>' . $value["bsc_preference_3"] . '</td><td>' . $value["bsc_preference_4"] . '</td>';
+                            } else if ($matrixResult['course'] == 'B.A. B.Ed.') {
+                                $html .= '<td>' . $value["ba_preference_1"] . '</td><td>' . $value["ba_preference_2"] . '</td><td>' . $value["ba_preference_3"] . '</td><td>' . $value["ba_preference_4"] . '</td>';
+                            }
+            
+                            $html .= '</tr>';
+                        }
+                    } else if($matrixResult['general_available'] > 0){
+                        $html .= '<tr><td colspan="9" style="text-align: center;">Seat Vacated</td></tr>';
+                    } else {
+                        $html .= '<tr><td colspan="9" style="text-align: center;">No Seat Available</td></tr>';
+                    }
+                    $html .= '</tbody></table>';
+            
+                    if($subject == 'Urdu' && $key > 1){
+                        $html .= '<div style="text-align:left;"><p style="font-weight: bold;">
+                        <span style="color: red;font-size: 14px;">*</span> Admitted against vacant SC / OBC-(NCL) quota seat.</p>
+                        </div>';
+                    }
+        
+                    $html .= '<table>
+                            <thead>
+                                <th colspan="9" style="text-align: center;">Category: OBC-NCL</th></tr>
+                                <tr>
+                                    <th>NCET Application</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Major Allotment</th>
+                                    <th>Overall Percentile</th>
+                                    <th>Preference 1</th>
+                                    <th>Preference 2</th>
+                                    <th>Preference 3</th>
+                                    <th>Preference 4</th>
+                                </tr>
+                            </thead>
+                            <tbody>';
+                    if (isset($data['obc_ncl']) && count($data['obc_ncl']) > 0) {
+                        foreach ($data['obc_ncl'] as $key => $value) {
+                            $html .= '<tr>
+                            <td>' . $value["ncet_application_no"] . '</td>
+                            <td>' . $value["name"] . '</td>
+                            <td>' . $value["category"] . ($value["physical_disable"] == 'Yes' ? ' - PwD' : '') . '</td>
+                            <td>' . $value["student_counselling_subject"] . '</td>
+                            <td>' . $value["ncet_average_percentile"] . '</td>';
+            
+                            if ($matrixResult['course'] == 'B.Sc. B.Ed.') {
+                                $html .= '<td>' . $value["bsc_preference_1"] . '</td><td>' . $value["bsc_preference_2"] . '</td><td>' . $value["bsc_preference_3"] . '</td><td>' . $value["bsc_preference_4"] . '</td>';
+                            } else if ($matrixResult['course'] == 'B.A. B.Ed.') {
+                                $html .= '<td>' . $value["ba_preference_1"] . '</td><td>' . $value["ba_preference_2"] . '</td><td>' . $value["ba_preference_3"] . '</td><td>' . $value["ba_preference_4"] . '</td>';
+                            }
+            
+                            $html .= '</tr>';
+                        }
+                    } else if($matrixResult['obc_ncl_available'] > 0){
+                        $html .= '<tr><td colspan="9" style="text-align: center;">Seat Vacated</td></tr>';
+                    } else {
+                        $html .= '<tr><td colspan="9" style="text-align: center;">No Seat Available</td></tr>';
+                    }
+                    $html .= '</tbody></table>';
+            
+                    $html .= '<table>
+                                <thead>
+                                    <tr><th colspan="9" style="text-align: center;">Category: SC</th></tr>
+                                    <tr>
+                                        <th>NCET Application</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Major Allotment</th>
+                                        <th>Overall Percentile</th>
+                                        <th>Preference 1</th>
+                                        <th>Preference 2</th>
+                                        <th>Preference 3</th>
+                                        <th>Preference 4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+                    if (isset($data['sc']) && count($data['sc']) > 0) {
+                        foreach ($data['sc'] as $key => $value) {
+                            $html .= '<tr>
+                            <td>' . $value["ncet_application_no"] . '</td>
+                            <td>' . $value["name"] . '</td>
+                            <td>' . $value["category"] . ($value["physical_disable"] == 'Yes' ? ' - PwD' : '') . '</td>
+                            <td>' . $value["student_counselling_subject"] . '</td>
+                            <td>' . $value["ncet_average_percentile"] . '</td>';
+            
+                            if ($matrixResult['course'] == 'B.Sc. B.Ed.') {
+                                $html .= '<td>' . $value["bsc_preference_1"] . '</td><td>' . $value["bsc_preference_2"] . '</td><td>' . $value["bsc_preference_3"] . '</td><td>' . $value["bsc_preference_4"] . '</td>';
+                            } else if ($matrixResult['course'] == 'B.A. B.Ed.') {
+                                $html .= '<td>' . $value["ba_preference_1"] . '</td><td>' . $value["ba_preference_2"] . '</td><td>' . $value["ba_preference_3"] . '</td><td>' . $value["ba_preference_4"] . '</td>';
+                            }
+            
+                            $html .= '</tr>';
+                        }
+                    } else if($matrixResult['sc_available'] > 0){
+                        $html .= '<tr><td colspan="9" style="text-align: center;">Seat Vacated</td></tr>';
+                    } else {
+                        $html .= '<tr><td colspan="9" style="text-align: center;">No Seat Available</td></tr>';
+                    }
+                    $html .= '</tbody></table>';
+            
+                    $html .= '<table>
+                                <thead>
+                                    <tr><th colspan="9" style="text-align: center;">Category: ST</th></tr>
+                                    <tr>
+                                        <th>NCET Application</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Major Allotment</th>
+                                        <th>Overall Percentile</th>
+                                        <th>Preference 1</th>
+                                        <th>Preference 2</th>
+                                        <th>Preference 3</th>
+                                        <th>Preference 4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+                    if (isset($data['st']) && count($data['st']) > 0) {
+                        foreach ($data['st'] as $key => $value) {
+                            $html .= '<tr>
+                            <td>' . $value["ncet_application_no"] . '</td>
+                            <td>' . $value["name"] . '</td>
+                            <td>' . $value["category"] . ($value["physical_disable"] == 'Yes' ? ' - PwD' : '') . '</td>
+                            <td>' . $value["student_counselling_subject"] . '</td>
+                            <td>' . $value["ncet_average_percentile"] . '</td>';
+            
+                            if ($matrixResult['course'] == 'B.Sc. B.Ed.') {
+                                $html .= '<td>' . $value["bsc_preference_1"] . '</td><td>' . $value["bsc_preference_2"] . '</td><td>' . $value["bsc_preference_3"] . '</td><td>' . $value["bsc_preference_4"] . '</td>';
+                            } else if ($matrixResult['course'] == 'B.A. B.Ed.') {
+                                $html .= '<td>' . $value["ba_preference_1"] . '</td><td>' . $value["ba_preference_2"] . '</td><td>' . $value["ba_preference_3"] . '</td><td>' . $value["ba_preference_4"] . '</td>';
+                            }
+            
+                            $html .= '</tr>';
+                        }
+                    } else if($matrixResult['st_available'] > 0){
+                        $html .= '<tr><td colspan="9" style="text-align: center;">Seat Vacated</td></tr>';
+                    } else {
+                        $html .= '<tr><td colspan="9" style="text-align: center;">No Seat Available</td></tr>';
+                    }
+                    $html .= '</tbody></table>';
+            
+                    $html .= '<table>
+                                <thead>
+                                    <tr><th colspan="9" style="text-align: center;">Category: EWS</th></tr>
+                                    <tr>
+                                        <th>NCET Application</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Major Allotment</th>
+                                        <th>Overall Percentile</th>
+                                        <th>Preference 1</th>
+                                        <th>Preference 2</th>
+                                        <th>Preference 3</th>
+                                        <th>Preference 4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+                    if (isset($data['ews']) && count($data['ews']) > 0) {
+                        foreach ($data['ews'] as $key => $value) {
+                            $html .= '<tr>
+                            <td>' . $value["ncet_application_no"] . '</td>
+                            <td>' . $value["name"] . (($subject == 'Urdu' && $key > 0) ? ' <span style="color: red;font-size: 14px;">*</span>' : '') . '</td>
+                            <td>' . $value["category"] . ($value["physical_disable"] == 'Yes' ? ' - PwD' : '') . '</td>
+                            <td>' . $value["student_counselling_subject"] . '</td>
+                            <td>' . $value["ncet_average_percentile"] . '</td>';
+            
+                            if ($matrixResult['course'] == 'B.Sc. B.Ed.') {
+                                $html .= '<td>' . $value["bsc_preference_1"] . '</td><td>' . $value["bsc_preference_2"] . '</td><td>' . $value["bsc_preference_3"] . '</td><td>' . $value["bsc_preference_4"] . '</td>';
+                            } else if ($matrixResult['course'] == 'B.A. B.Ed.') {
+                                $html .= '<td>' . $value["ba_preference_1"] . '</td><td>' . $value["ba_preference_2"] . '</td><td>' . $value["ba_preference_3"] . '</td><td>' . $value["ba_preference_4"] . '</td>';
+                            }
+            
+                            $html .= '</tr>';
+                        }
+                    } else if($matrixResult['ews_available'] > 0){
+                        $html .= '<tr><td colspan="9" style="text-align: center;">Seat Vacated</td></tr>';
+                    } else {
+                        $html .= '<tr><td colspan="9" style="text-align: center;">No Seat Available</td></tr>';
+                    }
+                    $html .= '</tbody></table>';
+                    
+                    if($subject == 'Urdu' && $key > 0){
+                        $html .= '<div style="text-align:left;"><p style="font-weight: bold;">
+                        <span style="color: red;font-size: 14px;">*</span> Admitted against vacant SC / OBC-(NCL) quota seat.</p>
+                        </div>';
+                    }
+                    
+                    $html .= '</body></html>';
+            
+                    // 2. Set Dompdf options
+                    $options = new Options();
+                    $options->set('isRemoteEnabled', true); // Enable for using external images/styles
+                    $dompdf = new Dompdf($options);
+            
+                    // 3. Load HTML and render PDF
+                    $dompdf->loadHtml($html);
+                    $dompdf->setPaper('A4', 'landscape');
+                    $dompdf->render();
+            
+                    // 4. Output to browser
+                    // $dompdf->stream($subject.'.pdf', ['Attachment' => false]);
+            
+                    $output = $dompdf->output();
+                    file_put_contents(FCPATH . 'subject_wise_lists/' . str_replace(" ", "_", $subject) . '_list.pdf', $output);
+                    // var_dump($info);
+                }
+            }
+        }catch(Exception $e){
+            var_dump($e->getTrace());
+        }
     }
 
     public function calculate()
@@ -2291,7 +2603,9 @@ class Counselling extends BaseController
                                         'registration_id' => $value->id,
                                         'category' => 'general',
                                         'subject' => $preference,
-                                        'physical_disable' => 'No'
+                                    'physical_disable' => 'No',
+                                    'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                    'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                     ];
                                     break; // Stop at first valid upward allotment
                                 }
@@ -2303,7 +2617,9 @@ class Counselling extends BaseController
                                         'registration_id' => $value->id,
                                         'category' => $categoryKey,
                                         'subject' => $preference,
-                                        'physical_disable' => 'No'
+                                    'physical_disable' => 'No',
+                                    'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                    'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                     ];
                                     break;
                                 }
@@ -2361,7 +2677,9 @@ class Counselling extends BaseController
                                         'registration_id' => $value->id,
                                         'category' => 'general',
                                         'subject' => $preference,
-                                        'physical_disable' => 'No'
+                                    'physical_disable' => 'No',
+                                    'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                    'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                     ];
                                     break; // Stop at first valid upward allotment
                                 }
@@ -2373,7 +2691,9 @@ class Counselling extends BaseController
                                         'registration_id' => $value->id,
                                         'category' => $categoryKey,
                                         'subject' => $preference,
-                                        'physical_disable' => 'No'
+                                    'physical_disable' => 'No',
+                                    'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                    'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                     ];
                                     break;
                                 }
@@ -2439,7 +2759,9 @@ class Counselling extends BaseController
                                         'registration_id' => $value->id,
                                         'category' => 'general',
                                         'subject' => $preference,
-                                        'physical_disable' => 'No'
+                                    'physical_disable' => 'No',
+                                    'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                    'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                     ];
                                     break; // Stop at first valid upward allotment
                                 }
@@ -2452,7 +2774,9 @@ class Counselling extends BaseController
                                         'registration_id' => $value->id,
                                         'category' => $categoryKey,
                                         'subject' => $preference,
-                                        'physical_disable' => 'No'
+                                    'physical_disable' => 'No',
+                                    'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                    'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                     ];
                                     break;
                                 }
@@ -2473,7 +2797,9 @@ class Counselling extends BaseController
                                         'registration_id' => $value->id,
                                         'category' => 'general',
                                         'subject' => $preference,
-                                        'physical_disable' => 'No'
+                                    'physical_disable' => 'No',
+                                    'academic_receipt_no' => isset($value->academic_receipt_no) ? $value->academic_receipt_no : '',
+                                    'academic_payment_receipt' => isset($value->academic_payment_receipt) ? $value->academic_payment_receipt : ''
                                     ];
                                     break; // Stop at first valid upward allotment
                                 }
@@ -2486,7 +2812,9 @@ class Counselling extends BaseController
                                         'registration_id' => $value->id,
                                         'category' => $categoryKey,
                                         'subject' => $preference,
-                                        'physical_disable' => 'No'
+                                    'physical_disable' => 'No',
+                                    'academic_receipt_no' => $value->academic_receipt_no,
+                                    'academic_payment_receipt' => $value->academic_payment_receipt
                                     ];
                                     break;
                                 }
@@ -3000,7 +3328,7 @@ class Counselling extends BaseController
                                             . '). Please log in at <a href=www.riea.in>www.riea.in</a> with your login ID & Password to access all
                                             details including fee deposition.</li>
                                         <li>In order to confirm your provisional admission you have to <strong>deposit Institute fees on or before
-                                                17.07.2025 by 11:59 pm</strong> as given below:- </li>
+                                                24.07.2025 by 11:59 pm</strong> as given below:- </li>
                                         <ul style=list-style-type:disc>
                                             <li>GENERAL/ OBC/ EWS students: Rs. 7,450/- (without Hostel)</li>
                                             <li>SC/ST/PH students: Rs. 4,950/- (without Hostel)</li>

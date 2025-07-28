@@ -36,6 +36,18 @@ class StudentCounsellingModel extends Model {
         return [];
     }
 
+    public function getAdmittedStudentSubjectWiseList($subject){
+        // $query = "SELECT r.*, sc.id AS student_counselling_id, sc.counselling_id, sc.academic_receipt_no, sc.payment_date, sc.academic_payment_receipt, sc.category AS student_counselling_category, sc.subject AS student_counselling_subject, sc.physical_disable AS student_counselling_physical_disable FROM student_counselling sc JOIN( SELECT registration_id, MAX(counselling_id) AS max_cid FROM student_counselling WHERE status = 'Accept' AND registration_id NOT IN (943) GROUP BY registration_id ) latest ON latest.registration_id = sc.registration_id AND latest.max_cid = sc.counselling_id JOIN registrations r ON sc.registration_id = r.id where sc.subject='$subject' ORDER BY r.ncet_average_percentile DESC;";
+        $query = "SELECT r.*, sc.id AS student_counselling_id, sc.counselling_id, sc.academic_receipt_no, sc.payment_date, sc.academic_payment_receipt, sc.category AS student_counselling_category, sc.subject AS student_counselling_subject, sc.physical_disable AS student_counselling_physical_disable FROM student_counselling sc JOIN( SELECT registration_id, MAX(counselling_id) AS max_cid FROM student_counselling WHERE status = 'Accept' GROUP BY registration_id ) latest ON latest.registration_id = sc.registration_id AND latest.max_cid = sc.counselling_id JOIN registrations r ON sc.registration_id = r.id where sc.subject='$subject' ORDER BY r.ncet_average_percentile DESC;";
+
+        $result = $this->db->query($query);
+
+        if($result->getNumRows() > 0)
+            return $result->getResultArray();
+
+        return [];
+    }
+
     public function getStudentCounsellingListWithoutFeesPay(){
         $query = "SELECT registrations.*, student_counselling.id AS student_counselling_id, student_counselling.counselling_id, student_counselling.academic_receipt_no, student_counselling.payment_date, student_counselling.academic_payment_receipt, student_counselling.category AS student_counselling_category, student_counselling.subject AS student_counselling_subject, student_counselling.physical_disable AS student_counselling_physical_disable FROM `student_counselling` JOIN registrations ON student_counselling.registration_id = registrations.id WHERE `academic_receipt_no` IS NULL AND `academic_payment_receipt` IS NULL ORDER BY registrations.ncet_average_percentile DESC;";
 
@@ -71,7 +83,7 @@ class StudentCounsellingModel extends Model {
             $lastCounsellingId = $lastCounsellingResult->getResult()[0]->id;
         }        
 
-        $query1 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.bsc_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.Sc. B.Ed.' AND student_counselling.status='Accept'";
+        $query1 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course, student_counselling.academic_receipt_no, student_counselling.academic_payment_receipt FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.bsc_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.Sc. B.Ed.' AND student_counselling.status='Accept'";
 
         if($lastCounsellingId != ''){
             $query1 .= " AND student_counselling.counselling_id=$lastCounsellingId";
@@ -87,7 +99,7 @@ class StudentCounsellingModel extends Model {
             }
         }
         
-        $query2 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.ba_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.A. B.Ed.' AND student_counselling.status='Accept'";
+        $query2 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course, student_counselling.academic_receipt_no, student_counselling.academic_payment_receipt FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.ba_preference_1 != student_counselling.subject and registrations.course = 'ITEP - B.A. B.Ed.' AND student_counselling.status='Accept'";
 
         if($lastCounsellingId != ''){
             $query2 .= " AND student_counselling.counselling_id=$lastCounsellingId";
@@ -103,7 +115,7 @@ class StudentCounsellingModel extends Model {
             }
         }
         
-        $query3 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.course = 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.' AND student_counselling.status='Accept'";
+        $query3 = "SELECT registrations.*, student_counselling.subject AS student_counselling_subject, student_counselling.course AS student_counselling_course, student_counselling.academic_receipt_no, student_counselling.academic_payment_receipt FROM student_counselling inner join registrations on student_counselling.registration_id = registrations.id WHERE academic_receipt_no != '' and registrations.course = 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.' AND student_counselling.status='Accept'";
 
         if($lastCounsellingId != ''){
             $query3 .= " AND student_counselling.counselling_id=$lastCounsellingId";

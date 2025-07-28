@@ -121,3 +121,4 @@ $routes->group('admin', ['filter' => 'authGuard'], static function ($routes) {
 $routes->get('calculate-counselling', 'Counselling::calculate');
 $routes->get('calculate-counselling2', 'Counselling::calculateCounselling2');
 $routes->get('subject-pdf', 'Counselling::subjectPdf');
+$routes->get('admitted-student-pdf', 'Counselling::admittedStudentsubjectPdf');
