@@ -179,8 +179,8 @@
                     <div class="col-sm-8">
                         <select class="form-select" name="board_10th" id="board_10th" data-input="board-10-any-other" required>
                             <option value="" selected>Select Board</option>
-                            <option value="CENTRAL BOARD OF SECONDARY EDUCATION" <?php echo $details->board_10th == 'CENTRAL BOARD OF SECONDARY EDUCATION' || $details->board_10th == 'CBSE' ? 'selected' : '';?>>CENTRAL BOARD OF SECONDARY EDUCATION</option>
-                            <option value="State Board" <?php echo $details->board_10th != 'CENTRAL BOARD OF SECONDARY EDUCATION' ? 'selected' : '';?>>State Board</option>
+                            <option value="CENTRAL BOARD OF SECONDARY EDUCATION" <?php echo $details->board_10th == "CENTRAL BOARD OF SECONDARY EDUCATION" || $details->board_10th == "CBSE" ? 'selected' : '';?>>CENTRAL BOARD OF SECONDARY EDUCATION</option>
+                            <option value="State Board" <?php echo $details->board_10th != "CENTRAL BOARD OF SECONDARY EDUCATION" && $details->board_10th != "CBSE" ? 'selected' : '';?>>State Board</option>
                             <option value="Any Other Board" <?php echo $details->board_10th == 'OTHER' ? 'selected' : '';?>>Any Other Board</option>
                         </select>
                     </div>
@@ -189,7 +189,7 @@
                 <div class="mb-3 row" id="board-10-any-other">
                     <label class="col-sm-4 col-form-label">Name of Board <span class="required-icon">*</span></label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="board_10th_other" value="<?php echo ($details->board_10th === 'OTHER' ? $details->board_10th_other : ($details->board_10th != 'CENTRAL BOARD OF SECONDARY EDUCATION' ? $details->board_10th : '')); ?>"/>
+                        <input type="text" class="form-control" name="board_10th_other" value="<?php echo ($details->board_10th == 'OTHER' ? $details->board_10th_other : ($details->board_10th != 'CENTRAL BOARD OF SECONDARY EDUCATION' ? $details->board_10th : '')); ?>"/>
                     </div>
                 </div>
 
@@ -250,8 +250,8 @@
                     <div class="col-sm-8">
                         <select class="form-select" name="board_12th" id="board_12th" data-input="board-12-any-other" required>
                             <option value="" selected>Select Board</option>
-                            <option value="CENTRAL BOARD OF SECONDARY EDUCATION" <?php echo $details->board_12th == 'CENTRAL BOARD OF SECONDARY EDUCATION' || $details->board_12th == 'CBSE' ? 'selected' : '';?>>CENTRAL BOARD OF SECONDARY EDUCATION</option>
-                            <option value="State Board" <?php echo $details->board_12th !== 'CENTRAL BOARD OF SECONDARY EDUCATION' ? 'selected' : '';?>>State Board</option>
+                            <option value="CENTRAL BOARD OF SECONDARY EDUCATION" <?php echo ($details->board_12th == 'CENTRAL BOARD OF SECONDARY EDUCATION' || $details->board_12th == 'CBSE') ? 'selected' : '';?>>CENTRAL BOARD OF SECONDARY EDUCATION</option>
+                            <option value="State Board" <?php echo ($details->board_12th != 'CENTRAL BOARD OF SECONDARY EDUCATION' && $details->board_12th != 'CBSE') ? 'selected' : '';?>>State Board</option>
                             <option value="Any Other Board" <?php echo $details->board_12th == 'OTHER' ? 'selected' : '';?>>Any Other Board</option>
                         </select>
                     </div>
@@ -361,7 +361,7 @@
                                 }}
                                 ?>
                                 <tr>
-                                    <td colspan="3" style="vertical-align: middle; font-weight: 700;">Total Marks</td>
+                                    <td colspan="3" style="vertical-align: middle"><span style="font-weight: 700;">Overall Percentile</span> <span class="required-icon">(Calculation and Data provided by NTA)</span></td>
                                     <td><input type="number" class="form-control" id="total_percentile" name="ncet_average_percentile" value="<?php echo $details->ncet_average_percentile; ?>" readonly></td>
                                     <!-- <td><input type="number" class="form-control" id="total_max_marks" readonly></td>
                                     <td><input type="number" class="form-control" id="total_obtain_marks" readonly></td> -->
@@ -491,7 +491,7 @@
                 </div>
                 <div class="col-md-4 upload-section">
                     <div class="row">
-                        <h4 class="mb-4">NCET Score Card <span class="required-icon">*</span></h4>
+                        <h4 class="mb-4">NCET <?=date('Y');?> Score Card <span class="required-icon">*</span></h4>
                         <div class="col-md-8">
                             <p class="mb-1"><strong>Max Size:</strong> 1MB</p>
                             <p class="mb-3"><strong>File Type:</strong> JPG, JPEG, PNG, PDF</p>
@@ -701,7 +701,7 @@
                         $(`input[name=${key}]`).attr('required', true);
                     }
                 }else if(key === 'pwbd'){
-                    if(physical_disable == 'No'){
+                    if(physical_disable === 'No'){
                         $(`input[name=${key}]`).removeAttr('required');
                     }else{
                         $(`input[name=${key}]`).attr('required', true);

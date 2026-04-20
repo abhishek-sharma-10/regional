@@ -141,7 +141,7 @@
                         if($.isEmptyObject(result.error_message)) {
                             // $(".result").html(result.success_message);
                             toastr.success(result.success_message);
-                            // window.location.reload();
+                            window.location.reload();
                         } else {
                             // $(".sub-result").html(result.error_message);
                             toastr.warning(result.error_message);

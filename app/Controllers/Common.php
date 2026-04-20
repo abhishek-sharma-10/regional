@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\RegistrationModel;
 use App\Models\NCETApplicationModel;
+use App\Models\CommonModel;
 use Exception;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -43,6 +44,11 @@ class Common extends BaseController
             $ncetApplicationModel = new NCETApplicationModel();
             $records = $ncetApplicationModel->getApplicantEmails();
     
+            $email_array = [];
+            
+            
+            foreach ($records as $value) {
+                var_dump($value);
             $email = \Config\Services::email();
             $from = "no-reply@riea.com";
             $fromName = "RIE Ajmer";
@@ -59,20 +65,111 @@ class Common extends BaseController
             $email->setSubject($subject);
             $email->setMessage($msg);
 
-            foreach ($records as $value) {
-                // var_dump($value);
                 $email->setTo($value->email);
                 $mail = $email->send();
-
+    
                 if( $mail == true ) {
-                    $ncetApplicationModel->set('notification_status', 'NOT SENT')->where("ncet_application_no", $value->ncet_application_no)->update();
+                    $ncetApplicationModel->set('notification_status', 'SENT')->where("ncet_application_no", $value->ncet_application_no)->update();
                     echo json_encode(['message' => 'Mail Sent Successfully.', 'success' => true]);
                 }else {
-                    // print_r($email->printDebugger(['headers']));exit;
+                    print_r($email->printDebugger(['headers']));//exit;
                     echo json_encode(['message' => 'Something went wrong', 'success' => false]);
                 }
             }
+            // exit;
+        }catch(Exception $e){
+            return $this->getResponse(
+                ['status' => 'ERROR', 'message' => $e->getMessage()],
+                ResponseInterface::HTTP_BAD_REQUEST
+            );
+        }
+    }
+    
+    public function sendSpotCounsellingMail(){
+        try{
+            $commonModel = new CommonModel();
+            $registrationModel = new RegistrationModel();
+            $records = $commonModel->getSpotCounsellingList();
+    
+            // var_dump($records);exit;
+            foreach ($records as $value) {
+                // var_dump($value);
+                $email = \Config\Services::email();
+                $from = "no-reply@riea.com";
+                $fromName = "RIE Ajmer";
+    
+                $msg="Dear Candidate,<br/>";
+                $msg .= "Please find the attached information about Spot Counselling for admission in ITEP Courses on <b>25.08.2025.</b>";
+                
+                $msg.="<br/><br/>Academic Section<br>RIE, NCERT, Ajmer<br/>";
+    
+                $subject = "Information about Spot Counselling for admission in ITEP Courses.";
+    
+                $email->setFrom($from,$fromName);
+    
+                $email->setSubject($subject);
+                $email->setMessage($msg);
+                $email->attach('https://riea.in/public/Spot_Counselling_Notice_2025_26.pdf');
+                $email->setTo($value->email);
+                // $email->setBCC('abhishek.sharma@ibirdsservices.com');
+                $mail = $email->send();
 
+                if( $mail == true ) {
+                    $registrationModel->set('spot_counselling_mail', 'SENT')->where("id", $value->id)->update();
+                    echo json_encode(['message' => 'Mail Sent Successfully.', 'success' => true]);
+                }else {
+                    print_r($email->printDebugger(['headers']));//exit;
+                    echo json_encode(['message' => 'Something went wrong', 'success' => false]);
+                }
+            }
+            // exit;
+        }catch(Exception $e){
+            return $this->getResponse(
+                ['status' => 'ERROR', 'message' => $e->getMessage()],
+                ResponseInterface::HTTP_BAD_REQUEST
+            );
+        }
+    }
+    
+    public function sendSingleMail(){
+        try{
+            
+                $email = \Config\Services::email();
+                $from = "no-reply@riea.com";
+                $fromName = "RIE Ajmer";
+    
+                $msg="Dear Candidate,<br/>";
+                $msg .= "We are pleased to inform you that you have been upgraded to a higher preference in the counselling process based on your merit and the availability of seats.<br><br>
+                        Updated Allotment Details:
+                          <ul>
+                            <li>Name: Aparna Priyadarshini Sahu</li>
+                            <li>NCET Application No.: 255110024645</li>
+                            <li>Previous Allotment: Physics</li>
+                            <li>New Allotment: Zoology</li>
+                          </ul>
+                        Please note that this allotment has been done as per your submitted preferences and available seat matrix.";
+                
+                $msg.="<br/><br/><b>Academic Section<br>RIE, Ajmer</b><br/>";
+    
+                $subject = "Upward Movement in Counselling – New Course Allotment";
+    
+                $email->setFrom($from,$fromName);
+    
+                $email->setSubject($subject);
+                $email->setMessage($msg);
+                
+                // $email->setTo('aparnapriyadarshinisahu@gmail.com');
+                // $email->setBCC('abhishek.sharma@ibirdsservices.com');
+                $mail = $email->send();
+    
+                if( $mail == true ) {
+                    echo json_encode(['message' => 'Mail Sent Successfully.', 'success' => true]);
+                }else {
+                    print_r($email->printDebugger(['headers']));//exit;
+                    echo json_encode(['message' => 'Something went wrong', 'success' => false]);
+                }
+
+            // exit;
         }catch(Exception $e){
             return $this->getResponse(
                 ['status' => 'ERROR', 'message' => $e->getMessage()],

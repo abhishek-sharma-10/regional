@@ -14,7 +14,7 @@ class CounsellingModel extends Model {
         'name',
         'start_date',
         'end_date',
-        'status',
+        'status'
     ];
 
     public $errorMsg;
@@ -58,7 +58,7 @@ class CounsellingModel extends Model {
         }
 
         $query .= 'ORDER BY student_counselling.id';
-        // echo ($query);
+
         $query = $this->db->query($query);
 
         if($query->getNumRows() > 0){

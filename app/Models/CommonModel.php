@@ -39,4 +39,14 @@ class CommonModel extends Model {
         
         return [];
     }
+    
+    function getSpotCounsellingList(){
+        $query = "SELECT * FROM `registrations` WHERE id NOT IN (SELECT registration_id FROM student_counselling) AND receipt_no IS NOT NULL AND payment_receipt IS NOT NULL AND spot_counselling_mail IS NULL LIMIT 250";
+        $result = $this->db->query($query);
+        if($result->getNumRows() > 0){
+			return $result->getResult();
+		}
+        
+        return [];
+    }
 }

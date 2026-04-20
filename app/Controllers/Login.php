@@ -203,12 +203,10 @@ class Login extends BaseController
             if (strlen($_REQUEST['otp']) == 5) {
                 if ($_SESSION['OTP'] == $_REQUEST['otp']) {
                     return json_encode(['status' => 'success', 'message' => "OTP Verified Successfully."]);
-                }
-                else{
+                } else {
                     return json_encode(['status' => 'error', 'message' => "Invalid OTP Please try again."]);
                 }
-            }
-            else{
+            } else {
                 return json_encode(['status' => 'error', 'message' => "Please Enter a valid OTP."]);
             }
         } else {
@@ -216,12 +214,14 @@ class Login extends BaseController
         }
     }
 
-    function not_found(){
+    function not_found()
+    {
         return view('admin/no_page_found');
     }
 
     // ----------------------------------------------------------
-    function studentLogin(){
+    function studentLogin()
+    {
         session();
         $data = [];
         $data['pageTitle'] = "Student Login";
@@ -262,13 +262,14 @@ class Login extends BaseController
 
             return view('student/template/header', $data) . view("student/login/login", $data) . view('student/template/footer');
         } catch (Exception $e) {
-            // echo "<pre>";print_r($e->getTrace());die();
             session()->setFlashdata('err_msg', 'Something went wrong. Please try after sometime');
             return redirect()->to('/');
+            // echo "<pre>";print_r($e->getTrace());die();
         }
     }
 
-    function stu_forgetPassword(){
+    function stu_forgetPassword()
+    {
         $loginModel = new LoginModel();
         $data = array();
         // var_dump($this->request->getVar());exit;
@@ -288,7 +289,8 @@ class Login extends BaseController
         // return $this->view("forget_password", $data);
     }
 
-    function stu_success(){
+    function stu_success()
+    {
         $msg = $this->request->getVar('msg');
         if (is_null($msg)) {
             $data['msg'] = "Sent you an email with reset password link, please check your inbox!";
@@ -299,7 +301,8 @@ class Login extends BaseController
         return view('student/template/header', $data) . view("student/login/success_failure_message.php", $data) . view('student/template/footer');
     }
 
-    function stu_resetPassword(){
+    function stu_resetPassword()
+    {
         try {
             $loginModel = new LoginModel();
 
@@ -335,14 +338,16 @@ class Login extends BaseController
         }
     }
 
-    function logout(){
+    function logout()
+    {
         session();
         session()->destroy();
         // header("location: ".base_url());
         return redirect()->to('admin/logout');
     }
 
-    function student_logout(){
+    function student_logout()
+    {
         session();
         session()->destroy();
         // header("location: ".base_url());

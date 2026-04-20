@@ -1,6 +1,5 @@
 <?php
 
-use App\Controllers\Counselling;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -14,25 +13,25 @@ $routes->set404Override(static function () {
 });
 
 $routes->get('/500', 'Common::internalServer');
-
 $routes->get('send-registration-open-emails', 'Common::sendRegistrationOpenMail');
+$routes->get('send-spot-counselling-emails', 'Common::sendSpotCounsellingMail');
 
-$routes->get('/', 'Login::studentLogin');
-$routes->post('login', 'Login::studentLogin');
-$routes->get('forget-password', 'Login::stu_forgetPassword');
-$routes->post('forget-password', 'Login::stu_forgetPassword');
-$routes->get('success', 'Login::stu_success');
-$routes->get('failure', 'Login::stu_success');
-$routes->get('reset-password', 'Login::stu_resetPassword');
-$routes->post('reset-password', 'Login::stu_resetPassword');
+$routes->get('/', 'Login::studentLogin', ['filter' => 'maintenance']);
+$routes->post('login', 'Login::studentLogin', ['filter' => 'maintenance']);
+$routes->get('forget-password', 'Login::stu_forgetPassword', ['filter' => 'maintenance']);
+$routes->post('forget-password', 'Login::stu_forgetPassword', ['filter' => 'maintenance']);
+$routes->get('success', 'Login::stu_success', ['filter' => 'maintenance']);
+$routes->get('failure', 'Login::stu_success', ['filter' => 'maintenance']);
+$routes->get('reset-password', 'Login::stu_resetPassword', ['filter' => 'maintenance']);
+$routes->post('reset-password', 'Login::stu_resetPassword', ['filter' => 'maintenance']);
 
-$routes->get('registrations', 'Registration::studentRegistration');
-$routes->post('registrations', 'Registration::studentRegistration');
-$routes->get('checkApplicationNo/(:num)', 'Registration::checkApplicationNo/$1');
-$routes->get('instructions', 'Common::getInstruction');
-$routes->get('contact-us', 'Common::contactUs');
+$routes->get('registrations', 'Registration::studentRegistration', ['filter' => 'maintenance']);
+$routes->post('registrations', 'Registration::studentRegistration', ['filter' => 'maintenance']);
+$routes->get('checkApplicationNo/(:num)', 'Registration::checkApplicationNo/$1', ['filter' => 'maintenance']);
+$routes->get('instructions', 'Common::getInstruction', ['filter' => 'maintenance']);
+$routes->get('contact-us', 'Common::contactUs', ['filter' => 'maintenance']);
 
-$routes->group('/', ['filter' => 'studentAuthGuard'], static function ($routes) {
+$routes->group('/', ['filter' => ['maintenance', 'studentAuthGuard']], static function ($routes) {
     $routes->get('dashboard', 'Registration::studentDashboard');
     $routes->post('dashboard', 'Registration::studentDashboard');
     

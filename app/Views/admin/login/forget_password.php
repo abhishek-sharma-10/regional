@@ -43,6 +43,6 @@
     
     function onCancelButton()
 	{
-        window.location.href = "<?php echo base_url();?>";
+        window.location.href = "<?php echo base_url('/admin');?>";
 	}
 </script>

@@ -15,7 +15,7 @@
     <script src="<?php echo base_url(); ?>public/assets/js/plugins/toastr/toastr.min.js"></script>
     
        <script>
-            const policyModal = new bootstrap.Modal(document.getElementById('policyModal'), {
+            const policyModal = new bootstrap.Modal(document?.getElementById('policyModal'), {
                 backdrop: 'static',
                 keyboard: false
             });

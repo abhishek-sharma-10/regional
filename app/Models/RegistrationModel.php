@@ -63,7 +63,8 @@ class RegistrationModel extends Model {
         'receipt_no',
         'payment_receipt',
         'acknowledged',
-        'status'
+        'status',
+        'spot_counselling_mail'
     ];
 
     public $errorMsg;

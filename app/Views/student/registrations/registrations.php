@@ -80,7 +80,7 @@ if ($waiting_container) {
 ?>
   <div class="container">
     <div class="small-container">
-      <h2 class="form-title">Registration for Admission in ITEP Courses - 2025</h2>
+      <h2 class="form-title">Registration for Admission in ITEP Courses - <?= date('Y') ?></h2>
       <h3 class="form-title" style="font-size:18px;">Thank You for Visit!</h3>
       <h4 class="form-title blink-heading" style="font-size:16px;">Please apply from 25-JUNE-2025</h4>
     </div>
@@ -95,7 +95,7 @@ if ($email_container) {
 ?>
   <div class="container">
     <div class="small-container">
-      <h2 class="form-title">Registration for Admission in ITEP Courses - 2025</h2>
+      <h2 class="form-title">Registration for Admission in ITEP Courses - <?= date('Y') ?></h2>
       <form method="post" id="registration-form">
         <div class="row">
           <div class="col-md-6 mb-3">
@@ -138,7 +138,7 @@ if ($otp_container) {
 ?>
   <div class="container">
     <div class="small-container">
-      <h2 class="form-title">Registration for Admission in ITEP Courses - 2025</h2>
+      <h2 class="form-title">Registration for Admission in ITEP Courses - <?= date('Y') ?></h2>
       <form method="post" id="registration-form">
         <div class="row">
           <div class="col-md-6 mb-3">
@@ -355,7 +355,7 @@ if ($register_container) {
             <li>Must contain at least 1 uppercase letter & 1 lowercase letter</li>
             <li>Must contain at least 1 number</li>
             <li>Must contain at least 1 special character (@$!%*?&)</li>
-            <li>Password be like, <strong>Rie@2025</strong></li>            
+            <li>Password be like, <strong>Rie@12345</strong></li>            
           </ul>
         </div>
         </div>
@@ -456,7 +456,6 @@ if ($register_container) {
 
               $('input[name="phone"]').val((ncet_data.mobile_no).trim());
             // }
-              // $('.loader-wrapper').hide();
               $('.submit-btn').attr('disabled', false);
           }else if(data.status == 400){
             check_application_msg = data.message;
@@ -558,7 +557,6 @@ if ($register_container) {
       messages,
       submitHandler: function(){
         $('.form-submit-button').attr('disabled', true);
-        // $('.loader-wrapper').show();
         form.submit();
       }, 
     });
@@ -566,7 +564,7 @@ if ($register_container) {
 
   const togglePassword = document.querySelector('#togglePassword');
   const password = document.querySelector('#password');
-  togglePassword?.addEventListener('click', function () {
+  togglePassword.addEventListener('click', function () {
     const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
     this.classList.toggle('bi-eye-slash');

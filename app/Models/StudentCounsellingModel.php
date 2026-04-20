@@ -49,7 +49,8 @@ class StudentCounsellingModel extends Model {
     }
 
     public function getStudentCounsellingListWithoutFeesPay(){
-        $query = "SELECT registrations.*, student_counselling.id AS student_counselling_id, student_counselling.counselling_id, student_counselling.academic_receipt_no, student_counselling.payment_date, student_counselling.academic_payment_receipt, student_counselling.category AS student_counselling_category, student_counselling.subject AS student_counselling_subject, student_counselling.physical_disable AS student_counselling_physical_disable FROM `student_counselling` JOIN registrations ON student_counselling.registration_id = registrations.id WHERE `academic_receipt_no` IS NULL AND `academic_payment_receipt` IS NULL ORDER BY registrations.ncet_average_percentile DESC;";
+        try{
+        $query = "SELECT registrations.*, student_counselling.id AS student_counselling_id, student_counselling.counselling_id, student_counselling.academic_receipt_no, student_counselling.payment_date, student_counselling.academic_payment_receipt, student_counselling.category AS student_counselling_category, student_counselling.subject AS student_counselling_subject, student_counselling.physical_disable AS student_counselling_physical_disable FROM `student_counselling` JOIN registrations ON student_counselling.registration_id = registrations.id JOIN counselling ON student_counselling.counselling_id = counselling.id WHERE student_counselling.academic_receipt_no = '' AND student_counselling.academic_payment_receipt = ''  AND student_counselling.status IS NULL AND counselling.status = 'active' ORDER BY registrations.ncet_average_percentile DESC";
 
         $result = $this->db->query($query);
 
@@ -57,6 +58,9 @@ class StudentCounsellingModel extends Model {
             return $result->getResultArray();
 
         return [];
+        }catch(Exception $e){
+            var_dump($e->getTrace());
+        }
     }
 
     public function getCourseWiseStudentList($id, $course){

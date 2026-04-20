@@ -1,7 +1,3 @@
-<?php
-    // var_dump($records);
-?>
-
 <style>
     .dataTables_empty{
         text-align: center;

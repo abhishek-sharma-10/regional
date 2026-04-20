@@ -71,6 +71,8 @@ class Registration extends BaseController
 
     public function studentRegistration()
     {
+        try{
+            return view('maintenance');
         $registrationModel = new RegistrationModel();
         $request = $this->request->getVar();
         
@@ -153,7 +155,6 @@ class Registration extends BaseController
 
             $ncetApplicationModel = new NCETApplicationModel();
             $ncetScoreModel = new NcetScoreModel();
-            $counterModel = new CounterModel();
 
             unset($request["submit"]);
             unset($request["confirm_password"]);
@@ -189,9 +190,6 @@ class Registration extends BaseController
             // $last_insert_id = 45;
 
             if($output){
-                // $counterModel->set('counter', $counter+1, false)->where("year", $year)->update();
-
-                // $registration_no = date('Y') . '-' . str_pad($last_insert_id, 5, '0');
                 $registration_no = sprintf('%s-%05d', date('Y'), $last_insert_id);
                 $registrationModel->set('registration_no', $registration_no)->where('id', $last_insert_id)->update();
                 
@@ -246,10 +244,17 @@ class Registration extends BaseController
             return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
         }
         return redirect()->to('/');
+        }catch(Exception $e){
+            return $this->getResponse(
+                ['status' => 'ERROR', 'message' => $e->getMessage()],
+                ResponseInterface::HTTP_BAD_REQUEST
+            );
+        }
     }
 
     public function academicProfile()
     {
+        // return view('maintenance');
         try {
             $id = '';
             if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
@@ -299,6 +304,7 @@ class Registration extends BaseController
 
     public function updateAcademicProfile()
     {
+        return view('maintenance');
         try {
             $session = session();
             $input = $this->request->getVar();
@@ -815,11 +821,11 @@ class Registration extends BaseController
                 return view('student/template/header', $data) . view('student/registrations/print_academic_details', $data) . view('student/template/footer');
             }
         } catch (Exception $exception) {
-            return redirect()->to('/500');
-            // return $this->getResponse(
-            //     ['status' => 'ERROR', 'message' => $exception->getMessage()],
-            //     ResponseInterface::HTTP_BAD_REQUEST
-            // );
+            // return redirect()->to('/500');
+            return $this->getResponse(
+                ['status' => 'ERROR', 'message' => $exception->getMessage()],
+                ResponseInterface::HTTP_BAD_REQUEST
+            );
         }
     }
 
@@ -851,6 +857,7 @@ class Registration extends BaseController
     }
     public function payRegistrationFee()
     {
+        return view('maintenance');
         try {
             $id = '';
             if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
@@ -882,6 +889,7 @@ class Registration extends BaseController
 
     public function paymentRegistrationFee()
     {
+        return view('maintenance');
         try {
             $session = session();
             $input = $this->request->getVar();
