@@ -199,7 +199,6 @@ class Registration extends BaseController
                         $ncet_score_data[] = ['codes' => $row->subject_code, 'subjects' => $row->subject_name, 'percentile' => $row->subject_percentile, 'registration_id' => $last_insert_id];
                     }
 
-                    var_dump($ncet_score_data);
                     $ncetScoreModel->insertBatch($ncet_score_data);
                 }
 
@@ -313,7 +312,11 @@ class Registration extends BaseController
             // var_dump($input);
             // var_dump($this->request->getFiles());
 
-            $uploadPath = "public/uploads/" . $input['id'] . "/";
+            if (!is_dir("public/uploads/REG_".date('Y'))) {
+                mkdir("public/uploads/REG_".date('Y'));
+            }
+
+            $uploadPath = "public/uploads/REG_" . date('Y') . "/" . $input['id'] . "/";
 
             if (!is_dir($uploadPath)) {
                 mkdir($uploadPath);
