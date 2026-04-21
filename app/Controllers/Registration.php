@@ -246,7 +246,7 @@ class Registration extends BaseController
             return redirect()->to('/');
         } catch (Exception $e) {
             return $this->getResponse(
-                ['status' => 'ERROR', 'message' => $e->getMessage()],
+                ['status' => 'ERROR', 'message' => $e->getTrace()],
                 ResponseInterface::HTTP_BAD_REQUEST
             );
         }
