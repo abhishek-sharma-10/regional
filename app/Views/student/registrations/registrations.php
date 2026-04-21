@@ -82,7 +82,7 @@ if ($waiting_container) {
     <div class="small-container">
       <h2 class="form-title">Registration for Admission in ITEP Courses - <?= date('Y') ?></h2>
       <h3 class="form-title" style="font-size:18px;">Thank You for Visit!</h3>
-      <h4 class="form-title blink-heading" style="font-size:16px;">Please apply from 25-JUNE-2025</h4>
+      <h4 class="form-title blink-heading" style="font-size:16px;">Please apply from 25-APRIL-2026</h4>
     </div>
   </div>
 <?php
@@ -185,13 +185,13 @@ if ($register_container) {
         ?>
         <div class="row">
           <div class="col-md-6 mb-3">
-            <b><label class="form-label">Email</label></b>
-            <input type="text" class="form-control" value="<?php echo $email; ?>" name="email" id="email" readonly>
-          </div>
-          <div class="col-md-6 mb-3">
-            <b><label class="form-label">NCET <?= date('Y'); ?> Application Number <span class="required-icon">*</span> (Start Here)</label></b>
+            <b><label class="form-label blink-heading">NCET <?= date('Y'); ?> Application Number <span class="required-icon">*</span> <i>(Start Here)</i></label></b>
             <input type="hidden" class="form-control" name="registrations-process" value="registration">
             <input type="text" class="form-control" placeholder="Enter Your Application Number" name="ncet_application_no" id="ncet_application_no" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <b><label class="form-label">Email</label></b>
+            <input type="text" class="form-control" value="<?php echo $email; ?>" name="email" id="email" readonly>
           </div>
         </div>
 
@@ -498,7 +498,7 @@ if ($register_container) {
         charactersOnly: true
       },
       ncet_application_no: {
-        exists: true,
+        // exists: true,
       },
       aadhar_no: {
         required: true,

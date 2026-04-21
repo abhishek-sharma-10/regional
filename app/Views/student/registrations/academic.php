@@ -337,6 +337,7 @@
                                     <!-- <th style="width: 12%; vertical-align: middle">Maximum Score</th> -->
                                     <!-- <th style="width: 12%; vertical-align: middle">Score Obtained <span class="required-icon">*</span></th> -->
                                     <th style="width: 12%; vertical-align: middle">Percentile</th>
+                                    <th style="width: 12%; vertical-align: middle">Score</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -355,6 +356,7 @@
                                         <!-- <td><input type="number" class="form-control max_marks" name="max_marks[]" id="max_marks<?//= $i; ?>" data-row="<?//= $i; ?>" value="<?php //echo isset($ncet[$i]->total_maximum_marks) && $ncet[$i]->total_maximum_marks != 0 ? $ncet[$i]->total_maximum_marks : ''; ?>" readonly></td> -->
                                         <!-- <td><input type="number" class="form-control obtain_marks" name="obtain_marks[]" id="obtain_marks<?//= $i; ?>" data-row="<?//= $i; ?>" value="<?php //echo isset($ncet[$i]->total_marks_obtain) && $ncet[$i]->total_marks_obtain != 0 ? $ncet[$i]->total_marks_obtain : ''; ?>" oninput="calculatePercent('#max_marks<?//= $i; ?>', '#obtain_marks<//?= $i; ?>', '#percentage<?//= $i; ?>')" data-max-id="max_marks<?//= $i; ?>" required></td> -->
                                         <td><input type="number" class="form-control percentile" name="percentile[]" id="percentile<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->percentile) && $ncet[$i]->percentile != 0 ? $ncet[$i]->percentile : ''; ?>" readonly></td>
+                                        <td><input type="number" class="form-control score" name="score[]" id="score<?= $i; ?>" data-row="<?= $i; ?>" value="<?php echo isset($ncet[$i]->score) && $ncet[$i]->score != 0 ? $ncet[$i]->score : ''; ?>" readonly></td>
                                     </tr>
                                 <?php
                                 $i++;
@@ -362,7 +364,8 @@
                                 ?>
                                 <tr>
                                     <td colspan="3" style="vertical-align: middle"><span style="font-weight: 700;">Overall Percentile</span> <span class="required-icon">(Calculation and Data provided by NTA)</span></td>
-                                    <td><input type="number" class="form-control" id="total_percentile" name="ncet_average_percentile" value="<?php echo $details->ncet_average_percentile; ?>" readonly></td>
+                                    <td><input type="number" class="form-control" id="total_percentile" name="ncet_average_percentile" value="<?php echo isset($details->ncet_average_percentile) && $details->ncet_average_percentile != 0 ? $details->ncet_average_percentile : ''; ?>" readonly></td>
+                                    <td><input type="number" class="form-control" id="total_score" name="ncet_average_score" value="<?php echo isset($details->ncet_average_score) && $details->ncet_average_score != 0 ? $details->ncet_average_score : ''; ?>" readonly></td>
                                     <!-- <td><input type="number" class="form-control" id="total_max_marks" readonly></td>
                                     <td><input type="number" class="form-control" id="total_obtain_marks" readonly></td> -->
                                 </tr>

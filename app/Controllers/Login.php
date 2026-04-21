@@ -301,8 +301,7 @@ class Login extends BaseController
         return view('student/template/header', $data) . view("student/login/success_failure_message.php", $data) . view('student/template/footer');
     }
 
-    function stu_resetPassword()
-    {
+    function stu_resetPassword(){
         try {
             $loginModel = new LoginModel();
 

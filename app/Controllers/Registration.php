@@ -72,7 +72,7 @@ class Registration extends BaseController
     public function studentRegistration()
     {
         try{
-            return view('maintenance');
+            // return view('maintenance');
         $registrationModel = new RegistrationModel();
         $request = $this->request->getVar();
         
@@ -85,7 +85,7 @@ class Registration extends BaseController
         $data['register_container'] = false;
         $data['msg'] = '';
 
-        if(date('Y-m-d') < date('Y-m-d', strtotime('2025-06-24'))){
+            if (date('Y-m-d') < date('Y-m-d', strtotime('2026-04-15'))) {
             $data['waiting_container'] = true;
             $data['email_container'] = false;
             return view('student/template/header', $data) . view("student/registrations/registrations", $data) . view('student/template/footer');
@@ -304,7 +304,7 @@ class Registration extends BaseController
 
     public function updateAcademicProfile()
     {
-        return view('maintenance');
+        // return view('maintenance');
         try {
             $session = session();
             $input = $this->request->getVar();
@@ -857,7 +857,7 @@ class Registration extends BaseController
     }
     public function payRegistrationFee()
     {
-        return view('maintenance');
+        // return view('maintenance');
         try {
             $id = '';
             if(isset($_SESSION['role']) && $_SESSION['role'] == 'STUDENT' && isset($_SESSION['student'][0]->id) && !empty($_SESSION['student'][0]->id)){
@@ -889,7 +889,7 @@ class Registration extends BaseController
 
     public function paymentRegistrationFee()
     {
-        return view('maintenance');
+        // return view('maintenance');
         try {
             $session = session();
             $input = $this->request->getVar();
