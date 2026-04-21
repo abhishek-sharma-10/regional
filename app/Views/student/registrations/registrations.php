@@ -498,7 +498,7 @@ if ($register_container) {
         charactersOnly: true
       },
       ncet_application_no: {
-        // exists: true,
+        exists: true,
       },
       aadhar_no: {
         required: true,
