@@ -901,7 +901,7 @@ class Registration extends BaseController
             // var_dump($this->request);
             // var_dump($this->request->getFiles());
 
-            $uploadPath = "public/uploads/" . $input['id'] . "/";
+            $uploadPath = "public/uploads/REG_" . date('Y') . "/" . $input['id'] . "/";
 
             if (!is_dir($uploadPath)) {
                 mkdir($uploadPath);
