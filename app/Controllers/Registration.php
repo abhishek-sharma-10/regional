@@ -199,6 +199,7 @@ class Registration extends BaseController
                         $ncet_score_data[] = ['codes' => $row->subject_code, 'subjects' => $row->subject_name, 'percentile' => $row->subject_percentile, 'registration_id' => $last_insert_id];
                     }
 
+                    var_dump($ncet_score_data);
                     $ncetScoreModel->insertBatch($ncet_score_data);
                 }
 
