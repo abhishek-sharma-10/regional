@@ -185,7 +185,7 @@ if ($register_container) {
         ?>
         <div class="row">
           <div class="col-md-6 mb-3">
-            <b><label class="form-label blink-heading">NCET <?= date('Y'); ?> Application Number <span class="required-icon">*</span> <i>(Start Here)</i></label></b>
+            <b><label class="form-label">NCET <?= date('Y'); ?> Application Number <span class="required-icon">*</span> <i class="blink-heading">(Start Here)</i></label></b>
             <input type="hidden" class="form-control" name="registrations-process" value="registration">
             <input type="text" class="form-control" placeholder="Enter Your Application Number" name="ncet_application_no" id="ncet_application_no" required>
           </div>

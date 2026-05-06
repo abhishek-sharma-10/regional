@@ -381,6 +381,9 @@
             <h2>Preference for Major Discipline in ITEP Course</h2>
             <p class="both-course-msg">(<span class="required-icon">* Please select preferences from both courses.</span> )</p>
         </div>
+        <?php
+            if($details->course === 'ITEP - B.Sc. B.Ed.' || $details->course === 'ITEP - B.A. B.Ed.'){
+        ?>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="mb-3 row">
@@ -398,6 +401,34 @@
                 <div class="baPreferences"></div>
             </div>
         </div>
+        <?php 
+            }
+        ?>
+
+        <?php
+            if($details->course === 'ITEP - B.Sc. B.Ed. & B.A. B.Ed.'){
+        ?>
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div class="mb-3 row">
+                            <div class="col-md-6 p-4" style="border-right: 2px solid rgb(68 68 68 / 25%);">
+                                <div class="row mb-3">
+                                    <label class="col-sm-4 col-form-label py-0">Course</label>
+                                    <h4 class="col-sm-8 m-0">ITEP - B.Sc. B.Ed.</h4>
+                                </div>
+                                <div class="bscPreferences"></div>
+                            </div>
+                            <div class="col-md-6 p-4">
+                                <div class="row mb-3">
+                                    <label class="col-sm-4 col-form-label py-0">Course</label>
+                                    <h4 class="col-sm-8 m-0">ITEP - B.A. B.Ed.</h4>
+                                </div>
+                                <div class="baPreferences"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <?php } ?>
         <hr />
         
         <div class="mt-4 main-box">
@@ -672,8 +703,8 @@
     };
 
     $(document).ready(function() {
-        $('.baPreferences').hide();
-        $('.bscPreferences').hide();
+        // $('.baPreferences').hide();
+        // $('.bscPreferences').hide();
         $('.both-course-msg').hide();
 
         $('#course').trigger('change');

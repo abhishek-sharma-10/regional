@@ -82,7 +82,7 @@ a:hover {
 }
 
 .blink-heading {
-  color: #d1001f;
+  color: #f10125;
   animation: blink-heading-bg 1.5s infinite;
   animation-timing-function: ease;
 }
@@ -92,9 +92,11 @@ a:hover {
 }
 
 @keyframes blink-heading-bg {
-  0%   { color: #d1001f; }
+  /* 0%   { color: #d1001f; }
   50%  { color: #ee6b6e; }
-  100% { color: #d1001f; }
+  100% { color: #d1001f; } */
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; text-shadow: 0 0 6px rgba(198,40,40,0.4); }
 }
 
 .header-anchor, .header-anchor:hover{
