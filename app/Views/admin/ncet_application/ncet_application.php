@@ -101,12 +101,12 @@ if (isset($result)) {
             ]
         });
 
-        $("body").on("submit", "#form-upload", function(e) {
+        /* $("body").on("submit", "#form-upload", function(e) {
             e.preventDefault();
             var data = new FormData(this);
             $.ajax({
                 type: 'POST',
-                url: "<?php echo base_url('admin/ncet-applications') ?>",
+                url: "<?php //echo base_url('admin/ncet-applications') ?>",
                 data: data,
                 dataType: 'json',
                 contentType: false,
@@ -128,6 +128,57 @@ if (isset($result)) {
                         toastr.warning(result.error_message);
                     }
                     $("#form-upload")[0].reset();
+                    $("#preloadercustom").hide();
+                    $(".myspin").hide();
+                }
+            });
+        }); */
+
+        $("body").on("submit", "#form-upload", function(e) {
+            e.preventDefault();
+            var data = new FormData(this);
+            console.log(data);
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url('admin/ncet-applications') ?>",
+                data: data,
+                dataType: 'json',
+                contentType: false,
+                cache: false,
+                processData:false,
+                beforeSend: function() {
+                    $("#btnUpload").prop('disabled', true);
+                    $("#preloadercustom").show();
+                    $(".myspin").show();
+                }, 
+                success: function(result) {
+                    console.log(result);
+                    // $("#btnUpload").prop('disabled', false);
+                    // if($.isEmptyObject(result.error_message)) {
+                    //     // $(".result").html(result.success_message);
+                    //     toastr.success(result.success_message);
+                    //     window.location.reload();
+                    // } else {
+                    //     // $(".sub-result").html(result.error_message);
+                    //     toastr.warning(result.error_message);
+                    // }
+                    
+                    if (result.success) {
+                        toastr.success(result.success_message);
+                        $("#form-upload")[0].reset();
+                        // setTimeout(function() { window.location.reload(); }, 1000);
+                    } else {
+                        toastr.warning(result.error_message);
+                    }
+                    // $("#form-upload")[0].reset();
+                    // $("#preloadercustom").hide();
+                    // $(".myspin").hide();
+                },
+                error: function(xhr) {
+                    toastr.error('Something went wrong. Please try again.');
+                },
+                complete: function() {
+                    $("#btnUpload").prop('disabled', false);
                     $("#preloadercustom").hide();
                     $(".myspin").hide();
                 }
