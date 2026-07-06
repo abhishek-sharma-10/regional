@@ -32,7 +32,7 @@
         <div class="modal-body">
           <!-- PDF Embed -->
           <div class="mb-3" style="height: 450px;">
-            <embed src="<?= base_url('public/assets/ITEP-Admission-Brochure-2025.pdf') ?>" type="application/pdf" width="100%" height="100%" />
+            <embed src="<?= base_url('public/assets/ITEP-Admission-Brochure-2026.pdf') ?>" type="application/pdf" width="100%" height="100%" />
           </div>
           
           <!-- Acknowledgment -->

@@ -14,6 +14,15 @@ use App\Models\NCETApplicationModel;
 use App\Models\CommonModel;
 use App\Models\CounterModel;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use ZipArchive;
+
 class Registration extends BaseController
 {
     public function __construct()
@@ -178,7 +187,8 @@ class Registration extends BaseController
                 $request['max_marks_12th'] = trim($ncetData['total_marks_12'], " \n\r\t");
                 $request['obtain_marks_12th'] = trim($ncetData['obtain_marks_12'], " \n\r\t");
                 $request['percentage_12th'] = trim($ncetData['percentage_12'], " \n\r\t");
-                $request['ncet_average_percentile'] = trim($ncetData['percentile_total'], " \n\r\t");
+                // $request['ncet_average_percentile'] = trim($ncetData['percentile_total'], " \n\r\t");
+                $request['final_marks_total'] = trim($ncetData['final_marks_total'], " \n\r\t");
 
                 $ncet_subject_data = $ncetApplicationModel->fetchSubjectDetailsByApplicationNo($ncet_application_no);
 
@@ -196,7 +206,8 @@ class Registration extends BaseController
                     $ncet_score_data = [];
 
                     foreach ($ncet_subject_data as $row) {
-                        $ncet_score_data[] = ['codes' => $row->subject_code, 'subjects' => $row->subject_name, 'percentile' => $row->subject_percentile, 'registration_id' => $last_insert_id];
+                        // $ncet_score_data[] = ['codes' => $row->subject_code, 'subjects' => $row->subject_name, 'percentile' => $row->subject_percentile, 'registration_id' => $last_insert_id];
+                        $ncet_score_data[] = ['codes' => $row->subject_code, 'subjects' => $row->subject_name, 'marks' => $row->final_marks, 'registration_id' => $last_insert_id];
                     }
 
                     $ncetScoreModel->insertBatch($ncet_score_data);
@@ -654,6 +665,7 @@ class Registration extends BaseController
             unset($input['total_max_marks']);
             unset($input['total_obtain_marks']);
             unset($input['percentile']);
+            unset($input['score']);
 
             if ($input['board_10th'] === 'State Board') {
                 $input['board_10th'] = $input['board_10th_other'];
@@ -1171,8 +1183,207 @@ class Registration extends BaseController
         }
     }
 
-    public function getInstruction()
+    // Fetch the registration on the basis of category and subject: Generate Excel
+    public function exportExcel()
     {
+        $model         = new RegistrationModel();
+
+        $categories = [
+            'GENERAL',
+            'SC',
+            'ST',
+            'OBC-(NCL)',
+            'EWS',
+            'OBC-(CL)',
+        ];
+
+        $subjects = [
+            // BSc subjects
+            'Physics'                        => 'bsc_preference_1',
+            'Chemistry'                      => 'bsc_preference_1',
+            'Maths'                          => 'bsc_preference_1',
+            'Zoology'                        => 'bsc_preference_1',
+            'Botany'                         => 'bsc_preference_1',
+            // BA subjects
+            'History'                        => 'ba_preference_1',
+            'Geography'                      => 'ba_preference_1',
+            'English Language and Literature'=> 'ba_preference_1',
+            'Hindi Language and Literature'  => 'ba_preference_1',
+            'Urdu'                           => 'ba_preference_1',
+        ];
+
+        $columns = [
+            'ncet_application_no' => 'Application No',
+            'name'                => 'Name',
+            'category'            => 'Category',
+            'physical_disable'    => 'PWD',
+            'course'              => 'Course',
+            'final_marks_total'   => 'Total Marks',
+            'bsc_preference_1'    => 'BSc Preference 1',
+            'bsc_preference_2'    => 'BSc Preference 2',
+            'bsc_preference_3'    => 'BSc Preference 3',
+            'bsc_preference_4'    => 'BSc Preference 4',
+            'ba_preference_1'     => 'BA Preference 1',
+            'ba_preference_2'     => 'BA Preference 2',
+            'ba_preference_3'     => 'BA Preference 3',
+            'ba_preference_4'     => 'BA Preference 4',
+        ];
+
+        $totalCols     = count($columns);
+        $lastColLetter = Coordinate::stringFromColumnIndex($totalCols);
+
+        // Temp folder to store generated .xlsx files before zipping
+        $tempDir = sys_get_temp_dir() . '/ncet_export_' . time();
+        mkdir($tempDir, 0777, true);
+
+        $generatedFiles = [];
+
+        foreach ($subjects as $subjectName => $preferenceField) {
+
+            $spreadsheet = new Spreadsheet();
+            $spreadsheet->removeSheetByIndex(0);
+
+            $sheetIndex   = 0;
+            $hasAnyData   = false;
+
+            foreach ($categories as $category) {
+
+                $data = $model->select(implode(',', array_keys($columns)))
+                              ->where('category', $category)
+                              ->where($preferenceField, $subjectName)
+                              ->orderBy('physical_disable', 'ASC')
+                              ->findAll();
+
+                // if (empty($data)) {
+                //     continue;
+                // }
+
+                $hasAnyData = true;
+
+                // Sheet name = category name
+                $sheet = $spreadsheet->createSheet($sheetIndex);
+                $sheet->setTitle($this->safeSheetName($category));
+
+                // Header row
+                $col = 1;
+                foreach ($columns as $label) {
+                    $sheet->setCellValue([$col, 1], $label);
+                    $col++;
+                }
+
+                $sheet->getStyle("A1:{$lastColLetter}1")->applyFromArray([
+                    'font' => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
+                    'fill' => [
+                        'fillType'   => Fill::FILL_SOLID,
+                        'startColor' => ['rgb' => '4472C4'],
+                    ],
+                    'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+                ]);
+
+                // Data rows
+                $rowNum = 2;
+                foreach ($data as $row) {
+                    $col = 1;
+                    foreach (array_keys($columns) as $field) {
+                        $value = $row[$field] ?? '';
+
+                        if ($field === 'ncet_application_no') {
+                            $sheet->setCellValueExplicit(
+                                [$col, $rowNum],
+                                (string) $value,
+                                DataType::TYPE_STRING
+                            );
+                        } else {
+                            $sheet->setCellValue([$col, $rowNum], $value);
+                        }
+
+                        $col++;
+                    }
+                    $rowNum++;
+                }
+
+                // Force application no. column as text (prevents scientific notation)
+                $sheet->getStyle("A2:A{$rowNum}")
+                      ->getNumberFormat()
+                      ->setFormatCode(NumberFormat::FORMAT_TEXT);
+
+                foreach (range('A', $lastColLetter) as $colLetter) {
+                    $sheet->getColumnDimension($colLetter)->setAutoSize(true);
+                }
+
+                $sheet->freezePane('A2');
+
+                $sheetIndex++;
+            }
+
+            // Skip subjects with zero data across all categories
+            if (! $hasAnyData) {
+                $spreadsheet->disconnectWorksheets();
+                unset($spreadsheet);
+                continue;
+            }
+
+            $spreadsheet->setActiveSheetIndex(0);
+
+            // Save each subject as a temp .xlsx file
+            $safeSubjectName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $subjectName);
+            $tempFile        = $tempDir . '/' . $safeSubjectName . '.xlsx';
+
+            $writer = new Xlsx($spreadsheet);
+            $writer->save($tempFile);
+
+            $generatedFiles[$safeSubjectName . '.xlsx'] = $tempFile;
+
+            $spreadsheet->disconnectWorksheets();
+            unset($spreadsheet);
+        }
+
+        if (empty($generatedFiles)) {
+            // Clean up temp dir
+            rmdir($tempDir);
+            return redirect()->back()->with('error', 'No data found for any subject/category combination.');
+        }
+
+        // Bundle all Excel files into a ZIP
+        $zipPath = $tempDir . '/ncet_results_' . date('Y-m-d_His') . '.zip';
+        $zip     = new ZipArchive();
+
+        if ($zip->open($zipPath, ZipArchive::CREATE) !== true) {
+            return redirect()->back()->with('error', 'Failed to create ZIP file.');
+        }
+
+        foreach ($generatedFiles as $filename => $filepath) {
+            $zip->addFile($filepath, $filename);
+        }
+
+        $zip->close();
+
+        // Stream ZIP to browser
+        header('Content-Type: application/zip');
+        header('Content-Disposition: attachment;filename="ncet_results_' . date('Y-m-d_His') . '.zip"');
+        header('Content-Length: ' . filesize($zipPath));
+        header('Cache-Control: max-age=0');
+        header('Pragma: public');
+
+        readfile($zipPath);
+
+        // Clean up all temp files
+        foreach ($generatedFiles as $filepath) {
+            @unlink($filepath);
+        }
+        @unlink($zipPath);
+        @rmdir($tempDir);
+
+        exit;
+    }
+
+    private function safeSheetName(string $name): string
+    {
+        $name = preg_replace('/[\\\\\/\?\*\[\]:]/', '-', $name);
+        return mb_substr($name, 0, 31);
+    }
+
+    public function getInstruction(){
         $data['pageTitle'] = "Registrations";
         $data['active'] = '';
         $data['details'] = (object)['id' => 7];

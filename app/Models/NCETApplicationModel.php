@@ -40,6 +40,7 @@ class NCETApplicationModel extends Model {
         'obtain_marks_12',
         'percentage_12',
         'subject_percentile',
+        'final_marks_total',
         'notification_status'
     ];
 
@@ -47,7 +48,7 @@ class NCETApplicationModel extends Model {
 
 
     function fetchAll(){
-        $query = $this->db->query("SELECT * FROM ncet_applications ");
+        $query = $this->db->query("SELECT * FROM ncet_applications");
 
         if($query->getNumRows() > 0){
             return $query->getResult();
@@ -57,8 +58,10 @@ class NCETApplicationModel extends Model {
     }
 
     function fetchSubjectDetailsByApplicationNo($ncet_application_no){
-        $query = $this->db->query("SELECT ncet_applications.subject_code, ncet_applications.subject_percentile, subjects.subject as subject_name FROM `ncet_applications` JOIN subjects ON ncet_applications.subject_code = subjects.code WHERE ncet_application_no = $ncet_application_no");
-
+        // $query = $this->db->query("SELECT ncet_applications.subject_code, ncet_applications.subject_percentile, subjects.subject as subject_name FROM `ncet_applications` JOIN subjects ON ncet_applications.subject_code = subjects.code WHERE ncet_application_no = $ncet_application_no");
+        
+        $query = $this->db->query("SELECT ncet_applications.subject_code, ncet_applications.final_marks, subjects.subject as subject_name FROM `ncet_applications` JOIN subjects ON ncet_applications.subject_code = subjects.code WHERE ncet_application_no = $ncet_application_no");
+        
         if($query->getNumRows() > 0){
             return $query->getResult();
         }
@@ -67,25 +70,30 @@ class NCETApplicationModel extends Model {
     }
 
     function checkApplication($ncet_application_no, $score='no'){
-        $query = $this->db->query("SELECT ncet_applications.*, percentile.percentile_total from ncet_applications JOIN percentile ON ncet_applications.ncet_application_no = percentile.ncet_application_no WHERE ncet_applications.ncet_application_no=$ncet_application_no");
+        // $query = $this->db->query("SELECT ncet_applications.*, percentile.percentile_total from ncet_applications JOIN percentile ON ncet_applications.ncet_application_no = percentile.ncet_application_no WHERE ncet_applications.ncet_application_no=$ncet_application_no");
+        
+        $query = $this->db->query("SELECT ncet_applications.* from ncet_applications WHERE ncet_applications.ncet_application_no=$ncet_application_no");
 
         if($query->getNumRows() > 0){
             $data = [];
+            $final_marks_total = 0;
             foreach($query->getResult() as $row){
                 $data['name'] = $row->name;
                 $data['gender'] = $row->gender;
                 $data['dob'] = $row->dob;
                 $data['father_name'] = $row->father_name;
                 $data['mother_name'] = $row->mother_name;
-                $data['address'] = $row->address;
+                $data['address'] = $row->address ?? '';
                 $data['state'] = $row->state;
-                $data['pincode'] = $row->pincode;
+                $data['pincode'] = $row->pincode ?? '';
                 $data['mobile_no'] = $row->mobile_no;
                 $data['category_name'] = $row->category_name;
                 $data['physical_disability'] = $row->physical_disability;
+                $final_marks = is_numeric($row->final_marks) ? (float)$row->final_marks : 0;
+                $final_marks_total += $final_marks;
             }
-
-            if($score == 'yes'){
+            
+            if($score == 'yes'){                
                 $data['passing_year_10'] = $row->passing_year_10;
                 $data['board_10'] = $row->board_10;
                 $data['board_other_10'] = $row->board_other_10;
@@ -98,7 +106,8 @@ class NCETApplicationModel extends Model {
                 $data['total_marks_12'] = $row->total_marks_12;
                 $data['obtain_marks_12'] = $row->obtain_marks_12;
                 $data['percentage_12'] = $row->percentage_12;
-                $data['percentile_total'] = $row->percentile_total;
+                // $data['percentile_total'] = $row->percentile_total;
+                $data['final_marks_total'] = $final_marks_total;
             }
             return $data;
         }

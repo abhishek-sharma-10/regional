@@ -91,19 +91,6 @@ class LoginModel extends Model {
             $toName = $name;
             $subject = "RIE : Reset Password";
             
-            // $config['protocol'] = 'ssmtp';
-            // $config['charset'] = 'iso-8859-1';
-            // $config['smtp_host'] = 'ssl://ssmtp.googlemail.com';
-            // $config['smtp_port'] = '465';
-            // $config['smtp_user'] = 'abhishek.sharma@ibirdsservices.com';
-            // $config['smtp_pass'] = 'abhishek@108yash';
-            // $config['wordwrap'] = TRUE;
-            // $config['mailtype'] = 'html';
-
-            // $this->email->initialize($config);
-
-            // $this->email->set_newline("\r\n");
-
             $email->setFrom($from,$fromName);
             $email->setTo($to,$toName);
 

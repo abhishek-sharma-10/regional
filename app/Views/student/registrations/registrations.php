@@ -432,7 +432,7 @@ if ($register_container) {
               $('input[name="mother_name"]').val((ncet_data.mother_name).trim());
               $('input[name="father_name"]').val((ncet_data.father_name).trim());
               $('input[name="dob"]').val((ncet_data.dob).trim());
-              $('textarea[name="address"]').val((ncet_data.address).trim());
+              // $('textarea[name="address"]').val((ncet_data.address).trim());
 
               if($('select[name="state"]').find('option[value="' + toTitleCase(ncet_data.state).trim() + '"]').length){
                 $('select[name="state"]').val(toTitleCase(ncet_data.state).trim()).change();
@@ -440,7 +440,7 @@ if ($register_container) {
                 $('select[name="state"] option[value=""]').attr('selected', "selected");
               }
 
-              $('input[name="pincode"]').val((ncet_data.pincode).trim());
+              // $('input[name="pincode"]').val((ncet_data.pincode).trim());
 
               if($('select[name="category"]').find('option[value="' + (ncet_data.category_name.toUpperCase()).trim() + '"]').length){
                 $('select[name="category"]').val((ncet_data.category_name.toUpperCase()).trim()).change();
@@ -455,14 +455,12 @@ if ($register_container) {
               }
 
               $('input[name="phone"]').val((ncet_data.mobile_no).trim());
-            // }
-              $('.submit-btn').attr('disabled', false);
+              // }
+            $('.submit-btn').attr('disabled', false);
           }else if(data.status == 400){
             check_application_msg = data.message;
             result = false;
-            // $('.submit-btn').attr('disabled', true);
-            // $('.loader-wrapper').hide();
-            $('.submit-btn').attr('disabled', false);
+            $('.submit-btn').attr('disabled', true);
           }
         }).fail(function(data) {
           result = true;
@@ -476,7 +474,7 @@ if ($register_container) {
     });
 
     $.validator.addMethod("charactersOnly", function(value, element) {
-      return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
+      return this.optional(element) || /^[a-zA-Z\s.']+$/.test(value);
     }, "Please enter characters only.");
 
     $.validator.addMethod("regex", function(value, element, regexp) {

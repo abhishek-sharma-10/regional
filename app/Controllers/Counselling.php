@@ -106,7 +106,7 @@ class Counselling extends BaseController
                     $selected_student_id = [];
 
                     $counselling = [];
-                    $skipedStudent = ['255110017531'];
+                    $skipedStudent = [];
 
                     array_walk($acceptStudentList, function ($value) use (&$counselling) {
                         $counselling[] = $value;
@@ -956,6 +956,7 @@ class Counselling extends BaseController
         }
     }
 
+    // Mail to Pay the Academic Fees
     public function sendEmailToCounsellingStudents()
     {
         try {
@@ -2524,7 +2525,7 @@ class Counselling extends BaseController
             $counsellingModel = new CounsellingModel();
             $studentCounsellingModel = new StudentCounsellingModel();
     
-            $counsellingId = 2;
+            $counsellingId = 1;
     
             $matrixResult = $itepMatrixModel->fetchAll();
     
@@ -2551,7 +2552,7 @@ class Counselling extends BaseController
             ];
     
             $selected_student_id = [];
-            $skipedStudent = ['255110017531'];
+            $skipedStudent = [];
     
             $counselling = [];
     

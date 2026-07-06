@@ -192,7 +192,8 @@
                         <th>Subject</th>
                         <!-- <th>Maximum Marks</th> -->
                         <!-- <th>Score Obtained</th> -->
-                        <th>Percentile</th>
+                        <!-- <th>Percentile</th> -->
+                        <th>Score</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -209,14 +210,16 @@
                                     <td><?= $data->subjects;?></td>
                                     <!-- <td><?//= $data->total_maximum_marks;?></td> -->
                                     <!-- <td><?//= $data->total_marks_obtain;?></td> -->
-                                    <td><?= $data->percentile;?></td>
+                                    <!-- <td><?//= $data->percentile;?></td> -->
+                                    <td><?= $data->marks;?></td>
                                 </tr>
                     <?php
                             }
                     ?>
                             <tr class="fw-bold">
-                                <td colspan="2"><span style="font-weight: 700;">Overall Percentile</span> <span class="required-icon">(Calculation and Data provided by NTA)</span></td>
-                                <td><?= $details->ncet_average_percentile; ?></td>
+                                <!-- <td colspan="2"><span style="font-weight: 700;">Overall Percentile</span> <span class="required-icon">(Calculation and Data provided by NTA)</span></td> -->
+                                <td colspan="2"><span style="font-weight: 700;">Total Score</span></td>
+                                <td><?= $details->final_marks_total; ?></td>
                                 <!-- <td><?//= $total_max; ?></td> -->
                                 <!-- <td><?//= $total_obtain;?></td> -->
                             </tr>

@@ -64,7 +64,8 @@ class RegistrationModel extends Model {
         'payment_receipt',
         'acknowledged',
         'status',
-        'spot_counselling_mail'
+        'spot_counselling_mail',
+        'final_marks_total'
     ];
 
     public $errorMsg;
@@ -90,7 +91,7 @@ class RegistrationModel extends Model {
 
     // Check If User Already Registered
     function checkNCETApplication($id){
-        $query = $this->db->query("SELECT id FROM registrations where ncet_application_no='$id'");
+        $query = $this->db->query("SELECT id FROM registrations where ncet_application_no='$id' AND status != 'Cancel'");
     
         if($query->getNumRows() > 0){
             return $query->getResult();
@@ -99,7 +100,7 @@ class RegistrationModel extends Model {
     }
 
     function getRegistrationByEmail($email){
-        $query = $this->db->query("SELECT id,ncet_application_no, email FROM registrations where email='$email'");
+        $query = $this->db->query("SELECT id,ncet_application_no, email FROM registrations where email='$email' AND status != 'Cancel'");
     
         if($query->getNumRows() > 0){
             return $query->getResult();

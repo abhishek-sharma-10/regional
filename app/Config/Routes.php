@@ -31,6 +31,9 @@ $routes->get('checkApplicationNo/(:num)', 'Registration::checkApplicationNo/$1',
 $routes->get('instructions', 'Common::getInstruction', ['filter' => 'maintenance']);
 $routes->get('contact-us', 'Common::contactUs', ['filter' => 'maintenance']);
 
+// Fetch the registration on the basis of category and subject
+$routes->get('registration/export-excel', 'Registration::exportExcel', ['filter' => 'maintenance']);
+
 $routes->group('/', ['filter' => ['maintenance', 'studentAuthGuard']], static function ($routes) {
     $routes->get('dashboard', 'Registration::studentDashboard');
     $routes->post('dashboard', 'Registration::studentDashboard');
