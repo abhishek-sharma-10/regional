@@ -1201,7 +1201,7 @@ class Registration extends BaseController
             // BSc subjects
             'Physics'                        => 'bsc_preference_1',
             'Chemistry'                      => 'bsc_preference_1',
-            'Maths'                          => 'bsc_preference_1',
+            'Mathematics'                    => 'bsc_preference_1',
             'Zoology'                        => 'bsc_preference_1',
             'Botany'                         => 'bsc_preference_1',
             // BA subjects
