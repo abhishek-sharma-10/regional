@@ -1194,7 +1194,7 @@ class Registration extends BaseController
             'ST',
             'OBC-(NCL)',
             'EWS',
-            'OBC-(CL)',
+            // 'OBC-(CL)',
         ];
 
         $subjects = [
