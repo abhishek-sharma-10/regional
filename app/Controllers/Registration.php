@@ -1186,7 +1186,7 @@ class Registration extends BaseController
     // Fetch the registration on the basis of category and subject: Generate Excel
     public function exportExcel()
     {
-        $model         = new RegistrationModel();
+        $model = new RegistrationModel();
 
         $categories = [
             'GENERAL',
@@ -1213,10 +1213,18 @@ class Registration extends BaseController
         ];
 
         $columns = [
+            '__sr_no__'           => 'Sr No',
+            'state'               => 'State/UT',
+            'registration_no'     => 'RIE Reg. No.',
             'ncet_application_no' => 'Application No',
             'name'                => 'Name',
+            'gender'              => 'Gender',
+            'dob'                 => 'Date Of Birth',
             'category'            => 'Category',
+            'phone'               => 'Mobile No.',
+            'email'               => 'Email',
             'physical_disable'    => 'PWD',
+            'percentage_12th'     => '12th %',
             'course'              => 'Course',
             'final_marks_total'   => 'Total Marks',
             'bsc_preference_1'    => 'BSc Preference 1',
@@ -1227,13 +1235,17 @@ class Registration extends BaseController
             'ba_preference_2'     => 'BA Preference 2',
             'ba_preference_3'     => 'BA Preference 3',
             'ba_preference_4'     => 'BA Preference 4',
+            '__year__'            => 'NCET Appeared in Year',
+            '__rank__'            => 'Rank',
+            '__remarks1__'        => 'Remarks I',
+            '__remarks2__'        => 'Remarks II',
         ];
 
         $totalCols     = count($columns);
         $lastColLetter = Coordinate::stringFromColumnIndex($totalCols);
 
         // Temp folder to store generated .xlsx files before zipping
-        $tempDir = sys_get_temp_dir() . '/ncet_export_' . time();
+        $tempDir = 'public/ncet_export_' . time();
         mkdir($tempDir, 0777, true);
 
         $generatedFiles = [];
@@ -1243,16 +1255,22 @@ class Registration extends BaseController
             $spreadsheet = new Spreadsheet();
             $spreadsheet->removeSheetByIndex(0);
 
-            $sheetIndex   = 0;
-            $hasAnyData   = false;
+            $sheetIndex = 0;
+            $hasAnyData = false;
 
             foreach ($categories as $category) {
 
-                $data = $model->select(implode(',', array_keys($columns)))
-                              ->where('category', $category)
-                              ->where($preferenceField, $subjectName)
-                              ->orderBy('physical_disable', 'ASC')
-                              ->findAll();
+                $dbColumns = array_filter(
+                    array_keys($columns),
+                    fn($key) => !str_starts_with($key, '__')
+                );
+
+                $data = $model->select(implode(',', $dbColumns))
+                                ->where('category', $category)
+                                ->where($preferenceField, $subjectName)
+                                ->where('status', 'Complete')
+                                ->orderBy('physical_disable', 'ASC')
+                                ->findAll();
 
                 // if (empty($data)) {
                 //     continue;
@@ -1287,7 +1305,17 @@ class Registration extends BaseController
                     foreach (array_keys($columns) as $field) {
                         $value = $row[$field] ?? '';
 
-                        if ($field === 'ncet_application_no') {
+                        if ($field === '__sr_no__') {
+                            // Auto-increment serial number
+                            $sheet->setCellValue([$col, $rowNum], $rowNum - 1);
+
+                        } elseif ($field === '__year__') {
+                            $sheet->setCellValue([$col, $rowNum], '2026');
+
+                        } elseif (in_array($field, ['__rank__', '__remarks1__', '__remarks2__'])) {
+                            $sheet->setCellValue([$col, $rowNum], '');
+
+                        } elseif ($field === 'ncet_application_no') {
                             $sheet->setCellValueExplicit(
                                 [$col, $rowNum],
                                 (string) $value,
